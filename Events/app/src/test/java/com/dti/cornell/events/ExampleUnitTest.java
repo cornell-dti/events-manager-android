@@ -1,4 +1,4 @@
-package com.dti.cornell.eventsmanager;
+package com.dti.cornell.events;
 
 import org.junit.Test;
 

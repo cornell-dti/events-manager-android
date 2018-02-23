@@ -1,3 +1,4 @@
 <resources>
-    <string name="app_name">Events Manager</string>
+    <string name="app_name">Events</string>
+    <string name="action_settings">Settings</string>
 </resources>

@@ -1,4 +1,4 @@
-package com.dti.cornell.eventsmanager;
+package com.dti.cornell.events;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("com.dti.cornell.eventsmanager", appContext.getPackageName());
+        assertEquals("com.dti.cornell.events", appContext.getPackageName());
     }
 }
