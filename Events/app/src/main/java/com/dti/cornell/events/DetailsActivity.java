@@ -97,7 +97,6 @@ public class DetailsActivity extends AppCompatActivity implements OnMapReadyCall
 
     public boolean onTouch(View view, MotionEvent event) {
         final int X = (int) event.getRawX();
-        final int Y = (int) event.getRawY();
         switch (event.getAction() & MotionEvent.ACTION_MASK) {
             case MotionEvent.ACTION_DOWN:
                 ConstraintLayout.LayoutParams lParams = (ConstraintLayout.LayoutParams) view.getLayoutParams();
@@ -111,7 +110,7 @@ public class DetailsActivity extends AppCompatActivity implements OnMapReadyCall
                 break;
             case MotionEvent.ACTION_MOVE:
                 ConstraintLayout.LayoutParams layoutParams = (ConstraintLayout.LayoutParams) view.getLayoutParams();
-                layoutParams.leftMargin = (int)tagX + (X - _xDelta);
+                layoutParams.leftMargin = X - _xDelta;
                 view.setLayoutParams(layoutParams);
 //                int move = X - (_xDelta / 50);
 //                _root.setX(tagX + move);
