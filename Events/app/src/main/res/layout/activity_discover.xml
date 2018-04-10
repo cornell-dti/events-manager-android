@@ -115,7 +115,7 @@
 
                     <include
                         android:id="@+id/include"
-                        layout="@layout/event_header"
+                        layout="@layout/event_header_today"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
@@ -141,12 +141,22 @@
 
                     <include
                         android:id="@+id/include"
-                        layout="@layout/event_header"
+                        layout="@layout/event_header_upcoming"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
                         app:layout_constraintTop_toBottomOf="@+id/dateButton"
                         tools:layout_editor_absoluteX="0dp" />
+
+                    <ListView
+                        android:id="@+id/event_list_2"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:divider="@null"
+                        android:dividerHeight="0dp"
+                        app:layout_constraintTop_toBottomOf="@+id/include">
+
+                    </ListView>
                 </LinearLayout>
 
             </FrameLayout>

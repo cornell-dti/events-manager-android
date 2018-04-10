@@ -3,12 +3,14 @@ package com.dti.cornell.events;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TabHost;
+import android.widget.TextView;
 
 import com.dti.cornell.events.R.layout;
 
@@ -19,9 +21,10 @@ import java.util.List;
  * Created by jaggerbrulato on 3/20/18.
  */
 
-public class DiscoveryActivity extends AppCompatActivity {
+public class DiscoveryActivity extends AppCompatActivity implements TabHost.OnTabChangeListener{
 
     private ListView eventListView;
+    private ListView eventListView2;
     private List<Event> events = new ArrayList<>();
     TabHost tabHost;
 
@@ -37,21 +40,35 @@ public class DiscoveryActivity extends AppCompatActivity {
 
     private void findViews(){
         eventListView = findViewById(R.id.event_list);
+        eventListView2 = findViewById(R.id.event_list_2);
         tabHost =  findViewById(R.id.tabhost);
     }
 
     private List<Event> getEvents() {
-        //geteventsfromserver
+        //TODO geteventsfromserver
         ArrayList<Event> returnEvents = new ArrayList<>();
-        returnEvents.add(new Event("Cornell DTI Info Sessions", "hello there", 30, true, "Upson B02", "9:00am", "10:00pm"));
-        returnEvents.add(new Event("Some Other Event idk", "hello there", 30, true, "Upson B00000003", "9:43am", "10:00pm"));
-        returnEvents.add(new Event("Yo, another event? Interesting", "hello there", 30, true, "Rockefeller 6000", "2:00am", "10:00pm"));
+        Event.Builder eventBuilder = new Event.Builder();
+        eventBuilder.setName("CornellDTI Info Sessions")
+                .setDescription("hello there")
+                .setAttendees(30)
+                .setPublic(true)
+                .setLocation("UpsonB02")
+                .setStartTime("9:00am")
+                .setEndTime("10:00pm")
+                .setOrganizerPK(123456)
+                .setEventID(348289)
+                .setPictureID(359826359)
+                .setGooglePlaceId("google place id");
+        for(int i = 0; i < 5; i++){
+            returnEvents.add(eventBuilder.build());
+        }
         return returnEvents;
     }
 
     public void addEventsToListView(){
         EventAdapter adapter = new EventAdapter(this, this.events);
         this.eventListView.setAdapter(adapter);
+        this.eventListView2.setAdapter(adapter);
     }
 
     public void setUpTabHost(){
@@ -66,5 +83,8 @@ public class DiscoveryActivity extends AppCompatActivity {
         tabHost.addTab(tab2);
     }
 
+    @Override
+    public void onTabChanged(String s) {
 
+    }
 }

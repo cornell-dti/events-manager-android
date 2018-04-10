@@ -25,8 +25,6 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 public class DetailsActivity extends AppCompatActivity implements OnMapReadyCallback, View.OnTouchListener{
 
-    private Event event = new Event();
-
     private static final int MAP_ZOOM = 16;
 
     ConstraintLayout _view;
@@ -82,16 +80,16 @@ public class DetailsActivity extends AppCompatActivity implements OnMapReadyCall
     }
 
     /**
-     * Loads {@link Event#latitude} and longitude onto the map, adds a marker.
+     * Loads {@link Event#googlePlaceId} and longitude onto the map, adds a marker.
      *
      * @param map {@inheritDoc}
      */
     @Override
     public void onMapReady(GoogleMap map)
     {
-        LatLng position = new LatLng(event.latitude, event.longitude);
-        map.moveCamera(CameraUpdateFactory.newLatLngZoom(position, MAP_ZOOM));
-        map.addMarker(new MarkerOptions().position(position).title(event.caption));
+//        LatLng position = new LatLng(event.latitude, event.longitude);
+//        map.moveCamera(CameraUpdateFactory.newLatLngZoom(position, MAP_ZOOM));
+//        map.addMarker(new MarkerOptions().position(position).title(event.caption));
     }
 
 

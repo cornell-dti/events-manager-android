@@ -1,5 +1,7 @@
 package com.dti.cornell.events;
 
+import android.media.Image;
+import android.os.Build;
 import android.util.Log;
 
 import org.joda.time.DateTime;
@@ -10,28 +12,30 @@ import java.util.regex.Pattern;
  * Created by jaggerbrulato on 2/27/18.
  */
 
-public class Event {
+public class Event implements IDable{
 
-    public double latitude = 20;
-    public double longitude = 40;
-    public String caption = "daddy";
-
-
-    public String name;
-    public String description;
-    public int attendees;
-    public boolean isPublic;
-    public String location;
-    public String friendsGoing;
+    public final String googlePlaceId;
+    public final String name;
+    public final int eventID;
+    public final String description;
+    public final int attendees;
+    public final boolean isPublic;
+    public final String location;
+    public final String friendsGoing;
     //Remove temp time strings
-    public String startTime;
-    public String endTime;
+    public final String startTime;
+    public final String endTime;
+    public final int organizerPK;
+    public final String organizerName;
+    public final int pictureID;
+    public final Image picture;
     //TODO public final DateTime startTime;
     //TODO public final DateTime endTime;
     public static final String fieldSeparator = "|";
 
 
-    public Event(String name, String description, int attendees, boolean isPublic, String location, String startTime, String endTime){
+
+    public Event(String name, String description, int attendees, boolean isPublic, String location, String startTime, String endTime, int organizerPK, int eventID, int pictureID, String googlePlaceId){
         this.name = name;
         this.description = description;
         this.attendees = attendees;
@@ -40,12 +44,37 @@ public class Event {
         this.startTime = startTime;
         this.endTime = endTime;
         this.friendsGoing = getFriendsGoing(this);
+        this.organizerPK = organizerPK;
+        this.eventID = eventID;
+        this.pictureID = pictureID;
+        this.googlePlaceId = googlePlaceId;
+        this.organizerName = getOrganizerName();
+        this.picture = getPicture();
     }
 
-    public Event(){}
+    public Image getPicture(){
+        return null;
+    }
+
+    public String getOrganizerName(){
+        return "get it from database lmao";
+    }
+
+//    //This empty constructor is for testing, delete once official event gets are working.
+//    public Event(){}
 
     public String toString(){
-        return name + fieldSeparator + description + fieldSeparator + attendees + fieldSeparator + isPublic + fieldSeparator + location + fieldSeparator + startTime + fieldSeparator + endTime;
+        return name + fieldSeparator
+                + description + fieldSeparator
+                + attendees + fieldSeparator
+                + isPublic + fieldSeparator
+                + location + fieldSeparator
+                + startTime + fieldSeparator
+                + endTime + fieldSeparator
+                + organizerPK + fieldSeparator
+                + eventID + fieldSeparator
+                + pictureID + fieldSeparator
+                + googlePlaceId;
     }
 
     public static Event fromString(String input){
@@ -57,12 +86,106 @@ public class Event {
         String location = String.valueOf(values[4]);
         String startTime = String.valueOf(values[5]);
         String endTime = String.valueOf(values[6]);
-        return new Event(name, description, attendees, isPublic, location, startTime, endTime);
+        int organizerPK = Integer.valueOf(values[7]);
+        int eventID = Integer.valueOf(values[8]);
+        int pictureID = Integer.valueOf(values[9]);
+        String googlePlaceID = String.valueOf(values[10]);
+        return new Event(name, description, attendees, isPublic, location, startTime, endTime, organizerPK, eventID, pictureID, googlePlaceID);
     }
 
     public String getFriendsGoing(Event event){
-        //Get this from backend.
+        //TODO Get this from backend.
         return "Kelly, Andie, and 10 Friends";
+    }
+
+    @Override
+    public int getID() {
+        return eventID;
+    }
+
+    public static class Builder{
+        private String googlePlaceId;
+        private String name;
+        private int eventID = -1;
+        private String description;
+        private int attendees = -1;
+        private boolean isPublic;
+        private String location;
+        //Remove temp time strings
+        private String startTime;
+        private String endTime;
+        private int organizerPK = -1;
+        private int pictureID = -1;
+
+        public Event build(){
+            if(googlePlaceId == null ||
+                    name == null ||
+                    eventID == -1 ||
+                    description == null ||
+                    location == null ||
+                    startTime == null ||
+                    endTime == null ||
+                    organizerPK == -1 ||
+                    pictureID == -1){
+                Log.e("EventBuilder::SEVERE", "One or more event specifications is null or unassigned!");
+            }
+            return new Event(name, description, attendees, isPublic, location, startTime, endTime, organizerPK, eventID, pictureID, googlePlaceId);
+        }
+
+        public Builder setGooglePlaceId(String googlePlaceId) {
+            this.googlePlaceId = googlePlaceId;
+            return this;
+        }
+
+        public Builder setName(String name) {
+            this.name = name;
+            return this;
+        }
+
+        public Builder setEventID(int eventID) {
+            this.eventID = eventID;
+            return this;
+        }
+
+        public Builder setDescription(String description) {
+            this.description = description;
+            return this;
+        }
+
+        public Builder setAttendees(int attendees) {
+            this.attendees = attendees;
+            return this;
+        }
+
+        public Builder setPublic(boolean aPublic) {
+            isPublic = aPublic;
+            return this;
+        }
+
+        public Builder setLocation(String location) {
+            this.location = location;
+            return this;
+        }
+
+        public Builder setStartTime(String startTime) {
+            this.startTime = startTime;
+            return this;
+        }
+
+        public Builder setEndTime(String endTime) {
+            this.endTime = endTime;
+            return this;
+        }
+
+        public Builder setOrganizerPK(int organizerPK) {
+            this.organizerPK = organizerPK;
+            return this;
+        }
+
+        public Builder setPictureID(int pictureID) {
+            this.pictureID = pictureID;
+            return this;
+        }
     }
 
 }
