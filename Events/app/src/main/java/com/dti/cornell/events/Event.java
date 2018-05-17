@@ -23,8 +23,8 @@ public class Event implements IDable{
     public final String location;
     public final String friendsGoing;
     //Remove temp time strings
-    public final String startTime;
-    public final String endTime;
+    public final DateTime startTime;
+    public final DateTime endTime;
     public final int organizerPK;
     public final String organizerName;
     public final int pictureID;
@@ -35,7 +35,7 @@ public class Event implements IDable{
 
 
 
-    public Event(String name, String description, int attendees, boolean isPublic, String location, String startTime, String endTime, int organizerPK, int eventID, int pictureID, String googlePlaceId){
+    public Event(String name, String description, int attendees, boolean isPublic, String location, DateTime startTime, DateTime endTime, int organizerPK, int eventID, int pictureID, String googlePlaceId){
         this.name = name;
         this.description = description;
         this.attendees = attendees;
@@ -69,8 +69,8 @@ public class Event implements IDable{
                 + attendees + fieldSeparator
                 + isPublic + fieldSeparator
                 + location + fieldSeparator
-                + startTime + fieldSeparator
-                + endTime + fieldSeparator
+                + startTime.toString() + fieldSeparator
+                + endTime.toString() + fieldSeparator
                 + organizerPK + fieldSeparator
                 + eventID + fieldSeparator
                 + pictureID + fieldSeparator
@@ -84,8 +84,8 @@ public class Event implements IDable{
         int attendees = Integer.valueOf(values[2]);
         boolean isPublic = Boolean.valueOf(values[3]);
         String location = String.valueOf(values[4]);
-        String startTime = String.valueOf(values[5]);
-        String endTime = String.valueOf(values[6]);
+        DateTime startTime = DateTime.parse(String.valueOf(values[5]));
+        DateTime endTime = DateTime.parse(String.valueOf(values[6]));
         int organizerPK = Integer.valueOf(values[7]);
         int eventID = Integer.valueOf(values[8]);
         int pictureID = Integer.valueOf(values[9]);
@@ -112,8 +112,8 @@ public class Event implements IDable{
         private boolean isPublic;
         private String location;
         //Remove temp time strings
-        private String startTime;
-        private String endTime;
+        private DateTime startTime;
+        private DateTime endTime;
         private int organizerPK = -1;
         private int pictureID = -1;
 
@@ -167,12 +167,12 @@ public class Event implements IDable{
             return this;
         }
 
-        public Builder setStartTime(String startTime) {
+        public Builder setStartTime(DateTime startTime) {
             this.startTime = startTime;
             return this;
         }
 
-        public Builder setEndTime(String endTime) {
+        public Builder setEndTime(DateTime endTime) {
             this.endTime = endTime;
             return this;
         }

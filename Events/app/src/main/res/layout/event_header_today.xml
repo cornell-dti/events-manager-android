@@ -14,7 +14,7 @@
         android:layout_marginTop="17dp"
         android:text="Today's Events"
         android:textColor="@android:color/background_dark"
-        android:textSize="16sp"
+        android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
