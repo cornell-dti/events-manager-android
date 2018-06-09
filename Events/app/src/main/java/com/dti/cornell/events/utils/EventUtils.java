@@ -1,9 +1,10 @@
-package com.dti.cornell.events.Utils;
+package com.dti.cornell.events.utils;
 
-import com.dti.cornell.events.DiscoveryActivity;
 import com.dti.cornell.events.Event;
 
 import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,7 +15,7 @@ import java.util.List;
 
 public class EventUtils {
 
-    public static final String timePattern = "HH:mm";
+	public static final DateTimeFormatter timeFormat = DateTimeFormat.forPattern("HH:mm");
 
     public static void main(String[] args) {
         EventUtils.getEventsBetweenDates(getEvents(), new DateTime(), new DateTime());
