@@ -1,5 +1,7 @@
 package com.dti.cornell.events;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -7,17 +9,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
-import android.support.v7.widget.Toolbar;
-import android.view.ViewGroup;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
 
-import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
 
 /**
  * Created by jaggerbrulato on 2/27/18.
@@ -32,6 +27,16 @@ public class DetailsActivity extends AppCompatActivity implements OnMapReadyCall
 	ConstraintLayout _root;
 	private int _xDelta;
 	private float tagX;
+
+	private static final String EVENT_KEY = "event";
+	private Event event;
+
+	public static void startWithEvent(Event event, Context context)
+	{
+		Intent intent = new Intent(context, DetailsActivity.class);
+		intent.putExtra(EVENT_KEY, event.toString());
+		context.startActivity(intent);
+	}
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
@@ -52,6 +57,9 @@ public class DetailsActivity extends AppCompatActivity implements OnMapReadyCall
 
 		_view.setOnTouchListener(this);
 		_root = findViewById(R.id.tagsLayout);
+
+		//get the event
+		event = Event.fromString(getIntent().getExtras().getString(EVENT_KEY));
 	}
 
 	@Override
