@@ -15,13 +15,6 @@ import java.net.URL;
  */
 
 public class Internet {
-
-    public static final String DATABASE = "https://oweekapp.herokuapp.com/flow/";
-    public static final String ORIENTATION_PAMPHLET = "http://ccengagement.cornell.edu/sites/ccengagement.cornell.edu/files/rnsp/documents/january_orientation_guide_2018.pdf";
-    public static final String CAMPUS_MAP = "https://www.cornell.edu/about/maps/cornell-campus-map-2015.pdf";
-    public static final String NEW_STUDENTS_WEBPAGE = "https://newstudents.cornell.edu/spring-2018/first-year/orientation";
-    public static final String CORNELL_RESCUER = "market://details?id=cornell.sa.rescuer";
-    public static final String IMAGE_DIRECTORY = "OweekImages";
     private static final String TAG = Internet.class.getSimpleName();
 
     /**
