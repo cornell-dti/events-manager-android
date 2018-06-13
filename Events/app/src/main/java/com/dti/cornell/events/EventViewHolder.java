@@ -33,8 +33,8 @@ public class EventViewHolder extends RecyclerView.ViewHolder implements View.OnC
 	public void configure(Event event)
 	{
 		this.event = event;
-		startTime.setText(event.startTime.toString(EventUtils.timeFormat));
-		endTime.setText(event.endTime.toString(EventUtils.timeFormat));
+		startTime.setText(EventUtils.getDateTimeStringHHmm(event.startTime));
+		endTime.setText(EventUtils.getDateTimeStringHHmm(event.endTime));
 		title.setText(event.name);
 		location.setText(event.location);
 		friendsGoing.setText(event.friendsGoing);

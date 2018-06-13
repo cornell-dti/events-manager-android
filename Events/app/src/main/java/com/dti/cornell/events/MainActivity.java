@@ -8,6 +8,8 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 
+import net.danlew.android.joda.JodaTimeAndroid;
+
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener
 {
 	@Override
@@ -19,6 +21,8 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 		BottomNavigationView tabBar = findViewById(R.id.tabBar);
 		tabBar.setOnNavigationItemSelectedListener(this);
 		tabBar.setSelectedItemId(R.id.tab_discover);    //select discover page first
+
+		//JodaTimeAndroid.init(this);
 	}
 
 	@Override
