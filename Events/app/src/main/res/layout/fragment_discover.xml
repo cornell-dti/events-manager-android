@@ -1,16 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<FrameLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-	xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:fillViewport="true">
 
+	<android.support.constraint.ConstraintLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content">
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/eventRecycler"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-	    tools:listitem="@layout/item_event"/>
+		<include layout="@layout/item_card_list"
+			android:id="@+id/popularEvents"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="@dimen/spacing_xxl"
+			app:layout_constraintTop_toTopOf="parent"/>
 
-</FrameLayout>
+		<include layout="@layout/item_card_list"
+			android:id="@+id/todayEvents"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="@dimen/spacing_xxl"
+			app:layout_constraintTop_toBottomOf="@+id/popularEvents"/>
+
+		<include layout="@layout/item_card_list"
+			android:id="@+id/tomorrowEvents"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="@dimen/spacing_xxl"
+			app:layout_constraintTop_toBottomOf="@+id/todayEvents"/>
+
+	</android.support.constraint.ConstraintLayout>
+
+</ScrollView>
