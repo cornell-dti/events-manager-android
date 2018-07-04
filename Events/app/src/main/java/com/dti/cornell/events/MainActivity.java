@@ -17,12 +17,11 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+		JodaTimeAndroid.init(this);
 
 		BottomNavigationView tabBar = findViewById(R.id.tabBar);
 		tabBar.setOnNavigationItemSelectedListener(this);
 		tabBar.setSelectedItemId(R.id.tab_discover);    //select discover page first
-
-		//JodaTimeAndroid.init(this);
 	}
 
 	@Override

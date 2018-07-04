@@ -7,14 +7,37 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
-
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
+	<style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+	<style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
-    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
-
-    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+	<!-- Fonts, from the style guide -->
+    <style name="PageTitle" parent="@android:style/TextAppearance.Material.Title">
+	    <item name="android:fontFamily">@font/sf_display_bold</item>
+	    <item name="android:textSize">64sp</item>
+    </style>
+	<style name="H1" parent="@android:style/TextAppearance.Material.Headline">
+		<item name="android:fontFamily">@font/sf_display_bold</item>
+		<item name="android:textSize">36sp</item>
+	</style>
+	<style name="H2" parent="@android:style/TextAppearance.Material.Headline">
+		<item name="android:fontFamily">@font/sf_text_bold</item>
+		<item name="android:textSize">30sp</item>
+	</style>
+	<style name="H3" parent="@android:style/TextAppearance.Material.Headline">
+		<item name="android:fontFamily">@font/sf_text_bold</item>
+		<item name="android:textSize">24sp</item>
+	</style>
+	<style name="P1" parent="@android:style/TextAppearance.Material.Body1">
+		<item name="android:fontFamily">@font/sf_text_regular</item>
+		<item name="android:textSize">30sp</item>
+	</style>
+	<style name="P2" parent="@android:style/TextAppearance.Material.Body2">
+		<item name="android:fontFamily">@font/sf_text_regular</item>
+		<item name="android:textSize">24sp</item>
+	</style>
 
 </resources>
