@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -45,18 +44,18 @@ public class DiscoverFragment extends Fragment
 		RecyclerView todayRecycler = todayEvents.findViewById(R.id.recyclerView);
 		RecyclerView tomorrowRecycler = tomorrowEvents.findViewById(R.id.recyclerView);
 
-		addEventsToRecycler(popularRecycler);
-		addEventsToRecycler(todayRecycler);
-		addEventsToRecycler(tomorrowRecycler);
+		setUpRecycler(popularRecycler);
+		setUpRecycler(todayRecycler);
+		setUpRecycler(tomorrowRecycler);
 		return view;
 	}
 
-	public void addEventsToRecycler(RecyclerView recycler)
+	public void setUpRecycler(RecyclerView recycler)
 	{
 		EventCardAdapter adapter = new EventCardAdapter(getContext(), events);
-		LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
-		layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
-		recycler.setLayoutManager(layoutManager);
 		recycler.setAdapter(adapter);
+
+		int cardMargin = getResources().getDimensionPixelSize(R.dimen.spacing_xxl);
+		recycler.addItemDecoration(new SpacingItemDecoration(cardMargin, 0));
 	}
 }
