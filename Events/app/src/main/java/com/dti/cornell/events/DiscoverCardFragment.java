@@ -18,7 +18,7 @@ import java.util.List;
  * Created by jaggerbrulato on 3/20/18.
  */
 
-public class DiscoverFragment extends Fragment
+public class DiscoverCardFragment extends Fragment implements View.OnClickListener
 {
 	private final List<Event> events = EventUtils.getEvents();
 
@@ -26,8 +26,9 @@ public class DiscoverFragment extends Fragment
 	@Override
 	public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)
 	{
-		View view = inflater.inflate(R.layout.fragment_discover, container, false);
+		View view = inflater.inflate(R.layout.fragment_discover_card, container, false);
 
+		// Set up recycler stuff
 		View popularEvents = view.findViewById(R.id.popularEvents);
 		View todayEvents = view.findViewById(R.id.todayEvents);
 		View tomorrowEvents = view.findViewById(R.id.tomorrowEvents);
@@ -47,6 +48,16 @@ public class DiscoverFragment extends Fragment
 		setUpRecycler(popularRecycler);
 		setUpRecycler(todayRecycler);
 		setUpRecycler(tomorrowRecycler);
+
+		View seeMorePopularButton = popularEvents.findViewById(R.id.seeMore);
+		View seeMoreTodayButton = todayEvents.findViewById(R.id.seeMore);
+		View seeMoreTomorrowButton = tomorrowEvents.findViewById(R.id.seeMore);
+		View seeAllButton = view.findViewById(R.id.seeAll);
+
+		seeMorePopularButton.setOnClickListener(this);
+		seeMoreTodayButton.setOnClickListener(this);
+		seeMoreTomorrowButton.setOnClickListener(this);
+		seeAllButton.setOnClickListener(this);
 		return view;
 	}
 
@@ -57,5 +68,17 @@ public class DiscoverFragment extends Fragment
 
 		int cardMargin = getResources().getDimensionPixelSize(R.dimen.spacing_xxl);
 		recycler.addItemDecoration(new SpacingItemDecoration(cardMargin, 0));
+	}
+
+	@Override
+	public void onClick(View v)
+	{
+		switch (v.getId())
+		{
+			case R.id.seeAll:
+			case R.id.seeMore:
+				((MainActivity) getActivity()).transitionToFragment(new DiscoverListFragment());
+				break;
+		}
 	}
 }

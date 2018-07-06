@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
@@ -38,7 +37,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 		{
 			case R.id.tab_discover:
 				toolbar.setTitle(R.string.tab_discover);
-				fragment = new DiscoverFragment();
+				fragment = new DiscoverCardFragment();
 				break;
 			case R.id.tab_for_you:
 				toolbar.setTitle(R.string.tab_for_you);
@@ -56,9 +55,15 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 				return false;
 		}
 
-		FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-		transaction.replace(R.id.fragmentContainer, fragment);
-		transaction.commit();
+		transitionToFragment(fragment);
 		return true;
+	}
+
+	public void transitionToFragment(Fragment fragment)
+	{
+		getSupportFragmentManager()
+				.beginTransaction()
+				.replace(R.id.fragmentContainer, fragment)
+				.commit();
 	}
 }

@@ -39,6 +39,7 @@
 			android:padding="@dimen/spacing_m"
 			android:clickable="true"
 			android:background="?attr/selectableItemBackground"
+			android:id="@+id/seeAll"
 			app:layout_constraintTop_toBottomOf="@+id/tomorrowEvents"
 			app:layout_constraintBottom_toBottomOf="parent"
 			app:layout_constraintLeft_toLeftOf="parent"
