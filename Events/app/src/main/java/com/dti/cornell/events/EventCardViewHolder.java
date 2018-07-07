@@ -32,7 +32,7 @@ public class EventCardViewHolder extends RecyclerView.ViewHolder implements View
 	public void configure(Event event)
 	{
 		this.event = event;
-		title.setText(event.name);
+		title.setText(event.title);
 		location.setText(event.location);
 		month.setText(event.startTime.toString("MMM"));
 		day.setText(event.startTime.toString("d"));

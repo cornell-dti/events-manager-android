@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="wrap_content"
+	android:layout_height="@dimen/tag_height"
+	android:paddingLeft="@dimen/spacing_xxl"
+	android:paddingRight="@dimen/spacing_xxl"
+	android:background="@drawable/bg_round_button_white"
+	android:gravity="center"
+	style="@style/P2"
+	tools:text="#randomTag"/>

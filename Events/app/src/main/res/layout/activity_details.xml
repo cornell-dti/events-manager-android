@@ -1,363 +1,217 @@
 <?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:fillViewport="true"
+	android:fitsSystemWindows="true">
 
-<android.support.design.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/coordinatorLayout"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+	<android.support.constraint.ConstraintLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content">
 
-    <include layout="@layout/toolbar"/>
+		<ImageView
+			android:id="@+id/image"
+			android:layout_width="0dp"
+			android:layout_height="0dp"
+			android:scaleType="centerCrop"
+			app:srcCompat="@drawable/taranaburke"
+			app:layout_constraintDimensionRatio="2:1"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintEnd_toEndOf="parent"/>
 
-    <android.support.v4.widget.NestedScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+		<Button
+			android:id="@+id/interested"
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:paddingTop="@dimen/spacing_l"
+			android:paddingBottom="@dimen/spacing_l"
+			android:layout_marginTop="@dimen/spacing_xxl"
+			android:layout_marginLeft="@dimen/spacing_xxl"
+			android:background="@drawable/bg_round_button_white"
+			android:text="@string/button_interested"
+			android:textAllCaps="true"
+			android:textColor="@color/primaryBlue"
+			style="@style/P1"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toBottomOf="@+id/image"
+			app:layout_constraintEnd_toStartOf="@+id/going"/>
 
-        <android.support.constraint.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+		<Button
+			android:id="@+id/going"
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:paddingTop="@dimen/spacing_l"
+			android:paddingBottom="@dimen/spacing_l"
+			android:layout_marginTop="@dimen/spacing_xxl"
+			android:layout_marginLeft="@dimen/spacing_xxl"
+			android:layout_marginRight="@dimen/spacing_xxl"
+			android:background="@drawable/bg_round_button_blue"
+			android:text="@string/button_going"
+			android:textAllCaps="true"
+			android:textColor="@android:color/white"
+			style="@style/P1"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintTop_toBottomOf="@+id/image"
+			app:layout_constraintStart_toEndOf="@+id/interested"/>
 
-            <ImageView
-                android:id="@+id/imageView"
-                android:layout_width="0dp"
-                android:layout_height="177dp"
-                android:scaleType="fitXY"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/taranaburke" />
+		<TextView
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:id="@+id/title"
+			android:layout_marginTop="@dimen/spacing_3l"
+			android:maxLines="2"
+			android:ellipsize="end"
+			style="@style/H1"
+			tools:text="I’m just trying to see what it would look like if there was like an extra long title blah"
+			app:layout_constraintStart_toStartOf="@+id/interested"
+			app:layout_constraintEnd_toEndOf="@+id/going"
+			app:layout_constraintTop_toBottomOf="@+id/interested"/>
 
-            <Button
-                android:id="@+id/button"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="18dp"
-                android:layout_marginTop="8dp"
-                android:background="@drawable/interest_button_background"
-                android:text="@string/button_interested"
-                android:textColor="@android:color/white"
-                app:layout_constraintBottom_toBottomOf="@+id/imageView"
-                app:layout_constraintEnd_toStartOf="@+id/verticalButtonDivider"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/imageView" />
+		<TextView
+			android:id="@+id/description"
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="@dimen/spacing_m"
+			android:maxLines="3"
+			android:textColor="@color/gray"
+			android:ellipsize="end"
+			style="@style/P1"
+			app:layout_constraintEnd_toEndOf="@+id/title"
+			app:layout_constraintStart_toStartOf="@+id/title"
+			app:layout_constraintTop_toBottomOf="@+id/title"
+			tools:text="The simple yet courageous #metoo hashtag campaign has emerged as a rallying cry for people everywhere who have survived sexual assault and sexual harassment" />
 
-            <ImageView
-                android:id="@+id/verticalButtonDivider"
-                android:layout_width="2dp"
-                android:layout_height="0dp"
-                android:background="@android:color/white"
-                app:layout_constraintBottom_toBottomOf="@+id/button"
-                app:layout_constraintEnd_toStartOf="@+id/button2"
-                app:layout_constraintStart_toEndOf="@+id/button"
-                app:layout_constraintTop_toTopOf="@+id/button"
-                app:srcCompat="?attr/dividerVertical" />
+		<ImageView
+			android:id="@+id/timeImage"
+			android:layout_width="@dimen/spacing_xxl"
+			android:layout_height="@dimen/spacing_xxl"
+			android:layout_marginTop="@dimen/spacing_3l"
+			android:src="@drawable/ic_dashboard_black_24dp"
+			app:layout_constraintStart_toStartOf="@+id/title"
+			app:layout_constraintTop_toBottomOf="@+id/description" />
 
-            <Button
-                android:id="@+id/button2"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="18dp"
-                android:layout_marginTop="8dp"
-                android:background="@drawable/going_button_background"
-                android:text="@string/button_going"
-                android:textColor="@android:color/white"
-                app:layout_constraintBottom_toBottomOf="@+id/imageView"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/verticalButtonDivider"
-                app:layout_constraintTop_toBottomOf="@+id/imageView" />
+		<TextView
+			android:id="@+id/time"
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:layout_marginStart="@dimen/spacing_xxl"
+			android:maxLines="1"
+			android:ellipsize="end"
+			style="@style/P1"
+			tools:text="Tuesday, November 30 at 12:00 PM"
+			app:layout_constraintStart_toEndOf="@+id/timeImage"
+			app:layout_constraintEnd_toEndOf="@+id/going"
+			app:layout_constraintTop_toTopOf="@+id/timeImage"
+			app:layout_constraintBottom_toBottomOf="@+id/timeImage"/>
 
-            <TextView
-                android:id="@+id/description"
-                android:layout_width="0dp"
-                android:layout_height="55dp"
-                android:layout_marginEnd="18dp"
-                android:layout_marginStart="18dp"
-                android:layout_marginTop="15dp"
-                android:minLines="3"
-                android:text="The simple yet courageous #metoo hashtag campaign has emerged as a rallying cry for people everywhere who have survived sexual assault and sexual harassment – and Tara…"
-                android:textColor="@android:color/background_dark"
-                android:textSize="12sp"
-                android:typeface="serif"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/button"
-                tools:text="The simple yet courageous #metoo hashtag campaign has emerged as a rallying cry for people everywhere who have survived sexual assault and sexual harassment – and Tara…" />
+		<ImageView
+			android:id="@+id/goingImage"
+			android:layout_width="@dimen/spacing_xxl"
+			android:layout_height="@dimen/spacing_xxl"
+			android:layout_marginTop="@dimen/spacing_l"
+			android:src="@drawable/ic_dashboard_black_24dp"
+			app:layout_constraintStart_toStartOf="@+id/title"
+			app:layout_constraintTop_toBottomOf="@+id/timeImage" />
 
-            <android.support.constraint.ConstraintLayout
-                android:id="@+id/iconInfoPair"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="36dp"
-                android:layout_marginTop="16dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/description">
+		<TextView
+			android:id="@+id/numGoing"
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:layout_marginStart="@dimen/spacing_xxl"
+			android:maxLines="1"
+			android:ellipsize="end"
+			style="@style/P1"
+			tools:text="302 Going"
+			app:layout_constraintStart_toEndOf="@+id/goingImage"
+			app:layout_constraintEnd_toEndOf="@+id/going"
+			app:layout_constraintTop_toTopOf="@+id/goingImage"
+			app:layout_constraintBottom_toBottomOf="@+id/goingImage"/>
 
-                <ImageView
-                    android:id="@+id/iconImage1"
-                    android:layout_width="21dp"
-                    android:layout_height="21dp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:srcCompat="@mipmap/ic_launcher_round" />
+		<ImageView
+			android:id="@+id/organizationImage"
+			android:layout_width="@dimen/spacing_xxl"
+			android:layout_height="@dimen/spacing_xxl"
+			android:layout_marginTop="@dimen/spacing_l"
+			android:src="@drawable/ic_dashboard_black_24dp"
+			app:layout_constraintStart_toStartOf="@+id/title"
+			app:layout_constraintTop_toBottomOf="@+id/goingImage" />
 
-                <TextView
-                    android:id="@+id/infoText1"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="15dp"
-                    android:text="Tue, Nov 8 from 4:00pm to 5:00pm"
-                    android:textColor="@android:color/black"
-                    android:textSize="14sp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/iconImage1"
-                    app:layout_constraintTop_toTopOf="parent"
-                    tools:text="Date and Time etc" />
-            </android.support.constraint.ConstraintLayout>
+		<TextView
+			android:id="@+id/organization"
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:layout_marginStart="@dimen/spacing_xxl"
+			android:maxLines="1"
+			android:ellipsize="end"
+			style="@style/P1"
+			tools:text="Cornell Design &amp; Tech Initiative"
+			app:layout_constraintStart_toEndOf="@+id/organizationImage"
+			app:layout_constraintEnd_toEndOf="@+id/going"
+			app:layout_constraintTop_toTopOf="@+id/organizationImage"
+			app:layout_constraintBottom_toBottomOf="@+id/organizationImage"/>
 
-            <ImageView
-                android:id="@+id/horizontalDivider"
-                android:layout_width="0dp"
-                android:layout_height="2dp"
-                android:layout_marginBottom="4dp"
-                android:layout_marginEnd="39dp"
-                android:layout_marginStart="72dp"
-                android:layout_marginTop="4dp"
-                android:background="@android:drawable/divider_horizontal_textfield"
-                app:layout_constraintBottom_toTopOf="@+id/iconInfoPair2"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/iconInfoPair"
-                app:srcCompat="?attr/dividerHorizontal" />
+		<ImageView
+			android:id="@+id/locationImage"
+			android:layout_width="@dimen/spacing_xxl"
+			android:layout_height="@dimen/spacing_xxl"
+			android:layout_marginTop="@dimen/spacing_l"
+			android:src="@drawable/ic_dashboard_black_24dp"
+			app:layout_constraintStart_toStartOf="@+id/title"
+			app:layout_constraintTop_toBottomOf="@+id/organizationImage" />
 
-            <android.support.constraint.ConstraintLayout
-                android:id="@+id/iconInfoPair2"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="36dp"
-                android:layout_marginTop="8dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/iconInfoPair">
+		<TextView
+			android:id="@+id/location"
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:layout_marginStart="@dimen/spacing_xxl"
+			android:maxLines="1"
+			android:ellipsize="end"
+			style="@style/P1"
+			tools:text="Goldwin Smith Hall Room 202"
+			app:layout_constraintStart_toEndOf="@+id/locationImage"
+			app:layout_constraintEnd_toEndOf="@+id/going"
+			app:layout_constraintTop_toTopOf="@+id/locationImage"
+			app:layout_constraintBottom_toBottomOf="@+id/locationImage"/>
 
-                <ImageView
-                    android:id="@+id/iconImage2"
-                    android:layout_width="21dp"
-                    android:layout_height="21dp"
-                    app:srcCompat="@mipmap/ic_launcher_round" />
+		<fragment
+			android:id="@+id/map"
+			android:name="com.google.android.gms.maps.MapFragment"
+			android:layout_width="0dp"
+			android:layout_height="0dp"
+			android:layout_marginTop="@dimen/spacing_xxl"
+			app:layout_constraintDimensionRatio="5:2"
+			app:layout_constraintEnd_toEndOf="@+id/going"
+			app:layout_constraintStart_toStartOf="@+id/interested"
+			app:layout_constraintTop_toBottomOf="@+id/locationImage" />
+		
+		<android.support.v7.widget.RecyclerView
+			android:id="@+id/tagRecycler"
+			android:layout_width="0dp"
+			android:layout_height="@dimen/tag_height"
+			android:layout_marginLeft="@dimen/spacing_xl"
+			android:layout_marginTop="@dimen/spacing_xxl"
+			android:layout_marginBottom="@dimen/spacing_3l"
+			android:orientation="horizontal"
+			tools:listitem="@layout/item_tag"
+			app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+			app:layout_constraintTop_toBottomOf="@+id/map"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintBottom_toBottomOf="parent"
+			app:layout_constraintStart_toEndOf="@+id/tags"/>
 
-                <TextView
-                    android:id="@+id/infoText2"
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:layout_marginStart="15dp"
-                    android:text="Kelly, Andie, and 10 friends"
-                    android:textColor="@android:color/black"
-                    android:textSize="14sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toEndOf="@+id/iconImage2"
-                    app:layout_constraintTop_toTopOf="parent"
-                    tools:text="Friends who are going here" />
-            </android.support.constraint.ConstraintLayout>
+		<TextView
+			android:id="@+id/tags"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="@string/tags"
+			style="@style/H1"
+			app:layout_constraintStart_toStartOf="@+id/interested"
+			app:layout_constraintTop_toTopOf="@+id/tagRecycler"
+			app:layout_constraintBottom_toBottomOf="@+id/tagRecycler"/>
 
-            <ImageView
-                android:id="@+id/horizontalDivider2"
-                android:layout_width="0dp"
-                android:layout_height="2dp"
-                android:layout_marginEnd="39dp"
-                android:layout_marginStart="72dp"
-                android:background="@android:drawable/divider_horizontal_textfield"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/iconInfoPair2"
-                app:srcCompat="?attr/dividerHorizontal" />
+	</android.support.constraint.ConstraintLayout>
 
-            <android.support.constraint.ConstraintLayout
-                android:id="@+id/iconInfoPair3"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="36dp"
-                android:layout_marginTop="8dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/iconInfoPair2">
-
-                <ImageView
-                    android:id="@+id/iconImage3"
-                    android:layout_width="21dp"
-                    android:layout_height="21dp"
-                    app:srcCompat="@mipmap/ic_launcher_round" />
-
-                <TextView
-                    android:id="@+id/infoText3"
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:layout_marginStart="15dp"
-                    android:text="Cornell University Program Board"
-                    android:textColor="@android:color/black"
-                    android:textSize="14sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/iconImage3"
-                    app:layout_constraintTop_toTopOf="parent"
-                    tools:text="Organization Title" />
-            </android.support.constraint.ConstraintLayout>
-
-            <ImageView
-                android:id="@+id/horizontalDivider3"
-                android:layout_width="0dp"
-                android:layout_height="2dp"
-                android:layout_marginBottom="4dp"
-                android:layout_marginEnd="39dp"
-                android:layout_marginStart="72dp"
-                android:layout_marginTop="4dp"
-                android:background="@android:drawable/divider_horizontal_textfield"
-                app:layout_constraintBottom_toTopOf="@+id/iconInfoPair4"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/iconInfoPair3"
-                app:srcCompat="?attr/dividerHorizontal" />
-
-            <android.support.constraint.ConstraintLayout
-                android:id="@+id/iconInfoPair4"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="36dp"
-                android:layout_marginTop="8dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/iconInfoPair3">
-
-                <ImageView
-                    android:id="@+id/iconImage4"
-                    android:layout_width="21dp"
-                    android:layout_height="21dp"
-                    app:srcCompat="@mipmap/ic_launcher_round" />
-
-                <TextView
-                    android:id="@+id/infoText4"
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:layout_marginStart="15dp"
-                    android:text="Bailey Hall"
-                    android:textColor="@android:color/black"
-                    android:textSize="14sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/iconImage4"
-                    app:layout_constraintTop_toTopOf="parent"
-                    tools:text="Location" />
-            </android.support.constraint.ConstraintLayout>
-
-            <fragment
-                android:id="@+id/map"
-                android:name="android.app.ListFragment"
-                android:layout_width="0dp"
-                android:layout_height="120dp"
-                android:layout_marginEnd="18dp"
-                android:layout_marginStart="18dp"
-                android:layout_marginTop="3dp"
-                app:layout_constraintBottom_toTopOf="@+id/tagsLayout"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/iconInfoPair4"
-                tools:layout="@android:layout/activity_list_item" />
-
-            <android.support.constraint.ConstraintLayout
-                android:id="@+id/tagsLayout"
-                android:layout_width="0dp"
-                android:layout_height="32dp"
-                android:layout_marginBottom="18dp"
-                android:layout_marginStart="18dp"
-                android:layout_marginTop="15dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.111"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/map">
-
-                <TextView
-                    android:id="@+id/tagsLabel"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="6dp"
-                    android:layout_marginTop="6dp"
-                    android:text="@string/tags"
-                    android:textColor="@android:color/black"
-                    android:textSize="16sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:id="@+id/tag"
-                    android:layout_width="wrap_content"
-                    android:layout_height="0dp"
-                    android:layout_marginStart="6dp"
-                    android:background="@drawable/tag_background"
-                    android:gravity="center"
-                    android:paddingLeft="4dp"
-                    android:paddingRight="4dp"
-                    android:text="#defaultSize"
-                    android:textAlignment="viewStart"
-                    android:textColor="@android:color/black"
-                    android:textSize="12sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/tagsLabel"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.0"
-                    tools:text="#defaultSize" />
-
-                <TextView
-                    android:id="@+id/tag2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="0dp"
-                    android:layout_marginStart="6dp"
-                    android:background="@drawable/tag_background"
-                    android:gravity="center"
-                    android:paddingLeft="4dp"
-                    android:paddingRight="4dp"
-                    android:text="#longerTextHandling"
-                    android:textColor="@android:color/black"
-                    android:textSize="12sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/tag"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.0"
-                    tools:text="#longerTextHandling" />
-
-                <TextView
-                    android:id="@+id/tag3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="0dp"
-                    android:layout_marginStart="6dp"
-                    android:background="@drawable/tag_background"
-                    android:gravity="center"
-                    android:paddingLeft="4dp"
-                    android:paddingRight="4dp"
-                    android:text="#defaultSize"
-                    android:textColor="@android:color/black"
-                    android:textSize="12sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/tag2"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.0"
-                    tools:text="#defaultSize" />
-
-
-            </android.support.constraint.ConstraintLayout>
-
-
-        </android.support.constraint.ConstraintLayout>
-
-    </android.support.v4.widget.NestedScrollView>
-</android.support.design.widget.CoordinatorLayout>
+</ScrollView>

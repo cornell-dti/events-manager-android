@@ -10,9 +10,10 @@
 	<dimen name="spacing_l">12dp</dimen>
 	<dimen name="spacing_xl">16dp</dimen>
 	<dimen name="spacing_xxl">20dp</dimen>
-	<dimen name="spacing_xxxl">48dp</dimen>
+	<dimen name="spacing_3l">24dp</dimen>
+	<dimen name="spacing_4l">48dp</dimen>
 
 	<dimen name="toolbar_height">72dp</dimen>
-
 	<dimen name="card_width">256dp</dimen>
+	<dimen name="tag_height">28dp</dimen>
 </resources>

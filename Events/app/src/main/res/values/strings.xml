@@ -17,6 +17,9 @@
 	<string name="section_tomorrow_events">Tomorrow\'s events</string>
 	<string name="see_all">see all</string>
 
+	<string name="numGoing">%1$d Going</string>
+
 	<!-- TODO: Remove or change this placeholder text -->
 	<string name="hello_blank_fragment">Hello blank fragment</string>
+	<string name="name_activity_maps">Map</string>
 </resources>

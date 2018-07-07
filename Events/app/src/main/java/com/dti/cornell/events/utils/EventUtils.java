@@ -1,12 +1,14 @@
 package com.dti.cornell.events.utils;
 
 import com.dti.cornell.events.Event;
+import com.dti.cornell.events.Tag;
 
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -26,7 +28,7 @@ public class EventUtils {
         //TODO geteventsfromserver
         ArrayList<Event> returnEvents = new ArrayList<>();
         Event.Builder eventBuilder = new Event.Builder();
-        eventBuilder.setName("CornellDTI Info Sessions")
+        eventBuilder.setTitle("CornellDTI Info Sessions")
                 .setDescription("hello there")
                 .setAttendees(30)
                 .setPublic(true)
@@ -42,6 +44,14 @@ public class EventUtils {
         }
         return returnEvents;
     }
+
+	public static List<Tag> getTags()
+	{
+		return Arrays.asList(new Tag(1, "#DTI>AppDev"),
+				new Tag(2, "#DavidWroteThis"),
+				new Tag(3, "#short"),
+				new Tag(4, "#noFilter"));
+	}
 
 
     public static List<Event> getEventsBetweenDates(List<Event> eventList, DateTime date1, DateTime date2){
@@ -62,9 +72,4 @@ public class EventUtils {
     public static String getDateTimeStringHHmm(DateTime dateTime){
         return dateTime.toString(EventUtils.timeFormat);
     }
-
-
-
-
-
 }

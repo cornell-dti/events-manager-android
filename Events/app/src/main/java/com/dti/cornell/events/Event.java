@@ -14,7 +14,7 @@ import java.util.regex.Pattern;
 public class Event implements IDable
 {
 	public final String googlePlaceId;
-	public final String name;
+	public final String title;
 	public final int eventID;
 	public final String description;
 	public final int attendees;
@@ -27,11 +27,12 @@ public class Event implements IDable
 	public final String organizerName;
 	public final int pictureID;
 	public final Image picture;
+	//TODO create Tag, Organizer class
 	private static final String fieldSeparator = "|";
 
-	public Event(String name, String description, int attendees, boolean isPublic, String location, DateTime startTime, DateTime endTime, int organizerPK, int eventID, int pictureID, String googlePlaceId)
+	public Event(String title, String description, int attendees, boolean isPublic, String location, DateTime startTime, DateTime endTime, int organizerPK, int eventID, int pictureID, String googlePlaceId)
 	{
-		this.name = name;
+		this.title = title;
 		this.description = description;
 		this.attendees = attendees;
 		this.isPublic = isPublic;
@@ -60,7 +61,7 @@ public class Event implements IDable
 
 	public String toString()
 	{
-		return name + fieldSeparator
+		return title + fieldSeparator
 				+ description + fieldSeparator
 				+ attendees + fieldSeparator
 				+ isPublic + fieldSeparator
@@ -105,7 +106,7 @@ public class Event implements IDable
 	public static class Builder
 	{
 		private String googlePlaceId;
-		private String name;
+		private String title;
 		private int eventID = -1;
 		private String description;
 		private int attendees = -1;
@@ -120,7 +121,7 @@ public class Event implements IDable
 		public Event build()
 		{
 			if (googlePlaceId == null ||
-					name == null ||
+					title == null ||
 					eventID == -1 ||
 					description == null ||
 					location == null ||
@@ -131,7 +132,7 @@ public class Event implements IDable
 			{
 				Log.e("EventBuilder::SEVERE", "One or more event specifications is null or unassigned!");
 			}
-			return new Event(name, description, attendees, isPublic, location, startTime, endTime, organizerPK, eventID, pictureID, googlePlaceId);
+			return new Event(title, description, attendees, isPublic, location, startTime, endTime, organizerPK, eventID, pictureID, googlePlaceId);
 		}
 
 		public Builder setGooglePlaceId(String googlePlaceId)
@@ -140,9 +141,9 @@ public class Event implements IDable
 			return this;
 		}
 
-		public Builder setName(String name)
+		public Builder setTitle(String title)
 		{
-			this.name = name;
+			this.title = title;
 			return this;
 		}
 
