@@ -2,8 +2,6 @@ package com.dti.cornell.events.utils;
 
 import com.dti.cornell.events.Event;
 
-import net.danlew.android.joda.JodaTimeAndroid;
-
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
@@ -32,7 +30,7 @@ public class EventUtils {
                 .setDescription("hello there")
                 .setAttendees(30)
                 .setPublic(true)
-                .setLocation("UpsonB02")
+                .setLocation("Upson B02")
                 .setStartTime(new DateTime())
                 .setEndTime(new DateTime())
                 .setOrganizerPK(123456)

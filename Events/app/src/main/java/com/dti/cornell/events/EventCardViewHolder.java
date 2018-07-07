@@ -14,6 +14,7 @@ public class EventCardViewHolder extends RecyclerView.ViewHolder implements View
 	private final TextView day;
 	private final TextView startTime;
 	private final TextView numGoing;
+	private Event event;
 
 	public EventCardViewHolder(View itemView)
 	{
@@ -25,16 +26,24 @@ public class EventCardViewHolder extends RecyclerView.ViewHolder implements View
 		day = itemView.findViewById(R.id.day);
 		startTime = itemView.findViewById(R.id.startTime);
 		numGoing = itemView.findViewById(R.id.numGoing);
+		itemView.setOnClickListener(this);
 	}
 
 	public void configure(Event event)
 	{
-		//TODO
+		this.event = event;
+		title.setText(event.name);
+		location.setText(event.location);
+		month.setText(event.startTime.toString("MMM"));
+		day.setText(event.startTime.toString("d"));
+		startTime.setText(event.startTime.toString("h:mm a"));
+		numGoing.setText(Integer.toString(event.attendees));
 	}
 
+
 	@Override
-	public void onClick(View v)
+	public void onClick(View view)
 	{
-		//TODO
+		DetailsActivity.startWithEvent(event, itemView.getContext());
 	}
 }
