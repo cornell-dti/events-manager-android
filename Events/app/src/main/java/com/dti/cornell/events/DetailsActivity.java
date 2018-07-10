@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageView;
@@ -19,7 +20,7 @@ import com.google.android.gms.maps.OnMapReadyCallback;
  * Created by jaggerbrulato on 2/27/18.
  */
 
-public class DetailsActivity extends AppCompatActivity implements OnMapReadyCallback
+public class DetailsActivity extends AppCompatActivity implements OnMapReadyCallback, View.OnClickListener
 {
 	private static final String EVENT_KEY = "event";
 	private ImageView image;
@@ -68,6 +69,9 @@ public class DetailsActivity extends AppCompatActivity implements OnMapReadyCall
 		numGoing = findViewById(R.id.numGoing);
 		organization = findViewById(R.id.organization);
 		location = findViewById(R.id.location);
+		findViewById(R.id.back).setOnClickListener(this);
+		findViewById(R.id.share).setOnClickListener(this);
+
 		MapFragment mapFragment = (MapFragment) getFragmentManager().findFragmentById(R.id.map);
 		mapFragment.getMapAsync(this);
 
@@ -101,4 +105,17 @@ public class DetailsActivity extends AppCompatActivity implements OnMapReadyCall
 //        map.addMarker(new MarkerOptions().position(position).title(event.caption));
 	}
 
+	@Override
+	public void onClick(View v)
+	{
+		switch (v.getId())
+		{
+			case R.id.back:
+				onBackPressed();
+				break;
+			case R.id.share:
+				Log.i("DetailsActivity", "TODO share pressed");
+				break;
+		}
+	}
 }
