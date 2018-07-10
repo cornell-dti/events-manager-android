@@ -28,11 +28,11 @@ public class EventUtils {
         //TODO geteventsfromserver
         ArrayList<Event> returnEvents = new ArrayList<>();
         Event.Builder eventBuilder = new Event.Builder();
-        eventBuilder.setTitle("CornellDTI Info Sessions")
-                .setDescription("hello there")
-                .setAttendees(30)
+        eventBuilder.setTitle("I’m just trying to see what it would look like if there was like an extra long title")
+                .setDescription("Description here. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore")
+                .setAttendees(302)
                 .setPublic(true)
-                .setLocation("Upson B02")
+                .setLocation("Goldwin Smith Hall Room 202")
                 .setStartTime(new DateTime())
                 .setEndTime(new DateTime())
                 .setOrganizerPK(123456)

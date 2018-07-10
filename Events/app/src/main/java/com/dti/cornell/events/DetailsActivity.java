@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -42,13 +43,20 @@ public class DetailsActivity extends AppCompatActivity implements OnMapReadyCall
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_details);
-		getWindow().setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS, WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-		getWindow().setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION, WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
+		setStatusBarTranslucent();
 		findViews();
 
 		//get the event
 		event = Event.fromString(getIntent().getExtras().getString(EVENT_KEY));
 		configure(event);
+	}
+
+	private void setStatusBarTranslucent()
+	{
+		getWindow().setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS, WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+		View view = getWindow().getDecorView();
+		int noLightStatus = view.getSystemUiVisibility() & ~View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR;
+		view.setSystemUiVisibility(noLightStatus);
 	}
 
 	private void findViews()

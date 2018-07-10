@@ -8,5 +8,6 @@
 	android:paddingRight="@dimen/spacing_xxl"
 	android:background="@drawable/bg_round_button_white"
 	android:gravity="center"
+	android:clickable="true"
 	style="@style/P2"
 	tools:text="#randomTag"/>
