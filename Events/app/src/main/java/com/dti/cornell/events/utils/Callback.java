@@ -1,4 +1,4 @@
-package com.dti.cornell.events;
+package com.dti.cornell.events.utils;
 
 /**
  * Created by jaggerbrulato on 3/20/18.

@@ -2,6 +2,7 @@
 <android.support.v7.widget.CardView
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools"
 	android:layout_width="@dimen/card_width"
 	android:layout_height="wrap_content"
 	android:clickable="true"
@@ -17,8 +18,7 @@
 			android:id="@+id/image"
 			android:layout_width="0dp"
 			android:layout_height="0dp"
-			android:visibility="visible"
-			android:background="@color/gray"
+			tools:background="@color/gray"
 			app:layout_constraintDimensionRatio="2:1"
 			app:layout_constraintBottom_toTopOf="@+id/title"
 			app:layout_constraintEnd_toEndOf="parent"
@@ -32,7 +32,7 @@
 			android:layout_marginEnd="@dimen/spacing_xl"
 			android:layout_marginStart="@dimen/spacing_xl"
 			android:layout_marginTop="@dimen/spacing_xl"
-			android:text="Cornell-A-Palooza"
+			tools:text="Cornell-A-Palooza"
 			style="@style/H2"
 			app:layout_constraintBottom_toTopOf="@+id/location"
 			app:layout_constraintEnd_toEndOf="parent"
@@ -44,7 +44,7 @@
 			android:layout_width="0dp"
 			android:layout_height="wrap_content"
 			android:layout_marginTop="@dimen/spacing_s"
-			android:text="Arts Quad"
+			tools:text="Arts Quad"
 			android:textColor="@color/gray"
 			style="@style/P2"
 			app:layout_constraintStart_toStartOf="@+id/title"
@@ -74,7 +74,7 @@
 					android:id="@+id/month"
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
-					android:text="April"
+					tools:text="April"
 					style="@style/H3"/>
 
 				<TextView
@@ -82,7 +82,7 @@
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
 					android:layout_marginTop="@dimen/spacing_s"
-					android:text="18"
+					tools:text="18"
 					style="@style/P1"/>
 			</LinearLayout>
 
@@ -104,7 +104,7 @@
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
 					android:layout_marginTop="@dimen/spacing_s"
-					android:text="2:30 PM"
+					tools:text="2:30 PM"
 					style="@style/P1"/>
 			</LinearLayout>
 
@@ -126,7 +126,7 @@
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
 					android:layout_marginTop="@dimen/spacing_s"
-					android:text="166"
+					tools:text="166"
 					style="@style/P1"/>
 			</LinearLayout>
 		</LinearLayout>

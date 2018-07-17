@@ -1,4 +1,4 @@
-package com.dti.cornell.events;
+package com.dti.cornell.events.utils;
 
 import android.os.AsyncTask;
 import android.support.annotation.WorkerThread;

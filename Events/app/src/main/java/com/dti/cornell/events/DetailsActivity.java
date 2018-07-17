@@ -11,7 +11,9 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.dti.cornell.events.utils.EventUtils;
+import com.dti.cornell.events.models.Event;
+import com.dti.cornell.events.utils.Data;
+import com.dti.cornell.events.utils.SpacingItemDecoration;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -45,10 +47,10 @@ public class DetailsActivity extends AppCompatActivity implements OnMapReadyCall
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_details);
 		setStatusBarTranslucent();
-		findViews();
 
 		//get the event
 		event = Event.fromString(getIntent().getExtras().getString(EVENT_KEY));
+		findViews();
 		configure(event);
 	}
 
@@ -76,7 +78,7 @@ public class DetailsActivity extends AppCompatActivity implements OnMapReadyCall
 		mapFragment.getMapAsync(this);
 
 		RecyclerView tagRecycler = findViewById(R.id.tagRecycler);
-		TagAdapter adapter = new TagAdapter(this, EventUtils.getTags());
+		TagAdapter adapter = new TagAdapter(this, event.tagIDs);
 		tagRecycler.setAdapter(adapter);
 		int spacing = getResources().getDimensionPixelSize(R.dimen.spacing_l);
 		tagRecycler.addItemDecoration(new SpacingItemDecoration(spacing, 0));
@@ -86,14 +88,14 @@ public class DetailsActivity extends AppCompatActivity implements OnMapReadyCall
 	{
 		title.setText(event.title);
 		description.setText(event.description);
-		time.setText(event.startTime.toString("eeee, MMMM d 'at' h:mm a"));
-		numGoing.setText(getString(R.string.numGoing, event.attendees));
-		organization.setText(event.organizerName);
+		time.setText(event.startTime.toString("EEEE, MMMM d 'at' h:mm a"));
+		numGoing.setText(getString(R.string.numGoing, event.participantIDs.size()));
+		organization.setText(Data.organizationForID.get(event.organizerID).name);
 		location.setText(event.location);
 	}
 
 	/**
-	 * Loads {@link Event#googlePlaceId} and longitude onto the map, adds a marker.
+	 * Loads {@link Event#googlePlaceID} and longitude onto the map, adds a marker.
 	 *
 	 * @param map {@inheritDoc}
 	 */

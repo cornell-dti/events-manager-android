@@ -1,4 +1,4 @@
-package com.dti.cornell.events;
+package com.dti.cornell.events.utils;
 
 import android.graphics.Rect;
 import android.support.v7.widget.RecyclerView;

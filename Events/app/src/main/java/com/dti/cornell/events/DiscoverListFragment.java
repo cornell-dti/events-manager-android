@@ -9,14 +9,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.dti.cornell.events.utils.EventUtils;
-
-import java.util.List;
+import com.dti.cornell.events.utils.Data;
 
 public class DiscoverListFragment extends Fragment
 {
-	private final List<Event> events = EventUtils.getEvents();
-
 	@Nullable
 	@Override
 	public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)
@@ -29,7 +25,7 @@ public class DiscoverListFragment extends Fragment
 
 	public void setUpRecycler(RecyclerView recycler)
 	{
-		EventAdapter adapter = new EventAdapter(getContext(), events);
+		EventAdapter adapter = new EventAdapter(getContext(), Data.events());
 		recycler.setAdapter(adapter);
 	}
 }

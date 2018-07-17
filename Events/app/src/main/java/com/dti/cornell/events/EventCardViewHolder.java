@@ -5,6 +5,8 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.dti.cornell.events.models.Event;
+
 public class EventCardViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener
 {
 	private final ImageView image;
@@ -37,7 +39,7 @@ public class EventCardViewHolder extends RecyclerView.ViewHolder implements View
 		month.setText(event.startTime.toString("MMM"));
 		day.setText(event.startTime.toString("d"));
 		startTime.setText(event.startTime.toString("h:mm a"));
-		numGoing.setText(Integer.toString(event.attendees));
+		numGoing.setText(Integer.toString(event.participantIDs.size()));
 	}
 
 

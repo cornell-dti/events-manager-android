@@ -10,7 +10,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.dti.cornell.events.utils.EventUtils;
+import com.dti.cornell.events.models.Event;
+import com.dti.cornell.events.utils.Data;
+import com.dti.cornell.events.utils.SpacingItemDecoration;
 
 import java.util.List;
 
@@ -20,7 +22,7 @@ import java.util.List;
 
 public class DiscoverCardFragment extends Fragment implements View.OnClickListener
 {
-	private final List<Event> events = EventUtils.getEvents();
+	private final List<Event> events = Data.events();
 
 	@Nullable
 	@Override

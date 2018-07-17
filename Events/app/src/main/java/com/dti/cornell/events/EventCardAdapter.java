@@ -6,6 +6,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
+import com.dti.cornell.events.models.Event;
+
 import java.util.List;
 
 /**

@@ -5,7 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 
-import com.dti.cornell.events.utils.EventUtils;
+import com.dti.cornell.events.models.Event;
 
 public class EventViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener
 {
@@ -33,11 +33,11 @@ public class EventViewHolder extends RecyclerView.ViewHolder implements View.OnC
 	public void configure(Event event)
 	{
 		this.event = event;
-		startTime.setText(EventUtils.getDateTimeStringHHmm(event.startTime));
-		endTime.setText(EventUtils.getDateTimeStringHHmm(event.endTime));
+		startTime.setText(event.startTime.toString("HH:mm"));
+		endTime.setText(event.endTime.toString("HH:mm"));
 		title.setText(event.title);
 		location.setText(event.location);
-		friendsGoing.setText(event.friendsGoing);
+		friendsGoing.setText(Integer.toString(event.participantIDs.size()));
 	}
 
 	@Override

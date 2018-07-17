@@ -6,14 +6,15 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
-import java.util.List;
+import com.dti.cornell.events.utils.Data;
+import com.google.common.collect.ImmutableList;
 
 public class TagAdapter extends RecyclerView.Adapter<TagViewHolder>
 {
 	private LayoutInflater inflater;
-	private final List<Tag> tags;
+	private final ImmutableList<Integer> tags;
 
-	public TagAdapter(Context context, List<Tag> tags)
+	public TagAdapter(Context context, ImmutableList<Integer> tags)
 	{
 		this.tags = tags;
 		inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -29,7 +30,7 @@ public class TagAdapter extends RecyclerView.Adapter<TagViewHolder>
 	@Override
 	public void onBindViewHolder(@NonNull TagViewHolder holder, int position)
 	{
-		holder.configure(tags.get(position));
+		holder.configure(Data.tagForID.get(tags.get(position)));
 	}
 
 	@Override

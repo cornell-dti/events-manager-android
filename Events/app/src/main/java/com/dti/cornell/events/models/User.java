@@ -1,11 +1,7 @@
-package com.dti.cornell.events;
+package com.dti.cornell.events.models;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
-import java.util.UUID;
 
 /**
  * Created by jaggerbrulato on 3/20/18.

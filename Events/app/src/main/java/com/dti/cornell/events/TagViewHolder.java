@@ -12,9 +12,9 @@ public class TagViewHolder extends RecyclerView.ViewHolder implements View.OnCli
 		itemView.setOnClickListener(this);
 	}
 
-	public void configure(Tag tag)
+	public void configure(String tag)
 	{
-		((TextView) itemView).setText(tag.name);
+		((TextView) itemView).setText(tag);
 	}
 
 	@Override
