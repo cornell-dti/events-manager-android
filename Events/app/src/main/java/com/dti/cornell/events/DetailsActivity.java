@@ -2,7 +2,10 @@ package com.dti.cornell.events;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -14,9 +17,18 @@ import android.widget.TextView;
 import com.dti.cornell.events.models.Event;
 import com.dti.cornell.events.utils.Data;
 import com.dti.cornell.events.utils.SpacingItemDecoration;
+import com.google.android.gms.location.places.GeoDataClient;
+import com.google.android.gms.location.places.Place;
+import com.google.android.gms.location.places.PlaceBufferResponse;
+import com.google.android.gms.location.places.Places;
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 
 /**
  * Created by jaggerbrulato on 2/27/18.
@@ -24,6 +36,7 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 
 public class DetailsActivity extends AppCompatActivity implements OnMapReadyCallback, View.OnClickListener
 {
+	private static final String TAG = DetailsActivity.class.getSimpleName();
 	private static final String EVENT_KEY = "event";
 	private ImageView image;
 	private TextView title;
@@ -32,7 +45,16 @@ public class DetailsActivity extends AppCompatActivity implements OnMapReadyCall
 	private TextView numGoing;
 	private TextView organization;
 	private TextView location;
+	private RecyclerView tagRecycler;
 	private Event event;
+
+	//map stuff
+	private static final int MAP_ZOOM = 15;
+	private GeoDataClient geoDataClient;
+	@Nullable
+	private String placeName;
+	@Nullable
+	private String placeAddress;
 
 	public static void startWithEvent(Event event, Context context)
 	{
@@ -47,6 +69,8 @@ public class DetailsActivity extends AppCompatActivity implements OnMapReadyCall
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_details);
 		setStatusBarTranslucent();
+
+		geoDataClient = Places.getGeoDataClient(this);
 
 		//get the event
 		event = Event.fromString(getIntent().getExtras().getString(EVENT_KEY));
@@ -77,9 +101,7 @@ public class DetailsActivity extends AppCompatActivity implements OnMapReadyCall
 		MapFragment mapFragment = (MapFragment) getFragmentManager().findFragmentById(R.id.map);
 		mapFragment.getMapAsync(this);
 
-		RecyclerView tagRecycler = findViewById(R.id.tagRecycler);
-		TagAdapter adapter = new TagAdapter(this, event.tagIDs);
-		tagRecycler.setAdapter(adapter);
+		tagRecycler = findViewById(R.id.tagRecycler);
 		int spacing = getResources().getDimensionPixelSize(R.dimen.spacing_l);
 		tagRecycler.addItemDecoration(new SpacingItemDecoration(spacing, 0));
 	}
@@ -92,19 +114,54 @@ public class DetailsActivity extends AppCompatActivity implements OnMapReadyCall
 		numGoing.setText(getString(R.string.numGoing, event.participantIDs.size()));
 		organization.setText(Data.organizationForID.get(event.organizerID).name);
 		location.setText(event.location);
+
+		TagAdapter adapter = new TagAdapter(this, event.tagIDs);
+		tagRecycler.setAdapter(adapter);
 	}
 
 	/**
-	 * Loads {@link Event#googlePlaceID} and longitude onto the map, adds a marker.
+	 * Loads {@link #placeName} and {@link #placeAddress} from {@link Event#googlePlaceID} and adds a marker to the map.
 	 *
 	 * @param map {@inheritDoc}
 	 */
 	@Override
-	public void onMapReady(GoogleMap map)
+	public void onMapReady(final GoogleMap map)
 	{
-//        LatLng position = new LatLng(event.latitude, event.longitude);
-//        map.moveCamera(CameraUpdateFactory.newLatLngZoom(position, MAP_ZOOM));
-//        map.addMarker(new MarkerOptions().position(position).title(event.caption));
+		geoDataClient.getPlaceById(event.googlePlaceID).addOnCompleteListener(new OnCompleteListener<PlaceBufferResponse>()
+		{
+			@Override
+			public void onComplete(@NonNull Task<PlaceBufferResponse> task)
+			{
+				if (!task.isSuccessful()) {
+					Log.e(TAG, "onMapReady: place not found");
+					return;
+				}
+
+				PlaceBufferResponse places = task.getResult();
+				Place place = places.get(0);
+				placeName = place.getName().toString();
+				placeAddress = place.getAddress().toString();
+				LatLng position = place.getLatLng();
+				map.moveCamera(CameraUpdateFactory.newLatLngZoom(position, MAP_ZOOM));
+				map.addMarker(new MarkerOptions().position(position).title(event.location));
+				places.release();
+			}
+		});
+	}
+
+	/**
+	 * Open the map with the event's location. Only possible after loading {@link #placeName} and
+	 * {@link #placeAddress} in {@link #onMapReady(GoogleMap)}.
+	 */
+	private void startMap()
+	{
+		if (placeName == null || placeAddress == null)
+			return;
+
+		Uri uri = Uri.parse("geo:0,0?q=" + placeName + ", " + placeAddress);
+		Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+		intent.setPackage("com.google.android.apps.maps");
+		startActivity(intent);
 	}
 
 	@Override
