@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 
 import com.dti.cornell.events.models.Event;
 
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -15,31 +16,36 @@ import java.util.List;
  */
 
 public class EventCardAdapter extends RecyclerView.Adapter<EventCardViewHolder> {
-	private LayoutInflater mInflater;
-	private List<Event> dataSource;
+	private LayoutInflater inflater;
+	private List<Event> data = Collections.emptyList();
 
-	public EventCardAdapter(Context context, List<Event> items)
+	public EventCardAdapter(Context context)
 	{
-		dataSource = items;
-		mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+		inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 	}
 
 	@NonNull
 	@Override
 	public EventCardViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType)
 	{
-		return new EventCardViewHolder(mInflater.inflate(R.layout.card_event, parent, false));
+		return new EventCardViewHolder(inflater.inflate(R.layout.card_event, parent, false));
 	}
 
 	@Override
 	public void onBindViewHolder(@NonNull EventCardViewHolder holder, int position)
 	{
-		holder.configure(dataSource.get(position));
+		holder.configure(data.get(position));
 	}
 
 	@Override
 	public int getItemCount()
 	{
-		return dataSource.size();
+		return data.size();
+	}
+
+	public void setData(List<Event> data)
+	{
+		this.data = data;
+		notifyDataSetChanged();
 	}
 }

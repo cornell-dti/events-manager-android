@@ -40,11 +40,13 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 		{
 			case R.id.tab_discover:
 				toolbar.setTitle(R.string.tab_discover);
-				fragment = new DiscoverCardFragment();
+				fragment = new RecyclerFragment();
+				((RecyclerFragment) fragment).setType(RecyclerFragment.Type.DiscoverCard);
 				break;
 			case R.id.tab_for_you:
 				toolbar.setTitle(R.string.tab_for_you);
-				fragment = new ForYouFragment();
+				fragment = new RecyclerFragment();
+				((RecyclerFragment) fragment).setType(RecyclerFragment.Type.ForYouCard);
 				break;
 			case R.id.tab_my_events:
 				toolbar.setTitle(R.string.tab_my_events);
