@@ -8,19 +8,20 @@ import android.view.ViewGroup;
 
 import com.dti.cornell.events.models.CardList;
 
-import java.util.Collections;
 import java.util.List;
 
 public class CardSectionAdapter extends RecyclerView.Adapter<AbstractCardListViewHolder>
 {
 	private static final String TAG = CardSectionAdapter.class.getSimpleName();
 	private final LayoutInflater inflater;
-	private boolean hasSeeMore = false;
-	private List<CardList> data = Collections.emptyList();
+	private final boolean hasSeeMore;
+	private final List<CardList> data;
 
-	public CardSectionAdapter(Context context)
+	public CardSectionAdapter(Context context, List<CardList> data, boolean hasSeeMore)
 	{
 		inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+		this.data = data;
+		this.hasSeeMore = hasSeeMore;
 	}
 
 	@Override
@@ -55,12 +56,5 @@ public class CardSectionAdapter extends RecyclerView.Adapter<AbstractCardListVie
 	public int getItemViewType(int position)
 	{
 		return position == data.size() ? 1 : 0;
-	}
-
-	public void setData(List<CardList> data, boolean hasSeeMore)
-	{
-		this.data = data;
-		this.hasSeeMore = hasSeeMore;
-		notifyDataSetChanged();
 	}
 }

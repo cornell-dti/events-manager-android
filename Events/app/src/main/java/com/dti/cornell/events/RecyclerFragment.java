@@ -41,16 +41,7 @@ public class RecyclerFragment extends Fragment
 		recyclerView = view.findViewById(R.id.recyclerView);
 		int cardMargin = getResources().getDimensionPixelSize(R.dimen.spacing_xxl);
 		recyclerView.addItemDecoration(new SpacingItemDecoration(0, cardMargin));
-
-		switch (type)
-		{
-			case DiscoverCard:
-				setDiscoverCards();
-				break;
-			case ForYouCard:
-				setForYouCards();
-				break;
-		}
+		refreshViews();
 
 		return view;
 	}
@@ -60,15 +51,35 @@ public class RecyclerFragment extends Fragment
 		this.type = type;
 	}
 
+	public void refreshViews()
+	{
+		switch (type)
+		{
+			case DiscoverCard:
+				setDiscoverCards();
+				break;
+			case DiscoverList:
+				setDiscoverList();
+				break;
+			case ForYouCard:
+				setForYouCards();
+				break;
+		}
+	}
+
 	private void setDiscoverCards()
 	{
 		List<Event> events = Data.events();
 		List<CardList> data = Arrays.asList(new CardList(R.string.section_popular, true, events),
 				new CardList(R.string.section_today_events, true, events),
 				new CardList(R.string.section_tomorrow_events, true, events));
-		CardSectionAdapter cardSectionAdapter = new CardSectionAdapter(getContext());
-		cardSectionAdapter.setData(data, true);
-		recyclerView.setAdapter(cardSectionAdapter);
+		recyclerView.setAdapter(new CardSectionAdapter(getContext(), data, true));
+	}
+
+	private void setDiscoverList()
+	{
+		List<Event> events = Data.events();
+		recyclerView.setAdapter(new EventAdapter(getContext(), events));
 	}
 
 	private void setForYouCards()
@@ -77,8 +88,6 @@ public class RecyclerFragment extends Fragment
 		List<CardList> data = Arrays.asList(new CardList(R.string.section_popular, false, events),
 				new CardList(R.string.section_today_events, false, events),
 				new CardList(R.string.section_tomorrow_events, false, events));
-		CardSectionAdapter cardSectionAdapter = new CardSectionAdapter(getContext());
-		cardSectionAdapter.setData(data, false);
-		recyclerView.setAdapter(cardSectionAdapter);
+		recyclerView.setAdapter(new CardSectionAdapter(getContext(), data, false));
 	}
 }
