@@ -18,4 +18,5 @@
 	<dimen name="card_width">256dp</dimen>
 	<dimen name="tag_height">28dp</dimen>
 	<dimen name="details_button_margin_top">40dp</dimen>
+	<dimen name="event_item_height">64dp</dimen>
 </resources>

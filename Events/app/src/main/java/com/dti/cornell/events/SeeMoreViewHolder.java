@@ -1,6 +1,5 @@
 package com.dti.cornell.events;
 
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 public class SeeMoreViewHolder extends AbstractCardListViewHolder implements View.OnClickListener
@@ -14,10 +13,7 @@ public class SeeMoreViewHolder extends AbstractCardListViewHolder implements Vie
 	@Override
 	public void onClick(View v)
 	{
-		AppCompatActivity activity = (AppCompatActivity) itemView.getContext();
-		RecyclerFragment fragment = (RecyclerFragment) activity.getSupportFragmentManager()
-				.findFragmentById(R.id.fragmentContainer);
-		fragment.setType(RecyclerFragment.Type.DiscoverList);
-		fragment.refreshViews();
+		MainActivity activity = (MainActivity) itemView.getContext();
+		activity.transitionToFragment(new EventListFragment());
 	}
 }

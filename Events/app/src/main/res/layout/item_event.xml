@@ -3,83 +3,101 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:background="?android:attr/selectableItemBackground"
-    android:id="@+id/EventInfo"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginEnd="18dp"
-    android:layout_marginStart="18dp"
-    android:layout_marginTop="6dp"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toTopOf="parent">
-
-    <ImageView
-        android:id="@+id/horizontalDivider4"
-        android:layout_width="0dp"
-        android:layout_height="1dp"
-        android:layout_marginEnd="18dp"
-        android:layout_marginStart="18dp"
-        android:background="@android:drawable/divider_horizontal_textfield"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="?attr/dividerHorizontal" />
+    android:layout_height="@dimen/event_item_height">
 
     <TextView
         android:id="@+id/startTime"
-        android:layout_width="58dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="21dp"
-        android:layout_marginTop="19dp"
-        android:textAlignment="center"
-        android:textSize="12sp"
+	    android:layout_marginLeft="@dimen/spacing_xxl"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="9:00 AM" />
+	    app:layout_constraintBottom_toTopOf="@+id/endTime"
+	    app:layout_constraintTop_toTopOf="parent"
+	    app:layout_constraintVertical_chainStyle="packed"
+	    android:textColor="@color/gray"
+	    style="@style/P2"
+        tools:text="09:00 AM" />
 
     <TextView
         android:id="@+id/endTime"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="19dp"
-        android:layout_marginTop="3dp"
-        android:textAlignment="center"
-        android:textSize="12sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/startTime"
-        app:layout_constraintStart_toStartOf="@+id/startTime"
+	    android:layout_marginLeft="@dimen/spacing_xxl"
+	    android:layout_marginTop="@dimen/spacing_s"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/startTime"
+	    app:layout_constraintBottom_toBottomOf="parent"
+	    android:textColor="@color/gray"
+	    style="@style/P2"
         tools:text="10:00 AM" />
 
     <TextView
         android:id="@+id/eventTitle"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="23dp"
-        android:layout_marginTop="5dp"
-        android:textColor="@android:color/background_dark"
-        android:textStyle="bold"
+	    android:layout_marginLeft="@dimen/spacing_xxl"
+	    android:layout_marginRight="@dimen/spacing_xxl"
+	    android:lines="1"
+	    android:ellipsize="end"
         app:layout_constraintStart_toEndOf="@+id/startTime"
+	    app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+	    app:layout_constraintBottom_toTopOf="@+id/friendsGoing"
+	    app:layout_constraintVertical_chainStyle="packed"
+	    style="@style/H3"
         tools:text="Cornell DTI Info Sessions" />
 
-    <TextView
-        android:id="@+id/eventLocation"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@android:color/background_dark"
-        app:layout_constraintStart_toStartOf="@+id/eventTitle"
-        app:layout_constraintTop_toBottomOf="@+id/eventTitle"
-        tools:text="Upson B02" />
+	<ImageView
+		android:id="@+id/icon"
+		android:layout_width="0dp"
+		android:layout_height="0dp"
+		android:src="@drawable/ic_person_outline_black_24dp"
+		android:tint="@color/gray"
+		app:layout_constraintDimensionRatio="1:1"
+		app:layout_constraintStart_toStartOf="@+id/eventTitle"
+		app:layout_constraintTop_toTopOf="@+id/friendsGoing"
+		app:layout_constraintBottom_toBottomOf="@+id/friendsGoing"/>
 
     <TextView
         android:id="@+id/friendsGoing"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="6dp"
-        app:layout_constraintStart_toStartOf="@+id/eventLocation"
-        app:layout_constraintTop_toBottomOf="@+id/eventLocation"
-        tools:text="Kelly, Andie, and 10 Friends" />
+	    android:layout_marginTop="@dimen/spacing_m"
+	    android:layout_marginLeft="@dimen/spacing_m"
+	    app:layout_constraintStart_toEndOf="@+id/icon"
+        app:layout_constraintTop_toBottomOf="@+id/eventTitle"
+	    app:layout_constraintEnd_toStartOf="@+id/divider"
+	    app:layout_constraintBottom_toBottomOf="parent"
+	    android:textColor="@color/gray"
+	    style="@style/P2"
+        tools:text="999" />
+
+	<View
+		android:id="@+id/divider"
+		android:layout_width="1dp"
+		android:layout_height="0dp"
+		android:background="@color/gray"
+		android:layout_marginLeft="@dimen/spacing_m"
+		android:layout_marginRight="@dimen/spacing_m"
+		app:layout_constraintTop_toTopOf="@+id/friendsGoing"
+		app:layout_constraintBottom_toBottomOf="@+id/friendsGoing"
+		app:layout_constraintStart_toEndOf="@+id/friendsGoing"
+		app:layout_constraintEnd_toStartOf="@+id/eventLocation"/>
+
+	<TextView
+		android:id="@+id/eventLocation"
+		android:layout_width="0dp"
+		android:layout_height="wrap_content"
+		android:lines="1"
+		android:ellipsize="end"
+		app:layout_constraintStart_toEndOf="@+id/divider"
+		app:layout_constraintTop_toTopOf="@+id/friendsGoing"
+		app:layout_constraintBottom_toBottomOf="@+id/friendsGoing"
+		app:layout_constraintEnd_toEndOf="@+id/eventTitle"
+		style="@style/P2"
+		android:textColor="@color/gray"
+		tools:text="Goldwin Smith Hall Room 207" />
 
 
 </android.support.constraint.ConstraintLayout>

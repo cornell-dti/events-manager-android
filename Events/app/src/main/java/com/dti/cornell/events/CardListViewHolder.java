@@ -7,7 +7,7 @@ import android.widget.TextView;
 import com.dti.cornell.events.models.CardList;
 import com.dti.cornell.events.utils.SpacingItemDecoration;
 
-public class CardListViewHolder extends AbstractCardListViewHolder
+public class CardListViewHolder extends AbstractCardListViewHolder implements View.OnClickListener
 {
 	private final TextView section;
 	private final TextView seeMore;
@@ -18,6 +18,7 @@ public class CardListViewHolder extends AbstractCardListViewHolder
 		super(itemView);
 		section = itemView.findViewById(R.id.section);
 		seeMore = itemView.findViewById(R.id.seeMore);
+		seeMore.setOnClickListener(this);
 
 		RecyclerView recyclerView = itemView.findViewById(R.id.recyclerView);
 		int cardMargin = itemView.getResources().getDimensionPixelSize(R.dimen.spacing_xxl);
@@ -31,5 +32,12 @@ public class CardListViewHolder extends AbstractCardListViewHolder
 		section.setText(cardList.section);
 		seeMore.setVisibility(cardList.showSeeMore ? View.VISIBLE : View.GONE);
 		adapter.setData(cardList.events);
+	}
+
+	@Override
+	public void onClick(View view)
+	{
+		MainActivity activity = (MainActivity) itemView.getContext();
+		activity.transitionToFragment(new EventListFragment());
 	}
 }
