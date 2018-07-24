@@ -5,6 +5,9 @@ import android.text.TextUtils;
 import com.dti.cornell.events.utils.ToStringUtil;
 import com.google.common.collect.ImmutableList;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public class Organization
 {
 	public final int id;
@@ -53,5 +56,15 @@ public class Organization
 		String website = split[6];
 		String email = split[7];
 		return new Organization(id, name, description, pictureID, eventIDs, memberIDs, website, email);
+	}
+
+	public static Organization fromJSON(JSONObject json) throws JSONException
+	{
+		int id = json.getInt("pk");
+		String name = json.getString("name");
+		String description = json.getString("description");
+		String email = json.getString("contact");
+		//TODO
+		return null;
 	}
 }

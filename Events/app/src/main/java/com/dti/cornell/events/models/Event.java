@@ -2,12 +2,13 @@ package com.dti.cornell.events.models;
 
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
-import android.util.Log;
 
 import com.dti.cornell.events.utils.ToStringUtil;
 import com.google.common.collect.ImmutableList;
 
 import org.joda.time.DateTime;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 /**
  * Created by jaggerbrulato on 2/27/18.
@@ -71,9 +72,18 @@ public class Event implements Comparable<Event>
 		ImmutableList<String> participantIDs = ToStringUtil.listFromString(values[7]);
 		int pictureID = Integer.valueOf(values[8]);
 		int organizerID = Integer.valueOf(values[9]);
-		Log.i(TAG, "fromString: values[10] " + values[10]);
 		ImmutableList<Integer> tagIDs = ToStringUtil.intListFromString(values[10]);
 		return new Event(id, start, end, title, description, location, placeID, participantIDs, pictureID, organizerID, tagIDs);
+	}
+
+	public static Event fromJSON(JSONObject json) throws JSONException
+	{
+		int id = json.getInt("pk");
+		String title = json.getString("name");
+		String description = json.getString("description");
+		int organizerID = json.getInt("organizer");
+		return null;
+		//TODO
 	}
 
 	@Override

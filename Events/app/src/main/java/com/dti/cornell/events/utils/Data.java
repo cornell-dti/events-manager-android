@@ -18,6 +18,8 @@ public final class Data
 	public static Map<Integer, String> tagForID = new HashMap<>();
 	public static Map<Integer, Organization> organizationForID = new HashMap<>();
 
+	public static int NUM_DAYS_IN_FEED = 30;
+
 	public static void createDummyData()
 	{
 		//TODO remove when API is available

@@ -8,10 +8,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
-import com.dti.cornell.events.utils.Data;
-
-import net.danlew.android.joda.JodaTimeAndroid;
-
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener
 {
 	private Toolbar toolbar;
@@ -21,8 +17,6 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-		JodaTimeAndroid.init(this);
-		Data.createDummyData();
 
 		toolbar = findViewById(R.id.toolbar);
 		setSupportActionBar(toolbar);
