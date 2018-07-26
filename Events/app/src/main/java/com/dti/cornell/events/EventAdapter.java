@@ -14,31 +14,33 @@ import java.util.List;
  * Created by jaggerbrulato on 3/21/18.
  */
 
-public class EventAdapter extends RecyclerView.Adapter<EventViewHolder> {
-    private LayoutInflater mInflater;
-    private List<Event> dataSource;
+public class EventAdapter extends RecyclerView.Adapter<EventViewHolder>
+{
+	private final LayoutInflater inflater;
+	private final List<Event> data;
 
-    public EventAdapter(Context context, List<Event> items) {
-        dataSource = items;
-        mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-    }
+	public EventAdapter(Context context, List<Event> items)
+	{
+		data = items;
+		inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+	}
 
-    @NonNull
-    @Override
-    public EventViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType)
-    {
-        return new EventViewHolder(mInflater.inflate(R.layout.item_event, parent, false));
-    }
+	@NonNull
+	@Override
+	public EventViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType)
+	{
+		return new EventViewHolder(inflater.inflate(R.layout.item_event, parent, false));
+	}
 
-    @Override
-    public void onBindViewHolder(@NonNull EventViewHolder holder, int position)
-    {
-        holder.configure(dataSource.get(position));
-    }
+	@Override
+	public void onBindViewHolder(@NonNull EventViewHolder holder, int position)
+	{
+		holder.configure(data.get(position));
+	}
 
-    @Override
-    public int getItemCount()
-    {
-        return dataSource.size();
-    }
+	@Override
+	public int getItemCount()
+	{
+		return data.size();
+	}
 }
