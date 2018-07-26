@@ -5,15 +5,23 @@
 	xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+	android:background="@android:color/white"
     android:theme="@style/AppTheme.NoActionBar">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="@dimen/toolbar_height"
-	    android:background="@android:color/white"
 	    tools:title="Test title"
         app:titleTextAppearance="@style/PageTitle"
         app:popupTheme="@style/AppTheme.PopupOverlay" />
+
+	<android.support.v7.widget.RecyclerView
+		android:id="@+id/datePicker"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:orientation="horizontal"
+		app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+		tools:listitem="@layout/item_date"/>
 
 </android.support.design.widget.AppBarLayout>

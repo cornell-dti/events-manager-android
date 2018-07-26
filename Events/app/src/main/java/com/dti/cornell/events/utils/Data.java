@@ -7,6 +7,7 @@ import com.google.common.collect.Lists;
 
 import org.joda.time.DateTime;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -18,7 +19,17 @@ public final class Data
 	public static Map<Integer, String> tagForID = new HashMap<>();
 	public static Map<Integer, Organization> organizationForID = new HashMap<>();
 
-	public static int NUM_DAYS_IN_FEED = 30;
+	public static final int NUM_DAYS_IN_FEED = 30;
+	public static final ImmutableList<DateTime> DATES;
+
+	static
+	{
+		DateTime now = DateTime.now();
+		List<DateTime> dates = new ArrayList<>(NUM_DAYS_IN_FEED);
+		for (int i = 0; i < NUM_DAYS_IN_FEED; i++)
+			dates.add(now.plusDays(i));
+		DATES = ImmutableList.copyOf(dates);
+	}
 
 	public static void createDummyData()
 	{

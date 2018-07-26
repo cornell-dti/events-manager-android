@@ -5,12 +5,17 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
+
+import com.dti.cornell.events.utils.SpacingItemDecoration;
 
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener
 {
 	private Toolbar toolbar;
+	private RecyclerView datePicker;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
@@ -20,6 +25,11 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
 		toolbar = findViewById(R.id.toolbar);
 		setSupportActionBar(toolbar);
+
+		datePicker = findViewById(R.id.datePicker);
+		int horizMargin = getResources().getDimensionPixelSize(R.dimen.spacing_xl);
+		datePicker.addItemDecoration(new SpacingItemDecoration(horizMargin, 0));
+		datePicker.setAdapter(new DateAdapter(this));
 
 		BottomNavigationView tabBar = findViewById(R.id.tabBar);
 		tabBar.setOnNavigationItemSelectedListener(this);
@@ -35,18 +45,22 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 			case R.id.tab_discover:
 				toolbar.setTitle(R.string.tab_discover);
 				fragment = new DiscoverFragment();
+				datePicker.setVisibility(View.GONE);
 				break;
 			case R.id.tab_for_you:
 				toolbar.setTitle(R.string.tab_for_you);
 				fragment = new ForYouFragment();
+				datePicker.setVisibility(View.GONE);
 				break;
 			case R.id.tab_my_events:
 				toolbar.setTitle(R.string.tab_my_events);
 				fragment = new MyEventsFragment();
+				datePicker.setVisibility(View.VISIBLE);
 				break;
 			case R.id.tab_profile:
 				toolbar.setTitle(R.string.tab_profile);
 				fragment = new ProfileFragment();
+				datePicker.setVisibility(View.GONE);
 				break;
 			default:
 				return false;
