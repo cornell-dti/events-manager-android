@@ -8,11 +8,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.dti.cornell.events.models.Event;
 import com.dti.cornell.events.utils.Data;
 import com.dti.cornell.events.utils.DividerItemDecoration;
-
-import java.util.List;
 
 
 /**
@@ -31,10 +28,8 @@ public class MyEventsFragment extends Fragment
 		int margin = getResources().getDimensionPixelSize(R.dimen.spacing_xxl);
 		recyclerView = view.findViewById(R.id.recyclerView);
 		recyclerView.addItemDecoration(new DividerItemDecoration(margin));
-		List<Event> events = Data.events();
-		recyclerView.setAdapter(new EventAdapter(getContext(), events));
+		recyclerView.setAdapter(new EventAdapter(getContext(), Data.events()));
 
 		return view;
 	}
-
 }

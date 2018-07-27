@@ -44,7 +44,7 @@ public final class Data
 
 		for (int i = 1; i <= 7; i++)
 		{
-			Event event = new Event(i, DateTime.now(), DateTime.now(), "I’m just trying to see what it would look like if there was like an extra long title blah", "The simple yet courageous #metoo hashtag campaign has emerged as a rallying cry for people everywhere who have survived sexual assault and sexual harassment", "Goldwin Smith Hall Room 202", "ChIJndqRYRqC0IkR9J8bgk3mDvU", new ImmutableList.Builder<String>().add("User id").build(), 1, 1, new ImmutableList.Builder<Integer>().add(1, 2, 3, 4).build());
+			Event event = new Event(i, DateTime.now().plusDays(i), DateTime.now().plusDays(i).plusMinutes(i*30), "I’m just trying to see what it would look like if there was like an extra long title blah", "The simple yet courageous #metoo hashtag campaign has emerged as a rallying cry for people everywhere who have survived sexual assault and sexual harassment", "Goldwin Smith Hall Room 202", "ChIJndqRYRqC0IkR9J8bgk3mDvU", new ImmutableList.Builder<String>().add("User id").build(), 1, 1, new ImmutableList.Builder<Integer>().add(1, 2, 3, 4).build());
 			eventForID.put(i, event);
 		}
 	}

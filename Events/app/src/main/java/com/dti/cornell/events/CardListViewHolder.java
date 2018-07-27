@@ -7,7 +7,7 @@ import android.widget.TextView;
 import com.dti.cornell.events.models.CardList;
 import com.dti.cornell.events.utils.SpacingItemDecoration;
 
-public class CardListViewHolder extends AbstractCardListViewHolder implements View.OnClickListener
+public class CardListViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener
 {
 	private final TextView section;
 	private final TextView seeMore;

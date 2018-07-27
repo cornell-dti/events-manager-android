@@ -1,8 +1,9 @@
 package com.dti.cornell.events;
 
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
-public class SeeMoreViewHolder extends AbstractCardListViewHolder implements View.OnClickListener
+public class SeeMoreViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener
 {
 	public SeeMoreViewHolder(View itemView)
 	{

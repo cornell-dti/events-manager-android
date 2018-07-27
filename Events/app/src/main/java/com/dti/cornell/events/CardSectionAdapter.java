@@ -1,6 +1,7 @@
 package com.dti.cornell.events;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -10,7 +11,7 @@ import com.dti.cornell.events.models.CardList;
 
 import java.util.List;
 
-public class CardSectionAdapter extends RecyclerView.Adapter<AbstractCardListViewHolder>
+public class CardSectionAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 {
 	private static final String TAG = CardSectionAdapter.class.getSimpleName();
 	private final LayoutInflater inflater;
@@ -24,8 +25,9 @@ public class CardSectionAdapter extends RecyclerView.Adapter<AbstractCardListVie
 		this.hasSeeMore = hasSeeMore;
 	}
 
+	@NonNull
 	@Override
-	public AbstractCardListViewHolder onCreateViewHolder(ViewGroup parent, int viewType)
+	public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType)
 	{
 		switch (viewType)
 		{
@@ -40,7 +42,7 @@ public class CardSectionAdapter extends RecyclerView.Adapter<AbstractCardListVie
 	}
 
 	@Override
-	public void onBindViewHolder(AbstractCardListViewHolder holder, int position)
+	public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position)
 	{
 		if (getItemViewType(position) == 0)
 			((CardListViewHolder) holder).configure(data.get(position));
