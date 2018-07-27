@@ -14,6 +14,7 @@ import org.joda.time.DateTime;
 
 public class DateViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener
 {
+	private static final String TAG = DateViewHolder.class.getSimpleName();
 	private final TextView weekday;
 	private final TextView date;
 	private DateTime dateTime;
@@ -43,7 +44,7 @@ public class DateViewHolder extends RecyclerView.ViewHolder implements View.OnCl
 	{
 		setSelected();
 		Data.selectedDate = this.dateTime;
-		EventBusUtils.SINGLETON.post(new EventBusUtils.DateChanged());
+		EventBusUtils.SINGLETON.post(new EventBusUtils.DateChanged(TAG));
 	}
 
 	private void setUnselected()

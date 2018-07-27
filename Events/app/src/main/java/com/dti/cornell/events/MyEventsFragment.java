@@ -17,13 +17,12 @@ import com.google.common.eventbus.Subscribe;
 
 import org.joda.time.DateTime;
 
-
-/**
- * A simple {@link Fragment} subclass.
- */
 public class MyEventsFragment extends Fragment
 {
+	private static final String TAG = MyEventsFragment.class.getSimpleName();
 	private RecyclerView recyclerView;
+	private EventAdapter adapter;
+	private LinearLayoutManager layoutManager;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -34,12 +33,15 @@ public class MyEventsFragment extends Fragment
 		int margin = getResources().getDimensionPixelSize(R.dimen.spacing_xxl);
 		recyclerView = view.findViewById(R.id.recyclerView);
 		recyclerView.addItemDecoration(new DividerItemDecoration(margin));
-		recyclerView.setAdapter(new EventAdapter(getContext(), Data.events()));
+		adapter = new EventAdapter(getContext(), Data.events());
+		recyclerView.setAdapter(adapter);
+		layoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
 		setOnScrollListener();
 
 		return view;
 	}
 
+	//change selected date when scrolling through events
 	private void setOnScrollListener()
 	{
 		recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener()
@@ -47,13 +49,14 @@ public class MyEventsFragment extends Fragment
 			@Override
 			public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy)
 			{
-				int topItemPosition = ((LinearLayoutManager) recyclerView.getLayoutManager())
-						.findFirstVisibleItemPosition();
-				DateTime dateTime = ((EventAdapter) recyclerView.getAdapter())
-						.getDateAtPosition(topItemPosition);
+				int topItemPosition = layoutManager.findFirstVisibleItemPosition();
+				DateTime dateTime = adapter.getDateAtPosition(topItemPosition);
+
+				if (Data.equalsSelectedDate(dateTime))
+					return;
 
 				Data.selectedDate = dateTime;
-				EventBusUtils.SINGLETON.post(new EventBusUtils.DateChanged());
+				EventBusUtils.SINGLETON.post(new EventBusUtils.DateChanged(TAG));
 			}
 		});
 	}
@@ -77,8 +80,11 @@ public class MyEventsFragment extends Fragment
 	@Subscribe
 	public void onDateChanged(EventBusUtils.DateChanged dateChanged)
 	{
+		if (dateChanged.sender.equals(TAG))
+			return;
+
 		//scroll to the new date
-//		int position = UserData.DATES.indexOf(UserData.selectedDate);
-//		recyclerView.scrollToPosition(position);
+		int position = adapter.getPositionForDate(Data.selectedDate);
+		layoutManager.scrollToPositionWithOffset(position, 0);
 	}
 }

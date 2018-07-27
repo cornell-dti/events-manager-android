@@ -44,7 +44,7 @@ public class EventAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 		//append 1st date subheader
 		List<EventItem> data = new ArrayList<>(events.size() * 2);
 		DateTime lastDate = events.get(0).startTime;
-		data.add(new EventItem(lastDate.toString(DATE_FORMAT)));
+		data.add(new EventItem(lastDate));
 
 		//prepend a subheader in front of each event that has a different date
 		DateTimeComparator comparator = DateTimeComparator.getDateOnlyInstance();
@@ -53,7 +53,7 @@ public class EventAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 			if (comparator.compare(lastDate, event.startTime) != 0)
 			{
 				lastDate = event.startTime;
-				data.add(new EventItem(lastDate.toString(DATE_FORMAT)));
+				data.add(new EventItem(lastDate));
 			}
 			data.add(new EventItem(event));
 		}
@@ -77,7 +77,7 @@ public class EventAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 		if (getItemViewType(position) == EVENT)
 			((EventViewHolder) holder).configure(data.get(position).event);
 		else
-			((SubheaderViewHolder) holder).configure(data.get(position).subheader);
+			((SubheaderViewHolder) holder).configure(data.get(position).subheader.toString(DATE_FORMAT));
 	}
 
 	@Override
@@ -99,7 +99,30 @@ public class EventAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 	{
 		if (getItemViewType(position) == EVENT)
 			return data.get(position).event.startTime;
-		else //if there's a subheader at this position, the next position must be a date
-			return data.get(position + 1).event.startTime;
+		else
+			return data.get(position).subheader;
+	}
+
+	/**
+	 * Finds the position of the subheader for the given date, or where that subheader would've been
+	 * inserted. The position will be a valid index.
+	 *
+	 * Approximately O(logn) for binary search, worst-case O(n) walk upward if all events belong to
+	 * the same day.
+	 *
+	 * @param dateTime Date
+	 * @return Position of item matching date
+	 */
+	public int getPositionForDate(DateTime dateTime)
+	{
+		//binary search returns correct position OR -(pos+1) where item would've been inserted
+		int position = Collections.binarySearch(data, new EventItem(dateTime));
+		if (position < 0)
+			return Math.max(-(position + 1), getItemCount()-1); //don't exceed data length
+
+		//find subheader of events of this date by walking upward
+		while (getItemViewType(position) != SUBHEADER)
+			position -= 1;
+		return position;
 	}
 }
