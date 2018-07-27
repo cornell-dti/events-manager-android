@@ -94,4 +94,12 @@ public class EventAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 		else
 			return SUBHEADER;
 	}
+
+	public DateTime getDateAtPosition(int position)
+	{
+		if (getItemViewType(position) == EVENT)
+			return data.get(position).event.startTime;
+		else //if there's a subheader at this position, the next position must be a date
+			return data.get(position + 1).event.startTime;
+	}
 }

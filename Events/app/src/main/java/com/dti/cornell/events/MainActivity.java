@@ -10,7 +10,10 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.dti.cornell.events.utils.Data;
+import com.dti.cornell.events.utils.EventBusUtils;
 import com.dti.cornell.events.utils.SpacingItemDecoration;
+import com.google.common.eventbus.Subscribe;
 
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener
 {
@@ -76,5 +79,28 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 				.beginTransaction()
 				.replace(R.id.fragmentContainer, fragment)
 				.commit();
+	}
+
+	@Override
+	protected void onStart()
+	{
+		super.onStart();
+		EventBusUtils.SINGLETON.register(this);
+	}
+
+	@Override
+	protected void onDestroy()
+	{
+		super.onDestroy();
+		EventBusUtils.SINGLETON.unregister(this);
+	}
+
+	@Subscribe
+	public void onDateChanged(EventBusUtils.DateChanged dateChanged)
+	{
+		datePicker.getAdapter().notifyDataSetChanged();
+
+		int position = Data.DATES.indexOf(Data.selectedDate);
+		datePicker.scrollToPosition(position);
 	}
 }
