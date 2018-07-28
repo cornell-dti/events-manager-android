@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -41,12 +42,16 @@ public class DetailsActivity extends AppCompatActivity implements OnMapReadyCall
 	private ImageView image;
 	private TextView title;
 	private TextView description;
+	private TextView more;
+	private View moreButtonGradient;
 	private TextView time;
 	private TextView numGoing;
 	private TextView organization;
 	private TextView location;
 	private RecyclerView tagRecycler;
 	private Event event;
+
+	private static final int DESCRIPTION_MAX_LINES = 3;
 
 	//map stuff
 	private static final int MAP_ZOOM = 15;
@@ -95,6 +100,9 @@ public class DetailsActivity extends AppCompatActivity implements OnMapReadyCall
 		numGoing = findViewById(R.id.numGoing);
 		organization = findViewById(R.id.organization);
 		location = findViewById(R.id.location);
+		more = findViewById(R.id.more);
+		more.setOnClickListener(this);
+		moreButtonGradient = findViewById(R.id.moreButtonGradient);
 		findViewById(R.id.back).setOnClickListener(this);
 		findViewById(R.id.share).setOnClickListener(this);
 
@@ -117,6 +125,36 @@ public class DetailsActivity extends AppCompatActivity implements OnMapReadyCall
 
 		TagAdapter adapter = new TagAdapter(this, event.tagIDs);
 		tagRecycler.setAdapter(adapter);
+
+		configureDescription();
+	}
+
+	private void configureDescription()
+	{
+		description.setMaxLines(DESCRIPTION_MAX_LINES);
+		//find out how many lines the description text will be
+		description.getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener()
+		{
+			@Override
+			public boolean onPreDraw()
+			{
+				if (more.getVisibility() != View.VISIBLE)
+					return true;
+
+				int lineCount = description.getLayout().getLineCount();
+				if (lineCount >= DESCRIPTION_MAX_LINES)
+				{
+					more.setVisibility(View.VISIBLE);
+					moreButtonGradient.setVisibility(View.VISIBLE);
+				}
+				else
+				{
+					more.setVisibility(View.GONE);
+					moreButtonGradient.setVisibility(View.GONE);
+				}
+				return true;
+			}
+		});
 	}
 
 	/**
@@ -174,6 +212,11 @@ public class DetailsActivity extends AppCompatActivity implements OnMapReadyCall
 				break;
 			case R.id.share:
 				Log.i("DetailsActivity", "TODO share pressed");
+				break;
+			case R.id.more:
+				description.setMaxLines(Integer.MAX_VALUE);
+				more.setVisibility(View.GONE);
+				moreButtonGradient.setVisibility(View.GONE);
 				break;
 		}
 	}

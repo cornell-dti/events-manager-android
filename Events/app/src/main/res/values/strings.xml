@@ -16,6 +16,7 @@
 	<string name="section_today_events">Today\'s events</string>
 	<string name="section_tomorrow_events">Tomorrow\'s events</string>
 	<string name="see_all">see all</string>
+	<string name="more">more</string>
 
 	<string name="numGoing">%1$d Going</string>
 

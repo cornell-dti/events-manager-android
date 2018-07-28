@@ -100,14 +100,34 @@
 			android:layout_width="0dp"
 			android:layout_height="wrap_content"
 			android:layout_marginTop="@dimen/spacing_m"
-			android:maxLines="3"
 			android:textColor="@color/gray"
 			android:ellipsize="end"
 			style="@style/P1"
 			app:layout_constraintEnd_toEndOf="@+id/title"
 			app:layout_constraintStart_toStartOf="@+id/title"
 			app:layout_constraintTop_toBottomOf="@+id/title"
-			tools:text="The simple yet courageous #metoo hashtag campaign has emerged as a rallying cry for people everywhere who have survived sexual assault and sexual harassment" />
+			tools:text="The simple yet courageous #metoo hashtag campaign has emerged as a rallying cry for people everywhere who have survived sexual assault and sexual harassment"
+			tools:maxLines="3"/>
+
+		<View
+			android:id="@+id/moreButtonGradient"
+			android:layout_width="@dimen/width_more_button_gradient"
+			android:layout_height="0dp"
+			android:background="@drawable/gradient_more_button"
+			app:layout_constraintBottom_toBottomOf="@+id/more"
+			app:layout_constraintRight_toLeftOf="@+id/more"
+			app:layout_constraintTop_toTopOf="@+id/more" />
+
+		<TextView
+			android:id="@+id/more"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="@string/more"
+			android:textColor="@color/primaryBlue"
+			android:background="?android:colorBackground"
+			style="@style/P1"
+			app:layout_constraintBottom_toBottomOf="@+id/description"
+			app:layout_constraintEnd_toEndOf="@+id/description" />
 
 		<ImageView
 			android:id="@+id/timeImage"
