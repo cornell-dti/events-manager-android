@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent">
+
+	<android.support.constraint.ConstraintLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content">
+
+		<android.support.constraint.Guideline
+			android:id="@+id/leftGuide"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:orientation="vertical"
+			app:layout_constraintGuide_begin="@dimen/spacing_xxl"/>
+
+		<android.support.constraint.Guideline
+			android:id="@+id/rightGuide"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:orientation="vertical"
+			app:layout_constraintGuide_end="@dimen/spacing_xxl"/>
+
+		<TextView
+			android:id="@+id/follow"
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:text="@string/button_follow"
+			android:layout_marginTop="@dimen/spacing_3l"
+			style="@style/mainButton"
+			app:layout_constraintTop_toTopOf="parent"
+			app:layout_constraintLeft_toLeftOf="@+id/leftGuide"
+			app:layout_constraintRight_toRightOf="@+id/rightGuide"/>
+
+		<TextView
+			android:id="@+id/about"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="@string/section_about"
+			android:textAllCaps="true"
+			android:layout_marginTop="@dimen/spacing_3l"
+			style="@style/H2"
+			app:layout_constraintTop_toBottomOf="@+id/follow"
+			app:layout_constraintLeft_toLeftOf="@+id/leftGuide"/>
+
+		<View
+			android:id="@+id/aboutDivider"
+			android:layout_width="0dp"
+			android:layout_height="1dp"
+			android:background="@drawable/divider"
+			android:layout_marginTop="@dimen/spacing_m"
+			app:layout_constraintTop_toBottomOf="@+id/about"
+			app:layout_constraintLeft_toLeftOf="@+id/leftGuide"
+			app:layout_constraintRight_toRightOf="@+id/rightGuide"/>
+
+		<TextView
+			android:id="@+id/websiteHeader"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="@string/header_website"
+			android:layout_marginTop="@dimen/spacing_xl"
+			style="@style/P1"
+			app:layout_constraintTop_toBottomOf="@+id/aboutDivider"
+			app:layout_constraintLeft_toLeftOf="@+id/leftGuide"/>
+
+		<TextView
+			android:id="@+id/website"
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:layout_marginLeft="@dimen/spacing_l"
+			android:textColor="@color/gray"
+			style="@style/P1"
+			tools:text="reallySuperLongWebsiteThatWillSpanMultipleLines.org"
+			app:layout_constraintTop_toTopOf="@+id/websiteHeader"
+			app:layout_constraintLeft_toRightOf="@+id/websiteHeader"
+			app:layout_constraintRight_toRightOf="@+id/rightGuide"/>
+
+		<TextView
+			android:id="@+id/emailHeader"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="@string/header_email"
+			android:layout_marginTop="@dimen/spacing_m"
+			style="@style/P1"
+			app:layout_constraintTop_toBottomOf="@+id/website"
+			app:layout_constraintLeft_toLeftOf="@+id/leftGuide"/>
+
+		<TextView
+			android:id="@+id/email"
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:textColor="@color/gray"
+			style="@style/P1"
+			tools:text="david@reallySuperLongEmailThatWillSpanMultipleLines.org"
+			app:layout_constraintTop_toTopOf="@+id/emailHeader"
+			app:layout_constraintLeft_toLeftOf="@+id/website"
+			app:layout_constraintRight_toRightOf="@+id/rightGuide"/>
+
+		<TextView
+			android:id="@+id/bioHeader"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="@string/header_bio"
+			android:layout_marginTop="@dimen/spacing_m"
+			style="@style/P1"
+			app:layout_constraintTop_toBottomOf="@+id/email"
+			app:layout_constraintLeft_toLeftOf="@+id/leftGuide"/>
+
+		<TextView
+			android:id="@+id/bio"
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:textColor="@color/gray"
+			style="@style/P1"
+			tools:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer vel pharetra tortor, eu cursus urna. Curabitur et libero eget libe"
+			app:layout_constraintTop_toTopOf="@+id/bioHeader"
+			app:layout_constraintLeft_toLeftOf="@+id/website"
+			app:layout_constraintRight_toRightOf="@+id/rightGuide"/>
+
+		<TextView
+			android:id="@+id/events"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="@string/section_events"
+			android:textAllCaps="true"
+			android:layout_marginTop="@dimen/spacing_3l"
+			style="@style/H2"
+			app:layout_constraintTop_toBottomOf="@+id/bio"
+			app:layout_constraintLeft_toLeftOf="@+id/leftGuide"/>
+
+		<View
+			android:id="@+id/eventsDivider"
+			android:layout_width="0dp"
+			android:layout_height="1dp"
+			android:background="@drawable/divider"
+			android:layout_marginTop="@dimen/spacing_m"
+			app:layout_constraintTop_toBottomOf="@+id/events"
+			app:layout_constraintLeft_toLeftOf="@+id/leftGuide"
+			app:layout_constraintRight_toRightOf="@+id/rightGuide"/>
+
+		<android.support.v7.widget.RecyclerView
+			android:id="@+id/eventsRecycler"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="@dimen/spacing_xl"
+			android:orientation="horizontal"
+			tools:listitem="@layout/card_event"
+			app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+			app:layout_constraintTop_toBottomOf="@+id/eventsDivider"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintStart_toStartOf="parent" />
+
+		<TextView
+			android:id="@+id/tags"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="@string/tags"
+			android:textAllCaps="true"
+			android:layout_marginTop="@dimen/spacing_3l"
+			style="@style/H2"
+			app:layout_constraintTop_toBottomOf="@+id/eventsRecycler"
+			app:layout_constraintLeft_toLeftOf="@+id/leftGuide"/>
+
+		<View
+			android:id="@+id/tagsDivider"
+			android:layout_width="0dp"
+			android:layout_height="1dp"
+			android:background="@drawable/divider"
+			android:layout_marginTop="@dimen/spacing_m"
+			app:layout_constraintTop_toBottomOf="@+id/tags"
+			app:layout_constraintLeft_toLeftOf="@+id/leftGuide"
+			app:layout_constraintRight_toRightOf="@+id/rightGuide"/>
+
+		<android.support.v7.widget.RecyclerView
+			android:id="@+id/tagRecycler"
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="@dimen/spacing_xl"
+			android:layout_marginBottom="@dimen/spacing_3l"
+			android:orientation="horizontal"
+			tools:listitem="@layout/item_tag"
+			app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+			app:layout_constraintTop_toBottomOf="@+id/tagsDivider"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintBottom_toBottomOf="parent"/>
+
+	</android.support.constraint.ConstraintLayout>
+</ScrollView>

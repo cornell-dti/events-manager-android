@@ -16,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.dti.cornell.events.models.Event;
+import com.dti.cornell.events.models.Organization;
 import com.dti.cornell.events.utils.Data;
 import com.dti.cornell.events.utils.SpacingItemDecoration;
 import com.google.android.gms.location.places.GeoDataClient;
@@ -99,6 +100,7 @@ public class DetailsActivity extends AppCompatActivity implements OnMapReadyCall
 		time = findViewById(R.id.time);
 		numGoing = findViewById(R.id.numGoing);
 		organization = findViewById(R.id.organization);
+		organization.setOnClickListener(this);
 		location = findViewById(R.id.location);
 		more = findViewById(R.id.more);
 		more.setOnClickListener(this);
@@ -217,6 +219,10 @@ public class DetailsActivity extends AppCompatActivity implements OnMapReadyCall
 				description.setMaxLines(Integer.MAX_VALUE);
 				more.setVisibility(View.GONE);
 				moreButtonGradient.setVisibility(View.GONE);
+				break;
+			case R.id.organization:
+				Organization organization = Data.organizationForID.get(event.organizerID);
+				OrganizationActivity.startWithOrganization(organization, this);
 				break;
 		}
 	}

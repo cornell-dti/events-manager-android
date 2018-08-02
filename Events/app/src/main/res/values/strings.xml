@@ -2,6 +2,8 @@
 	<string name="action_settings">Settings</string>
 	<string name="button_interested">interested</string>
 	<string name="button_going">going</string>
+	<string name="button_follow">follow</string>
+	<string name="button_following">following</string>
 	<string name="tags">Tags</string>
 	<string name="tab_discover">Discover</string>
 	<string name="tab_for_you">For You</string>
@@ -17,6 +19,12 @@
 	<string name="section_tomorrow_events">Tomorrow\'s events</string>
 	<string name="see_all">see all</string>
 	<string name="more">more</string>
+
+	<string name="section_about">about</string>
+	<string name="section_events">events</string>
+	<string name="header_website">Website</string>
+	<string name="header_email">Email</string>
+	<string name="header_bio">Bio</string>
 
 	<string name="numGoing">%1$d Going</string>
 

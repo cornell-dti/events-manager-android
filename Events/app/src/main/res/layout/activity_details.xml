@@ -49,37 +49,27 @@
 			app:layout_constraintEnd_toEndOf="parent"
 			app:layout_constraintTop_toTopOf="parent"/>
 
-		<Button
+		<TextView
 			android:id="@+id/interested"
 			android:layout_width="0dp"
 			android:layout_height="wrap_content"
-			android:paddingTop="@dimen/spacing_l"
-			android:paddingBottom="@dimen/spacing_l"
 			android:layout_marginTop="@dimen/spacing_xxl"
 			android:layout_marginLeft="@dimen/spacing_xxl"
-			android:background="@drawable/bg_round_button_white"
 			android:text="@string/button_interested"
-			android:textAllCaps="true"
-			android:textColor="@color/primaryBlue"
-			style="@style/P1"
+			style="@style/mainButton"
 			app:layout_constraintStart_toStartOf="parent"
 			app:layout_constraintTop_toBottomOf="@+id/image"
 			app:layout_constraintEnd_toStartOf="@+id/going"/>
 
-		<Button
+		<TextView
 			android:id="@+id/going"
 			android:layout_width="0dp"
 			android:layout_height="wrap_content"
-			android:paddingTop="@dimen/spacing_l"
-			android:paddingBottom="@dimen/spacing_l"
 			android:layout_marginTop="@dimen/spacing_xxl"
 			android:layout_marginLeft="@dimen/spacing_xxl"
 			android:layout_marginRight="@dimen/spacing_xxl"
-			android:background="@drawable/bg_round_button_blue"
 			android:text="@string/button_going"
-			android:textAllCaps="true"
-			android:textColor="@android:color/white"
-			style="@style/P1"
+			style="@style/mainButton"
 			app:layout_constraintEnd_toEndOf="parent"
 			app:layout_constraintTop_toBottomOf="@+id/image"
 			app:layout_constraintStart_toEndOf="@+id/interested"/>

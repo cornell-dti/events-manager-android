@@ -42,4 +42,14 @@
 		<item name="android:textSize">12sp</item>
 	</style>
 
+	<style name="mainButton" parent="P1">
+		<item name="android:clickable">true</item>
+		<item name="android:stateListAnimator">@animator/button</item>
+		<item name="android:textAlignment">center</item>
+		<item name="android:padding">@dimen/spacing_l</item>
+		<item name="android:textAllCaps">true</item>
+		<item name="android:textColor">@color/primaryBlue</item>
+		<item name="android:background">@drawable/bg_round_button_white</item>
+	</style>
+
 </resources>
