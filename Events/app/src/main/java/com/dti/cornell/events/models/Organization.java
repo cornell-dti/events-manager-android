@@ -16,10 +16,11 @@ public class Organization
 	public final int pictureID;
 	public final ImmutableList<Integer> eventIDs;
 	public final ImmutableList<String> memberIDs;
+	public final ImmutableList<Integer> tagIDs;
 	public final String website;
 	public final String email;
 
-	public Organization(int id, String name, String description, int pictureID, ImmutableList<Integer> eventIDs, ImmutableList<String> memberIDs, String website, String email)
+	public Organization(int id, String name, String description, int pictureID, ImmutableList<Integer> eventIDs, ImmutableList<String> memberIDs, ImmutableList<Integer> tagIDs, String website, String email)
 	{
 		this.id = id;
 		this.name = name;
@@ -27,6 +28,7 @@ public class Organization
 		this.pictureID = pictureID;
 		this.eventIDs = eventIDs;
 		this.memberIDs = memberIDs;
+		this.tagIDs = tagIDs;
 		this.website = website;
 		this.email = email;
 	}
@@ -40,6 +42,7 @@ public class Organization
 				pictureID + ToStringUtil.FIELD_SEPARATOR +
 				TextUtils.join(ToStringUtil.ARRAY_SEPARATOR, eventIDs) + ToStringUtil.FIELD_SEPARATOR +
 				TextUtils.join(ToStringUtil.ARRAY_SEPARATOR, memberIDs) + ToStringUtil.FIELD_SEPARATOR +
+				TextUtils.join(ToStringUtil.ARRAY_SEPARATOR, tagIDs) + ToStringUtil.FIELD_SEPARATOR +
 				website + ToStringUtil.FIELD_SEPARATOR +
 				email;
 	}
@@ -53,9 +56,10 @@ public class Organization
 		int pictureID = Integer.valueOf(split[3]);
 		ImmutableList<Integer> eventIDs = ToStringUtil.intListFromString(split[4]);
 		ImmutableList<String> memberIDs = ToStringUtil.listFromString(split[5]);
-		String website = split[6];
-		String email = split[7];
-		return new Organization(id, name, description, pictureID, eventIDs, memberIDs, website, email);
+		ImmutableList<Integer> tagIDs = ToStringUtil.intListFromString(split[6]);
+		String website = split[7];
+		String email = split[8];
+		return new Organization(id, name, description, pictureID, eventIDs, memberIDs, tagIDs, website, email);
 	}
 
 	public static Organization fromJSON(JSONObject json) throws JSONException

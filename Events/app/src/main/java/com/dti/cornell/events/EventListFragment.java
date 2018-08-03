@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.dti.cornell.events.utils.Data;
+import com.dti.cornell.events.utils.RecyclerUtil;
 
 public class EventListFragment extends Fragment
 {
@@ -21,9 +22,8 @@ public class EventListFragment extends Fragment
 	{
 		View view = inflater.inflate(R.layout.fragment_card_sections, container, false);
 
-		int margin = getResources().getDimensionPixelSize(R.dimen.spacing_xxl);
 		recyclerView = view.findViewById(R.id.recyclerView);
-		recyclerView.addItemDecoration(new com.dti.cornell.events.utils.DividerItemDecoration(margin));
+		RecyclerUtil.configureEvents(recyclerView);
 		recyclerView.setAdapter(new EventAdapter(getContext(), Data.events()));
 
 		return view;

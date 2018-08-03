@@ -43,7 +43,7 @@ public final class Data
 		tagForID.put(3, "#halp");
 		tagForID.put(4, "#kornell");
 
-		Organization organization = new Organization(1, "Cornell Design & Tech Initiative and more stuff blah blah blah", "Hi there howdy do yall. This is an extremely long, grandiloquent, pontificate description designed for the sole singular purpose of testing limits of descriptions", 1, ImmutableList.of(1, 2, 3, 4, 5, 6, 7), ImmutableList.of("User id"), "www.google.com", "dc788@cornell.edu");
+		Organization organization = new Organization(1, "Cornell Design & Tech Initiative and more stuff blah blah blah", "Hi there howdy do yall. This is an extremely long, grandiloquent, pontificate description designed for the sole singular purpose of testing limits of descriptions", 1, ImmutableList.of(1, 2, 3, 4, 5, 6, 7), ImmutableList.of("User id"), ImmutableList.of(1,2,3,4), "www.google.com", "dc788@cornell.edu");
 		organizationForID.put(organization.id, organization);
 
 		for (int i = 1; i <= DATES.size(); i++)

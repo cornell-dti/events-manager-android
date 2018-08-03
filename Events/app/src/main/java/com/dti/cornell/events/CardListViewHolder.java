@@ -5,7 +5,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.dti.cornell.events.models.CardList;
-import com.dti.cornell.events.utils.SpacingItemDecoration;
+import com.dti.cornell.events.utils.RecyclerUtil;
 
 public class CardListViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener
 {
@@ -21,8 +21,7 @@ public class CardListViewHolder extends RecyclerView.ViewHolder implements View.
 		seeMore.setOnClickListener(this);
 
 		RecyclerView recyclerView = itemView.findViewById(R.id.recyclerView);
-		int cardMargin = itemView.getResources().getDimensionPixelSize(R.dimen.spacing_xxl);
-		recyclerView.addItemDecoration(new SpacingItemDecoration(cardMargin, 0));
+		RecyclerUtil.configureCards(recyclerView);
 		adapter = new EventCardAdapter(itemView.getContext());
 		recyclerView.setAdapter(adapter);
 	}

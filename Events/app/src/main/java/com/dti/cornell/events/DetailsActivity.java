@@ -18,7 +18,7 @@ import android.widget.TextView;
 import com.dti.cornell.events.models.Event;
 import com.dti.cornell.events.models.Organization;
 import com.dti.cornell.events.utils.Data;
-import com.dti.cornell.events.utils.SpacingItemDecoration;
+import com.dti.cornell.events.utils.RecyclerUtil;
 import com.google.android.gms.location.places.GeoDataClient;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.PlaceBufferResponse;
@@ -112,8 +112,7 @@ public class DetailsActivity extends AppCompatActivity implements OnMapReadyCall
 		mapFragment.getMapAsync(this);
 
 		tagRecycler = findViewById(R.id.tagRecycler);
-		int spacing = getResources().getDimensionPixelSize(R.dimen.spacing_l);
-		tagRecycler.addItemDecoration(new SpacingItemDecoration(spacing, 0));
+		RecyclerUtil.configureTags(tagRecycler);
 	}
 
 	private void configure(Event event)

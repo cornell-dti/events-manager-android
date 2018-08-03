@@ -12,7 +12,7 @@ import android.view.ViewGroup;
 import com.dti.cornell.events.models.CardList;
 import com.dti.cornell.events.models.Event;
 import com.dti.cornell.events.utils.Data;
-import com.dti.cornell.events.utils.SpacingItemDecoration;
+import com.dti.cornell.events.utils.RecyclerUtil;
 
 import java.util.Arrays;
 import java.util.List;
@@ -32,8 +32,7 @@ public class ForYouFragment extends Fragment
 		List<CardList> data = Arrays.asList(new CardList(R.string.section_popular, false, events),
 				new CardList(R.string.section_today_events, false, events),
 				new CardList(R.string.section_tomorrow_events, false, events));
-		int cardMargin = getResources().getDimensionPixelSize(R.dimen.spacing_xxl);
-		recyclerView.addItemDecoration(new SpacingItemDecoration(0, cardMargin));
+		RecyclerUtil.configureCardLists(recyclerView);
 		recyclerView.setAdapter(new CardSectionAdapter(getContext(), data, false));
 
 		return view;

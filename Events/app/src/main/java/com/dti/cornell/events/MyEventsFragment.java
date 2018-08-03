@@ -11,8 +11,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.dti.cornell.events.utils.Data;
-import com.dti.cornell.events.utils.DividerItemDecoration;
 import com.dti.cornell.events.utils.EventBusUtils;
+import com.dti.cornell.events.utils.RecyclerUtil;
 import com.google.common.eventbus.Subscribe;
 
 import org.joda.time.DateTime;
@@ -30,9 +30,8 @@ public class MyEventsFragment extends Fragment
 	{
 		View view = inflater.inflate(R.layout.fragment_card_sections, container, false);
 
-		int margin = getResources().getDimensionPixelSize(R.dimen.spacing_xxl);
 		recyclerView = view.findViewById(R.id.recyclerView);
-		recyclerView.addItemDecoration(new DividerItemDecoration(margin));
+		RecyclerUtil.configureEvents(recyclerView);
 		adapter = new EventAdapter(getContext(), Data.events());
 		recyclerView.setAdapter(adapter);
 		layoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
