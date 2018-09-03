@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.dti.cornell.events.models.Event;
 import com.dti.cornell.events.utils.Data;
 import com.dti.cornell.events.utils.EventBusUtils;
+import com.dti.cornell.events.utils.RecyclerUtil;
 import com.dti.cornell.events.utils.SearchUtil;
 import com.google.common.eventbus.Subscribe;
 
@@ -53,6 +54,7 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
         searchBar.setOnQueryTextListener(this);
         backgound = findViewById(R.id.searchBackground);
         backgroundTextView = findViewById(R.id.searchBackgroundText);
+
 
         recyclerView = findViewById(R.id.recyclerView);
         //DEPRECATED: RecyclerUtil.configureEvents(recyclerView);
