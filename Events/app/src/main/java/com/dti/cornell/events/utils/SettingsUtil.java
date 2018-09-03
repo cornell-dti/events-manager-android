@@ -9,6 +9,7 @@ import com.dti.cornell.events.models.Organization;
 
 import org.joda.time.DateTime;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -105,4 +106,19 @@ public class SettingsUtil
 				.putStringSet(key, strings)
 				.apply();
 	}
+
+	public static void loadTags(Context context){
+		String toBeDecoded = PreferenceManager.getDefaultSharedPreferences(context).getString("TAG_STRING", "");
+		TagUtil.tagIDsAndImportance = TagUtil.decodeTagIDs(toBeDecoded);
+		TagUtil.tagsInterested = new ArrayList<>();
+		for(Integer eventID : TagUtil.tagIDsAndImportance.keySet()){
+			TagUtil.tagsInterested.add(eventID);
+		}
+		TagUtil.tagsLoaded = true;
+	}
+
+	public static void saveTags(Context context){
+		PreferenceManager.getDefaultSharedPreferences(context).edit().putString("TAG_STRING", TagUtil.encodeTagIDs()).apply();
+	}
+
 }

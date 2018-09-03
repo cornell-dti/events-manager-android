@@ -8,6 +8,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 
@@ -15,7 +16,10 @@ import com.dti.cornell.events.utils.Data;
 import com.dti.cornell.events.utils.EventBusUtils;
 import com.dti.cornell.events.utils.SettingsUtil;
 import com.dti.cornell.events.utils.SpacingItemDecoration;
+import com.dti.cornell.events.utils.TagUtil;
 import com.google.common.eventbus.Subscribe;
+
+//import javax.swing.text.html.HTML;
 
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener
 {
@@ -44,6 +48,14 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 		BottomNavigationView tabBar = findViewById(R.id.tabBar);
 		tabBar.setOnNavigationItemSelectedListener(this);
 		tabBar.setSelectedItemId(R.id.tab_discover);    //select discover page first
+
+		if(!TagUtil.tagsLoaded){
+			SettingsUtil.loadTags(this);
+			for (Integer loadedTag : TagUtil.tagsInterested){
+				Log.e("TAG LOADED", String.valueOf(loadedTag));
+			}
+		}
+
 	}
 
 	@Override
@@ -105,6 +117,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 	@Override
 	protected void onDestroy()
 	{
+		SettingsUtil.saveTags(this);
 		super.onDestroy();
 		EventBusUtils.SINGLETON.unregister(this);
 	}

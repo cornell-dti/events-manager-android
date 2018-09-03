@@ -59,6 +59,10 @@ public final class Data
 		return events;
 	}
 
+	public static Event getEventFromID(int eventID){
+		return eventForID.get(eventID);
+	}
+
 	public static boolean equalsSelectedDate(DateTime dateTime)
 	{
 		return DateTimeComparator.getDateOnlyInstance().compare(dateTime, selectedDate) == 0;
