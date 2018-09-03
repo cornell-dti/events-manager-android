@@ -16,6 +16,23 @@
         app:titleTextAppearance="@style/PageTitle"
         app:popupTheme="@style/AppTheme.PopupOverlay" />
 
+	<android.support.v7.widget.Toolbar
+		android:id="@+id/profileToolbar"
+		android:layout_width="match_parent"
+		android:layout_height="@dimen/toolbar_height"
+		app:popupTheme="@style/AppTheme.PopupOverlay">
+		<ImageView
+			android:layout_width="@dimen/spacing_4l"
+			android:layout_height="@dimen/spacing_4l"
+			android:layout_marginRight="@dimen/spacing_xl"
+			android:src="@mipmap/ic_launcher"/>
+		<TextView
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			tools:text="Jane Doe"
+			style="@style/H1"/>
+	</android.support.v7.widget.Toolbar>
+
 	<android.support.v7.widget.RecyclerView
 		android:id="@+id/datePicker"
 		android:layout_width="match_parent"

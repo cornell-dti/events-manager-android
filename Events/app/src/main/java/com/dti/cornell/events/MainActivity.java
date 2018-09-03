@@ -18,6 +18,7 @@ import com.google.common.eventbus.Subscribe;
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener
 {
 	private Toolbar toolbar;
+	private Toolbar profileToolbar;
 	private RecyclerView datePicker;
 
 	@Override
@@ -28,6 +29,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
 		toolbar = findViewById(R.id.toolbar);
 		setSupportActionBar(toolbar);
+		profileToolbar = findViewById(R.id.profileToolbar);
 
 		datePicker = findViewById(R.id.datePicker);
 		int horizMargin = getResources().getDimensionPixelSize(R.dimen.spacing_xl);
@@ -48,22 +50,29 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 			case R.id.tab_discover:
 				toolbar.setTitle(R.string.tab_discover);
 				fragment = new DiscoverFragment();
+				toolbar.setVisibility(View.VISIBLE);
 				datePicker.setVisibility(View.GONE);
+				profileToolbar.setVisibility(View.GONE);
 				break;
 			case R.id.tab_for_you:
 				toolbar.setTitle(R.string.tab_for_you);
 				fragment = new ForYouFragment();
+				toolbar.setVisibility(View.VISIBLE);
 				datePicker.setVisibility(View.GONE);
+				profileToolbar.setVisibility(View.GONE);
 				break;
 			case R.id.tab_my_events:
 				toolbar.setTitle(R.string.tab_my_events);
 				fragment = new MyEventsFragment();
+				toolbar.setVisibility(View.VISIBLE);
 				datePicker.setVisibility(View.VISIBLE);
+				profileToolbar.setVisibility(View.GONE);
 				break;
 			case R.id.tab_profile:
-				toolbar.setTitle(R.string.tab_profile);
 				fragment = new ProfileFragment();
+				toolbar.setVisibility(View.GONE);
 				datePicker.setVisibility(View.GONE);
+				profileToolbar.setVisibility(View.VISIBLE);
 				break;
 			default:
 				return false;

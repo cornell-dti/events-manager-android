@@ -1,14 +1,193 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
 	xmlns:tools="http://schemas.android.com/tools"
 	android:layout_width="match_parent"
-	android:layout_height="match_parent"
-	tools:context=".ProfileFragment">
+	android:layout_height="match_parent">
 
-	<!-- TODO: Update blank fragment layout -->
-	<TextView
+	<android.support.constraint.ConstraintLayout
 		android:layout_width="match_parent"
-		android:layout_height="match_parent"
-		android:text="@string/hello_blank_fragment" />
+		android:layout_height="wrap_content">
 
-</FrameLayout>
+		<android.support.constraint.Guideline
+			android:id="@+id/leftGuide"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:orientation="vertical"
+			app:layout_constraintGuide_begin="@dimen/spacing_xxl" />
+
+		<android.support.constraint.Guideline
+			android:id="@+id/rightGuide"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:orientation="vertical"
+			app:layout_constraintGuide_end="@dimen/spacing_xxl" />
+
+		<TextView
+			android:id="@+id/following"
+			style="@style/H2"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="@dimen/spacing_3l"
+			android:text="@string/button_following"
+			android:textAllCaps="true"
+			app:layout_constraintLeft_toLeftOf="@+id/leftGuide"
+			app:layout_constraintTop_toTopOf="parent" />
+
+		<View
+			android:id="@+id/followingDivider"
+			android:layout_width="0dp"
+			android:layout_height="1dp"
+			android:layout_marginTop="@dimen/spacing_m"
+			android:background="@drawable/divider"
+			app:layout_constraintLeft_toLeftOf="@+id/leftGuide"
+			app:layout_constraintRight_toRightOf="@+id/rightGuide"
+			app:layout_constraintTop_toBottomOf="@+id/following" />
+
+		<android.support.v7.widget.RecyclerView
+			android:id="@+id/followingRecycler"
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:layout_marginBottom="@dimen/spacing_3l"
+			android:layout_marginTop="@dimen/spacing_xl"
+			android:orientation="vertical"
+			app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+			app:layout_constraintLeft_toLeftOf="@+id/leftGuide"
+			app:layout_constraintRight_toRightOf="@+id/rightGuide"
+			app:layout_constraintTop_toBottomOf="@+id/followingDivider"
+			tools:itemCount="3"
+			tools:listitem="@layout/item_organization" />
+
+		<TextView
+			android:id="@+id/tags"
+			style="@style/H2"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="@dimen/spacing_3l"
+			android:text="@string/tags"
+			android:textAllCaps="true"
+			app:layout_constraintLeft_toLeftOf="@+id/leftGuide"
+			app:layout_constraintTop_toBottomOf="@+id/followingRecycler" />
+
+		<View
+			android:id="@+id/tagsDivider"
+			android:layout_width="0dp"
+			android:layout_height="1dp"
+			android:layout_marginTop="@dimen/spacing_m"
+			android:background="@drawable/divider"
+			app:layout_constraintLeft_toLeftOf="@+id/leftGuide"
+			app:layout_constraintRight_toRightOf="@+id/rightGuide"
+			app:layout_constraintTop_toBottomOf="@+id/tags" />
+
+		<android.support.v7.widget.RecyclerView
+			android:id="@+id/tagRecycler"
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:layout_marginBottom="@dimen/spacing_3l"
+			android:layout_marginTop="@dimen/spacing_xl"
+			android:orientation="horizontal"
+			app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toBottomOf="@+id/tagsDivider"
+			tools:listitem="@layout/item_tag" />
+
+		<TextView
+			android:id="@+id/settings"
+			style="@style/H2"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="@dimen/spacing_3l"
+			android:text="@string/settings"
+			android:textAllCaps="true"
+			app:layout_constraintLeft_toLeftOf="@+id/leftGuide"
+			app:layout_constraintTop_toBottomOf="@+id/tagRecycler" />
+
+		<View
+			android:id="@+id/settingsDivider1"
+			android:layout_width="0dp"
+			android:layout_height="1dp"
+			android:layout_marginTop="@dimen/spacing_m"
+			android:background="@drawable/divider"
+			app:layout_constraintLeft_toLeftOf="@+id/leftGuide"
+			app:layout_constraintRight_toRightOf="@+id/rightGuide"
+			app:layout_constraintTop_toBottomOf="@+id/settings" />
+
+		<TextView
+			android:id="@+id/reminders"
+			style="@style/P2"
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="@dimen/spacing_l"
+			android:text="@string/settings_reminders"
+			app:layout_constraintLeft_toLeftOf="@+id/leftGuide"
+			app:layout_constraintRight_toRightOf="@+id/rightGuide"
+			app:layout_constraintTop_toBottomOf="@+id/settingsDivider1" />
+
+		<Switch
+			android:id="@+id/remindersSwitch"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			app:layout_constraintBottom_toBottomOf="@+id/reminders"
+			app:layout_constraintRight_toRightOf="@+id/rightGuide"
+			app:layout_constraintTop_toTopOf="@+id/reminders"
+			tools:checked="true" />
+
+		<TextView
+			android:id="@+id/notifyMe"
+			style="@style/P2"
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="@dimen/spacing_l"
+			android:text="@string/settings_notify_me"
+			app:layout_constraintLeft_toLeftOf="@+id/leftGuide"
+			app:layout_constraintRight_toRightOf="@+id/rightGuide"
+			app:layout_constraintTop_toBottomOf="@+id/reminders" />
+
+		<TextView
+			android:id="@+id/notifyMeSetting"
+			style="@style/P2"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:textColor="@color/colorAccent"
+			app:layout_constraintBottom_toBottomOf="@+id/notifyMe"
+			app:layout_constraintRight_toRightOf="@+id/rightGuide"
+			app:layout_constraintTop_toTopOf="@+id/notifyMe"
+			tools:text="1 hour before" />
+
+		<View
+			android:id="@+id/settingsDivider2"
+			android:layout_width="0dp"
+			android:layout_height="1dp"
+			android:layout_marginTop="@dimen/spacing_l"
+			android:background="@drawable/divider"
+			app:layout_constraintLeft_toLeftOf="@+id/leftGuide"
+			app:layout_constraintRight_toRightOf="@+id/rightGuide"
+			app:layout_constraintTop_toBottomOf="@+id/notifyMe" />
+
+		<TextView
+			android:id="@+id/netID"
+			style="@style/P2"
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="@dimen/spacing_l"
+			android:layout_marginBottom="@dimen/spacing_l"
+			android:text="@string/settings_net_id"
+			app:layout_constraintLeft_toLeftOf="@+id/leftGuide"
+			app:layout_constraintRight_toRightOf="@+id/rightGuide"
+			app:layout_constraintTop_toBottomOf="@+id/settingsDivider2"
+			app:layout_constraintBottom_toBottomOf="parent"/>
+
+		<TextView
+			android:id="@+id/netIDSetting"
+			style="@style/P2"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:textColor="@color/colorAccent"
+			app:layout_constraintBottom_toBottomOf="@+id/netID"
+			app:layout_constraintRight_toRightOf="@+id/rightGuide"
+			app:layout_constraintTop_toTopOf="@+id/netID"
+			tools:text="dc788" />
+
+	</android.support.constraint.ConstraintLayout>
+</ScrollView>
