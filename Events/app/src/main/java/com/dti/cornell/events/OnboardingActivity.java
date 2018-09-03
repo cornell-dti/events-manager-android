@@ -14,9 +14,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.dti.cornell.events.utils.Data;
+import com.dti.cornell.events.utils.Internet;
 import com.dti.cornell.events.utils.RecyclerUtil;
 import com.dti.cornell.events.utils.SettingsUtil;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -97,8 +99,10 @@ public class OnboardingActivity extends AppCompatActivity
 						Page.FollowTags, R.layout.onboarding_4);
 		private Page page;
 
+		//sign in page
 		public static final int SIGN_IN = 1;
 		private GoogleSignInClient signInClient;
+		private ImageView image;
 
 		@Nullable
 		@Override
@@ -121,6 +125,7 @@ public class OnboardingActivity extends AppCompatActivity
 					view.findViewById(R.id.getStartedButton).setOnClickListener(this);
 					break;
 				case Login:
+					image = view.findViewById(R.id.profileImage);
 					configureGoogleSignIn(view);
 					break;
 				case FollowOrganizations:
@@ -185,6 +190,7 @@ public class OnboardingActivity extends AppCompatActivity
 			SettingsUtil.SINGLETON.setName(account.getDisplayName());
 			SettingsUtil.SINGLETON.setEmail(account.getEmail());
 			SettingsUtil.SINGLETON.setImageUrl(account.getPhotoUrl().toString());
+			Internet.downloadImage(account.getPhotoUrl().toString(), image);
 			//TODO send server id token, save response
 			Log.i(TAG, "updateAccount: " + account.toJson());
 		}

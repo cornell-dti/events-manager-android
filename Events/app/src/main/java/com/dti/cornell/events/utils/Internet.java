@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.support.v4.util.LruCache;
 import android.util.Log;
+import android.widget.ImageView;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -64,6 +65,23 @@ public class Internet {
 			public void putBitmap(String url, Bitmap bitmap)
 			{
 				cache.put(url, bitmap);
+			}
+		});
+	}
+
+	public static void downloadImage(String url, final ImageView image)
+	{
+		imageLoader.get(url, new ImageLoader.ImageListener()
+		{
+			@Override
+			public void onResponse(ImageLoader.ImageContainer response, boolean isImmediate)
+			{
+				image.setImageBitmap(response.getBitmap());
+			}
+			@Override
+			public void onErrorResponse(VolleyError error)
+			{
+				ERROR_LISTENER.onErrorResponse(error);
 			}
 		});
 	}
