@@ -21,7 +21,7 @@ import com.google.common.eventbus.Subscribe;
 
 //import javax.swing.text.html.HTML;
 
-public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener
+public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener, View.OnClickListener
 {
 	private Toolbar toolbar;
 	private Toolbar profileToolbar;
@@ -129,5 +129,18 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
 		int position = Data.DATES.indexOf(Data.selectedDate);
 		datePicker.scrollToPosition(position);
+	}
+
+	@Override
+	public void onClick(View view) {
+		Fragment fragment;
+		if(view.getId() == R.id.toolbar){
+			toolbar.setTitle("Search");
+			fragment = new SearchFragment();
+			toolbar.setVisibility(View.VISIBLE);
+			datePicker.setVisibility(View.GONE);
+			profileToolbar.setVisibility(View.GONE);
+			transitionToFragment(fragment);
+		}
 	}
 }

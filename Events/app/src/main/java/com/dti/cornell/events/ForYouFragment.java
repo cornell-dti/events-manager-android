@@ -1,5 +1,6 @@
 package com.dti.cornell.events;
 
+import android.nfc.Tag;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -13,7 +14,9 @@ import com.dti.cornell.events.models.CardList;
 import com.dti.cornell.events.models.Event;
 import com.dti.cornell.events.utils.Data;
 import com.dti.cornell.events.utils.RecyclerUtil;
+import com.dti.cornell.events.utils.TagUtil;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -28,10 +31,13 @@ public class ForYouFragment extends Fragment
 		View view = inflater.inflate(R.layout.fragment_card_sections, container, false);
 
 		recyclerView = view.findViewById(R.id.recyclerView);
-		List<Event> events = Data.events();
-		List<CardList> data = Arrays.asList(new CardList(R.string.section_popular, false, events),
-				new CardList(R.string.section_today_events, false, events),
-				new CardList(R.string.section_tomorrow_events, false, events));
+		List<Integer> bestTagIDs = TagUtil.getMostPopularTags(3);
+		List<CardList> data = new ArrayList<>();
+		int indexer = 0;
+		for(int tagID : bestTagIDs){
+			data.add(new CardList(indexer, false, TagUtil.suggestEventsForTagID(tagID)));
+			indexer++;
+		}
 		RecyclerUtil.addVerticalSpacing(recyclerView);
 		recyclerView.setAdapter(new CardSectionAdapter(getContext(), data, false));
 

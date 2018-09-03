@@ -17,4 +17,5 @@ public class CardList
 		this.showSeeMore = showSeeMore;
 		this.events = events;
 	}
+
 }

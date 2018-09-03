@@ -31,7 +31,8 @@ public class TagUtil {
         if(!tagsLoaded){
             Log.e("TAGS", "Tags have not yet been loaded! You can't add a tag to the list unless" +
                     "the tags are loaded!");
-//            loadTags();
+            //Needs context to load. Must call loadTags() from activity.
+            return;
         }
         if(tagsInterested.contains(tagID)){
             return;
@@ -44,6 +45,8 @@ public class TagUtil {
             Log.e("TAGS","Tags have not yet been loaded! You can't ask for events unless" +
                     "the tags are loaded!");
 //            loadTags();
+            //Needs context to load. Must call loadTags() from activity.
+            return new ArrayList<>();
         }
 
         //Check events for tagID, add them.
@@ -89,7 +92,9 @@ public class TagUtil {
         List<Event> returnEvents = new ArrayList<>();
         for(IDAndFrequency idf : frequencyOfEventIDs){
             returnEvents.add(Data.getEventFromID(idf.ID));
+            Log.e("SUGGESTED EVENT", Data.getEventFromID(idf.ID) + "::" + idf.frequency);
         }
+
 
         return returnEvents;
     }
@@ -126,6 +131,14 @@ public class TagUtil {
             tagIDsAndImportance.put(Integer.valueOf(tagID),Integer.valueOf(importance));
         }
         return tagIDsInts;
+    }
+
+    public static List<Integer> getMostPopularTags(int numberOfTagsDesired){
+        List<Integer> tagIDs = new ArrayList<>();
+        for(int i = 0; i < numberOfTagsDesired; i++){
+            tagIDs.add(tagsInterested.get(i));
+        }
+        return tagIDs;
     }
 
     public static class IDAndFrequency implements Comparable<IDAndFrequency>{
