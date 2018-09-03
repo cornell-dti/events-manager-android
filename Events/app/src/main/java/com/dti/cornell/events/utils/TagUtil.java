@@ -134,6 +134,9 @@ public class TagUtil {
     }
 
     public static List<Integer> getMostPopularTags(int numberOfTagsDesired){
+        if(tagsInterested.size() == 0){
+            return new ArrayList<>();
+        }
         List<Integer> tagIDs = new ArrayList<>();
         for(int i = 0; i < numberOfTagsDesired; i++){
             tagIDs.add(tagsInterested.get(i));
