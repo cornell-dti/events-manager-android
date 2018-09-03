@@ -32,4 +32,11 @@
 	<string name="settings_notify_me">Notify Me</string>
 	<string name="settings_net_id">NetID</string>
 
+	<string name="onboarding_get_started">Get Started</string>
+	<string name="onboarding_next">Next</string>
+	<string name="onboarding_interact">Interact</string>
+	<string name="onboarding_interact_description">Choose the on-campus organizations that you would like to follow. We’ll show you more events from the organizations you pick.</string>
+	<string name="onboarding_explore">Explore</string>
+	<string name="onboarding_explore_description">Finally, tell us your interests. We’ll tailor your feed to include events you’ll be interested in.</string>
+	<string name="onboarding_done">Done</string>
 </resources>

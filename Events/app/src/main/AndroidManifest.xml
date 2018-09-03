@@ -38,6 +38,7 @@
 			android:value="@string/google_maps_key" />
 
 		<activity android:name=".OrganizationActivity" />
+		<activity android:name=".OnboardingActivity" />
 	</application>
 
 </manifest>

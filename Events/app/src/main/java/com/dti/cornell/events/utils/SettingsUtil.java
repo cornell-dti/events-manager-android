@@ -24,7 +24,7 @@ public class SettingsUtil
 	private static final String TIMESTAMP = "timestamp";
 	private static final String EVENTS = "events";
 	private static final String ORGANIZATIONS = "organizations";
-
+	private static final String FIRST_RUN = "firstRun";
 
 	private SettingsUtil(Context context)
 	{
@@ -81,6 +81,17 @@ public class SettingsUtil
 	public void setOrganizations(Map<Integer, Organization> organizations)
 	{
 		setStringSet(new HashSet<>(organizations.values()), ORGANIZATIONS);
+	}
+
+	public boolean getFirstRun()
+	{
+		return settings.getBoolean(FIRST_RUN, true);
+	}
+	public void setFirstRun()
+	{
+		settings.edit()
+				.putBoolean(FIRST_RUN, false)
+				.apply();
 	}
 
 

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_marginTop="@dimen/spacing_xl"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent">
+
+	<android.support.constraint.Guideline
+		android:id="@+id/leftGuide"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:orientation="vertical"
+		app:layout_constraintGuide_begin="@dimen/spacing_xxl" />
+
+	<android.support.constraint.Guideline
+		android:id="@+id/rightGuide"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:orientation="vertical"
+		app:layout_constraintGuide_end="@dimen/spacing_xxl" />
+
+	<TextView
+		android:id="@+id/interact"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:text="@string/onboarding_interact"
+		app:layout_constraintTop_toTopOf="parent"
+		app:layout_constraintLeft_toLeftOf="@+id/leftGuide"
+		style="@style/PageTitle" />
+	<TextView
+		android:id="@+id/interactDescription"
+		android:layout_width="0dp"
+		android:layout_height="wrap_content"
+		android:text="@string/onboarding_interact_description"
+		android:layout_marginTop="@dimen/spacing_l"
+		app:layout_constraintTop_toBottomOf="@+id/interact"
+		app:layout_constraintLeft_toLeftOf="@+id/leftGuide"
+		app:layout_constraintRight_toRightOf="@+id/rightGuide"
+		style="@style/P1"/>
+
+	<android.support.v7.widget.RecyclerView
+		android:id="@+id/organizationsRecycler"
+		android:layout_width="0dp"
+		android:layout_height="0dp"
+		android:layout_marginBottom="@dimen/spacing_3l"
+		android:layout_marginTop="@dimen/spacing_xl"
+		android:orientation="vertical"
+		app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+		app:layout_constraintLeft_toLeftOf="@+id/leftGuide"
+		app:layout_constraintRight_toRightOf="@+id/rightGuide"
+		app:layout_constraintTop_toBottomOf="@+id/interactDescription"
+		app:layout_constraintBottom_toTopOf="@+id/nextButton"
+		tools:listitem="@layout/item_organization" />
+
+	<Button
+		android:id="@+id/nextButton"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:text="@string/onboarding_next"
+		android:layout_marginBottom="@dimen/spacing_xl"
+		app:layout_constraintLeft_toLeftOf="parent"
+		app:layout_constraintRight_toRightOf="parent"
+		app:layout_constraintBottom_toBottomOf="parent"
+		style="@style/mainButton"/>
+</android.support.constraint.ConstraintLayout>

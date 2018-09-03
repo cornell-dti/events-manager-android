@@ -1,5 +1,6 @@
 package com.dti.cornell.events;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -12,6 +13,7 @@ import android.view.View;
 
 import com.dti.cornell.events.utils.Data;
 import com.dti.cornell.events.utils.EventBusUtils;
+import com.dti.cornell.events.utils.SettingsUtil;
 import com.dti.cornell.events.utils.SpacingItemDecoration;
 import com.google.common.eventbus.Subscribe;
 
@@ -26,6 +28,9 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+
+		if (SettingsUtil.SINGLETON.getFirstRun())
+			startActivity(new Intent(this, OnboardingActivity.class));
 
 		toolbar = findViewById(R.id.toolbar);
 		setSupportActionBar(toolbar);
