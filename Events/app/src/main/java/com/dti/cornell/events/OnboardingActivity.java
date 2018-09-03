@@ -9,11 +9,15 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
+import com.dti.cornell.events.utils.Data;
+import com.dti.cornell.events.utils.SettingsUtil;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -43,9 +47,15 @@ public class OnboardingActivity extends AppCompatActivity
 			pager.setCurrentItem(pager.getCurrentItem() + 1);
 		else
 		{
-			//TODO check to make sure all fields are set
+			if (SettingsUtil.SINGLETON.getName() != null
+					&& SettingsUtil.SINGLETON.getEmail() != null)
+			{
+				//TODO check to make sure all fields are set
 //			SettingsUtil.SINGLETON.setFirstRun();
-			finish();
+				finish();
+			}
+			else
+				Toast.makeText(this, R.string.onboarding_error, Toast.LENGTH_LONG).show();
 		}
 	}
 
@@ -113,6 +123,8 @@ public class OnboardingActivity extends AppCompatActivity
 					break;
 				case FollowOrganizations:
 					view.findViewById(R.id.nextButton).setOnClickListener(this);
+					RecyclerView recycler = view.findViewById(R.id.organizationsRecycler);
+					recycler.setAdapter(new OrganizationAdapter(getContext(), Data.organizations(), true));
 					break;
 				case FollowTags:
 					view.findViewById(R.id.doneButton).setOnClickListener(this);
@@ -158,12 +170,17 @@ public class OnboardingActivity extends AppCompatActivity
 				return;
 
 			Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
-			try
-			{
-				GoogleSignInAccount account = task.getResult(ApiException.class);
-				Log.i(TAG, "updateAccount: " + account.toJson());
-			}
+			try { setAccount(task.getResult(ApiException.class)); }
 			catch (ApiException e) { Log.e(TAG, "sign in failed with code: " + e.getStatusCode()); }
+		}
+
+		private void setAccount(GoogleSignInAccount account)
+		{
+			SettingsUtil.SINGLETON.setName(account.getDisplayName());
+			SettingsUtil.SINGLETON.setEmail(account.getEmail());
+			SettingsUtil.SINGLETON.setImageUrl(account.getPhotoUrl().toString());
+			//TODO send server id token, save response
+			Log.i(TAG, "updateAccount: " + account.toJson());
 		}
 	}
 	enum Page

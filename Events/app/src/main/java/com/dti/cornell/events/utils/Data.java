@@ -59,6 +59,13 @@ public final class Data
 		return events;
 	}
 
+	public static List<Organization> organizations()
+	{
+		List<Organization> organizations = Lists.newArrayList(organizationForID.values());
+		Collections.sort(organizations);
+		return organizations;
+	}
+
 	public static Event getEventFromID(int eventID){
 		return eventForID.get(eventID);
 	}

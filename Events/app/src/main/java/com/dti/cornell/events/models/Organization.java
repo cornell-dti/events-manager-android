@@ -1,5 +1,6 @@
 package com.dti.cornell.events.models;
 
+import android.support.annotation.NonNull;
 import android.text.TextUtils;
 
 import com.dti.cornell.events.utils.ToStringUtil;
@@ -8,7 +9,7 @@ import com.google.common.collect.ImmutableList;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class Organization
+public class Organization implements Comparable<Organization>
 {
 	public final int id;
 	public final String name;
@@ -70,5 +71,11 @@ public class Organization
 		String email = json.getString("contact");
 		//TODO
 		return null;
+	}
+
+	@Override
+	public int compareTo(@NonNull Organization organization)
+	{
+		return name.compareTo(organization.name);
 	}
 }

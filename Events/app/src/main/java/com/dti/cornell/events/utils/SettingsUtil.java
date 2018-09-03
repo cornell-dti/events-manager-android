@@ -26,6 +26,10 @@ public class SettingsUtil
 	private static final String EVENTS = "events";
 	private static final String ORGANIZATIONS = "organizations";
 	private static final String FIRST_RUN = "firstRun";
+	private static final String NAME = "name";
+	private static final String EMAIL = "email";
+	private static final String TOKEN = "token";
+	private static final String IMAGE_URL = "imageURL";
 
 	private SettingsUtil(Context context)
 	{
@@ -95,6 +99,52 @@ public class SettingsUtil
 				.apply();
 	}
 
+	public String getName()
+	{
+		return settings.getString(NAME, null);
+	}
+
+	public void setName(String name)
+	{
+		settings.edit()
+				.putString(NAME, name)
+				.apply();
+	}
+
+	public String getEmail()
+	{
+		return settings.getString(EMAIL, null);
+	}
+
+	public void setEmail(String email)
+	{
+		settings.edit()
+				.putString(EMAIL, email)
+				.apply();
+	}
+
+	public String getToken()
+	{
+		return settings.getString(TOKEN, null);
+	}
+	public void setToken(String token)
+	{
+		settings.edit()
+				.putString(TOKEN, token)
+				.apply();
+	}
+
+	public String getImageUrl()
+	{
+		return settings.getString(IMAGE_URL, null);
+	}
+
+	public void setImageUrl(String imageUrl)
+	{
+		settings.edit()
+				.putString(IMAGE_URL, imageUrl)
+				.apply();
+	}
 
 	private void setStringSet(Set<?> set, String key)
 	{
