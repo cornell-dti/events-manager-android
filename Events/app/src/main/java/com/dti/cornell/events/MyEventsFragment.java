@@ -31,7 +31,7 @@ public class MyEventsFragment extends Fragment
 		View view = inflater.inflate(R.layout.fragment_card_sections, container, false);
 
 		recyclerView = view.findViewById(R.id.recyclerView);
-		RecyclerUtil.configureEvents(recyclerView);
+		RecyclerUtil.addDivider(recyclerView);
 		adapter = new EventAdapter(getContext(), Data.events());
 		recyclerView.setAdapter(adapter);
 		layoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();

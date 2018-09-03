@@ -32,7 +32,7 @@ public class DiscoverFragment extends Fragment
 		List<CardList> data = Arrays.asList(new CardList(R.string.section_popular, true, events),
 				new CardList(R.string.section_today_events, true, events),
 				new CardList(R.string.section_tomorrow_events, true, events));
-		RecyclerUtil.configureCardLists(recyclerView);
+		RecyclerUtil.addVerticalSpacing(recyclerView);
 		recyclerView.setAdapter(new CardSectionAdapter(getContext(), data, true));
 
 		return view;

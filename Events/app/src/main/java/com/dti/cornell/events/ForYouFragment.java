@@ -32,7 +32,7 @@ public class ForYouFragment extends Fragment
 		List<CardList> data = Arrays.asList(new CardList(R.string.section_popular, false, events),
 				new CardList(R.string.section_today_events, false, events),
 				new CardList(R.string.section_tomorrow_events, false, events));
-		RecyclerUtil.configureCardLists(recyclerView);
+		RecyclerUtil.addVerticalSpacing(recyclerView);
 		recyclerView.setAdapter(new CardSectionAdapter(getContext(), data, false));
 
 		return view;

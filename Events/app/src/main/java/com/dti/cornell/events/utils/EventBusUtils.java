@@ -25,4 +25,15 @@ public class EventBusUtils
 			this.position = position;
 		}
 	}
+	public static final class TagSelected
+	{
+		public final int tagID;
+		public final int position;
+
+		public TagSelected(int tagID, int position)
+		{
+			this.tagID = tagID;
+			this.position = position;
+		}
+	}
 }

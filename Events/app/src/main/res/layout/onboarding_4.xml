@@ -41,7 +41,7 @@
 		style="@style/P1"/>
 
 	<android.support.v7.widget.RecyclerView
-		android:id="@+id/tagsRecycler"
+		android:id="@+id/tagRecycler"
 		android:layout_width="0dp"
 		android:layout_height="0dp"
 		android:layout_marginBottom="@dimen/spacing_3l"
@@ -51,7 +51,7 @@
 		app:layout_constraintLeft_toLeftOf="@+id/leftGuide"
 		app:layout_constraintRight_toRightOf="@+id/rightGuide"
 		app:layout_constraintTop_toBottomOf="@+id/exploreDescription"
-		app:layout_constraintBottom_toTopOf="@+id/nextButton"
+		app:layout_constraintBottom_toTopOf="@+id/doneButton"
 		tools:listitem="@layout/item_tag" />
 
 	<Button

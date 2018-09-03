@@ -48,10 +48,10 @@ public class OrganizationActivity extends AppCompatActivity implements View.OnCl
 		bio = findViewById(R.id.bio);
 
 		eventsRecycler = findViewById(R.id.eventsRecycler);
-		RecyclerUtil.configureCards(eventsRecycler);
+		RecyclerUtil.addHorizontalSpacing(eventsRecycler);
 
 		tagRecycler = findViewById(R.id.tagRecycler);
-		RecyclerUtil.configureTags(tagRecycler);
+		RecyclerUtil.addHorizontalSpacing(tagRecycler);
 	}
 
 	private void configure(Organization organization)
@@ -64,7 +64,7 @@ public class OrganizationActivity extends AppCompatActivity implements View.OnCl
 		eventsRecycler.setAdapter(adapter);
 		adapter.setData(Data.events());
 
-		tagRecycler.setAdapter(new TagAdapter(this, organization.tagIDs));
+		tagRecycler.setAdapter(new TagAdapter(this, organization.tagIDs, false));
 	}
 
 	@Override

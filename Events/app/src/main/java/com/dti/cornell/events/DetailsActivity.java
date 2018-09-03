@@ -112,7 +112,7 @@ public class DetailsActivity extends AppCompatActivity implements OnMapReadyCall
 		mapFragment.getMapAsync(this);
 
 		tagRecycler = findViewById(R.id.tagRecycler);
-		RecyclerUtil.configureTags(tagRecycler);
+		RecyclerUtil.addHorizontalSpacing(tagRecycler);
 	}
 
 	private void configure(Event event)
@@ -124,7 +124,7 @@ public class DetailsActivity extends AppCompatActivity implements OnMapReadyCall
 		organization.setText(Data.organizationForID.get(event.organizerID).name);
 		location.setText(event.location);
 
-		TagAdapter adapter = new TagAdapter(this, event.tagIDs);
+		TagAdapter adapter = new TagAdapter(this, event.tagIDs, false);
 		tagRecycler.setAdapter(adapter);
 
 		configureDescription();

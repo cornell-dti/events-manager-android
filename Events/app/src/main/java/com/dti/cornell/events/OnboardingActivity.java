@@ -17,6 +17,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.dti.cornell.events.utils.Data;
+import com.dti.cornell.events.utils.RecyclerUtil;
 import com.dti.cornell.events.utils.SettingsUtil;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -24,6 +25,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
+import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 
 public class OnboardingActivity extends AppCompatActivity
@@ -125,9 +127,13 @@ public class OnboardingActivity extends AppCompatActivity
 					view.findViewById(R.id.nextButton).setOnClickListener(this);
 					RecyclerView recycler = view.findViewById(R.id.organizationsRecycler);
 					recycler.setAdapter(new OrganizationAdapter(getContext(), Data.organizations(), true));
+					RecyclerUtil.addVerticalSpacing(recycler);
 					break;
 				case FollowTags:
 					view.findViewById(R.id.doneButton).setOnClickListener(this);
+					recycler = view.findViewById(R.id.tagRecycler);
+					recycler.setAdapter(new TagAdapter(getContext(), ImmutableList.copyOf(Data.tagForID.keySet()), true));
+					RecyclerUtil.addVerticalSpacing(recycler);
 					break;
 			}
 		}

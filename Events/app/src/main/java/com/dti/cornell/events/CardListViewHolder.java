@@ -21,7 +21,7 @@ public class CardListViewHolder extends RecyclerView.ViewHolder implements View.
 		seeMore.setOnClickListener(this);
 
 		RecyclerView recyclerView = itemView.findViewById(R.id.recyclerView);
-		RecyclerUtil.configureCards(recyclerView);
+		RecyclerUtil.addHorizontalSpacing(recyclerView);
 		adapter = new EventCardAdapter(itemView.getContext());
 		recyclerView.setAdapter(adapter);
 	}

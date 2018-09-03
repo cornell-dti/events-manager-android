@@ -8,27 +8,22 @@ public final class RecyclerUtil
 {
 	private RecyclerUtil() {}
 
-	public static void configureTags(RecyclerView recycler)
-	{
-		int spacing = recycler.getContext().getResources().getDimensionPixelSize(R.dimen.spacing_l);
-		recycler.addItemDecoration(new SpacingItemDecoration(spacing, 0));
-	}
-
-	public static void configureCardLists(RecyclerView recycler)
-	{
-		int cardMargin = recycler.getContext().getResources().getDimensionPixelSize(R.dimen.spacing_xxl);
-		recycler.addItemDecoration(new SpacingItemDecoration(0, cardMargin));
-	}
-
-	public static void configureCards(RecyclerView recycler)
-	{
-		int cardMargin = recycler.getContext().getResources().getDimensionPixelSize(R.dimen.spacing_xxl);
-		recycler.addItemDecoration(new SpacingItemDecoration(cardMargin, 0));
-	}
-
-	public static void configureEvents(RecyclerView recycler)
+	public static void addDivider(RecyclerView recycler)
 	{
 		int margin = recycler.getContext().getResources().getDimensionPixelSize(R.dimen.spacing_xxl);
 		recycler.addItemDecoration(new com.dti.cornell.events.utils.DividerItemDecoration(margin));
+	}
+
+	public static void addHorizontalSpacing(RecyclerView recycler)
+	{
+		int margin = recycler.getContext().getResources().getDimensionPixelSize(R.dimen.spacing_xxl);
+		recycler.addItemDecoration(new SpacingItemDecoration(margin, 0));
+	}
+
+	public static void addVerticalSpacing(RecyclerView recycler)
+	{
+		int margin = recycler.getContext().getResources().getDimensionPixelSize(R.dimen.spacing_xxl);
+		recycler.addItemDecoration(new SpacingItemDecoration(0, margin));
+
 	}
 }
