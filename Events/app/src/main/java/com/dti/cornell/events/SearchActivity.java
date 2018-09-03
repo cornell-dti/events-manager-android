@@ -1,21 +1,20 @@
 package com.dti.cornell.events;
 
+import android.content.Context;
+import android.content.Intent;
 import android.support.constraint.ConstraintLayout;
-import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.dti.cornell.events.models.Event;
 import com.dti.cornell.events.utils.Data;
 import com.dti.cornell.events.utils.EventBusUtils;
-import com.dti.cornell.events.utils.RecyclerUtil;
 import com.dti.cornell.events.utils.SearchUtil;
 import com.google.common.eventbus.Subscribe;
 
@@ -27,7 +26,7 @@ import java.util.List;
  * Created by jboss925 on 9/3/18.
  */
 
-public class SearchFragment extends Fragment implements SearchView.OnQueryTextListener {
+public class SearchActivity extends AppCompatActivity implements View.OnClickListener, SearchView.OnQueryTextListener{
 
     private static final String TAG = MyEventsFragment.class.getSimpleName();
     private RecyclerView recyclerView;
@@ -38,23 +37,26 @@ public class SearchFragment extends Fragment implements SearchView.OnQueryTextLi
     private LinearLayoutManager layoutManager;
     private boolean noResults = false;
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState)
+    public static void start(Context context)
     {
-        // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_search, container, false);
+        Intent intent = new Intent(context, SearchActivity.class);
+        context.startActivity(intent);
+    }
 
-        searchBar = (SearchView) view.findViewById(R.id.searchView);
+    @Override
+    protected void onCreate(Bundle savedInstanceState)
+    {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_search);
+
+        searchBar = (SearchView) findViewById(R.id.searchView);
         searchBar.setOnQueryTextListener(this);
-        backgound = view.findViewById(R.id.searchBackground);
-        backgroundTextView = view.findViewById(R.id.searchBackgroundText);
+        backgound = findViewById(R.id.searchBackground);
+        backgroundTextView = findViewById(R.id.searchBackgroundText);
 
-        recyclerView = view.findViewById(R.id.recyclerView);
+        recyclerView = findViewById(R.id.recyclerView);
         //DEPRECATED: RecyclerUtil.configureEvents(recyclerView);
         setOnScrollListener();
-
-        return view;
 
     }
 
@@ -86,7 +88,7 @@ public class SearchFragment extends Fragment implements SearchView.OnQueryTextLi
             noResults = true;
             return true;
         }
-        adapter = new EventAdapter(getContext(), events);
+        adapter = new EventAdapter(this, events);
         recyclerView.setAdapter(adapter);
         layoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
         someResults();
@@ -136,4 +138,15 @@ public class SearchFragment extends Fragment implements SearchView.OnQueryTextLi
         layoutManager.scrollToPositionWithOffset(position, 0);
     }
 
+    @Override
+    public void onClick(View view) {
+        if(view.getId() == R.id.back2){
+            onBackPressed();
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+    }
 }

@@ -133,14 +133,8 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
 	@Override
 	public void onClick(View view) {
-		Fragment fragment;
 		if(view.getId() == R.id.toolbar){
-			toolbar.setTitle("Search");
-			fragment = new SearchFragment();
-			toolbar.setVisibility(View.VISIBLE);
-			datePicker.setVisibility(View.GONE);
-			profileToolbar.setVisibility(View.GONE);
-			transitionToFragment(fragment);
+			SearchActivity.start(this);
 		}
 	}
 }
