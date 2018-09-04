@@ -5,11 +5,14 @@ import android.content.Intent;
 import android.support.constraint.ConstraintLayout;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.SearchView;
+import android.support.v7.widget.RecyclerView;;
+import android.util.Log;
 import android.view.View;
+import android.widget.Button;
+import android.widget.SearchView;
 import android.widget.TextView;
 
 import com.dti.cornell.events.models.Event;
@@ -27,7 +30,7 @@ import java.util.List;
  * Created by jboss925 on 9/3/18.
  */
 
-public class SearchActivity extends AppCompatActivity implements View.OnClickListener, SearchView.OnQueryTextListener{
+public class SearchActivity extends AppCompatActivity implements View.OnClickListener, SearchView.OnQueryTextListener {
 
     private static final String TAG = MyEventsFragment.class.getSimpleName();
     private RecyclerView recyclerView;
@@ -36,6 +39,7 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
     private TextView backgroundTextView;
     private ConstraintLayout backgound;
     private LinearLayoutManager layoutManager;
+    private FloatingActionButton backButton;
     private boolean noResults = false;
 
     public static void start(Context context)
@@ -50,13 +54,15 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
 
-        searchBar = (SearchView) findViewById(R.id.searchView);
+        searchBar = findViewById(R.id.searchView);
         searchBar.setOnQueryTextListener(this);
         backgound = findViewById(R.id.searchBackground);
         backgroundTextView = findViewById(R.id.searchBackgroundText);
 
+        backButton = findViewById(R.id.back2);
+        backButton.setOnClickListener(this);
 
-        recyclerView = findViewById(R.id.recyclerView);
+        recyclerView = findViewById(R.id.followingRecycler);
         //DEPRECATED: RecyclerUtil.configureEvents(recyclerView);
         setOnScrollListener();
 
@@ -99,6 +105,16 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
 
     @Override
     public boolean onQueryTextChange(String newText) {
+        List<Event> events = SearchUtil.getEventsFromSearch(newText);
+        if(events.isEmpty()){
+            noResults();
+            noResults = true;
+            return true;
+        }
+        adapter = new EventAdapter(this, events);
+        recyclerView.setAdapter(adapter);
+        layoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
+        someResults();
         return false;
     }
 
@@ -149,6 +165,8 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
 
     @Override
     public void onBackPressed() {
+        Log.e("HELP", "SHIT GOT PRESSED");
+        setContentView(R.layout.activity_main);
         super.onBackPressed();
     }
 }

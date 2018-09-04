@@ -3,12 +3,14 @@ package com.dti.cornell.events;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
@@ -21,11 +23,12 @@ import com.google.common.eventbus.Subscribe;
 
 //import javax.swing.text.html.HTML;
 
-public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener, Toolbar.OnMenuItemClickListener
+public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener
 {
 	private Toolbar toolbar;
 	private Toolbar profileToolbar;
 	private RecyclerView datePicker;
+	private ConstraintLayout noEventsForYou;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
@@ -40,6 +43,8 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 		toolbar.setVisibility(View.VISIBLE);
 		setSupportActionBar(toolbar);
 		profileToolbar = findViewById(R.id.profileToolbar);
+		noEventsForYou = findViewById(R.id.noEventsForYouLayout);
+		noEventsForYou.setVisibility(View.GONE);
 
 		datePicker = findViewById(R.id.datePicker);
 		int horizMargin = getResources().getDimensionPixelSize(R.dimen.spacing_xl);
@@ -57,6 +62,14 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 			}
 		}
 
+
+	}
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		// Inflate the menu; this adds items to the action bar if it is present.
+		getMenuInflater().inflate(R.menu.tab, menu);
+		return true;
 	}
 
 	@Override
@@ -133,13 +146,56 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 	}
 
 	@Override
-	public boolean onMenuItemClick(MenuItem item) {
-		if(item.getItemId() == R.id.searchMenuItem){
-
-			//TODO: Make sure that SearchActivity actually starts
-			SearchActivity.start(this);
-			return true;
+	public boolean onOptionsItemSelected(MenuItem item) {
+		// Handle item selection
+		Fragment fragment;
+		switch (item.getItemId()) {
+			case R.id.tab_search:
+				SearchActivity.start(this);
+				return true;
+			case R.id.tab_discover:
+				toolbar.setTitle(R.string.tab_discover);
+				fragment = new DiscoverFragment();
+				toolbar.setVisibility(View.VISIBLE);
+				datePicker.setVisibility(View.GONE);
+				profileToolbar.setVisibility(View.GONE);
+				break;
+			case R.id.tab_for_you:
+				toolbar.setTitle(R.string.tab_for_you);
+				fragment = new ForYouFragment();
+				toolbar.setVisibility(View.VISIBLE);
+				datePicker.setVisibility(View.GONE);
+				profileToolbar.setVisibility(View.GONE);
+				break;
+			case R.id.tab_my_events:
+				toolbar.setTitle(R.string.tab_my_events);
+				fragment = new MyEventsFragment();
+				toolbar.setVisibility(View.VISIBLE);
+				datePicker.setVisibility(View.VISIBLE);
+				profileToolbar.setVisibility(View.GONE);
+				break;
+			case R.id.tab_profile:
+				fragment = new ProfileFragment();
+				toolbar.setVisibility(View.GONE);
+				datePicker.setVisibility(View.GONE);
+				profileToolbar.setVisibility(View.VISIBLE);
+				break;
+			default:
+				return super.onOptionsItemSelected(item);
 		}
-		return false;
+		transitionToFragment(fragment);
+		return true;
 	}
+
+//	@Override
+//	public boolean onMenuItemClick(MenuItem item) {
+//		Log.e("MENU OUT", item.getItemId() + "");
+//		if(item.getItemId() == R.id.searchMenuItem){
+//
+//			//TODO: Make sure that SearchActivity actually starts
+//			SearchActivity.start(this);
+//			return true;
+//		}
+//		return false;
+//	}
 }

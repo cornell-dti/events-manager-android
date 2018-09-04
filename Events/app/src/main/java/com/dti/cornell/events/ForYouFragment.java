@@ -39,6 +39,11 @@ public class ForYouFragment extends Fragment
 			data.add(new CardList(Data.tagForID.get(tagID), false, TagUtil.suggestEventsForTagID(tagID)));
 			indexer++;
 		}
+		if(data.size() == 0){
+			container.findViewById(R.id.noEventsForYouLayout).setVisibility(View.VISIBLE);
+		} else {
+			container.findViewById(R.id.noEventsForYouLayout).setVisibility(View.GONE);
+		}
 		RecyclerUtil.addVerticalSpacing(recyclerView);
 		recyclerView.setAdapter(new CardSectionAdapter(getContext(), data, false));
 

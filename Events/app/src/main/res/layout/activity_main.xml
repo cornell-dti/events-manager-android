@@ -18,7 +18,33 @@
 		app:layout_constraintBottom_toTopOf="@+id/tabBar"
 		app:layout_constraintEnd_toEndOf="parent"
 		app:layout_constraintStart_toStartOf="parent"
-		app:layout_constraintTop_toBottomOf="@+id/appBarLayout" />
+		app:layout_constraintTop_toBottomOf="@+id/appBarLayout" >
+
+		<android.support.constraint.ConstraintLayout
+			android:id="@+id/noEventsForYouLayout"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:visibility="gone">
+
+			<TextView
+				android:id="@+id/noEventsAvailableTextView"
+				android:layout_width="0dp"
+				android:layout_height="wrap_content"
+				android:layout_marginBottom="8dp"
+				android:layout_marginEnd="70dp"
+				android:layout_marginStart="70dp"
+				android:layout_marginTop="8dp"
+				android:text="No events available for you. Click on some events to begin suggestion."
+				android:textAlignment="center"
+				android:textSize="18sp"
+				android:textStyle="bold"
+				app:layout_constraintBottom_toBottomOf="parent"
+				app:layout_constraintEnd_toEndOf="parent"
+				app:layout_constraintStart_toStartOf="parent"
+				app:layout_constraintTop_toTopOf="parent" />
+		</android.support.constraint.ConstraintLayout>
+
+	</FrameLayout>
 
 	<android.support.design.widget.BottomNavigationView
 		android:id="@+id/tabBar"

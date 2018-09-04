@@ -6,6 +6,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.dti.cornell.events.models.Event;
+import com.dti.cornell.events.utils.TagUtil;
 
 public class EventCardViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener
 {
@@ -47,5 +48,8 @@ public class EventCardViewHolder extends RecyclerView.ViewHolder implements View
 	public void onClick(View view)
 	{
 		DetailsActivity.startWithEvent(event, itemView.getContext());
+		for(Integer id : event.tagIDs){
+			TagUtil.addTagToList(id);
+		}
 	}
 }
