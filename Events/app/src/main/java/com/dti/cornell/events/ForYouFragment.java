@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.dti.cornell.events.models.CardList;
 import com.dti.cornell.events.models.Event;
@@ -35,7 +36,7 @@ public class ForYouFragment extends Fragment
 		List<CardList> data = new ArrayList<>();
 		int indexer = 0;
 		for(int tagID : bestTagIDs){
-			data.add(new CardList(indexer, false, TagUtil.suggestEventsForTagID(tagID)));
+			data.add(new CardList(Data.tagForID.get(tagID), false, TagUtil.suggestEventsForTagID(tagID)));
 			indexer++;
 		}
 		RecyclerUtil.addVerticalSpacing(recyclerView);

@@ -21,7 +21,7 @@ import com.google.common.eventbus.Subscribe;
 
 //import javax.swing.text.html.HTML;
 
-public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener, View.OnClickListener
+public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener, Toolbar.OnMenuItemClickListener
 {
 	private Toolbar toolbar;
 	private Toolbar profileToolbar;
@@ -33,10 +33,11 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 
-		if (SettingsUtil.SINGLETON.getFirstRun())
-			startActivity(new Intent(this, OnboardingActivity.class));
+		//if (SettingsUtil.SINGLETON.getFirstRun())
+		//	startActivity(new Intent(this, OnboardingActivity.class));
 
 		toolbar = findViewById(R.id.toolbar);
+		toolbar.setVisibility(View.VISIBLE);
 		setSupportActionBar(toolbar);
 		profileToolbar = findViewById(R.id.profileToolbar);
 
@@ -132,9 +133,13 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 	}
 
 	@Override
-	public void onClick(View view) {
-		if(view.getId() == R.id.toolbar){
+	public boolean onMenuItemClick(MenuItem item) {
+		if(item.getItemId() == R.id.searchMenuItem){
+
+			//TODO: Make sure that SearchActivity actually starts
 			SearchActivity.start(this);
+			return true;
 		}
+		return false;
 	}
 }

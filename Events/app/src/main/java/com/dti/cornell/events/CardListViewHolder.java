@@ -28,7 +28,11 @@ public class CardListViewHolder extends RecyclerView.ViewHolder implements View.
 
 	public void configure(CardList cardList)
 	{
-		section.setText(cardList.section);
+		if(cardList.sectionText == ""){
+			section.setText(cardList.section);
+		} else{
+			section.setText(cardList.sectionText);
+		}
 		seeMore.setVisibility(cardList.showSeeMore ? View.VISIBLE : View.GONE);
 		adapter.setData(cardList.events);
 	}
