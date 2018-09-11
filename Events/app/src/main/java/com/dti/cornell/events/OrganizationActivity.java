@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.dti.cornell.events.models.Organization;
 import com.dti.cornell.events.utils.Data;
+import com.dti.cornell.events.utils.OrganizationUtil;
 import com.dti.cornell.events.utils.RecyclerUtil;
 
 public class OrganizationActivity extends AppCompatActivity implements View.OnClickListener
@@ -21,6 +22,8 @@ public class OrganizationActivity extends AppCompatActivity implements View.OnCl
 	private RecyclerView eventsRecycler;
 	private RecyclerView tagRecycler;
 	private Organization organization;
+	private boolean userIsFollowing;
+	private TextView followingButton;
 
 	public static void startWithOrganization(Organization organization, Context context)
 	{
@@ -38,7 +41,25 @@ public class OrganizationActivity extends AppCompatActivity implements View.OnCl
 		organization = Organization.fromString(getIntent().getExtras().getString(ORGANIZATION_KEY));
 		findViews();
 		configure(organization);
+		followingButton = findViewById(R.id.follow);
+		if(userIsFollowing){
+			setFollowButtonState();
+		}
 	}
+
+	public void setFollowButtonState(){
+		if(userIsFollowing){
+			followingButton.setTextAppearance(R.style.mainButtonSelected);
+			followingButton.setBackgroundResource(R.drawable.bg_round_button_red);
+			followingButton.setText(R.string.button_following);
+		} else {
+			followingButton.setTextAppearance(R.style.mainButton);
+			followingButton.setBackgroundResource(R.drawable.bg_round_button_white);
+			followingButton.setText(R.string.button_follow);
+		}
+	}
+
+
 
 	private void findViews()
 	{
@@ -73,7 +94,15 @@ public class OrganizationActivity extends AppCompatActivity implements View.OnCl
 		switch (view.getId())
 		{
 			case R.id.follow:
-				//TODO follow
+				if(OrganizationUtil.userIsFollowing(organization.id)){
+					OrganizationUtil.unfollowOrganization(organization.id);
+					userIsFollowing = false;
+					setFollowButtonState();
+				} else {
+					OrganizationUtil.followOrganization(organization.id);
+					userIsFollowing = true;
+					setFollowButtonState();
+				}
 				break;
 		}
 	}

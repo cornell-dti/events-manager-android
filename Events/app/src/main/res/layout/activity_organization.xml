@@ -26,14 +26,14 @@
 
 		<TextView
 			android:id="@+id/follow"
+			style="@style/mainButton"
 			android:layout_width="0dp"
 			android:layout_height="wrap_content"
-			android:text="@string/button_follow"
 			android:layout_marginTop="@dimen/spacing_3l"
-			style="@style/mainButton"
-			app:layout_constraintTop_toTopOf="parent"
+			android:text="@string/button_follow"
 			app:layout_constraintLeft_toLeftOf="@+id/leftGuide"
-			app:layout_constraintRight_toRightOf="@+id/rightGuide"/>
+			app:layout_constraintRight_toRightOf="@+id/rightGuide"
+			app:layout_constraintTop_toTopOf="parent" />
 
 		<TextView
 			android:id="@+id/about"
@@ -68,15 +68,16 @@
 
 		<TextView
 			android:id="@+id/website"
+			style="@style/P1"
 			android:layout_width="0dp"
 			android:layout_height="wrap_content"
 			android:layout_marginLeft="@dimen/spacing_l"
+			android:autoLink="web"
 			android:textColor="@color/gray"
-			style="@style/P1"
-			tools:text="reallySuperLongWebsiteThatWillSpanMultipleLines.org"
-			app:layout_constraintTop_toTopOf="@+id/websiteHeader"
 			app:layout_constraintLeft_toRightOf="@+id/websiteHeader"
-			app:layout_constraintRight_toRightOf="@+id/rightGuide"/>
+			app:layout_constraintRight_toRightOf="@+id/rightGuide"
+			app:layout_constraintTop_toTopOf="@+id/websiteHeader"
+			tools:text="reallySuperLongWebsiteThatWillSpanMultipleLines.org" />
 
 		<TextView
 			android:id="@+id/emailHeader"
@@ -90,14 +91,15 @@
 
 		<TextView
 			android:id="@+id/email"
+			style="@style/P1"
 			android:layout_width="0dp"
 			android:layout_height="wrap_content"
+			android:autoLink="email"
 			android:textColor="@color/gray"
-			style="@style/P1"
-			tools:text="david@reallySuperLongEmailThatWillSpanMultipleLines.org"
-			app:layout_constraintTop_toTopOf="@+id/emailHeader"
 			app:layout_constraintLeft_toLeftOf="@+id/website"
-			app:layout_constraintRight_toRightOf="@+id/rightGuide"/>
+			app:layout_constraintRight_toRightOf="@+id/rightGuide"
+			app:layout_constraintTop_toTopOf="@+id/emailHeader"
+			tools:text="david@reallySuperLongEmailThatWillSpanMultipleLines.org" />
 
 		<TextView
 			android:id="@+id/bioHeader"

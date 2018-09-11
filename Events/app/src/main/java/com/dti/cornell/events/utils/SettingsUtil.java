@@ -168,7 +168,17 @@ public class SettingsUtil
 	}
 
 	public static void saveTags(Context context){
-		PreferenceManager.getDefaultSharedPreferences(context).edit().putString("TAG_STRING", TagUtil.encodeTagIDs()).apply();
+		PreferenceManager.getDefaultSharedPreferences(context).edit().putString("TAG_STRING", OrganizationUtil.encodeOrganizationIDs()).apply();
+	}
+
+	public static void loadOrganizations(Context context){
+		String toBeDecoded = PreferenceManager.getDefaultSharedPreferences(context).getString("ORGANIZATION_STRING", "");
+		OrganizationUtil.followedOrganizations = OrganizationUtil.decodeTagIDs(toBeDecoded);
+		OrganizationUtil.organizationsLoaded = true;
+	}
+
+	public static void saveFollowedOrganizations(Context context){
+		PreferenceManager.getDefaultSharedPreferences(context).edit().putString("ORGANIZATION_STRING", OrganizationUtil.encodeOrganizationIDs()).apply();
 	}
 
 }

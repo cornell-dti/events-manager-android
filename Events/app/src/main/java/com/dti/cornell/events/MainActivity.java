@@ -2,6 +2,7 @@ package com.dti.cornell.events;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.BottomNavigationView;
@@ -16,6 +17,7 @@ import android.view.View;
 
 import com.dti.cornell.events.utils.Data;
 import com.dti.cornell.events.utils.EventBusUtils;
+import com.dti.cornell.events.utils.OrganizationUtil;
 import com.dti.cornell.events.utils.SettingsUtil;
 import com.dti.cornell.events.utils.SpacingItemDecoration;
 import com.dti.cornell.events.utils.TagUtil;
@@ -59,6 +61,12 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 			SettingsUtil.loadTags(this);
 			for (Integer loadedTag : TagUtil.tagsInterested){
 				Log.e("TAG LOADED", String.valueOf(loadedTag));
+			}
+		}
+		if(!OrganizationUtil.organizationsLoaded){
+			SettingsUtil.loadOrganizations(this);
+			for (Integer loadedTag : OrganizationUtil.followedOrganizations){
+				Log.e("ORG LOADED", String.valueOf(loadedTag));
 			}
 		}
 
@@ -132,6 +140,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 	protected void onDestroy()
 	{
 		SettingsUtil.saveTags(this);
+		SettingsUtil.saveFollowedOrganizations(this);
 		super.onDestroy();
 		EventBusUtils.SINGLETON.unregister(this);
 	}
