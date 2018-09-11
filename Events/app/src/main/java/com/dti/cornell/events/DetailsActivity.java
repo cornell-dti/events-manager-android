@@ -18,6 +18,8 @@ import android.widget.TextView;
 import com.dti.cornell.events.models.Event;
 import com.dti.cornell.events.models.Organization;
 import com.dti.cornell.events.utils.Data;
+import com.dti.cornell.events.utils.EventUtil;
+import com.dti.cornell.events.utils.OrganizationUtil;
 import com.dti.cornell.events.utils.RecyclerUtil;
 import com.google.android.gms.location.places.GeoDataClient;
 import com.google.android.gms.location.places.Place;
@@ -51,6 +53,10 @@ public class DetailsActivity extends AppCompatActivity implements OnMapReadyCall
 	private TextView location;
 	private RecyclerView tagRecycler;
 	private Event event;
+	private TextView interestedButton;
+	private TextView goingButton;
+	private boolean isInterested;
+	private boolean isGoing;
 
 	private static final int DESCRIPTION_MAX_LINES = 3;
 
@@ -113,6 +119,16 @@ public class DetailsActivity extends AppCompatActivity implements OnMapReadyCall
 
 		tagRecycler = findViewById(R.id.tagRecycler);
 		RecyclerUtil.addHorizontalSpacing(tagRecycler);
+
+		interestedButton = findViewById(R.id.interested);
+		goingButton = findViewById(R.id.going);
+	}
+
+	@Override
+	public void onStart(){
+		super.onStart();
+		setInterestedButtonState();
+		setGoingButtonState();
 	}
 
 	private void configure(Event event)
@@ -126,6 +142,12 @@ public class DetailsActivity extends AppCompatActivity implements OnMapReadyCall
 
 		TagAdapter adapter = new TagAdapter(this, event.tagIDs, false);
 		tagRecycler.setAdapter(adapter);
+
+		interestedButton.setOnClickListener(this);
+		goingButton.setOnClickListener(this);
+		isInterested = EventUtil.userIsInterested(event.id);
+		isGoing = EventUtil.userIsGoing(event.id);
+
 
 		configureDescription();
 	}
@@ -223,6 +245,53 @@ public class DetailsActivity extends AppCompatActivity implements OnMapReadyCall
 				Organization organization = Data.organizationForID.get(event.organizerID);
 				OrganizationActivity.startWithOrganization(organization, this);
 				break;
+			case R.id.interested:
+				if(EventUtil.userIsInterested(event.id)){
+					EventUtil.setNotInterested(event.id);
+					isInterested = false;
+					setInterestedButtonState();
+				} else {
+					EventUtil.setInterested(event.id);
+					isInterested = true;
+					setInterestedButtonState();
+				}
+				break;
+			case R.id.going:
+				if(EventUtil.userIsGoing(event.id)){
+					EventUtil.setNotGoing(event.id);
+					isGoing = false;
+					setGoingButtonState();
+				} else {
+					EventUtil.setGoing(event.id);
+					isGoing = true;
+					setGoingButtonState();
+				}
+				break;
 		}
 	}
+
+	public void setInterestedButtonState(){
+		if(isInterested){
+			interestedButton.setTextAppearance(R.style.mainButtonSelected);
+			interestedButton.setBackgroundResource(R.drawable.bg_round_button_red);
+			interestedButton.setText(R.string.button_interested);
+		} else {
+			interestedButton.setTextAppearance(R.style.mainButton);
+			interestedButton.setBackgroundResource(R.drawable.bg_round_button_white);
+			interestedButton.setText(R.string.button_interested);
+		}
+	}
+
+	public void setGoingButtonState(){
+		if(isGoing){
+			goingButton.setTextAppearance(R.style.mainButtonSelected);
+			goingButton.setBackgroundResource(R.drawable.bg_round_button_red);
+			goingButton.setText(R.string.button_going);
+		} else {
+			goingButton.setTextAppearance(R.style.mainButton);
+			goingButton.setBackgroundResource(R.drawable.bg_round_button_white);
+			goingButton.setText(R.string.button_going);
+		}
+	}
+
 }

@@ -119,7 +119,7 @@ public class TagUtil {
     }
 
     public static Map<Integer, Integer> decodeTagIDs(String tagIDsString){
-        if(tagIDsString.isEmpty()){
+        if(tagIDsString.isEmpty() || !tagIDsString.contains("::")){
             return new HashMap<>();
         }
         String[] tagIDs = tagIDsString.split("::");

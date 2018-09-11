@@ -17,6 +17,7 @@ import android.view.View;
 
 import com.dti.cornell.events.utils.Data;
 import com.dti.cornell.events.utils.EventBusUtils;
+import com.dti.cornell.events.utils.EventUtil;
 import com.dti.cornell.events.utils.OrganizationUtil;
 import com.dti.cornell.events.utils.SettingsUtil;
 import com.dti.cornell.events.utils.SpacingItemDecoration;
@@ -65,8 +66,14 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 		}
 		if(!OrganizationUtil.organizationsLoaded){
 			SettingsUtil.loadOrganizations(this);
-			for (Integer loadedTag : OrganizationUtil.followedOrganizations){
-				Log.e("ORG LOADED", String.valueOf(loadedTag));
+			for (Integer loadedOrgID : OrganizationUtil.followedOrganizations){
+				Log.e("ORG LOADED", String.valueOf(loadedOrgID));
+			}
+		}
+		if(!EventUtil.attendanceLoaded){
+			SettingsUtil.loadAttendance(this);
+			for (Integer loadedEventID : EventUtil.interestedEvents){
+				Log.e("ATT LOADED", String.valueOf(loadedEventID));
 			}
 		}
 
@@ -141,6 +148,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 	{
 		SettingsUtil.saveTags(this);
 		SettingsUtil.saveFollowedOrganizations(this);
+		SettingsUtil.saveAttendance(this);
 		super.onDestroy();
 		EventBusUtils.SINGLETON.unregister(this);
 	}

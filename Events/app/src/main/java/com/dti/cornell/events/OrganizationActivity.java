@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.dti.cornell.events.models.Organization;
 import com.dti.cornell.events.utils.Data;
+import com.dti.cornell.events.utils.EventUtil;
 import com.dti.cornell.events.utils.OrganizationUtil;
 import com.dti.cornell.events.utils.RecyclerUtil;
 
@@ -42,9 +43,16 @@ public class OrganizationActivity extends AppCompatActivity implements View.OnCl
 		findViews();
 		configure(organization);
 		followingButton = findViewById(R.id.follow);
+		userIsFollowing = OrganizationUtil.userIsFollowing(organization.id);
 		if(userIsFollowing){
 			setFollowButtonState();
 		}
+	}
+
+	@Override
+	public void onStart(){
+		super.onStart();
+		setFollowButtonState();
 	}
 
 	public void setFollowButtonState(){

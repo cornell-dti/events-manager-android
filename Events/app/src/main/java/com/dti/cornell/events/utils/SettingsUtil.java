@@ -3,6 +3,7 @@ package com.dti.cornell.events.utils;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
+import android.util.Log;
 
 import com.dti.cornell.events.models.Event;
 import com.dti.cornell.events.models.Organization;
@@ -168,7 +169,7 @@ public class SettingsUtil
 	}
 
 	public static void saveTags(Context context){
-		PreferenceManager.getDefaultSharedPreferences(context).edit().putString("TAG_STRING", OrganizationUtil.encodeOrganizationIDs()).apply();
+		PreferenceManager.getDefaultSharedPreferences(context).edit().putString("TAG_STRING", TagUtil.encodeTagIDs()).commit();
 	}
 
 	public static void loadOrganizations(Context context){
@@ -178,7 +179,21 @@ public class SettingsUtil
 	}
 
 	public static void saveFollowedOrganizations(Context context){
-		PreferenceManager.getDefaultSharedPreferences(context).edit().putString("ORGANIZATION_STRING", OrganizationUtil.encodeOrganizationIDs()).apply();
+//		SharedPreferences settings;
+//		settings = context.getSharedPreferences("ORGANIZATION_STRING", Context.MODE_PRIVATE);
+//		settings.edit().putString(OrganizationUtil.encodeOrganizationIDs(), null).apply();
+		PreferenceManager.getDefaultSharedPreferences(context).edit().putString("ORGANIZATION_STRING", OrganizationUtil.encodeOrganizationIDs()).commit();
+	}
+
+	public static void loadAttendance(Context context){
+		String toBeDecoded = PreferenceManager.getDefaultSharedPreferences(context).getString("ATTENDANCE_STRING", "");
+		EventUtil.interestedEvents = EventUtil.decodeEventIDs(toBeDecoded, ATTENDANCE.INTERESTED);
+		EventUtil.goingEvents = EventUtil.decodeEventIDs(toBeDecoded, ATTENDANCE.GOING);
+		EventUtil.attendanceLoaded = true;
+	}
+
+	public static void saveAttendance(Context context){
+		PreferenceManager.getDefaultSharedPreferences(context).edit().putString("ATTENDANCE_STRING", EventUtil.encodeEventIDs()).commit();
 	}
 
 }
