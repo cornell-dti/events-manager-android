@@ -1,8 +1,6 @@
 package com.dti.cornell.events;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.BottomNavigationView;
@@ -11,7 +9,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
@@ -23,8 +20,6 @@ import com.dti.cornell.events.utils.SettingsUtil;
 import com.dti.cornell.events.utils.SpacingItemDecoration;
 import com.dti.cornell.events.utils.TagUtil;
 import com.google.common.eventbus.Subscribe;
-
-//import javax.swing.text.html.HTML;
 
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener
 {
@@ -57,6 +52,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 		BottomNavigationView tabBar = findViewById(R.id.tabBar);
 		tabBar.setOnNavigationItemSelectedListener(this);
 		tabBar.setSelectedItemId(R.id.tab_discover);    //select discover page first
+		toolbar.setTitle(R.string.tab_discover);
 
 		if(!TagUtil.tagsLoaded){
 			SettingsUtil.loadTags(this);
@@ -78,13 +74,6 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 		}
 
 
-	}
-
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.tab, menu);
-		return true;
 	}
 
 	@Override
@@ -167,9 +156,6 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 		// Handle item selection
 		Fragment fragment;
 		switch (item.getItemId()) {
-			case R.id.tab_search:
-				SearchActivity.start(this);
-				return true;
 			case R.id.tab_discover:
 				toolbar.setTitle(R.string.tab_discover);
 				fragment = new DiscoverFragment();

@@ -23,7 +23,7 @@ import java.util.List;
 public class EventAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 {
 	private final LayoutInflater inflater;
-	private final List<EventItem> data;
+	private List<EventItem> data;
 
 	private static final String DATE_FORMAT = "EEEE, MMMM d";
 
@@ -124,5 +124,11 @@ public class EventAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 		while (getItemViewType(position) != SUBHEADER)
 			position -= 1;
 		return position;
+	}
+
+	public void updateList(List<Event> events)
+	{
+		data = addSubheadersToEvents(events);
+		notifyDataSetChanged();
 	}
 }

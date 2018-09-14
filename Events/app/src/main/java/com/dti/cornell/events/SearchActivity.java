@@ -2,49 +2,34 @@ package com.dti.cornell.events;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.annotation.Nullable;
-import android.support.constraint.ConstraintLayout;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.SearchView;
-import android.widget.TabHost;
 import android.widget.TextView;
 
 import com.dti.cornell.events.models.Event;
-import com.dti.cornell.events.utils.Data;
 import com.dti.cornell.events.utils.EventBusUtils;
-import com.dti.cornell.events.utils.Internet;
-import com.dti.cornell.events.utils.RecyclerUtil;
 import com.dti.cornell.events.utils.SearchUtil;
-import com.dti.cornell.events.utils.SettingsUtil;
-import com.google.android.gms.auth.api.signin.GoogleSignIn;
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
-import com.google.android.gms.auth.api.signin.GoogleSignInClient;
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
-import com.google.android.gms.common.api.ApiException;
-import com.google.android.gms.tasks.Task;
-import com.google.common.collect.ImmutableList;
-import com.google.common.collect.ImmutableMap;
 import com.google.common.eventbus.Subscribe;
 
-import org.joda.time.DateTime;
-
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+
+;
 
 /**
  * Created by jboss925 on 9/3/18.
@@ -84,7 +69,8 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
         backButton.setOnClickListener(this);
 
         pager = findViewById(R.id.searchViewPager);
-        searchFragmentAdapter = new SearchActivity.SearchAdapter(getSupportFragmentManager());;
+        pager.setOffscreenPageLimit(Page.values().length);
+        searchFragmentAdapter = new SearchActivity.SearchAdapter(getSupportFragmentManager());
         pager.setAdapter(searchFragmentAdapter);
         //DEPRECATED: RecyclerUtil.configureEvents(recyclerView);
         //setOnScrollListener();
@@ -120,6 +106,7 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
     @Override
     public boolean onQueryTextSubmit(String newText) {
         EventBusUtils.SINGLETON.post(new EventBusUtils.SearchChanged(newText));
+        searchBar.clearFocus();
         return true;
     }
 
@@ -149,13 +136,16 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
 
     @Override
     public void onClick(View view) {
-        if(view.getId() == R.id.back2){
-            onBackPressed();
-        }
+	    switch (view.getId())
+	    {
+		    case R.id.back2:
+		    	onBackPressed();
+		    	return;
+	    }
     }
 
     @Override
-    public void onBackPressed() {
+    public void onBackPressed() { //TODO is this needed?
         Log.e("HELP", "SHITT GOT PRESSED");
         setContentView(R.layout.activity_main);
         super.onBackPressed();
@@ -163,53 +153,57 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
 
     public static class SearchAdapter extends FragmentPagerAdapter
     {
-        private static final SearchActivity.Page[] pages = SearchActivity.Page.values();
+        private static final Page[] pages = Page.values();
+	    private final List<Fragment> fragments = new ArrayList<>(pages.length);
 
         public SearchAdapter(FragmentManager fm)
         {
             super(fm);
+            createFragments();
         }
+	    private void createFragments()
+	    {
+		    for (Page page : pages)
+		    {
+			    SearchActivity.SearchFragment fragment = new SearchActivity.SearchFragment();
+			    Bundle args = new Bundle();
+			    args.putSerializable(SearchActivity.SearchFragment.PAGE_KEY, page);
+			    fragment.setArguments(args);
+			    fragments.add(fragment);
+		    }
+	    }
         @Override
         public Fragment getItem(int position)
         {
-            SearchActivity.SearchFragment fragment = new SearchActivity.SearchFragment();
-            Bundle args = new Bundle();
-            args.putSerializable(SearchActivity.SearchFragment.PAGE_KEY, pages[position]);
-            fragment.setArguments(args);
-            return fragment;
+            return fragments.get(position);
         }
 
         @Override
         public int getCount()
         {
-            return pages.length;
+            return fragments.size();
         }
     }
 
     public static class SearchFragment extends Fragment implements View.OnClickListener {
         private static final String TAG = SearchActivity.SearchFragment.class.getSimpleName();
         public static final String PAGE_KEY = "page";
-        private static final ImmutableMap<SearchActivity.Page, Integer> layoutForPage = ImmutableMap
-                .of(Page.Events, R.layout.fragment_search_page,
-                        Page.Orgs, R.layout.fragment_search_page,
-                        Page.Tags, R.layout.fragment_search_page);
         private SearchActivity.Page page;
 
         public RecyclerView recyclerView;
         private EventAdapter adapter;
 
-        @Nullable
+	    @Nullable
         @Override
         public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
             EventBusUtils.SINGLETON.register(this);
-
             Bundle args = getArguments();
             page = (SearchActivity.Page) args.getSerializable(PAGE_KEY);
 
-            int layout = layoutForPage.get(page);
-            View view = inflater.inflate(layout, container, false);
-            //onViewCreated(view, null);
-            recyclerView = view.findViewById(R.id.followingRecycler);
+            View view = inflater.inflate(R.layout.fragment_recycler, container, false);
+            recyclerView = view.findViewById(R.id.recyclerView);
+            adapter = new EventAdapter(getContext(), Collections.<Event>emptyList());
+            recyclerView.setAdapter(adapter);
             configurePage(view);
             return view;
         }
@@ -249,8 +243,8 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
 //                return true;
                 return;
             }
-            adapter = new EventAdapter(getContext(), events);
-            recyclerView.setAdapter(adapter);
+
+            adapter.updateList(events);
         }
     }
     enum Page

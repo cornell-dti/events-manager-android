@@ -5,8 +5,10 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -27,7 +29,8 @@ public class DiscoverFragment extends Fragment
 	@Override
 	public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)
 	{
-		View view = inflater.inflate(R.layout.fragment_card_sections, container, false);
+		setHasOptionsMenu(true);
+		View view = inflater.inflate(R.layout.fragment_recycler, container, false);
 
 		recyclerView = view.findViewById(R.id.recyclerView);
 		List<Event> events = Data.events();
@@ -38,5 +41,23 @@ public class DiscoverFragment extends Fragment
 		recyclerView.setAdapter(new CardSectionAdapter(getContext(), data, true));
 
 		return view;
+	}
+
+	@Override
+	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater)
+	{
+		inflater.inflate(R.menu.search, menu);
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item)
+	{
+		switch (item.getItemId())
+		{
+			case R.id.tab_search:
+				SearchActivity.start(getContext());
+				return true;
+		}
+		return false;
 	}
 }

@@ -10,11 +10,11 @@
         android:id="@+id/back2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
+        android:layout_marginEnd="@dimen/spacing_l"
         android:layout_marginStart="@dimen/spacing_xxl"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="@dimen/spacing_xxl"
         android:src="@drawable/ic_arrow_back_white_24dp"
-        android:tint="?attr/colorError"
+        android:tint="@color/colorPrimary"
         app:backgroundTint="@android:color/background_light"
         app:fabSize="mini"
         app:layout_constraintEnd_toStartOf="@+id/searchView"
@@ -24,25 +24,27 @@
     <SearchView
         android:id="@+id/searchView"
         android:layout_width="0dp"
-        android:layout_height="35dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginTop="15dp"
+        android:layout_height="0dp"
+        android:layout_marginEnd="@dimen/spacing_l"
         android:alpha="0.7"
+	    android:focusable="true"
+	    android:iconifiedByDefault="false"
         android:background="@drawable/tag_background"
         app:layout_constraintBottom_toBottomOf="@+id/back2"
         app:layout_constraintEnd_toStartOf="@+id/calendarButton"
         app:layout_constraintStart_toEndOf="@+id/back2"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="@+id/back2" />
 
     <Button
         android:id="@+id/calendarButton"
-        android:layout_width="33dp"
-        android:layout_height="30dp"
-        android:layout_marginEnd="19dp"
-        android:layout_marginTop="18dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginEnd="@dimen/spacing_xxl"
         android:background="@drawable/calendar"
+        app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="@+id/back2"
+        app:layout_constraintBottom_toBottomOf="@+id/back2"/>
 
     <android.support.constraint.ConstraintLayout
         android:id="@+id/searchBackground"

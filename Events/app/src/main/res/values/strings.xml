@@ -1,4 +1,5 @@
 <resources>
+	<string name="app_name">cue</string>
 	<string name="button_interested">interested</string>
 	<string name="button_going">going</string>
 	<string name="button_follow">follow</string>
@@ -40,4 +41,5 @@
 	<string name="onboarding_explore_description">Finally, tell us your interests. We’ll tailor your feed to include events you’ll be interested in.</string>
 	<string name="onboarding_done">Done</string>
 	<string name="onboarding_error">Please log in with your NetID</string>
+	<string name="menu_search">Search</string>
 </resources>

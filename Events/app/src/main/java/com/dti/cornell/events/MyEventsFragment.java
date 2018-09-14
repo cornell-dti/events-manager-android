@@ -28,7 +28,7 @@ public class MyEventsFragment extends Fragment
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 	                         Bundle savedInstanceState)
 	{
-		View view = inflater.inflate(R.layout.fragment_card_sections, container, false);
+		View view = inflater.inflate(R.layout.fragment_recycler, container, false);
 
 		recyclerView = view.findViewById(R.id.recyclerView);
 		RecyclerUtil.addDivider(recyclerView);
