@@ -53,6 +53,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 		tabBar.setOnNavigationItemSelectedListener(this);
 		tabBar.setSelectedItemId(R.id.tab_discover);    //select discover page first
 		toolbar.setTitle(R.string.tab_discover);
+//		setTabBarFont(tabBar);
 
 		if(!TagUtil.tagsLoaded){
 			SettingsUtil.loadTags(this);
@@ -72,9 +73,19 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 				Log.e("ATT LOADED", String.valueOf(loadedEventID));
 			}
 		}
-
-
 	}
+
+//	private void setTabBarFont(BottomNavigationView tabBar)
+//	{
+//		Typeface font = ResourcesCompat.getFont(this, R.font.text_regular);
+//		TypefaceSpan span = new TypefaceSpan()
+//		for (int i = 0; i < tabBar.getMenu().size(); i++)
+//		{
+//			MenuItem menuItem = tabBar.getMenu().getItem(i);
+//			SpannableStringBuilder title = new SpannableStringBuilder(menuItem.getTitle());
+//			title.setSpan();
+//		}
+//	}
 
 	@Override
 	public boolean onNavigationItemSelected(@NonNull MenuItem item)

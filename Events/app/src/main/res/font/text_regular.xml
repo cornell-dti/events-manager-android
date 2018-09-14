@@ -2,5 +2,5 @@
 <font-family xmlns:app="http://schemas.android.com/apk/res-auto">
 	<font
 		app:fontStyle="normal"
-		app:font="@font/display_bold"/>
+		app:font="@font/dosis_regular"/>
 </font-family>
