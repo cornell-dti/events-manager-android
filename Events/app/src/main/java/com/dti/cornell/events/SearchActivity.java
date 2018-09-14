@@ -156,7 +156,7 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
 
     @Override
     public void onBackPressed() {
-        Log.e("HELP", "SHIT GOT PRESSED");
+        Log.e("HELP", "SHITT GOT PRESSED");
         setContentView(R.layout.activity_main);
         super.onBackPressed();
     }
