@@ -68,7 +68,7 @@
 		<item name="android:textAlignment">center</item>
 		<item name="android:padding">@dimen/spacing_l</item>
 		<item name="android:textAllCaps">true</item>
-		<item name="android:textColor">@color/colorPrimaryRed</item>
+		<item name="android:textColor">@color/colorPrimary</item>
 		<item name="android:background">@drawable/bg_round_button_white</item>
 	</style>
 

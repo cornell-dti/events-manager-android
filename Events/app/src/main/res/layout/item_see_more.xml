@@ -22,12 +22,12 @@
 			android:layout_marginRight="@dimen/spacing_l"
 			android:text="@string/see_all"
 			android:textAllCaps="true"
-			android:textColor="@color/primaryBlue" />
+			android:textColor="@color/colorPrimary" />
 
 		<ImageView
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:src="@drawable/ic_keyboard_arrow_right_black_24dp"
-			android:tint="@color/primaryBlue" />
+			android:tint="@color/colorPrimary" />
 	</LinearLayout>
 </FrameLayout>

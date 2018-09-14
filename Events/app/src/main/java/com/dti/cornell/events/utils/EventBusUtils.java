@@ -36,4 +36,12 @@ public class EventBusUtils
 			this.position = position;
 		}
 	}
+	public static final class SearchChanged
+	{
+		public final String text;
+
+		public SearchChanged(String text) {
+			this.text = text;
+		}
+	}
 }

@@ -34,10 +34,8 @@ public class ForYouFragment extends Fragment
 		recyclerView = view.findViewById(R.id.recyclerView);
 		List<Integer> bestTagIDs = TagUtil.getMostPopularTags(3);
 		List<CardList> data = new ArrayList<>();
-		int indexer = 0;
 		for(int tagID : bestTagIDs){
 			data.add(new CardList(Data.tagForID.get(tagID), false, TagUtil.suggestEventsForTagID(tagID)));
-			indexer++;
 		}
 		if(data.size() == 0){
 			container.findViewById(R.id.noEventsForYouLayout).setVisibility(View.VISIBLE);

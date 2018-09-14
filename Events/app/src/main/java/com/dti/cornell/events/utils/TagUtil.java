@@ -38,6 +38,17 @@ public class TagUtil {
             return;
         }
         tagsInterested.add(tagID);
+        if(tagIDsAndImportance.containsKey(tagID)){
+            tagIDsAndImportance.put(tagID, tagIDsAndImportance.get(tagID) + 1);
+        } else {
+            tagIDsAndImportance.put(tagID, 1);
+        }
+        Log.e("DEBUG TAGUTIL", tagIDsAndImportance + "");
+    }
+
+    public static void resetTags(){
+        tagsInterested = new ArrayList<>();
+        tagIDsAndImportance = new HashMap<>();
     }
 
     public static List<Event> suggestEventsForTagID(int tagID){
@@ -102,11 +113,12 @@ public class TagUtil {
     public static String encodeTagIDs(){
         StringBuilder sb = new StringBuilder();
         boolean firstLoop = true;
-        for(Integer i : tagsInterested){
+        for(Integer i : tagIDsAndImportance.keySet()){
             if(firstLoop){
                 sb.append(i);
                 sb.append(";");
                 sb.append(String.valueOf(tagIDsAndImportance.get(i)));
+                firstLoop = false;
             } else {
                 sb.append("::");
                 sb.append(i);
@@ -115,6 +127,7 @@ public class TagUtil {
             }
 
         }
+        Log.e("DEBUG TAGUTIL", sb.toString());
         return sb.toString();
     }
 
@@ -128,7 +141,8 @@ public class TagUtil {
             String[] breakup = tagIDAndImportance.split(";");
             String tagID = breakup[0];
             String importance = breakup[1];
-            tagIDsAndImportance.put(Integer.valueOf(tagID),Integer.valueOf(importance));
+            tagIDsInts.put(Integer.valueOf(tagID), Integer.valueOf(importance));
+            // WILL CAUSE NPE tagsInterested.add(Integer.valueOf(tagID));
         }
         return tagIDsInts;
     }
@@ -156,11 +170,11 @@ public class TagUtil {
 
         @Override
         public String toString(){
-            return String.valueOf(ID) + "::" + String.valueOf(frequency);
+            return String.valueOf(ID) + ";" + String.valueOf(frequency);
         }
 
         public IDAndFrequency fromString(String encoded){
-            String[] splits = encoded.split("::");
+            String[] splits = encoded.split(";");
             return new IDAndFrequency(Integer.valueOf(splits[0]), Integer.valueOf(splits[1]));
         }
 

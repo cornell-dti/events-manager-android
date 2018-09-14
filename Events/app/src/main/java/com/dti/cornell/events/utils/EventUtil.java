@@ -24,10 +24,10 @@ public class EventUtil {
             //Needs context to load. Must call loadAttendance() from activity.
             return;
         }
-        if(interestedEvents.contains(eventID)){
-            return;
+        if(!interestedEvents.contains(eventID)){
+            interestedEvents.add(eventID);
+            if(!allAttendanceEvents.contains(eventID)) allAttendanceEvents.add(eventID);
         }
-        interestedEvents.add(eventID);
     }
 
     public static void setNotInterested(Integer eventID){
@@ -39,6 +39,7 @@ public class EventUtil {
         }
         if(interestedEvents.contains(eventID)){
             interestedEvents.remove(eventID);
+            allAttendanceEvents.remove(eventID);
         }
     }
 
@@ -49,10 +50,10 @@ public class EventUtil {
             //Needs context to load. Must call loadAttendance() from activity.
             return;
         }
-        if(goingEvents.contains(eventID)){
-            return;
+        if(!goingEvents.contains(eventID)){
+            goingEvents.add(eventID);
+            if(!allAttendanceEvents.contains(eventID)) allAttendanceEvents.add(eventID);
         }
-        goingEvents.add(eventID);
     }
 
 
@@ -65,6 +66,7 @@ public class EventUtil {
         }
         if(goingEvents.contains(eventID)){
             goingEvents.remove(eventID);
+            allAttendanceEvents.remove(eventID);
         }
     }
 
@@ -104,10 +106,12 @@ public class EventUtil {
             }
 
         }
+        Log.e("ENCODED", sb.toString());
         return sb.toString();
     }
 
     public static List<Integer> decodeEventIDs(String eventIDsString, ATTENDANCE attendance){
+        Log.e("EVENT UTIL", eventIDsString);
         if(eventIDsString.isEmpty()){
             return new ArrayList<>();
         }

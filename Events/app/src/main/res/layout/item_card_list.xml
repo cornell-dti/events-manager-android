@@ -25,7 +25,7 @@
 		android:padding="@dimen/spacing_m"
 		android:layout_marginEnd="@dimen/spacing_l"
 		android:text="@string/see_more"
-		android:textColor="@color/primaryBlue"
+		android:textColor="@color/colorPrimary"
 		android:clickable="true"
 		android:background="?attr/selectableItemBackground"
 		app:layout_constraintBaseline_toBaselineOf="@id/section"

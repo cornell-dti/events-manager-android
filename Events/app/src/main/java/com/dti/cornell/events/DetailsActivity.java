@@ -87,6 +87,7 @@ public class DetailsActivity extends AppCompatActivity implements OnMapReadyCall
 		//get the event
 		event = Event.fromString(getIntent().getExtras().getString(EVENT_KEY));
 		findViews();
+
 		configure(event);
 	}
 
@@ -122,6 +123,7 @@ public class DetailsActivity extends AppCompatActivity implements OnMapReadyCall
 
 		interestedButton = findViewById(R.id.interested);
 		goingButton = findViewById(R.id.going);
+
 	}
 
 	@Override
@@ -147,7 +149,6 @@ public class DetailsActivity extends AppCompatActivity implements OnMapReadyCall
 		goingButton.setOnClickListener(this);
 		isInterested = EventUtil.userIsInterested(event.id);
 		isGoing = EventUtil.userIsGoing(event.id);
-
 
 		configureDescription();
 	}

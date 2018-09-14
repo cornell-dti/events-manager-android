@@ -9,8 +9,8 @@ import java.util.List;
 public class CardList
 {
 	@StringRes
-	public static int section;
-	public static String sectionText = "";
+	public int section;
+	public String sectionText = "";
 	public final boolean showSeeMore;
 	public final List<Event> events;
 
