@@ -67,8 +67,6 @@ _Last updated **09/22/2018**_.
 ​
 ## Screenshots
 ​
-_Screenshots showing major parts of app_
-​
 <img src="https://raw.githubusercontent.com/cornell-dti/events-manager-android/master/screenshots/cue_home.JPG" width="250px" style="margin: 10px; border: 1px rgba(0,0,0,0.4) solid;"> <img src="https://raw.githubusercontent.com/cornell-dti/events-manager-android/master/screenshots/cue_suggested.JPG" width="250px" style="margin: 10px; border: 1px rgba(0,0,0,0.4) solid;"> <img src="https://raw.githubusercontent.com/cornell-dti/events-manager-android/master/screenshots/cue_personal.JPG" width="250px" style="margin: 10px; border: 1px rgba(0,0,0,0.4) solid;">
 ​
 ## Contributors
