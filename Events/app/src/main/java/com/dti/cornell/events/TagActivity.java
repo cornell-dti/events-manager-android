@@ -3,32 +3,16 @@ package com.dti.cornell.events;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.SearchView;
 import android.widget.TextView;
 
-import com.dti.cornell.events.models.Event;
-import com.dti.cornell.events.utils.EventBusUtils;
-import com.dti.cornell.events.utils.SearchUtil;
+import com.dti.cornell.events.utils.Data;
 import com.dti.cornell.events.utils.TagUtil;
-import com.google.common.eventbus.Subscribe;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 
 /**
  * Created by jboss925 on 9/22/18.
@@ -37,19 +21,15 @@ import java.util.List;
 public class TagActivity extends AppCompatActivity implements View.OnClickListener{
 
     private static final String TAG = MyEventsFragment.class.getSimpleName();
-    private SearchView searchBar;
-    private EventAdapter adapter;
-    private TextView backgroundTextView;
-    private ConstraintLayout backgound;
     private FloatingActionButton backButton;
-    private ViewPager pager;
     private RecyclerView recyclerView;
-    private com.dti.cornell.events.SearchActivity.SearchAdapter searchFragmentAdapter;
-    private boolean noResults = false;
+    private TextView tagNameTitle;
+    private int tagID;
+    private RecyclerView.LayoutManager layoutManager;
 
     public static void startWithTag(Context context, int tagID)
     {
-        Intent intent = new Intent(context, com.dti.cornell.events.SearchActivity.class);
+        Intent intent = new Intent(context, TagActivity.class);
         intent.putExtra("TAG_ID", tagID);
         context.startActivity(intent);
     }
@@ -59,15 +39,21 @@ public class TagActivity extends AppCompatActivity implements View.OnClickListen
     {
         setTheme(R.style.AppTheme_NoActionBar);
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_search);
+        setContentView(R.layout.activity_tag);
 
         backButton = findViewById(R.id.backButton);
         backButton.setOnClickListener(this);
 
         recyclerView = findViewById(R.id.recyclerView);
-        EventAdapter adapter = new EventAdapter(this, TagUtil.suggestEventsForTagID(getIntent().getIntExtra("TAG_ID", 0)));
+        tagID = getIntent().getIntExtra("TAG_ID", 0);
+        EventAdapter adapter = new EventAdapter(this, TagUtil.suggestEventsForTagID(tagID));
 
         recyclerView.setAdapter(adapter);
+        layoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        tagNameTitle = findViewById(R.id.tagTitle);
+        tagNameTitle.setText(Data.tagForID.get(tagID));
 
         //DEPRECATED: RecyclerUtil.configureEvents(recyclerView);
         //setOnScrollListener();
@@ -122,7 +108,7 @@ public class TagActivity extends AppCompatActivity implements View.OnClickListen
     public void onClick(View view) {
         switch (view.getId())
         {
-            case R.id.back2:
+            case R.id.backButton:
                 onBackPressed();
                 return;
         }

@@ -42,6 +42,7 @@
 		<activity android:name=".OrganizationActivity" />
 		<activity android:name=".OnboardingActivity" />
 		<activity android:name=".SearchActivity" />
+		<activity android:name=".TagActivity" />
 	</application>
 
 </manifest>
