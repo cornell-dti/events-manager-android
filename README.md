@@ -1,4 +1,4 @@
-# cue v1.0
+ <img src="https://raw.githubusercontent.com/cornell-dti/events-manager-android/master/cue_text_red.png" width="100" height="50"> v1.0
 #### Contents
   - [About](#about)
   - [Getting Started](#getting-started)
