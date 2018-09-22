@@ -5,6 +5,7 @@ An **Android** app for Cornell students to find events. The **iOS** branch can b
   - [About](#about)
   - [Getting Started](#getting-started)
   - [Dependencies & Libraries](#dependencies--libraries)
+  - [Design Choices](#design-choices)
   - [External Documentation](#external-documentation)
   - [Screenshots](#screenshots)
   - [Contributors](#contributors)
