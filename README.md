@@ -1,9 +1,18 @@
-Events Manager v1.0
-======
+# Events Manager v1.0
 An **Android** app for Cornell students to find events. The **iOS** branch can be found [here](https://github.com/cornell-dti/events-manager-ios).
-
-Getting Started
-------
+​
+#### Contents
+  - [About](#about)
+  - [Getting Started](#getting-started)
+  - [Dependencies & Libraries](#dependencies--libraries)
+  - [External Documentation](#external-documentation)
+  - [Screenshots](#screenshots)
+  - [Contributors](#contributors)
+​
+## About
+A(n) **[Android, iOS, backend, web]** app for **purpose**. **additional related repository links**.
+​
+## Getting Started
 You will need **Android Studio 3.1.3** to run the latest version of this app, which uses the following SDKs. Last update **6/9/2018** (remember to check "Show Package Details" on the lower right):
 
 SDK Platforms (tab)
@@ -23,8 +32,14 @@ SDK Tools (tab)
    * Solver for ConstraintLayout 1.0.2
    * Android Support Repository, rev 47
    * Google Repository 58
-
-Design Choices
+ 
+_Last updated **09/22/2018**_.
+​
+## Dependencies & Libraries
+ * <a href="https://github.com/google/guava">Guava</a> - a Google Library containing lots of helpful classes for Java. Most notably, immutable data structures (like ImmutableList) and EventBus, which provides a way for classes that do not have references to each other to communicate.
+ * <a href="https://github.com/dlew/joda-time-android">JodaTime</a> - a library for immutable time objects, unsupported by Java 7. Includes lots of useful data structures and methods; plus, immutable objects are almost always safer when passing by reference.
+ 
+## Design Choices
 ------
  * All objects are presumed to **not be <code>null</code>** when passed into a method as a parameter. If an object can be null, use the annotation <code>@Nullable</code>.
  * Syntax:
@@ -43,13 +58,18 @@ Design Choices
    1. An <code>Event</code> that will occur.
    2. Something to notify listeners of. For example, a click event.
  
-Used Libraries
-------
- * <a href="https://github.com/google/guava">Guava</a> - a Google Library containing lots of helpful classes for Java. Most notably, immutable data structures (like ImmutableList) and EventBus, which provides a way for classes that do not have references to each other to communicate.
- * <a href="https://github.com/dlew/joda-time-android">JodaTime</a> - a library for immutable time objects, unsupported by Java 7. Includes lots of useful data structures and methods; plus, immutable objects are almost always safer when passing by reference.
-
-Contributors
-------
+ 
+## External Documentation
+​
+* [Backend API Documentation](https://apiary.io/) - this is an external Apiary documenting the endpoints for our application.
+​
+## Screenshots
+​
+_Screenshots showing major parts of app_
+​
+<img src="https://raw.githubusercontent.com/cornell-dti/o-week-android/master/Screenshots/1.png" width="250px" style="margin: 10px; border: 1px rgba(0,0,0,0.4) solid;"> <img src="https://raw.githubusercontent.com/cornell-dti/o-week-android/master/Screenshots/2.png" width="250px" style="margin: 10px; border: 1px rgba(0,0,0,0.4) solid;"> <img src="https://raw.githubusercontent.com/cornell-dti/o-week-android/master/Screenshots/3.png" width="250px" style="margin: 10px; border: 1px rgba(0,0,0,0.4) solid;">
+​
+## Contributors
 2017
  * **Julia Kruk** - Product Manager
  * **David Chu** - Product Manager
@@ -69,5 +89,7 @@ Contributors
  * **Vicente Caycedo** - Front-End Developer
  * **Arnav Ghosh** - Back-End Developer
 
-We are a team within **Cornell Design & Tech Initiative**. For more information, see its website [here](http://cornelldti.org/).
-<img src="http://cornelldti.org/img/logos/cornelldti-dark.png">
+
+​
+We are a team within **Cornell Design & Tech Initiative**. For more information, see our website [here](https://cornelldti.org/).
+<img src="https://raw.githubusercontent.com/cornell-dti/design/master/Branding/Wordmark/Dark%20Text/Transparent/Wordmark-Dark%20Text-Transparent%403x.png">
