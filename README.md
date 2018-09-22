@@ -1,5 +1,4 @@
 # Events Manager v1.0
-An **Android** app for Cornell students to find events. The **iOS** branch can be found [here](https://github.com/cornell-dti/events-manager-ios).
 ​
 #### Contents
   - [About](#about)
@@ -11,7 +10,7 @@ An **Android** app for Cornell students to find events. The **iOS** branch can b
   - [Contributors](#contributors)
 ​
 ## About
-A(n) **[Android, iOS, backend, web]** app for **purpose**. **additional related repository links**.
+An **Android** app for Cornell students to find events. The **iOS** branch can be found [here](https://github.com/cornell-dti/events-manager-ios).
 ​
 ## Getting Started
 You will need **Android Studio 3.1.3** to run the latest version of this app, which uses the following SDKs. Last update **6/9/2018** (remember to check "Show Package Details" on the lower right):
@@ -61,7 +60,6 @@ _Last updated **09/22/2018**_.
  
  
 ## External Documentation
-​
 * [Backend API Documentation](https://apiary.io/) - this is an external Apiary documenting the endpoints for our application.
 ​
 ## Screenshots
@@ -71,25 +69,16 @@ _Screenshots showing major parts of app_
 <img src="https://raw.githubusercontent.com/cornell-dti/o-week-android/master/Screenshots/1.png" width="250px" style="margin: 10px; border: 1px rgba(0,0,0,0.4) solid;"> <img src="https://raw.githubusercontent.com/cornell-dti/o-week-android/master/Screenshots/2.png" width="250px" style="margin: 10px; border: 1px rgba(0,0,0,0.4) solid;"> <img src="https://raw.githubusercontent.com/cornell-dti/o-week-android/master/Screenshots/3.png" width="250px" style="margin: 10px; border: 1px rgba(0,0,0,0.4) solid;">
 ​
 ## Contributors
+2018
+ * **Jagger Brulato** - Front-End Developer
+ * **Qichen (Ethan) Hu** - Front-End Developer
+ * **David Chu** - Front-End Developer
+ 
 2017
- * **Julia Kruk** - Product Manager
- * **David Chu** - Product Manager
  * **Amanda Ong** - Front-End Developer
  * **Jagger Brulato** - Front-End Developer
  * **Qichen (Ethan) Hu** - Front-End Developer
- * **Arnav Ghosh** - Back-End Developer
- * **Adit Gupta** - Back-End Developer
- * **Cedric Castillo** - Designer
- * **Lisa LaBarbera** - Designer
- * **Justin Park** - Designer
- 
-2016
- * **Julia Kruk** - Product Manager
- * **Juhwan Park** - Product Manager
  * **David Chu** - Front-End Developer
- * **Vicente Caycedo** - Front-End Developer
- * **Arnav Ghosh** - Back-End Developer
-
 
 ​
 We are a team within **Cornell Design & Tech Initiative**. For more information, see our website [here](https://cornelldti.org/).
