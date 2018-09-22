@@ -74,6 +74,7 @@ _Last updated **09/22/2018**_.
  * **Jagger Brulato** - Front-End Developer
  * **Qichen (Ethan) Hu** - Front-End Developer
  * **David Chu** - Front-End Developer
+ * **Boon Palipatana** - Front-End Developer
  
 2017
  * **Amanda Ong** - Front-End Developer
