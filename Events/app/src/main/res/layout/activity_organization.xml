@@ -24,16 +24,31 @@
 			android:orientation="vertical"
 			app:layout_constraintGuide_end="@dimen/spacing_xxl"/>
 
+		<android.support.design.widget.FloatingActionButton
+			android:id="@+id/backButton"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginStart="@dimen/spacing_xxl"
+			android:layout_marginTop="8dp"
+			android:src="@drawable/ic_arrow_back_white_24dp"
+			android:tint="@color/colorPrimary"
+			app:backgroundTint="@android:color/white"
+			app:fabSize="mini"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toTopOf="parent"
+			tools:tint="@color/colorPrimary" />
+
 		<TextView
 			android:id="@+id/follow"
 			style="@style/mainButton"
 			android:layout_width="0dp"
 			android:layout_height="wrap_content"
-			android:layout_marginTop="@dimen/spacing_3l"
+			android:layout_marginTop="8dp"
 			android:text="@string/button_follow"
+			app:layout_constraintHorizontal_bias="0.0"
 			app:layout_constraintLeft_toLeftOf="@+id/leftGuide"
 			app:layout_constraintRight_toRightOf="@+id/rightGuide"
-			app:layout_constraintTop_toTopOf="parent" />
+			app:layout_constraintTop_toBottomOf="@+id/backButton" />
 
 		<TextView
 			android:id="@+id/about"

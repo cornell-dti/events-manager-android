@@ -32,21 +32,19 @@
 	    style="@style/P2"
         tools:text="10:00 AM" />
 
-    <TextView
-        android:id="@+id/eventTitle"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-	    android:layout_marginLeft="@dimen/spacing_xxl"
-	    android:layout_marginRight="@dimen/spacing_xxl"
-	    android:lines="1"
-	    android:ellipsize="end"
-        app:layout_constraintStart_toEndOf="@+id/startTime"
-	    app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-	    app:layout_constraintBottom_toTopOf="@+id/friendsGoing"
-	    app:layout_constraintVertical_chainStyle="packed"
-	    style="@style/H3"
-        tools:text="Cornell DTI Info Sessions" />
+	<TextView
+		android:id="@+id/eventTitle"
+		style="@style/H3"
+		android:layout_width="0dp"
+		android:layout_height="wrap_content"
+		android:ellipsize="end"
+		android:lines="1"
+		app:layout_constraintBottom_toTopOf="@+id/friendsGoing"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintStart_toEndOf="@+id/startTime"
+		app:layout_constraintTop_toTopOf="parent"
+		app:layout_constraintVertical_chainStyle="packed"
+		tools:text="Cornell DTI Info Sessions" />
 
 	<ImageView
 		android:id="@+id/icon"

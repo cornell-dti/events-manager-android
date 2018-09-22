@@ -3,8 +3,10 @@ package com.dti.cornell.events;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -25,6 +27,7 @@ public class OrganizationActivity extends AppCompatActivity implements View.OnCl
 	private Organization organization;
 	private boolean userIsFollowing;
 	private TextView followingButton;
+	private FloatingActionButton backButton;
 
 	public static void startWithOrganization(Organization organization, Context context)
 	{
@@ -36,6 +39,7 @@ public class OrganizationActivity extends AppCompatActivity implements View.OnCl
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
+		setTheme(R.style.AppTheme_NoActionBar);
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_organization);
 
@@ -75,6 +79,8 @@ public class OrganizationActivity extends AppCompatActivity implements View.OnCl
 		website = findViewById(R.id.website);
 		email = findViewById(R.id.email);
 		bio = findViewById(R.id.bio);
+		backButton = findViewById(R.id.backButton);
+		backButton.setOnClickListener(this);
 
 		eventsRecycler = findViewById(R.id.eventsRecycler);
 		RecyclerUtil.addHorizontalSpacing(eventsRecycler);
@@ -101,6 +107,9 @@ public class OrganizationActivity extends AppCompatActivity implements View.OnCl
 	{
 		switch (view.getId())
 		{
+			case R.id.backButton:
+				onBackPressed();
+				break;
 			case R.id.follow:
 				if(OrganizationUtil.userIsFollowing(organization.id)){
 					OrganizationUtil.unfollowOrganization(organization.id);

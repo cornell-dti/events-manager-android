@@ -11,6 +11,7 @@
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+		<item name="android:windowBackground">@android:color/white</item>
     </style>
 	<style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.ActionBar" />
 	<style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
@@ -81,6 +82,13 @@
 		<item name="android:textAllCaps">true</item>
 		<item name="android:textColor">@android:color/white</item>
 		<item name="android:background">@drawable/bg_round_button_red</item>
+	</style>
+
+	<!-- The launcher theme. It sets the main window background to the launch_screen drawable -->
+	<style name="AppTheme.Launcher">
+	<item name="android:windowBackground">@drawable/splash_page</item>
+	<!-- Optional, on Android 5+ you can modify the colorPrimaryDark color to match the windowBackground color for further branding-->
+	<!-- <item name="colorPrimaryDark">@android:color/white</item> -->
 	</style>
 
 </resources>
