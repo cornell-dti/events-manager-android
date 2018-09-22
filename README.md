@@ -59,7 +59,7 @@ _Last updated **09/22/2018**_.
  
  
 ## External Documentation
-* [Backend API Documentation](https://apiary.io/) - this is an external Apiary documenting the endpoints for our application.
+* [Backend API Documentation](https://cuevents.docs.apiary.io/#) - this is an external Apiary documenting the endpoints for our application.
 ​
 ## Screenshots
 ​
