@@ -1,5 +1,4 @@
 # Events Manager v1.0
-​
 #### Contents
   - [About](#about)
   - [Getting Started](#getting-started)
