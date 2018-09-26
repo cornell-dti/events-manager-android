@@ -73,7 +73,6 @@ _Last updated **09/22/2018**_.
 2018
  * **[Jagger Brulato](https://github.com/JBoss925)** - Front-end Developer
  * **[David Chu](https://github.com/cornell-dti/events-site/commits?author=davidchuyayah)** - Front-end Developer
- * **[Qichen Hu](https://github.com/wsjnohyeah)** - Front-end Developer
  * **Boon Palipatana** - Front-End Developer
  
 2017
