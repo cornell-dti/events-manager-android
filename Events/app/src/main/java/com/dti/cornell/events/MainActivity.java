@@ -1,5 +1,7 @@
 package com.dti.cornell.events;
 
+import android.animation.ValueAnimator;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
@@ -11,6 +13,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 
 import com.dti.cornell.events.utils.Data;
 import com.dti.cornell.events.utils.EventBusUtils;
@@ -201,6 +204,40 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 		transitionToFragment(fragment);
 		return true;
 	}
+
+	public void shrinkToolBar() {
+		Log.i("Toolbar height", Integer.toString(toolbar.getMeasuredHeight()));
+		ValueAnimator anim = ValueAnimator.ofInt(toolbar.getMeasuredHeight(), 90);
+		anim.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+			@Override
+			public void onAnimationUpdate(ValueAnimator valueAnimator) {
+				int val = (Integer) valueAnimator.getAnimatedValue();
+				ViewGroup.LayoutParams layoutParams = toolbar.getLayoutParams();
+				layoutParams.height = val;
+				toolbar.setLayoutParams(layoutParams);
+			}
+		});
+		anim.setDuration(500);
+		anim.start();
+	}
+
+	public void expandToolBar() {
+		Log.i("Toolbar height", Integer.toString(toolbar.getMeasuredHeight()));
+		ValueAnimator anim = ValueAnimator.ofInt(toolbar.getMeasuredHeight(), 144);
+		anim.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+			@Override
+			public void onAnimationUpdate(ValueAnimator valueAnimator) {
+				int val = (Integer) valueAnimator.getAnimatedValue();
+				ViewGroup.LayoutParams layoutParams = toolbar.getLayoutParams();
+				layoutParams.height = val;
+				toolbar.setLayoutParams(layoutParams);
+			}
+		});
+		anim.setDuration(500);
+		anim.start();
+	}
+
+
 
 //	@Override
 //	public boolean onMenuItemClick(MenuItem item) {
