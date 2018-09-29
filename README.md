@@ -1,4 +1,4 @@
-# cue v1.0
+## <img src="https://raw.githubusercontent.com/cornell-dti/events-manager-android/master/cue_text_red.png" width="80" height="35"> (Cornell University Events) v1.0
 #### Contents
   - [About](#about)
   - [Getting Started](#getting-started)
@@ -10,6 +10,10 @@
 ​
 ## About
 An **Android** app for Cornell students to find events. The **iOS** branch can be found [here](https://github.com/cornell-dti/events-manager-ios).
+- [events web](https://github.com/cornell-dti/events-site)
+- [events backend](https://github.com/cornell-dti/events-backend)
+- [events manager android](https://github.com/cornell-dti/events-manager-android)
+- [events manager ios](https://github.com/cornell-dti/events-manager-ios)
 ​
 ## Getting Started
 You will need **Android Studio 3.1.3** to run the latest version of this app, which uses the following SDKs. Last update **6/9/2018** (remember to check "Show Package Details" on the lower right):
@@ -63,15 +67,13 @@ _Last updated **09/22/2018**_.
 ​
 ## Screenshots
 ​
-_Screenshots showing major parts of app_
-​
-<img src="https://raw.githubusercontent.com/cornell-dti/o-week-android/master/Screenshots/1.png" width="250px" style="margin: 10px; border: 1px rgba(0,0,0,0.4) solid;"> <img src="https://raw.githubusercontent.com/cornell-dti/o-week-android/master/Screenshots/2.png" width="250px" style="margin: 10px; border: 1px rgba(0,0,0,0.4) solid;"> <img src="https://raw.githubusercontent.com/cornell-dti/o-week-android/master/Screenshots/3.png" width="250px" style="margin: 10px; border: 1px rgba(0,0,0,0.4) solid;">
+<img src="https://raw.githubusercontent.com/cornell-dti/events-manager-android/master/screenshots/cue_home.JPG" width="250px" style="margin: 10px; border: 1px rgba(0,0,0,0.4) solid;"> <img src="https://raw.githubusercontent.com/cornell-dti/events-manager-android/master/screenshots/cue_suggested.JPG" width="250px" style="margin: 10px; border: 1px rgba(0,0,0,0.4) solid;"> <img src="https://raw.githubusercontent.com/cornell-dti/events-manager-android/master/screenshots/cue_personal.JPG" width="250px" style="margin: 10px; border: 1px rgba(0,0,0,0.4) solid;"><img src="https://raw.githubusercontent.com/cornell-dti/events-manager-android/master/screenshots/cue_event.JPG" width="250px" style="margin: 10px; border: 1px rgba(0,0,0,0.4) solid;">
 ​
 ## Contributors
 2018
- * **Jagger Brulato** - Front-End Developer
- * **Qichen (Ethan) Hu** - Front-End Developer
- * **David Chu** - Front-End Developer
+ * **[Jagger Brulato](https://github.com/JBoss925)** - Front-end Developer
+ * **[David Chu](https://github.com/cornell-dti/events-site/commits?author=davidchuyayah)** - Front-end Developer
+ * **Boon Palipatana** - Front-End Developer
  
 2017
  * **Amanda Ong** - Front-End Developer
