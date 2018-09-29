@@ -27,6 +27,7 @@ import java.util.List;
 public class DiscoverFragment extends Fragment
 {
 	public static final String TAG = DiscoverFragment.class.getName();
+	public RecyclerView recyclerView;
 
 	@Nullable
 	@Override
@@ -42,6 +43,8 @@ public class DiscoverFragment extends Fragment
 				new CardList(R.string.section_tomorrow_events, true, events));
 		RecyclerUtil.addVerticalSpacing(recyclerView);
 		recyclerView.setAdapter(new CardSectionAdapter(getContext(), data, true));
+
+		this.recyclerView = recyclerView;
 
 		setOnScrollListener();
 
