@@ -32,6 +32,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 	private Toolbar toolbar;
 	private Toolbar profileToolbar;
 	private RecyclerView datePicker;
+	private boolean toolbarShrunk;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
@@ -48,6 +49,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
 		toolbar = findViewById(R.id.toolbar);
 		toolbar.setVisibility(View.VISIBLE);
+		toolbarShrunk = false;
 		setSupportActionBar(toolbar);
 		profileToolbar = findViewById(R.id.profileToolbar);
 		ConstraintLayout noEventsForYou = findViewById(R.id.noEventsForYouLayout);
@@ -211,6 +213,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 	}
 
 	public void shrinkToolBar() {
+		toolbarShrunk = true;
 		Log.i("Toolbar height", Integer.toString(toolbar.getMeasuredHeight()));
 		ValueAnimator anim = ValueAnimator.ofInt(toolbar.getMeasuredHeight(), 90);
 		anim.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
@@ -222,11 +225,12 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 				toolbar.setLayoutParams(layoutParams);
 			}
 		});
-		anim.setDuration(500);
+		anim.setDuration(200);
 		anim.start();
 	}
 
 	public void expandToolBar() {
+		toolbarShrunk = false;
 		Log.i("Toolbar height", Integer.toString(toolbar.getMeasuredHeight()));
 		ValueAnimator anim = ValueAnimator.ofInt(toolbar.getMeasuredHeight(), 144);
 		anim.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
@@ -238,7 +242,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 				toolbar.setLayoutParams(layoutParams);
 			}
 		});
-		anim.setDuration(500);
+		anim.setDuration(200);
 		anim.start();
 	}
 
@@ -246,7 +250,13 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 	public void onSearchChanged(EventBusUtils.MainActivityScrolled ms)
 	{
 		//check if ms.scrollY is whatever value and do shit
-
+		Log.d("Y scroll value", Integer.toString(ms.scrollY));
+		if (ms.scrollY >= 30 && !toolbarShrunk) {
+			shrinkToolBar();
+		}
+		if (ms.scrollY < 30 && toolbarShrunk) {
+			expandToolBar();
+		}
 	}
 
 
