@@ -35,7 +35,7 @@ public class Internet {
     private static final String TAG = Internet.class.getSimpleName();
 
 	private static RequestQueue requestQueue;
-	public static ImageLoader imageLoader;
+	private static ImageLoader imageLoader;
 	private static final Response.ErrorListener ERROR_LISTENER = new Response.ErrorListener()
 	{
 		@Override

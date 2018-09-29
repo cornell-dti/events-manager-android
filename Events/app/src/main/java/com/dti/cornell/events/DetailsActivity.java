@@ -19,7 +19,6 @@ import com.dti.cornell.events.models.Event;
 import com.dti.cornell.events.models.Organization;
 import com.dti.cornell.events.utils.Data;
 import com.dti.cornell.events.utils.EventUtil;
-import com.dti.cornell.events.utils.OrganizationUtil;
 import com.dti.cornell.events.utils.RecyclerUtil;
 import com.google.android.gms.location.places.GeoDataClient;
 import com.google.android.gms.location.places.Place;
@@ -42,7 +41,6 @@ public class DetailsActivity extends AppCompatActivity implements OnMapReadyCall
 {
 	private static final String TAG = DetailsActivity.class.getSimpleName();
 	private static final String EVENT_KEY = "event";
-	private ImageView image;
 	private TextView title;
 	private TextView description;
 	private TextView more;
@@ -102,7 +100,7 @@ public class DetailsActivity extends AppCompatActivity implements OnMapReadyCall
 
 	private void findViews()
 	{
-		image = findViewById(R.id.image);
+		ImageView image = findViewById(R.id.image);
 		title = findViewById(R.id.title);
 		description = findViewById(R.id.description);
 		time = findViewById(R.id.time);
@@ -272,7 +270,7 @@ public class DetailsActivity extends AppCompatActivity implements OnMapReadyCall
 		}
 	}
 
-	public void setInterestedButtonState(){
+	private void setInterestedButtonState(){
 		if(isInterested){
 			interestedButton.setTextAppearance(R.style.mainButtonSelected);
 			interestedButton.setBackgroundResource(R.drawable.bg_round_button_red);
@@ -284,7 +282,7 @@ public class DetailsActivity extends AppCompatActivity implements OnMapReadyCall
 		}
 	}
 
-	public void setGoingButtonState(){
+	private void setGoingButtonState(){
 		if(isGoing){
 			goingButton.setTextAppearance(R.style.mainButtonSelected);
 			goingButton.setBackgroundResource(R.drawable.bg_round_button_red);

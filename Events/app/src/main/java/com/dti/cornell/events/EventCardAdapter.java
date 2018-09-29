@@ -15,8 +15,8 @@ import java.util.List;
  * Created by jaggerbrulato on 3/21/18.
  */
 
-public class EventCardAdapter extends RecyclerView.Adapter<EventCardViewHolder> {
-	private LayoutInflater inflater;
+class EventCardAdapter extends RecyclerView.Adapter<EventCardViewHolder> {
+	private final LayoutInflater inflater;
 	private List<Event> data = Collections.emptyList();
 
 	public EventCardAdapter(Context context)

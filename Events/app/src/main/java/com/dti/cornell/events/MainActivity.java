@@ -1,7 +1,6 @@
 package com.dti.cornell.events;
 
 import android.animation.ValueAnimator;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
@@ -29,7 +28,6 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 	private Toolbar toolbar;
 	private Toolbar profileToolbar;
 	private RecyclerView datePicker;
-	private ConstraintLayout noEventsForYou;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
@@ -45,7 +43,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 		toolbar.setVisibility(View.VISIBLE);
 		setSupportActionBar(toolbar);
 		profileToolbar = findViewById(R.id.profileToolbar);
-		noEventsForYou = findViewById(R.id.noEventsForYouLayout);
+		ConstraintLayout noEventsForYou = findViewById(R.id.noEventsForYouLayout);
 		noEventsForYou.setVisibility(View.GONE);
 
 		datePicker = findViewById(R.id.datePicker);

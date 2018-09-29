@@ -21,13 +21,8 @@ import com.dti.cornell.events.utils.TagUtil;
 public class TagActivity extends AppCompatActivity implements View.OnClickListener{
 
     private static final String TAG = MyEventsFragment.class.getSimpleName();
-    private FloatingActionButton backButton;
-    private RecyclerView recyclerView;
-    private TextView tagNameTitle;
-    private int tagID;
-    private RecyclerView.LayoutManager layoutManager;
 
-    public static void startWithTag(Context context, int tagID)
+	public static void startWithTag(Context context, int tagID)
     {
         Intent intent = new Intent(context, TagActivity.class);
         intent.putExtra("TAG_ID", tagID);
@@ -41,18 +36,18 @@ public class TagActivity extends AppCompatActivity implements View.OnClickListen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tag);
 
-        backButton = findViewById(R.id.backButton);
+			FloatingActionButton backButton = findViewById(R.id.backButton);
         backButton.setOnClickListener(this);
 
-        recyclerView = findViewById(R.id.recyclerView);
-        tagID = getIntent().getIntExtra("TAG_ID", 0);
+			RecyclerView recyclerView = findViewById(R.id.recyclerView);
+			int tagID = getIntent().getIntExtra("TAG_ID", 0);
         EventAdapter adapter = new EventAdapter(this, TagUtil.suggestEventsForTagID(tagID));
 
         recyclerView.setAdapter(adapter);
-        layoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
+			RecyclerView.LayoutManager layoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        tagNameTitle = findViewById(R.id.tagTitle);
+			TextView tagNameTitle = findViewById(R.id.tagTitle);
         tagNameTitle.setText(Data.tagForID.get(tagID));
 
         //DEPRECATED: RecyclerUtil.configureEvents(recyclerView);

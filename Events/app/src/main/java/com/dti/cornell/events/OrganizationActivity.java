@@ -6,19 +6,17 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
 import com.dti.cornell.events.models.Organization;
 import com.dti.cornell.events.utils.Data;
-import com.dti.cornell.events.utils.EventUtil;
 import com.dti.cornell.events.utils.OrganizationUtil;
 import com.dti.cornell.events.utils.RecyclerUtil;
 
 public class OrganizationActivity extends AppCompatActivity implements View.OnClickListener
 {
-	public static final String ORGANIZATION_KEY = "organization";
+	private static final String ORGANIZATION_KEY = "organization";
 	private TextView website;
 	private TextView email;
 	private TextView bio;
@@ -27,7 +25,6 @@ public class OrganizationActivity extends AppCompatActivity implements View.OnCl
 	private Organization organization;
 	private boolean userIsFollowing;
 	private TextView followingButton;
-	private FloatingActionButton backButton;
 
 	public static void startWithOrganization(Organization organization, Context context)
 	{
@@ -59,7 +56,7 @@ public class OrganizationActivity extends AppCompatActivity implements View.OnCl
 		setFollowButtonState();
 	}
 
-	public void setFollowButtonState(){
+	private void setFollowButtonState(){
 		if(userIsFollowing){
 			followingButton.setTextAppearance(R.style.mainButtonSelected);
 			followingButton.setBackgroundResource(R.drawable.bg_round_button_red);
@@ -79,7 +76,7 @@ public class OrganizationActivity extends AppCompatActivity implements View.OnCl
 		website = findViewById(R.id.website);
 		email = findViewById(R.id.email);
 		bio = findViewById(R.id.bio);
-		backButton = findViewById(R.id.backButton);
+		FloatingActionButton backButton = findViewById(R.id.backButton);
 		backButton.setOnClickListener(this);
 
 		eventsRecycler = findViewById(R.id.eventsRecycler);

@@ -7,7 +7,7 @@ import android.widget.TextView;
 import com.dti.cornell.events.models.CardList;
 import com.dti.cornell.events.utils.RecyclerUtil;
 
-public class CardListViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener
+class CardListViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener
 {
 	private final TextView section;
 	private final TextView seeMore;

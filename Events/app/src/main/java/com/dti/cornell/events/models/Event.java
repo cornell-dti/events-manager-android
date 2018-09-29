@@ -24,7 +24,7 @@ public class Event implements Comparable<Event>
 	public final String location;
 	public final String googlePlaceID;
 	public final ImmutableList<String> participantIDs;
-	public final int pictureID;
+	private final int pictureID;
 	public final int organizerID;
 	public final ImmutableList<Integer> tagIDs;
 	private static final String TAG = Event.class.getSimpleName();

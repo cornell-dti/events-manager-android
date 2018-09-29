@@ -12,7 +12,6 @@ import com.dti.cornell.events.utils.EventBusUtils;
 
 public class OrganizationViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener
 {
-	private final ImageView image;
 	private final TextView name;
 	private final Drawable background;
 	private Organization organization;
@@ -21,7 +20,7 @@ public class OrganizationViewHolder extends RecyclerView.ViewHolder implements V
 	public OrganizationViewHolder(View itemView)
 	{
 		super(itemView);
-		image = itemView.findViewById(R.id.image);
+		ImageView image = itemView.findViewById(R.id.image);
 		name = itemView.findViewById(R.id.name);
 		background = itemView.getBackground();
 		itemView.setOnClickListener(this);

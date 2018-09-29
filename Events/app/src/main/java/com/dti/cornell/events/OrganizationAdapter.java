@@ -14,7 +14,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-public class OrganizationAdapter extends RecyclerView.Adapter<OrganizationViewHolder>
+class OrganizationAdapter extends RecyclerView.Adapter<OrganizationViewHolder>
 {
 	private final LayoutInflater inflater;
 	private final List<Organization> organizations;

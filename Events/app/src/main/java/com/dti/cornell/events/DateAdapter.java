@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 
 import com.dti.cornell.events.utils.Data;
 
-public class DateAdapter extends RecyclerView.Adapter<DateViewHolder>
+class DateAdapter extends RecyclerView.Adapter<DateViewHolder>
 {
 	private final LayoutInflater inflater;
 

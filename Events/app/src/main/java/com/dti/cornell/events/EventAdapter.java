@@ -20,7 +20,7 @@ import java.util.List;
  * Created by jaggerbrulato on 3/21/18.
  */
 
-public class EventAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
+class EventAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 {
 	private final LayoutInflater inflater;
 	private List<EventItem> data;

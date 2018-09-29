@@ -19,7 +19,6 @@ import java.util.List;
 
 public class ForYouFragment extends Fragment
 {
-	private RecyclerView recyclerView;
 
 	@Nullable
 	@Override
@@ -27,7 +26,7 @@ public class ForYouFragment extends Fragment
 	{
 		View view = inflater.inflate(R.layout.fragment_recycler, container, false);
 
-		recyclerView = view.findViewById(R.id.recyclerView);
+		RecyclerView recyclerView = view.findViewById(R.id.recyclerView);
 		List<Integer> bestTagIDs = TagUtil.getMostPopularTags(3);
 		List<CardList> data = new ArrayList<>();
 		for(int tagID : bestTagIDs){

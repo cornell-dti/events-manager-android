@@ -10,7 +10,6 @@ import com.dti.cornell.events.utils.TagUtil;
 
 public class EventCardViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener
 {
-	private final ImageView image;
 	private final TextView title;
 	private final TextView location;
 	private final TextView month;
@@ -22,7 +21,7 @@ public class EventCardViewHolder extends RecyclerView.ViewHolder implements View
 	public EventCardViewHolder(View itemView)
 	{
 		super(itemView);
-		image = itemView.findViewById(R.id.image);
+		ImageView image = itemView.findViewById(R.id.image);
 		title = itemView.findViewById(R.id.title);
 		location = itemView.findViewById(R.id.location);
 		month = itemView.findViewById(R.id.month);

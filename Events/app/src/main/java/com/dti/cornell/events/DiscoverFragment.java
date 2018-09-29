@@ -23,7 +23,6 @@ import java.util.List;
 public class DiscoverFragment extends Fragment
 {
 	public static final String TAG = DiscoverFragment.class.getName();
-	private RecyclerView recyclerView;
 
 	@Nullable
 	@Override
@@ -32,7 +31,7 @@ public class DiscoverFragment extends Fragment
 		setHasOptionsMenu(true);
 		View view = inflater.inflate(R.layout.fragment_recycler, container, false);
 
-		recyclerView = view.findViewById(R.id.recyclerView);
+		RecyclerView recyclerView = view.findViewById(R.id.recyclerView);
 		List<Event> events = Data.events();
 		List<CardList> data = Arrays.asList(new CardList(R.string.section_popular, true, events),
 				new CardList(R.string.section_today_events, true, events),

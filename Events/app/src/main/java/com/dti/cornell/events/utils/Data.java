@@ -16,9 +16,9 @@ import java.util.Map;
 
 public final class Data
 {
-	public static Map<Integer, Event> eventForID = new HashMap<>();
-	public static Map<Integer, String> tagForID = new HashMap<>();
-	public static Map<Integer, Organization> organizationForID = new HashMap<>();
+	private static final Map<Integer, Event> eventForID = new HashMap<>();
+	public static final Map<Integer, String> tagForID = new HashMap<>();
+	public static final Map<Integer, Organization> organizationForID = new HashMap<>();
 	public static DateTime selectedDate;
 
 	public static final int NUM_DAYS_IN_FEED = 30;

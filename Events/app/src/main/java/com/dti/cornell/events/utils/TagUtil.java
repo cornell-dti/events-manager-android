@@ -1,14 +1,9 @@
 package com.dti.cornell.events.utils;
 
-import android.content.Context;
-import android.preference.PreferenceManager;
 import android.util.Log;
 
 import com.dti.cornell.events.models.Event;
-import com.google.common.collect.ImmutableList;
-import com.google.common.eventbus.EventBus;
 
-import java.io.NotActiveException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -160,10 +155,10 @@ public class TagUtil {
 
     public static class IDAndFrequency implements Comparable<IDAndFrequency>{
 
-        public Integer ID;
-        public Integer frequency;
+        final Integer ID;
+        public final Integer frequency;
 
-        public IDAndFrequency(Integer ID, Integer frequency){
+        IDAndFrequency(Integer ID, Integer frequency){
             this.frequency = frequency;
             this.ID = ID;
         }

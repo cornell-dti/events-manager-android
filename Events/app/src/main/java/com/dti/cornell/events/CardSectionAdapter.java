@@ -11,7 +11,7 @@ import com.dti.cornell.events.models.CardList;
 
 import java.util.List;
 
-public class CardSectionAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
+class CardSectionAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 {
 	private static final String TAG = CardSectionAdapter.class.getSimpleName();
 	private final LayoutInflater inflater;

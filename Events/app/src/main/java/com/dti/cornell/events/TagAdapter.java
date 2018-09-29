@@ -13,7 +13,7 @@ import com.google.common.eventbus.Subscribe;
 import java.util.HashSet;
 import java.util.Set;
 
-public class TagAdapter extends RecyclerView.Adapter<TagViewHolder>
+class TagAdapter extends RecyclerView.Adapter<TagViewHolder>
 {
 	private final LayoutInflater inflater;
 	private final ImmutableList<Integer> tags;

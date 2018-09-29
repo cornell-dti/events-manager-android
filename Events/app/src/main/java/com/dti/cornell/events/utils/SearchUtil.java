@@ -1,7 +1,5 @@
 package com.dti.cornell.events.utils;
 
-import android.util.Log;
-
 import com.dti.cornell.events.models.Event;
 
 import java.util.ArrayList;
@@ -24,7 +22,7 @@ public class SearchUtil {
     }
 
 
-    public static boolean eventIsRelatedToSearch(Event e, String search){
+    private static boolean eventIsRelatedToSearch(Event e, String search){
         String searchL = search.toLowerCase();
         String[] searchSplits = searchL.split("\\s+");
         for(String searchLC : searchSplits){

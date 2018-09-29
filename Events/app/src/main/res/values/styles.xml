@@ -13,8 +13,8 @@
         <item name="windowNoTitle">true</item>
 		<item name="android:windowBackground">@android:color/white</item>
     </style>
-	<style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.ActionBar" />
-	<style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
 	<!-- Fonts, from the style guide (x 0.5) -->
     <style name="PageTitle" parent="@android:style/TextAppearance.Material.Title">

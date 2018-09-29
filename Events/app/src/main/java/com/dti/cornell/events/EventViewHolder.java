@@ -8,7 +8,7 @@ import android.widget.TextView;
 import com.dti.cornell.events.models.Event;
 import com.dti.cornell.events.utils.TagUtil;
 
-public class EventViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener
+class EventViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener
 {
 	private final Context context;
 	private final TextView startTime;

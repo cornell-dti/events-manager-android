@@ -14,7 +14,7 @@ import com.dti.cornell.events.R;
 /**
  * An extension of the given divider to include margins
  */
-public class DividerItemDecoration extends RecyclerView.ItemDecoration
+class DividerItemDecoration extends RecyclerView.ItemDecoration
 {
 	private final int margins;
 	@Nullable

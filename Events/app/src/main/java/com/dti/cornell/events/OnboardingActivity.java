@@ -46,7 +46,7 @@ public class OnboardingActivity extends AppCompatActivity
 		pager.setAdapter(adapter);
 	}
 
-	public void flipPage()
+	private void flipPage()
 	{
 		if (pager.getCurrentItem() + 1 < pager.getAdapter().getCount())
 			pager.setCurrentItem(pager.getCurrentItem() + 1);
@@ -64,11 +64,11 @@ public class OnboardingActivity extends AppCompatActivity
 		}
 	}
 
-	public static class OnboardingAdapter extends FragmentPagerAdapter
+	static class OnboardingAdapter extends FragmentPagerAdapter
 	{
 		private static final Page[] pages = Page.values();
 
-		public OnboardingAdapter(FragmentManager fm)
+		OnboardingAdapter(FragmentManager fm)
 		{
 			super(fm);
 		}
@@ -92,7 +92,7 @@ public class OnboardingActivity extends AppCompatActivity
 	public static class OnboardingFragment extends Fragment implements View.OnClickListener
 	{
 		private static final String TAG = OnboardingFragment.class.getSimpleName();
-		public static final String PAGE_KEY = "page";
+		static final String PAGE_KEY = "page";
 		private static final ImmutableMap<Page, Integer> layoutForPage = ImmutableMap
 				.of(Page.GetStarted, R.layout.onboarding_1,
 						Page.Login, R.layout.onboarding_2,
@@ -101,7 +101,7 @@ public class OnboardingActivity extends AppCompatActivity
 		private Page page;
 
 		//sign in page
-		public static final int SIGN_IN = 1;
+		static final int SIGN_IN = 1;
 		private GoogleSignInClient signInClient;
 		private ImageView image;
 

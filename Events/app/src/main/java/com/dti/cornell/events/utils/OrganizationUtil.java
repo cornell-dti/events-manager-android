@@ -3,10 +3,7 @@ package com.dti.cornell.events.utils;
 import android.util.Log;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by jboss925 on 9/10/18.

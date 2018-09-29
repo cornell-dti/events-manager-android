@@ -40,13 +40,8 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
     private static final String TAG = MyEventsFragment.class.getSimpleName();
     private SearchView searchBar;
     private EventAdapter adapter;
-    private TextView backgroundTextView;
-    private ConstraintLayout backgound;
-    private FloatingActionButton backButton;
-    private ViewPager pager;
-    private RecyclerView recyclerView;
-    private SearchAdapter searchFragmentAdapter;
-    private boolean noResults = false;
+	private RecyclerView recyclerView;
+	private boolean noResults = false;
 
     public static void start(Context context)
     {
@@ -63,15 +58,15 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
 
         searchBar = findViewById(R.id.searchView);
         searchBar.setOnQueryTextListener(this);
-        backgound = findViewById(R.id.searchBackground);
-        backgroundTextView = findViewById(R.id.searchBackgroundText);
+			ConstraintLayout backgound = findViewById(R.id.searchBackground);
+			TextView backgroundTextView = findViewById(R.id.searchBackgroundText);
 
-        backButton = findViewById(R.id.back2);
+			FloatingActionButton backButton = findViewById(R.id.back2);
         backButton.setOnClickListener(this);
 
-        pager = findViewById(R.id.searchViewPager);
+			ViewPager pager = findViewById(R.id.searchViewPager);
         pager.setOffscreenPageLimit(Page.values().length);
-        searchFragmentAdapter = new SearchActivity.SearchAdapter(getSupportFragmentManager());
+			SearchAdapter searchFragmentAdapter = new SearchAdapter(getSupportFragmentManager());
         pager.setAdapter(searchFragmentAdapter);
         //DEPRECATED: RecyclerUtil.configureEvents(recyclerView);
         //setOnScrollListener();
@@ -152,12 +147,12 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
         super.onBackPressed();
     }
 
-    public static class SearchAdapter extends FragmentPagerAdapter
+    static class SearchAdapter extends FragmentPagerAdapter
     {
         private static final Page[] pages = Page.values();
 	    private final List<Fragment> fragments = new ArrayList<>(pages.length);
 
-        public SearchAdapter(FragmentManager fm)
+        SearchAdapter(FragmentManager fm)
         {
             super(fm);
             createFragments();
@@ -188,10 +183,10 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
 
     public static class SearchFragment extends Fragment implements View.OnClickListener {
         private static final String TAG = SearchActivity.SearchFragment.class.getSimpleName();
-        public static final String PAGE_KEY = "page";
+        static final String PAGE_KEY = "page";
         private SearchActivity.Page page;
 
-        public RecyclerView recyclerView;
+        RecyclerView recyclerView;
         private EventAdapter adapter;
 
 	    @Nullable

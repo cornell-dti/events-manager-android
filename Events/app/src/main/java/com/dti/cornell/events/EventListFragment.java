@@ -14,7 +14,6 @@ import com.dti.cornell.events.utils.RecyclerUtil;
 
 public class EventListFragment extends Fragment
 {
-	private RecyclerView recyclerView;
 
 	@Nullable
 	@Override
@@ -22,7 +21,7 @@ public class EventListFragment extends Fragment
 	{
 		View view = inflater.inflate(R.layout.fragment_recycler, container, false);
 
-		recyclerView = view.findViewById(R.id.recyclerView);
+		RecyclerView recyclerView = view.findViewById(R.id.recyclerView);
 		RecyclerUtil.addDivider(recyclerView);
 		recyclerView.setAdapter(new EventAdapter(getContext(), Data.events()));
 

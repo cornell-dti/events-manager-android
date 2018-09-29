@@ -125,8 +125,7 @@
 			app:layout_constraintTop_toBottomOf="@+id/settingsDivider1" />
 
 		<Switch
-			android:id="@+id/remindersSwitch"
-			android:layout_width="wrap_content"
+            android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			app:layout_constraintBottom_toBottomOf="@+id/reminders"
 			app:layout_constraintRight_toRightOf="@+id/rightGuide"
@@ -145,8 +144,7 @@
 			app:layout_constraintTop_toBottomOf="@+id/reminders" />
 
 		<TextView
-			android:id="@+id/notifyMeSetting"
-			style="@style/P2"
+            style="@style/P2"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:textColor="@color/colorAccent"
@@ -179,8 +177,7 @@
 			app:layout_constraintBottom_toBottomOf="parent"/>
 
 		<TextView
-			android:id="@+id/netIDSetting"
-			style="@style/P2"
+            style="@style/P2"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:textColor="@color/colorAccent"
