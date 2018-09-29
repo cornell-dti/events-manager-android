@@ -15,7 +15,11 @@ import android.view.ViewGroup;
 import com.dti.cornell.events.models.CardList;
 import com.dti.cornell.events.models.Event;
 import com.dti.cornell.events.utils.Data;
+import com.dti.cornell.events.utils.EventBusUtils;
 import com.dti.cornell.events.utils.RecyclerUtil;
+import com.google.common.eventbus.EventBus;
+
+import org.joda.time.DateTime;
 
 import java.util.Arrays;
 import java.util.List;
@@ -39,7 +43,20 @@ public class DiscoverFragment extends Fragment
 		RecyclerUtil.addVerticalSpacing(recyclerView);
 		recyclerView.setAdapter(new CardSectionAdapter(getContext(), data, true));
 
+		setOnScrollListener();
+
 		return view;
+	}
+
+	public void setOnScrollListener(){
+		recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener()
+		{
+			@Override
+			public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy)
+			{
+				EventBusUtils.SINGLETON.post(new EventBusUtils.MainActivityScrolled(recyclerView.getScrollY()));
+			}
+		});
 	}
 
 	@Override
@@ -59,4 +76,6 @@ public class DiscoverFragment extends Fragment
 		}
 		return false;
 	}
+
+
 }

@@ -44,4 +44,14 @@ public class EventBusUtils
 			this.text = text;
 		}
 	}
+
+	public static final class MainActivityScrolled
+	{
+		public final int scrollY;
+
+		public MainActivityScrolled(int scrollY) {
+			this.scrollY = scrollY;
+		}
+	}
+
 }
