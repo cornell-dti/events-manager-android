@@ -33,6 +33,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 	private Toolbar profileToolbar;
 	private RecyclerView datePicker;
 	private boolean toolbarShrunk;
+	ConstraintLayout noEventsForYou;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
@@ -52,7 +53,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 		toolbarShrunk = false;
 		setSupportActionBar(toolbar);
 		profileToolbar = findViewById(R.id.profileToolbar);
-		ConstraintLayout noEventsForYou = findViewById(R.id.noEventsForYouLayout);
+		noEventsForYou = findViewById(R.id.noEventsForYouLayout);
 		noEventsForYou.setVisibility(View.GONE);
 
 		datePicker = findViewById(R.id.datePicker);
@@ -111,6 +112,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 				expandToolBar();
 				datePicker.setVisibility(View.GONE);
 				profileToolbar.setVisibility(View.GONE);
+				noEventsForYou.setVisibility(View.GONE);
 				break;
 			case R.id.tab_for_you:
 				toolbar.setTitle(R.string.tab_for_you);
@@ -127,6 +129,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 				expandToolBar();
 				datePicker.setVisibility(View.VISIBLE);
 				profileToolbar.setVisibility(View.GONE);
+				noEventsForYou.setVisibility(View.GONE);
 				break;
 			case R.id.tab_profile:
 				fragment = new ProfileFragment();
@@ -134,6 +137,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 				expandToolBar();
 				datePicker.setVisibility(View.GONE);
 				profileToolbar.setVisibility(View.VISIBLE);
+				noEventsForYou.setVisibility(View.GONE);
 				break;
 			default:
 				return false;
