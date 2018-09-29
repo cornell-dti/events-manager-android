@@ -7,6 +7,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -41,6 +42,8 @@ public class TagActivity extends AppCompatActivity implements View.OnClickListen
 
 			RecyclerView recyclerView = findViewById(R.id.recyclerView);
 			int tagID = getIntent().getIntExtra("TAG_ID", 0);
+        Log.e("CALLED", tagID + "");
+        Log.e("CALLED", TagUtil.suggestEventsForTagID(tagID).toString());
         EventAdapter adapter = new EventAdapter(this, TagUtil.suggestEventsForTagID(tagID));
 
         recyclerView.setAdapter(adapter);
@@ -128,9 +131,9 @@ public class TagActivity extends AppCompatActivity implements View.OnClickListen
 //        {
 //            for (com.dti.cornell.events.SearchActivity.Page page : pages)
 //            {
-//                com.dti.cornell.events.SearchActivity.SearchFragment fragment = new com.dti.cornell.events.SearchActivity.SearchFragment();
+//                com.dti.cornell.events.SearchActivity.SearchEventFragment fragment = new com.dti.cornell.events.SearchActivity.SearchEventFragment();
 //                Bundle args = new Bundle();
-//                args.putSerializable(com.dti.cornell.events.SearchActivity.SearchFragment.PAGE_KEY, page);
+//                args.putSerializable(com.dti.cornell.events.SearchActivity.SearchEventFragment.PAGE_KEY, page);
 //                fragment.setArguments(args);
 //                fragments.add(fragment);
 //            }

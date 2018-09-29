@@ -38,7 +38,6 @@ public class TagUtil {
         } else {
             tagIDsAndImportance.put(tagID, 1);
         }
-        Log.e("DEBUG TAGUTIL", tagIDsAndImportance + "");
     }
 
     public static void resetTags(){

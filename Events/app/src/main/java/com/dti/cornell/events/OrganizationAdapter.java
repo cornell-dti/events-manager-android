@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
+import com.dti.cornell.events.models.Event;
 import com.dti.cornell.events.models.Organization;
 import com.dti.cornell.events.utils.EventBusUtils;
 import com.google.common.eventbus.Subscribe;
@@ -17,7 +18,7 @@ import java.util.Set;
 class OrganizationAdapter extends RecyclerView.Adapter<OrganizationViewHolder>
 {
 	private final LayoutInflater inflater;
-	private final List<Organization> organizations;
+	private List<Organization> organizations;
 	private final Set<Organization> selected;
 	private final boolean selectable;
 
@@ -67,5 +68,11 @@ class OrganizationAdapter extends RecyclerView.Adapter<OrganizationViewHolder>
 		else
 			selected.add(organizationSelected.organization);
 		notifyItemChanged(organizationSelected.position);
+	}
+
+	public void updateList(List<Organization> orgs)
+	{
+		organizations = orgs;
+		notifyDataSetChanged();
 	}
 }

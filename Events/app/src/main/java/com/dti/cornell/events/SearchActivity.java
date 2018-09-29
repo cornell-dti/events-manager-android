@@ -1,5 +1,6 @@
 package com.dti.cornell.events;
 
+import android.app.ActionBar;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,6 +8,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -21,6 +23,7 @@ import android.widget.SearchView;
 import android.widget.TextView;
 
 import com.dti.cornell.events.models.Event;
+import com.dti.cornell.events.models.Organization;
 import com.dti.cornell.events.utils.EventBusUtils;
 import com.dti.cornell.events.utils.SearchUtil;
 import com.google.common.eventbus.Subscribe;
@@ -42,6 +45,7 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
     private EventAdapter adapter;
 	private RecyclerView recyclerView;
 	private boolean noResults = false;
+    private ActionBar actionBar;
 
     public static void start(Context context)
     {
@@ -70,6 +74,9 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
         pager.setAdapter(searchFragmentAdapter);
         //DEPRECATED: RecyclerUtil.configureEvents(recyclerView);
         //setOnScrollListener();
+
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
+        tabLayout.setupWithViewPager(pager);
 
     }
 
@@ -151,21 +158,41 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
     {
         private static final Page[] pages = Page.values();
 	    private final List<Fragment> fragments = new ArrayList<>(pages.length);
+        private String[] tabs = { "Events", "Orgs", "Tags" };
 
         SearchAdapter(FragmentManager fm)
         {
             super(fm);
             createFragments();
         }
+
 	    private void createFragments()
 	    {
+	        int i = 0;
 		    for (Page page : pages)
 		    {
-			    SearchActivity.SearchFragment fragment = new SearchActivity.SearchFragment();
-			    Bundle args = new Bundle();
-			    args.putSerializable(SearchActivity.SearchFragment.PAGE_KEY, page);
-			    fragment.setArguments(args);
-			    fragments.add(fragment);
+		        if(i == 0){
+                    SearchEventFragment fragment = new SearchEventFragment();
+                    Bundle args = new Bundle();
+                    args.putSerializable(SearchEventFragment.PAGE_KEY, page);
+                    fragment.setArguments(args);
+                    fragments.add(fragment);
+                }
+                else if(i == 1){
+                    SearchOrganizationFragment fragment = new SearchOrganizationFragment();
+                    Bundle args = new Bundle();
+                    args.putSerializable(SearchOrganizationFragment.PAGE_KEY, page);
+                    fragment.setArguments(args);
+                    fragments.add(fragment);
+                }
+                else if(i == 2){
+                    SearchTagFragment fragment = new SearchTagFragment();
+                    Bundle args = new Bundle();
+                    args.putSerializable(SearchTagFragment.PAGE_KEY, page);
+                    fragment.setArguments(args);
+                    fragments.add(fragment);
+                }
+                i++;
 		    }
 	    }
         @Override
@@ -179,11 +206,17 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
         {
             return fragments.size();
         }
+
+        @Override
+        public CharSequence getPageTitle(int position) {
+            return tabs[position];
+        }
     }
 
-    public static class SearchFragment extends Fragment implements View.OnClickListener {
-        private static final String TAG = SearchActivity.SearchFragment.class.getSimpleName();
-        static final String PAGE_KEY = "page";
+    public static class SearchEventFragment extends Fragment implements View.OnClickListener {
+        private static final String TAG = SearchEventFragment.class.getSimpleName();
+        static final String PAGE_KEY = "page_events";
+        static final String PAGE_TITLE = "Events";
         private SearchActivity.Page page;
 
         RecyclerView recyclerView;
@@ -232,17 +265,137 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
         @Subscribe
         public void onSearchChanged(EventBusUtils.SearchChanged searchChanged)
         {
-            List<Event> events = SearchUtil.getEventsFromSearch(searchChanged.text);
-            if(events.isEmpty()){
-//                noResults();
-//                noResults = true;
-//                return true;
+            if(searchChanged.text.isEmpty()){
+                adapter.updateList(Collections.EMPTY_LIST);
                 return;
             }
-
+            List<Event> events = SearchUtil.getEventsFromSearch(searchChanged.text);
             adapter.updateList(events);
         }
     }
+
+    public static class SearchOrganizationFragment extends Fragment implements View.OnClickListener {
+        private static final String TAG = SearchOrganizationFragment.class.getSimpleName();
+        static final String PAGE_KEY = "page_org";
+        static final String PAGE_TITLE = "Orgs";
+        private SearchActivity.Page page;
+
+        RecyclerView recyclerView;
+        private OrganizationSearchAdapter adapter;
+
+        @Nullable
+        @Override
+        public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+            EventBusUtils.SINGLETON.register(this);
+            Bundle args = getArguments();
+            page = (SearchActivity.Page) args.getSerializable(PAGE_KEY);
+
+            View view = inflater.inflate(R.layout.fragment_recycler, container, false);
+            recyclerView = view.findViewById(R.id.recyclerView);
+            adapter = new OrganizationSearchAdapter(getContext(), Collections.<Organization>emptyList());
+            recyclerView.setAdapter(adapter);
+            configurePage(view);
+            return view;
+        }
+
+        @Override
+        public void onDestroy() {
+            super.onDestroy();
+            EventBusUtils.SINGLETON.unregister(this);
+        }
+
+        private void configurePage(View view) {
+            switch (page) {
+                case Events:
+                    break;
+                case Orgs:
+                    break;
+                case Tags:
+//                    view.findViewById(R.id.nextButton).setOnClickListener(this);
+//                    RecyclerView recycler = view.findViewById(R.id.organizationsRecycler);
+//                    recycler.setAdapter(new OrganizationAdapter(getContext(), Data.organizations(), true));
+//                    RecyclerUtil.addVerticalSpacing(recycler);
+                    break;
+            }
+        }
+
+        @Override
+        public void onClick(View view) {
+        }
+
+        @Subscribe
+        public void onSearchChanged(EventBusUtils.SearchChanged searchChanged)
+        {
+            if(searchChanged.text.isEmpty()){
+                adapter.updateList(Collections.EMPTY_LIST);
+                return;
+            }
+            List<Organization> orgs = SearchUtil.getOrgsFromSearch(searchChanged.text);
+            adapter.updateList(orgs);
+        }
+    }
+
+    public static class SearchTagFragment extends Fragment implements View.OnClickListener {
+        private static final String TAG = SearchTagFragment.class.getSimpleName();
+        static final String PAGE_KEY = "page_tag";
+        static final String PAGE_TITLE = "Tags";
+        private SearchActivity.Page page;
+
+        RecyclerView recyclerView;
+        private TagSearchAdapter adapter;
+
+        @Nullable
+        @Override
+        public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+            EventBusUtils.SINGLETON.register(this);
+            Bundle args = getArguments();
+            page = (SearchActivity.Page) args.getSerializable(PAGE_KEY);
+
+            View view = inflater.inflate(R.layout.fragment_recycler, container, false);
+            recyclerView = view.findViewById(R.id.recyclerView);
+            adapter = new TagSearchAdapter(getContext(), Collections.<Integer>emptyList());
+            recyclerView.setAdapter(adapter);
+            configurePage(view);
+            return view;
+        }
+
+        @Override
+        public void onDestroy() {
+            super.onDestroy();
+            EventBusUtils.SINGLETON.unregister(this);
+        }
+
+        private void configurePage(View view) {
+            switch (page) {
+                case Events:
+                    break;
+                case Orgs:
+                    break;
+                case Tags:
+//                    view.findViewById(R.id.nextButton).setOnClickListener(this);
+//                    RecyclerView recycler = view.findViewById(R.id.organizationsRecycler);
+//                    recycler.setAdapter(new OrganizationAdapter(getContext(), Data.organizations(), true));
+//                    RecyclerUtil.addVerticalSpacing(recycler);
+                    break;
+            }
+        }
+
+        @Override
+        public void onClick(View view) {
+        }
+
+        @Subscribe
+        public void onSearchChanged(EventBusUtils.SearchChanged searchChanged)
+        {
+            if(searchChanged.text.isEmpty()){
+                adapter.updateList(Collections.EMPTY_LIST);
+                return;
+            }
+            List<Integer> tags = SearchUtil.getTagsFromSearch(searchChanged.text);
+            adapter.updateList(tags);
+        }
+    }
+
     enum Page
     {
         Events, Orgs, Tags
