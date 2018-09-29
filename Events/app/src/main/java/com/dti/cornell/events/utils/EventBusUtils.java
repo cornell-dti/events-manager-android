@@ -54,4 +54,20 @@ public class EventBusUtils
 		}
 	}
 
+	public static final class OrganizationPickedSearch
+	{
+		public final Organization organization;
+		public OrganizationPickedSearch(Organization org){
+			organization = org;
+		}
+	}
+
+	public static final class TagPickedSearch
+	{
+		public final String tag;
+		public TagPickedSearch(String tag){
+			this.tag = tag;
+		}
+	}
+
 }

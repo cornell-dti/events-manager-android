@@ -32,6 +32,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 	private Toolbar toolbar;
 	private Toolbar profileToolbar;
 	private RecyclerView datePicker;
+	private ConstraintLayout noEventsForYou;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
@@ -50,7 +51,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 		toolbar.setVisibility(View.VISIBLE);
 		setSupportActionBar(toolbar);
 		profileToolbar = findViewById(R.id.profileToolbar);
-		ConstraintLayout noEventsForYou = findViewById(R.id.noEventsForYouLayout);
+		noEventsForYou = findViewById(R.id.noEventsForYouLayout);
 		noEventsForYou.setVisibility(View.GONE);
 
 		datePicker = findViewById(R.id.datePicker);
@@ -108,6 +109,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 				toolbar.setVisibility(View.VISIBLE);
 				datePicker.setVisibility(View.GONE);
 				profileToolbar.setVisibility(View.GONE);
+				noEventsForYou.setVisibility(View.GONE);
 				break;
 			case R.id.tab_for_you:
 				toolbar.setTitle(R.string.tab_for_you);
@@ -122,12 +124,14 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 				toolbar.setVisibility(View.VISIBLE);
 				datePicker.setVisibility(View.VISIBLE);
 				profileToolbar.setVisibility(View.GONE);
+				noEventsForYou.setVisibility(View.GONE);
 				break;
 			case R.id.tab_profile:
 				fragment = new ProfileFragment();
 				toolbar.setVisibility(View.GONE);
 				datePicker.setVisibility(View.GONE);
 				profileToolbar.setVisibility(View.VISIBLE);
+				noEventsForYou.setVisibility(View.GONE);
 				break;
 			default:
 				return false;
@@ -182,6 +186,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 				toolbar.setVisibility(View.VISIBLE);
 				datePicker.setVisibility(View.GONE);
 				profileToolbar.setVisibility(View.GONE);
+				noEventsForYou.setVisibility(View.GONE);
 				break;
 			case R.id.tab_for_you:
 				toolbar.setTitle(R.string.tab_for_you);
@@ -196,12 +201,14 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 				toolbar.setVisibility(View.VISIBLE);
 				datePicker.setVisibility(View.VISIBLE);
 				profileToolbar.setVisibility(View.GONE);
+				noEventsForYou.setVisibility(View.GONE);
 				break;
 			case R.id.tab_profile:
 				fragment = new ProfileFragment();
 				toolbar.setVisibility(View.GONE);
 				datePicker.setVisibility(View.GONE);
 				profileToolbar.setVisibility(View.VISIBLE);
+				noEventsForYou.setVisibility(View.GONE);
 				break;
 			default:
 				return super.onOptionsItemSelected(item);
