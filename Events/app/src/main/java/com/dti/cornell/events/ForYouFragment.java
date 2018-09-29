@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 
 import com.dti.cornell.events.models.CardList;
 import com.dti.cornell.events.utils.Data;
+import com.dti.cornell.events.utils.EventBusUtils;
 import com.dti.cornell.events.utils.RecyclerUtil;
 import com.dti.cornell.events.utils.TagUtil;
 
@@ -19,6 +20,8 @@ import java.util.List;
 
 public class ForYouFragment extends Fragment
 {
+	public RecyclerView recyclerView;
+	private int mTotalScrolled;
 
 	@Nullable
 	@Override
@@ -40,6 +43,23 @@ public class ForYouFragment extends Fragment
 		RecyclerUtil.addVerticalSpacing(recyclerView);
 		recyclerView.setAdapter(new CardSectionAdapter(getContext(), data, false));
 
+		this.recyclerView = recyclerView;
+
+		setOnScrollListener();
+
 		return view;
+	}
+
+	public void setOnScrollListener(){
+		recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener()
+		{
+			@Override
+			public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy)
+			{
+				super.onScrolled(recyclerView, dx, dy);
+				mTotalScrolled += dy;
+				EventBusUtils.SINGLETON.post(new EventBusUtils.MainActivityScrolled(mTotalScrolled));
+			}
+		});
 	}
 }

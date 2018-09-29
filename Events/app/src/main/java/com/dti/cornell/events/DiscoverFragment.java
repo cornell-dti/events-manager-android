@@ -61,8 +61,6 @@ public class DiscoverFragment extends Fragment
 			{
 				super.onScrolled(recyclerView, dx, dy);
 				mTotalScrolled += dy;
-				Log.d("DiscoverFragment scroll", "scrolling");
-//				EventBusUtils.SINGLETON.post(new EventBusUtils.MainActivityScrolled(recyclerView.getScrollY()));
 				EventBusUtils.SINGLETON.post(new EventBusUtils.MainActivityScrolled(mTotalScrolled));
 			}
 		});

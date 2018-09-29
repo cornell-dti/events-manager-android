@@ -108,6 +108,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 				toolbar.setTitle(R.string.tab_discover);
 				fragment = new DiscoverFragment();
 				toolbar.setVisibility(View.VISIBLE);
+				expandToolBar();
 				datePicker.setVisibility(View.GONE);
 				profileToolbar.setVisibility(View.GONE);
 				break;
@@ -115,6 +116,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 				toolbar.setTitle(R.string.tab_for_you);
 				fragment = new ForYouFragment();
 				toolbar.setVisibility(View.VISIBLE);
+				expandToolBar();
 				datePicker.setVisibility(View.GONE);
 				profileToolbar.setVisibility(View.GONE);
 				break;
@@ -122,12 +124,14 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 				toolbar.setTitle(R.string.tab_my_events);
 				fragment = new MyEventsFragment();
 				toolbar.setVisibility(View.VISIBLE);
+				expandToolBar();
 				datePicker.setVisibility(View.VISIBLE);
 				profileToolbar.setVisibility(View.GONE);
 				break;
 			case R.id.tab_profile:
 				fragment = new ProfileFragment();
 				toolbar.setVisibility(View.GONE);
+				expandToolBar();
 				datePicker.setVisibility(View.GONE);
 				profileToolbar.setVisibility(View.VISIBLE);
 				break;
