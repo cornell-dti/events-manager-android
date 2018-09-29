@@ -15,14 +15,18 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.dti.cornell.events.models.Event;
 import com.dti.cornell.events.utils.Data;
 import com.dti.cornell.events.utils.EventBusUtils;
 import com.dti.cornell.events.utils.EventUtil;
 import com.dti.cornell.events.utils.OrganizationUtil;
+import com.dti.cornell.events.utils.SearchUtil;
 import com.dti.cornell.events.utils.SettingsUtil;
 import com.dti.cornell.events.utils.SpacingItemDecoration;
 import com.dti.cornell.events.utils.TagUtil;
 import com.google.common.eventbus.Subscribe;
+
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener
 {
@@ -37,6 +41,9 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 		setTheme(R.style.AppTheme_NoActionBar);
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+
+		//Register for scroll event
+		EventBusUtils.SINGLETON.register(this);
 
 		//if (SettingsUtil.SINGLETON.getFirstRun())
 		//	startActivity(new Intent(this, OnboardingActivity.class));
@@ -235,6 +242,13 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 		});
 		anim.setDuration(500);
 		anim.start();
+	}
+
+	@Subscribe
+	public void onSearchChanged(EventBusUtils.MainActivityScrolled ms)
+	{
+		//check if ms.scrollY is whatever value and do shit
+
 	}
 
 
