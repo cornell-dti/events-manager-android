@@ -20,8 +20,19 @@
 		<activity android:name=".MainActivity">
 			<intent-filter>
 				<action android:name="android.intent.action.MAIN" />
-
 				<category android:name="android.intent.category.LAUNCHER" />
+			</intent-filter>
+			<intent-filter>
+				<action android:name="android.intent.action.VIEW" />
+				<category android:name="android.intent.category.DEFAULT" />
+				<category android:name="android.intent.category.BROWSABLE" />
+				<!-- Replace with CUE URL -->
+				<data android:host="espn.com" />
+				<!-- Replace with CUE URL -->
+				<data android:host="www.espn.com" />
+				<data android:scheme="http" />
+				<data android:scheme="https" />
+				<data android:pathPattern="/.*" />
 			</intent-filter>
 		</activity>
 		<activity android:name=".DetailsActivity" />
