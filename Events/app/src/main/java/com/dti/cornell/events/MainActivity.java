@@ -1,6 +1,7 @@
 package com.dti.cornell.events;
 
 import android.animation.ValueAnimator;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
@@ -84,6 +85,13 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 			for (Integer loadedEventID : EventUtil.interestedEvents){
 				Log.e("ATT LOADED", String.valueOf(loadedEventID));
 			}
+		}
+		if(getIntent().getData()!=null){
+			Uri data = getIntent().getData();
+			String scheme = data.getScheme();
+			String fullPath = data.getEncodedSchemeSpecificPart();
+			// Handle app link data here
+			Log.e("URL GIVEN", scheme+"://"+fullPath);
 		}
 	}
 
