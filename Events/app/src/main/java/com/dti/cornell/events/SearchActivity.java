@@ -19,6 +19,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.SearchView;
 import android.widget.TextView;
 
@@ -46,6 +47,7 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
 	private RecyclerView recyclerView;
 	private boolean noResults = false;
     private ActionBar actionBar;
+    private Button calendarButton;
 
     public static void start(Context context)
     {
@@ -67,6 +69,8 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
 
 			FloatingActionButton backButton = findViewById(R.id.back2);
         backButton.setOnClickListener(this);
+        calendarButton = findViewById(R.id.calendarButton);
+        calendarButton.setOnClickListener(this);
 
 			ViewPager pager = findViewById(R.id.searchViewPager);
         pager.setOffscreenPageLimit(Page.values().length);
@@ -144,6 +148,9 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
 		    case R.id.back2:
 		    	onBackPressed();
 		    	return;
+            case R.id.calendarButton:
+                //TODO: calendar stuff
+                return;
 	    }
     }
 

@@ -92,5 +92,9 @@ public class SearchUtil {
         return false;
     }
 
+    public static boolean isEventAfterDate(Event e /**TODO also pass in date object*/){
+        //TODO: CHECK IF EVENT IS AFTER DATE
+        return false;
+    }
 
 }

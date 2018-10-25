@@ -47,8 +47,8 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 		//Register for scroll event
 		EventBusUtils.SINGLETON.register(this);
 
-		if (SettingsUtil.SINGLETON.getFirstRun())
-			startActivity(new Intent(this, OnboardingActivity.class));
+//		if (SettingsUtil.SINGLETON.getFirstRun())
+//			startActivity(new Intent(this, OnboardingActivity.class));
 
 		toolbar = findViewById(R.id.toolbar);
 		toolbar.setVisibility(View.VISIBLE);
