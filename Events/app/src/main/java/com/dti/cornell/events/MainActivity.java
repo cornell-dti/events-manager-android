@@ -279,15 +279,4 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
 
 
-//	@Override
-//	public boolean onMenuItemClick(MenuItem item) {
-//		Log.e("MENU OUT", item.getItemId() + "");
-//		if(item.getItemId() == R.id.searchMenuItem){
-//
-//			//TODO: Make sure that SearchActivity actually starts
-//			SearchActivity.start(this);
-//			return true;
-//		}
-//		return false;
-//	}
 }

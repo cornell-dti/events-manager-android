@@ -77,19 +77,26 @@ public class SearchUtil {
         String searchL = search.toLowerCase();
         String[] searchSplits = searchL.split("\\s+");
         for(String searchLC : searchSplits){
-            if(e.title.toLowerCase().replaceAll("’","'").contains(searchLC)
-                    || e.description.toLowerCase().replaceAll("’","'").contains(searchLC)
-                    || e.location.toLowerCase().replaceAll("’","'").contains(searchLC)
-                    || Data.organizationForID.get(e.organizerID).name.toLowerCase().replaceAll("’","'").contains(searchLC)){
+            if(cleanString(e.title).contains(searchLC)
+                    || cleanString(e.description).contains(searchLC)
+                    || cleanString(e.location).contains(searchLC)
+                    || cleanString(Data.organizationForID.get(e.organizerID).name).contains(searchLC)){
                 return true;
             }
             for(Integer tagID : e.tagIDs){
-                if(Data.tagForID.get(tagID).toLowerCase().replaceAll("’","'").contains(searchLC)){
+                if(cleanString(Data.tagForID.get(tagID)).contains(searchLC)){
                     return true;
                 }
             }
         }
         return false;
+    }
+
+    public static String cleanString(String input){
+        String output = input.toLowerCase();
+        output = output.replaceAll("’","'");
+        output.trim();
+        return output;
     }
 
     public static boolean isEventAfterDate(Event e /**TODO also pass in date object*/){
