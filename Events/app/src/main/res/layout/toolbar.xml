@@ -8,13 +8,45 @@
 	android:background="@android:color/white"
     android:theme="@style/AppTheme.NoActionBar">
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/toolbar_height"
-	    tools:title="Test title"
-        app:titleTextAppearance="@style/PageTitle"
-        app:popupTheme="@style/AppTheme.PopupOverlay" />
+	<android.support.v7.widget.Toolbar
+		android:id="@+id/toolbar"
+		android:layout_width="match_parent"
+		android:layout_height="@dimen/toolbar_height"
+		app:popupTheme="@style/AppTheme.PopupOverlay"
+		app:titleTextAppearance="@style/PageTitle"
+		tools:title="Test title">
+
+		<android.support.constraint.ConstraintLayout
+			android:layout_width="match_parent"
+			android:layout_height="match_parent">
+
+			<TextView
+				android:id="@+id/toolbarTitleBig"
+				style="@style/PageTitle"
+				android:layout_width="match_parent"
+				android:layout_height="match_parent"
+				android:layout_marginTop="12dp"
+				tools:text="Test Title" />
+
+			<TextView
+				android:id="@+id/toolbarTitleSmall"
+				style="@style/PageTitleSmall"
+				android:alpha="0"
+				android:layout_width="183dp"
+				android:layout_height="28dp"
+				android:layout_marginEnd="8dp"
+				android:layout_marginStart="8dp"
+				android:layout_marginTop="14dp"
+				android:textAlignment="center"
+				app:layout_constraintEnd_toEndOf="parent"
+				app:layout_constraintHorizontal_bias="0.502"
+				app:layout_constraintStart_toStartOf="parent"
+				app:layout_constraintTop_toTopOf="parent"
+				tools:text="Test Title" />
+
+		</android.support.constraint.ConstraintLayout>
+
+	</android.support.v7.widget.Toolbar>
 
 	<android.support.v7.widget.Toolbar
 		android:id="@+id/profileToolbar"

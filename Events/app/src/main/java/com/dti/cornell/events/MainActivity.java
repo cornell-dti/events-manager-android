@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.dti.cornell.events.models.Event;
 import com.dti.cornell.events.utils.Data;
@@ -33,6 +34,8 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 {
 	private Toolbar toolbar;
 	private Toolbar profileToolbar;
+	private TextView toolbarTitleSmall;
+	private TextView toolbarTitleBig;
 	private RecyclerView datePicker;
 	private boolean toolbarShrunk;
 	ConstraintLayout noEventsForYou;
@@ -55,6 +58,8 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 		toolbarShrunk = false;
 		setSupportActionBar(toolbar);
 		profileToolbar = findViewById(R.id.profileToolbar);
+		toolbarTitleSmall = findViewById(R.id.toolbarTitleSmall);
+		toolbarTitleBig = findViewById(R.id.toolbarTitleBig);
 		noEventsForYou = findViewById(R.id.noEventsForYouLayout);
 		noEventsForYou.setVisibility(View.GONE);
 
@@ -66,7 +71,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 		BottomNavigationView tabBar = findViewById(R.id.tabBar);
 		tabBar.setOnNavigationItemSelectedListener(this);
 		tabBar.setSelectedItemId(R.id.tab_discover);    //select discover page first
-		toolbar.setTitle(R.string.tab_discover);
+		setToolbarText(R.string.tab_discover);
 //		setTabBarFont(tabBar);
 
 		if(!TagUtil.tagsLoaded){
@@ -116,7 +121,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 		switch (item.getItemId())
 		{
 			case R.id.tab_discover:
-				toolbar.setTitle(R.string.tab_discover);
+				setToolbarText(R.string.tab_discover);
 				fragment = new DiscoverFragment();
 				toolbar.setVisibility(View.VISIBLE);
 				expandToolBar();
@@ -125,7 +130,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 				noEventsForYou.setVisibility(View.GONE);
 				break;
 			case R.id.tab_for_you:
-				toolbar.setTitle(R.string.tab_for_you);
+				setToolbarText(R.string.tab_for_you);
 				fragment = new ForYouFragment();
 				toolbar.setVisibility(View.VISIBLE);
 				expandToolBar();
@@ -133,7 +138,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 				profileToolbar.setVisibility(View.GONE);
 				break;
 			case R.id.tab_my_events:
-				toolbar.setTitle(R.string.tab_my_events);
+				setToolbarText(R.string.tab_my_events);
 				fragment = new MyEventsFragment();
 				toolbar.setVisibility(View.VISIBLE);
 				expandToolBar();
@@ -197,21 +202,21 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 		Fragment fragment;
 		switch (item.getItemId()) {
 			case R.id.tab_discover:
-				toolbar.setTitle(R.string.tab_discover);
+				setToolbarText(R.string.tab_discover);
 				fragment = new DiscoverFragment();
 				toolbar.setVisibility(View.VISIBLE);
 				datePicker.setVisibility(View.GONE);
 				profileToolbar.setVisibility(View.GONE);
 				break;
 			case R.id.tab_for_you:
-				toolbar.setTitle(R.string.tab_for_you);
+				setToolbarText(R.string.tab_for_you);
 				fragment = new ForYouFragment();
 				toolbar.setVisibility(View.VISIBLE);
 				datePicker.setVisibility(View.GONE);
 				profileToolbar.setVisibility(View.GONE);
 				break;
 			case R.id.tab_my_events:
-				toolbar.setTitle(R.string.tab_my_events);
+				setToolbarText(R.string.tab_my_events);
 				fragment = new MyEventsFragment();
 				toolbar.setVisibility(View.VISIBLE);
 				datePicker.setVisibility(View.VISIBLE);
@@ -245,11 +250,38 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 		});
 		anim.setDuration(200);
 		anim.start();
+		// Big text animation animation
+		if (toolbarTitleBig.getAlpha() != 0) {
+			ValueAnimator bigTextAnim = ValueAnimator.ofFloat(1f, 0f);
+			bigTextAnim.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+				@Override
+				public void onAnimationUpdate(ValueAnimator valueAnimator) {
+					float alpha = (float) valueAnimator.getAnimatedValue();
+					toolbarTitleBig.setAlpha(alpha);
+				}
+			});
+			bigTextAnim.setDuration(400);
+			bigTextAnim.start();
+		}
+		// Small text animation animation
+		if (toolbarTitleSmall.getAlpha() != 1) {
+			ValueAnimator smallTextAnim = ValueAnimator.ofFloat(0f, 1f);
+			smallTextAnim.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+				@Override
+				public void onAnimationUpdate(ValueAnimator valueAnimator) {
+					float alpha = (float) valueAnimator.getAnimatedValue();
+					toolbarTitleSmall.setAlpha(alpha);
+				}
+			});
+			smallTextAnim.setDuration(400);
+			smallTextAnim.start();
+		}
 	}
 
 	public void expandToolBar() {
 		toolbarShrunk = false;
 		Log.i("Toolbar height", Integer.toString(toolbar.getMeasuredHeight()));
+		// Height animation
 		ValueAnimator anim = ValueAnimator.ofInt(toolbar.getMeasuredHeight(), 144);
 		anim.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
 			@Override
@@ -262,6 +294,38 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 		});
 		anim.setDuration(200);
 		anim.start();
+		// Small text animation animation
+		if (toolbarTitleSmall.getAlpha() != 0) {
+			ValueAnimator smallTextAnim = ValueAnimator.ofFloat(1f, 0f);
+			smallTextAnim.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+				@Override
+				public void onAnimationUpdate(ValueAnimator valueAnimator) {
+					float alpha = (float) valueAnimator.getAnimatedValue();
+					toolbarTitleSmall.setAlpha(alpha);
+				}
+			});
+			smallTextAnim.setDuration(400);
+			smallTextAnim.start();
+		}
+		// Big text animation animation
+		if (toolbarTitleBig.getAlpha() != 1) {
+			ValueAnimator bigTextAnim = ValueAnimator.ofFloat(0f, 1f);
+			bigTextAnim.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+				@Override
+				public void onAnimationUpdate(ValueAnimator valueAnimator) {
+					float alpha = (float) valueAnimator.getAnimatedValue();
+					toolbarTitleBig.setAlpha(alpha);
+				}
+			});
+			bigTextAnim.setDuration(400);
+			bigTextAnim.start();
+		}
+	}
+
+	public void setToolbarText(int text) {
+		toolbar.setTitle(text);
+		toolbarTitleSmall.setText(text);
+		toolbarTitleBig.setText(text);
 	}
 
 	@Subscribe
