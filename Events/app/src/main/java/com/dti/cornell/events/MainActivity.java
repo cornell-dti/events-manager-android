@@ -1,6 +1,7 @@
 package com.dti.cornell.events;
 
 import android.animation.ValueAnimator;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -46,8 +47,8 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 		//Register for scroll event
 		EventBusUtils.SINGLETON.register(this);
 
-		//if (SettingsUtil.SINGLETON.getFirstRun())
-		//	startActivity(new Intent(this, OnboardingActivity.class));
+//		if (SettingsUtil.SINGLETON.getFirstRun())
+//			startActivity(new Intent(this, OnboardingActivity.class));
 
 		toolbar = findViewById(R.id.toolbar);
 		toolbar.setVisibility(View.VISIBLE);
@@ -70,6 +71,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
 		if(!TagUtil.tagsLoaded){
 			SettingsUtil.loadTags(this);
+			Log.e("HELP", "TAGS LOADED CALLED");
 			for (Integer loadedTag : TagUtil.tagsInterested){
 				Log.e("TAG LOADED", String.valueOf(loadedTag));
 			}
@@ -82,7 +84,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 		}
 		if(!EventUtil.attendanceLoaded){
 			SettingsUtil.loadAttendance(this);
-			for (Integer loadedEventID : EventUtil.interestedEvents){
+			for (Integer loadedEventID : EventUtil.allAttendanceEvents){
 				Log.e("ATT LOADED", String.valueOf(loadedEventID));
 			}
 		}
@@ -176,8 +178,8 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 		SettingsUtil.saveTags(this);
 		SettingsUtil.saveFollowedOrganizations(this);
 		SettingsUtil.saveAttendance(this);
-		super.onDestroy();
 		EventBusUtils.SINGLETON.unregister(this);
+		super.onDestroy();
 	}
 
 	@Subscribe

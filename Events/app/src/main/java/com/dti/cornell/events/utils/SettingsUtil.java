@@ -164,8 +164,13 @@ public class SettingsUtil
 
 	public static void loadTags(Context context){
 		//String toBeDecoded = PreferenceManager.getDefaultSharedPreferences(context).getString("TAG_STRING", "");
-		String toBeDecoded = context.getSharedPreferences("TAGS", Context.MODE_PRIVATE).getString("TAG_STRING", "");
-		Log.e("SETTINGS UTIL TAGS", toBeDecoded);
+		SharedPreferences sp = context.getSharedPreferences("TAGS", Context.MODE_PRIVATE);
+		String toBeDecoded = sp.getString("TAG_STRING", "DEFAULT");
+		Log.e("TAG STRING ENCODED", toBeDecoded);
+		if(toBeDecoded.equalsIgnoreCase("DEFAULT")){
+			Log.e("SettingsUtil Tags", "Tags are null!");
+			toBeDecoded = "";
+		}
 		TagUtil.tagIDsAndImportance = TagUtil.decodeTagIDs(toBeDecoded);
 		TagUtil.tagsInterested = new ArrayList<>();
 		for(Integer eventID : TagUtil.tagIDsAndImportance.keySet()){
@@ -175,25 +180,37 @@ public class SettingsUtil
 	}
 
 	public static void loadOrganizations(Context context){
-		String toBeDecoded = PreferenceManager.getDefaultSharedPreferences(context).getString("ORGANIZATION_STRING", "");
-		Log.e("SETTINGS UTIL", toBeDecoded);
+		SharedPreferences sp = context.getSharedPreferences("ORGS", Context.MODE_PRIVATE);
+		String toBeDecoded = sp.getString("ORGANIZATION_STRING", "DEFAULT");
+		Log.e("ORG STRING ENCODED", toBeDecoded);
+		if(toBeDecoded.equalsIgnoreCase("DEFAULT")){
+			Log.e("loadOrgs", "TOBEDECODED IS NULL");
+			toBeDecoded = "";
+		}
 		OrganizationUtil.followedOrganizations = OrganizationUtil.decodeTagIDs(toBeDecoded);
 		OrganizationUtil.organizationsLoaded = true;
 	}
 
 	public static void loadAttendance(Context context){
 		//String toBeDecoded = PreferenceManager.getDefaultSharedPreferences(context).getString("ATTENDANCE_STRING", "");
-		String toBeDecoded = context.getSharedPreferences("ATTENDANCE", Context.MODE_PRIVATE).getString("ATTENDANCE_STRING", "");
-		Log.e("SETTINGS UTIL 2", toBeDecoded);
-		EventUtil.interestedEvents = EventUtil.decodeEventIDs(toBeDecoded, ATTENDANCE.INTERESTED);
-		EventUtil.goingEvents = EventUtil.decodeEventIDs(toBeDecoded, ATTENDANCE.GOING);
-		EventUtil.allAttendanceEvents = EventUtil.interestedEvents;
-		EventUtil.allAttendanceEvents.addAll(EventUtil.goingEvents);
+		SharedPreferences sp = context.getSharedPreferences("ATTENDANCE", Context.MODE_PRIVATE);
+		String toBeDecoded = sp.getString("ATTENDANCE_STRING", "DEFAULT");
+		Log.e("ATT STRING ENCODED", toBeDecoded);
+		if(toBeDecoded.equalsIgnoreCase("DEFAULT")){
+			Log.e("loadAttendance", "TOBEDECODED IS NULL");
+			toBeDecoded = "";
+		}
+//		EventUtil.interestedEvents = EventUtil.decodeEventIDs(toBeDecoded, ATTENDANCE.INTERESTED);
+//		EventUtil.goingEvents = EventUtil.decodeEventIDs(toBeDecoded, ATTENDANCE.GOING);
+		EventUtil.allAttendanceEvents = EventUtil.decodeEventIDs(toBeDecoded);
+		EventUtil.removeDuplicates();
 		EventUtil.attendanceLoaded = true;
 	}
 
 	public static void saveTags(Context context){
-		context.getSharedPreferences("TAGS", Context.MODE_PRIVATE).edit().putString("TAG_STRING", TagUtil.encodeTagIDs()).apply();
+		SharedPreferences.Editor e = context.getSharedPreferences("TAGS", Context.MODE_PRIVATE).edit();
+		e.putString("TAG_STRING", TagUtil.encodeTagIDs());
+		e.commit();
 		//PreferenceManager.getDefaultSharedPreferences(context).edit().putString("TAG_STRING", TagUtil.encodeTagIDs()).commit();
 	}
 
@@ -201,11 +218,17 @@ public class SettingsUtil
 //		SharedPreferences settings;
 //		settings = context.getSharedPreferences("ORGANIZATION_STRING", Context.MODE_PRIVATE);
 //		settings.edit().putString(OrganizationUtil.encodeOrganizationIDs(), null).apply();
-		PreferenceManager.getDefaultSharedPreferences(context).edit().putString("ORGANIZATION_STRING", OrganizationUtil.encodeOrganizationIDs()).apply();
+		Log.e("OrgEncodeCheck", OrganizationUtil.encodeOrganizationIDs());
+		SharedPreferences.Editor e = context.getSharedPreferences("ORGS", Context.MODE_PRIVATE).edit();
+		e.putString("ORGANIZATION_STRING", OrganizationUtil.encodeOrganizationIDs());
+		e.commit();
 	}
 
 	public static void saveAttendance(Context context){
-		context.getSharedPreferences("ATTENDANCE", Context.MODE_PRIVATE).edit().putString("ATTENDANCE_STRING", EventUtil.encodeEventIDs());
+		Log.e("EventEncodeCheck", EventUtil.encodeEventIDs());
+		SharedPreferences.Editor e = context.getSharedPreferences("ATTENDANCE", Context.MODE_PRIVATE).edit();
+		e.putString("ATTENDANCE_STRING", EventUtil.encodeEventIDs());
+		e.commit();
 		//PreferenceManager.getDefaultSharedPreferences(context).edit().putString("ATTENDANCE_STRING", EventUtil.encodeEventIDs()).commit();
 	}
 

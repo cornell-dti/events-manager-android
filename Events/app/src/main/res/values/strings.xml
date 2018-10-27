@@ -1,7 +1,8 @@
 <resources>
 	<string name="app_name">cue</string>
 	<string name="button_interested">interested</string>
-	<string name="button_going">going</string>
+	<string name="button_bookmarked">bookmarked</string>
+	<string name="button_bookmark">bookmark</string>
 	<string name="button_follow">follow</string>
 	<string name="button_following">following</string>
 	<string name="tags">Tags</string>
