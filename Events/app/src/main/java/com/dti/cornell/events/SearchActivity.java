@@ -1,8 +1,11 @@
 package com.dti.cornell.events;
 
 import android.app.ActionBar;
+import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -20,6 +23,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.SearchView;
 import android.widget.TextView;
 
@@ -29,9 +33,12 @@ import com.dti.cornell.events.utils.EventBusUtils;
 import com.dti.cornell.events.utils.SearchUtil;
 import com.google.common.eventbus.Subscribe;
 
+import org.joda.time.DateTime;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Calendar;
 
 ;
 
@@ -44,10 +51,12 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
     private static final String TAG = MyEventsFragment.class.getSimpleName();
     private SearchView searchBar;
     private EventAdapter adapter;
-	private RecyclerView recyclerView;
-	private boolean noResults = false;
+	  private RecyclerView recyclerView;
+	  private boolean noResults = false;
     private ActionBar actionBar;
     private Button calendarButton;
+    DatePickerDialog.OnDateSetListener dateSetListener;
+    private static DateTime searchDate;
 
     public static void start(Context context)
     {
@@ -64,17 +73,27 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
 
         searchBar = findViewById(R.id.searchView);
         searchBar.setOnQueryTextListener(this);
-			ConstraintLayout backgound = findViewById(R.id.searchBackground);
-			TextView backgroundTextView = findViewById(R.id.searchBackgroundText);
+			  ConstraintLayout backgound = findViewById(R.id.searchBackground);
+			  TextView backgroundTextView = findViewById(R.id.searchBackgroundText);
 
-			FloatingActionButton backButton = findViewById(R.id.back2);
+			  FloatingActionButton backButton = findViewById(R.id.back2);
         backButton.setOnClickListener(this);
         calendarButton = findViewById(R.id.calendarButton);
         calendarButton.setOnClickListener(this);
+        searchDate = DateTime.now();
+        dateSetListener = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker datePicker, int year, int month, int day) {
+                month = month + 1;
+                String date = month + "/" + day + "/" + year;
+                searchDate = new DateTime(year, month, day, 0, 0);
+								EventBusUtils.SINGLETON.post(new EventBusUtils.SearchChanged(searchBar.getQuery().toString(), searchDate));
+            }
+        };
 
-			ViewPager pager = findViewById(R.id.searchViewPager);
+			  ViewPager pager = findViewById(R.id.searchViewPager);
         pager.setOffscreenPageLimit(Page.values().length);
-			SearchAdapter searchFragmentAdapter = new SearchAdapter(getSupportFragmentManager());
+			  SearchAdapter searchFragmentAdapter = new SearchAdapter(getSupportFragmentManager());
         pager.setAdapter(searchFragmentAdapter);
         //DEPRECATED: RecyclerUtil.configureEvents(recyclerView);
         //setOnScrollListener();
@@ -106,13 +125,13 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
 
     @Override
     public boolean onQueryTextChange(String newText) {
-        EventBusUtils.SINGLETON.post(new EventBusUtils.SearchChanged(newText));
+        EventBusUtils.SINGLETON.post(new EventBusUtils.SearchChanged(newText, searchDate));
         return true;
     }
 
     @Override
     public boolean onQueryTextSubmit(String newText) {
-        EventBusUtils.SINGLETON.post(new EventBusUtils.SearchChanged(newText));
+        EventBusUtils.SINGLETON.post(new EventBusUtils.SearchChanged(newText, searchDate));
         searchBar.clearFocus();
         return true;
     }
@@ -148,9 +167,19 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
 		    case R.id.back2:
 		    	onBackPressed();
 		    	return;
-            case R.id.calendarButton:
-                //TODO: calendar stuff
-                return;
+        case R.id.calendarButton:
+//            Calendar cal = Calendar.getInstance();
+            int year = searchDate.getYear();
+            int month = searchDate.getMonthOfYear()-1;
+            int day = searchDate.getDayOfMonth();
+            DatePickerDialog dialog = new DatePickerDialog(
+                this,
+                android.R.style.Theme_Holo_Light_Dialog_MinWidth,
+                dateSetListener,
+                year,month,day);
+            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+            dialog.show();
+            return;
 	    }
     }
 
@@ -276,7 +305,7 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
                 adapter.updateList(Collections.EMPTY_LIST);
                 return;
             }
-            List<Event> events = SearchUtil.getEventsFromSearch(searchChanged.text);
+            List<Event> events = SearchUtil.getEventsFromSearch(searchChanged.text, searchChanged.date);
             adapter.updateList(events);
         }
     }

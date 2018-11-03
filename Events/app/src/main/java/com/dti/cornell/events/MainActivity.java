@@ -238,7 +238,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 	public void shrinkToolBar() {
 		toolbarShrunk = true;
 		Log.i("Toolbar height", Integer.toString(toolbar.getMeasuredHeight()));
-		ValueAnimator anim = ValueAnimator.ofInt(toolbar.getMeasuredHeight(), 90);
+		ValueAnimator anim = ValueAnimator.ofInt(toolbar.getMeasuredHeight(), 190);
 		anim.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
 			@Override
 			public void onAnimationUpdate(ValueAnimator valueAnimator) {
@@ -282,7 +282,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 		toolbarShrunk = false;
 		Log.i("Toolbar height", Integer.toString(toolbar.getMeasuredHeight()));
 		// Height animation
-		ValueAnimator anim = ValueAnimator.ofInt(toolbar.getMeasuredHeight(), 144);
+		ValueAnimator anim = ValueAnimator.ofInt(toolbar.getMeasuredHeight(), 244);
 		anim.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
 			@Override
 			public void onAnimationUpdate(ValueAnimator valueAnimator) {

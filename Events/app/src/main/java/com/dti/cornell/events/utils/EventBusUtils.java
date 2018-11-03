@@ -3,6 +3,8 @@ package com.dti.cornell.events.utils;
 import com.dti.cornell.events.models.Organization;
 import com.google.common.eventbus.EventBus;
 
+import org.joda.time.DateTime;
+
 public class EventBusUtils
 {
 	public static final EventBus SINGLETON = new EventBus();
@@ -39,11 +41,22 @@ public class EventBusUtils
 	public static final class SearchChanged
 	{
 		public final String text;
+		public final DateTime date;
 
-		public SearchChanged(String text) {
+		public SearchChanged(String text, DateTime date) {
 			this.text = text;
+			this.date = date;
 		}
 	}
+
+//	public static final class SearchDateChanged
+//	{
+//		public final DateTime searchDate;
+//
+//		public SearchDateChanged(DateTime searchDate) {
+//			this.searchDate = searchDate;
+//		}
+//	}
 
 	public static final class MainActivityScrolled
 	{

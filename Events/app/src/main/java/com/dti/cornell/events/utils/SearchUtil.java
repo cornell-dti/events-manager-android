@@ -4,7 +4,10 @@ import com.dti.cornell.events.models.Event;
 import com.dti.cornell.events.models.Organization;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+
+import org.joda.time.DateTime;
 
 /**
  * Created by jboss925 on 9/3/18.
@@ -12,10 +15,10 @@ import java.util.List;
 
 public class SearchUtil {
 
-    public static List<Event> getEventsFromSearch(String search){
+    public static List<Event> getEventsFromSearch(String search, DateTime date){
         List<Event> returnList = new ArrayList<>();
         for(Event e : Data.events()){
-            if(eventIsRelatedToSearch(e, search)){
+            if(eventIsRelatedToSearch(e, search) && eventIsAfterDate(e, date)){
                 returnList.add(e);
             }
         }
@@ -99,8 +102,10 @@ public class SearchUtil {
         return output;
     }
 
-    public static boolean isEventAfterDate(Event e /**TODO also pass in date object*/){
-        //TODO: CHECK IF EVENT IS AFTER DATE
+    public static boolean eventIsAfterDate(Event e, DateTime date){
+        if (e.startTime.isAfter(date)) {
+            return true;
+        }
         return false;
     }
 
