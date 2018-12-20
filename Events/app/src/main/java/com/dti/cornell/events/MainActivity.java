@@ -21,6 +21,7 @@ import com.dti.cornell.events.models.Event;
 import com.dti.cornell.events.utils.Data;
 import com.dti.cornell.events.utils.EventBusUtils;
 import com.dti.cornell.events.utils.EventUtil;
+import com.dti.cornell.events.utils.Internet;
 import com.dti.cornell.events.utils.OrganizationUtil;
 import com.dti.cornell.events.utils.SearchUtil;
 import com.dti.cornell.events.utils.SettingsUtil;
@@ -29,6 +30,7 @@ import com.dti.cornell.events.utils.TagUtil;
 import com.google.common.eventbus.Subscribe;
 
 import java.util.List;
+import java.util.Set;
 
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener
 {
@@ -50,8 +52,11 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 		//Register for scroll event
 		EventBusUtils.SINGLETON.register(this);
 
-//		if (SettingsUtil.SINGLETON.getFirstRun())
-//			startActivity(new Intent(this, OnboardingActivity.class));
+		// Set up settings and Internet
+		SettingsUtil.createSingleton(this);
+		Internet.createRequestQueue(this);
+		if (SettingsUtil.SINGLETON.getFirstRun())
+			startActivity(new Intent(this, OnboardingActivity.class));
 
 		toolbar = findViewById(R.id.toolbar);
 		toolbar.setVisibility(View.VISIBLE);
@@ -75,20 +80,20 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 //		setTabBarFont(tabBar);
 
 		if(!TagUtil.tagsLoaded){
-			SettingsUtil.loadTags(this);
+			SettingsUtil.SINGLETON.loadTags();
 			Log.e("HELP", "TAGS LOADED CALLED");
 			for (Integer loadedTag : TagUtil.tagsInterested){
 				Log.e("TAG LOADED", String.valueOf(loadedTag));
 			}
 		}
 		if(!OrganizationUtil.organizationsLoaded){
-			SettingsUtil.loadOrganizations(this);
+			SettingsUtil.SINGLETON.loadOrganizations();
 			for (Integer loadedOrgID : OrganizationUtil.followedOrganizations){
 				Log.e("ORG LOADED", String.valueOf(loadedOrgID));
 			}
 		}
 		if(!EventUtil.attendanceLoaded){
-			SettingsUtil.loadAttendance(this);
+			SettingsUtil.SINGLETON.loadAttendance();
 			for (Integer loadedEventID : EventUtil.allAttendanceEvents){
 				Log.e("ATT LOADED", String.valueOf(loadedEventID));
 			}
@@ -180,9 +185,9 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 	@Override
 	protected void onDestroy()
 	{
-		SettingsUtil.saveTags(this);
-		SettingsUtil.saveFollowedOrganizations(this);
-		SettingsUtil.saveAttendance(this);
+		SettingsUtil.SINGLETON.saveTags();
+		SettingsUtil.SINGLETON.saveFollowedOrganizations();
+		SettingsUtil.SINGLETON.saveAttendance();
 		EventBusUtils.SINGLETON.unregister(this);
 		super.onDestroy();
 	}

@@ -56,7 +56,7 @@ public class OnboardingActivity extends AppCompatActivity
 					&& SettingsUtil.SINGLETON.getEmail() != null)
 			{
 				//TODO check to make sure all fields are set
-//			SettingsUtil.SINGLETON.setFirstRun();
+			SettingsUtil.SINGLETON.setFirstRun();
 				finish();
 			}
 			else
@@ -188,12 +188,17 @@ public class OnboardingActivity extends AppCompatActivity
 
 		private void setAccount(GoogleSignInAccount account)
 		{
+			Log.e("setAccount", "called");
 			SettingsUtil.SINGLETON.setName(account.getDisplayName());
 			SettingsUtil.SINGLETON.setEmail(account.getEmail());
 			SettingsUtil.SINGLETON.setImageUrl(account.getPhotoUrl().toString());
+			Internet.setFirebaseToken(account.getIdToken());
+			Internet.resetToken(account.getIdToken());
+			Internet.setFirebaseToken(account.getIdToken());
 			Internet.downloadImage(account.getPhotoUrl().toString(), image);
-			//TODO send server id token, save response
 			Log.i(TAG, "updateAccount: " + account.toJson());
+			Log.e(this.getClass().getName(), "Get all data called");
+			Data.getAllData();
 		}
 	}
 	enum Page

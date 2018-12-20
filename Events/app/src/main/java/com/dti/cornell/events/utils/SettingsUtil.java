@@ -7,6 +7,7 @@ import android.util.Log;
 
 import com.dti.cornell.events.models.Event;
 import com.dti.cornell.events.models.Organization;
+import com.dti.cornell.events.models.Tag;
 
 import org.joda.time.DateTime;
 
@@ -21,6 +22,7 @@ public class SettingsUtil
 {
 	public static SettingsUtil SINGLETON;
 	private final SharedPreferences settings;
+	private final Context context;
 
 	//keys
 	private static final String TIMESTAMP = "timestamp";
@@ -32,9 +34,12 @@ public class SettingsUtil
 	private static final String TOKEN = "token";
 	private static final String IMAGE_URL = "imageURL";
 
+	private static String token = "";
+
 	private SettingsUtil(Context context)
 	{
 		settings = PreferenceManager.getDefaultSharedPreferences(context);
+		this.context = context;
 	}
 
 	public static void createSingleton(Context context)
@@ -46,7 +51,7 @@ public class SettingsUtil
 	public String getTimestamp()
 	{
 		//default = oldest possible time
-		return settings.getString(TIMESTAMP, new DateTime(0).toString(Internet.TIME_FORMAT));
+		return settings.getString(TIMESTAMP, Internet.addTToTimestamp(new DateTime(0).toString(Internet.TIME_FORMAT_NO_T)));
 	}
 	public void setTimestamp(String timestamp)
 	{
@@ -93,16 +98,22 @@ public class SettingsUtil
 	{
 		return settings.getBoolean(FIRST_RUN, true);
 	}
-	public void setFirstRun()
-	{
+
+	public void setFirstRun() {
 		settings.edit()
-				.putBoolean(FIRST_RUN, false)
+			.putBoolean(FIRST_RUN, false)
+			.apply();
+	}
+
+	public void resetFirstRun() {
+		settings.edit()
+				.putBoolean(FIRST_RUN, true)
 				.apply();
 	}
 
 	public String getName()
 	{
-		return settings.getString(NAME, null);
+		return settings.getString(NAME, "");
 	}
 
 	public void setName(String name)
@@ -114,7 +125,7 @@ public class SettingsUtil
 
 	public String getEmail()
 	{
-		return settings.getString(EMAIL, null);
+		return settings.getString(EMAIL, "");
 	}
 
 	public void setEmail(String email)
@@ -126,10 +137,12 @@ public class SettingsUtil
 
 	public String getToken()
 	{
-		return settings.getString(TOKEN, null);
+		return token;
+		//return settings.getString(TOKEN, "");
 	}
 	public void setToken(String token)
 	{
+		SettingsUtil.token = token;
 		settings.edit()
 				.putString(TOKEN, token)
 				.apply();
@@ -137,7 +150,7 @@ public class SettingsUtil
 
 	public String getImageUrl()
 	{
-		return settings.getString(IMAGE_URL, null);
+		return settings.getString(IMAGE_URL, "");
 	}
 
 	public void setImageUrl(String imageUrl)
@@ -162,7 +175,9 @@ public class SettingsUtil
 
 
 
-	public static void loadTags(Context context){
+
+
+	public void loadTags(){
 		//String toBeDecoded = PreferenceManager.getDefaultSharedPreferences(context).getString("TAG_STRING", "");
 		SharedPreferences sp = context.getSharedPreferences("TAGS", Context.MODE_PRIVATE);
 		String toBeDecoded = sp.getString("TAG_STRING", "DEFAULT");
@@ -176,10 +191,19 @@ public class SettingsUtil
 		for(Integer eventID : TagUtil.tagIDsAndImportance.keySet()){
 			TagUtil.tagsInterested.add(eventID);
 		}
+
+		Set<String> allTags = sp.getStringSet("TAGS_ALL", new HashSet<String>());
+		for(String tag : allTags){
+			TagUtil.allTags.add(Tag.fromString(tag));
+		}
+		if(!allTags.isEmpty()){
+			System.out.println(TagUtil.allTags.get(0));
+		}
+
 		TagUtil.tagsLoaded = true;
 	}
 
-	public static void loadOrganizations(Context context){
+	public void loadOrganizations(){
 		SharedPreferences sp = context.getSharedPreferences("ORGS", Context.MODE_PRIVATE);
 		String toBeDecoded = sp.getString("ORGANIZATION_STRING", "DEFAULT");
 		Log.e("ORG STRING ENCODED", toBeDecoded);
@@ -191,7 +215,7 @@ public class SettingsUtil
 		OrganizationUtil.organizationsLoaded = true;
 	}
 
-	public static void loadAttendance(Context context){
+	public void loadAttendance(){
 		//String toBeDecoded = PreferenceManager.getDefaultSharedPreferences(context).getString("ATTENDANCE_STRING", "");
 		SharedPreferences sp = context.getSharedPreferences("ATTENDANCE", Context.MODE_PRIVATE);
 		String toBeDecoded = sp.getString("ATTENDANCE_STRING", "DEFAULT");
@@ -207,14 +231,19 @@ public class SettingsUtil
 		EventUtil.attendanceLoaded = true;
 	}
 
-	public static void saveTags(Context context){
+	public void saveTags(){
 		SharedPreferences.Editor e = context.getSharedPreferences("TAGS", Context.MODE_PRIVATE).edit();
-		e.putString("TAG_STRING", TagUtil.encodeTagIDs());
+		e.putString("TAG_LIKES", TagUtil.encodeTagIDs());
+		Set<String> tags = new HashSet<>();
+		for(Tag tag : TagUtil.allTags){
+			tags.add(tag.toString());
+		}
+		e.putStringSet("TAGS_ALL", tags);
 		e.commit();
 		//PreferenceManager.getDefaultSharedPreferences(context).edit().putString("TAG_STRING", TagUtil.encodeTagIDs()).commit();
 	}
 
-	public static void saveFollowedOrganizations(Context context){
+	public void saveFollowedOrganizations(){
 //		SharedPreferences settings;
 //		settings = context.getSharedPreferences("ORGANIZATION_STRING", Context.MODE_PRIVATE);
 //		settings.edit().putString(OrganizationUtil.encodeOrganizationIDs(), null).apply();
@@ -224,7 +253,7 @@ public class SettingsUtil
 		e.commit();
 	}
 
-	public static void saveAttendance(Context context){
+	public void saveAttendance(){
 		Log.e("EventEncodeCheck", EventUtil.encodeEventIDs());
 		SharedPreferences.Editor e = context.getSharedPreferences("ATTENDANCE", Context.MODE_PRIVATE).edit();
 		e.putString("ATTENDANCE_STRING", EventUtil.encodeEventIDs());

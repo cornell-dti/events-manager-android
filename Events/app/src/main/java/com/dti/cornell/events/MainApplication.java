@@ -19,6 +19,6 @@ public class MainApplication extends Application
 		JodaTimeAndroid.init(this);
 		SettingsUtil.createSingleton(this);
 		Internet.createRequestQueue(this);
-		Data.createDummyData();
+		Data.getAllData();
 	}
 }
