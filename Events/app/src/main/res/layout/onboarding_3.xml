@@ -29,6 +29,7 @@
 		app:layout_constraintTop_toTopOf="parent"
 		app:layout_constraintLeft_toLeftOf="@+id/leftGuide"
 		style="@style/PageTitle" />
+
 	<TextView
 		android:id="@+id/interactDescription"
 		android:layout_width="0dp"

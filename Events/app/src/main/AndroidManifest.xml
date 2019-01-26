@@ -27,9 +27,11 @@
 				<category android:name="android.intent.category.DEFAULT" />
 				<category android:name="android.intent.category.BROWSABLE" />
 				<!-- Replace with CUE URL -->
-				<data android:host="espn.com" />
+				<data android:host="cuevents.org" />
+				<!--<data android:host="espn.com" />-->
 				<!-- Replace with CUE URL -->
-				<data android:host="www.espn.com" />
+				<data android:host="www.cuevents.org" />
+				<!--<data android:host="www.espn.com" />-->
 				<data android:scheme="http" />
 				<data android:scheme="https" />
 				<data android:pathPattern="/.*" />

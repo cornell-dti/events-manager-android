@@ -162,6 +162,7 @@ public class OnboardingActivity extends AppCompatActivity
 			switch (view.getId())
 			{
 				case R.id.signInButton:
+					Log.d("Pressed sign in button", "Sign in button pressed");
 					Intent signInIntent = signInClient.getSignInIntent();
 					startActivityForResult(signInIntent, SIGN_IN);
 					break;
@@ -181,19 +182,22 @@ public class OnboardingActivity extends AppCompatActivity
 			if (requestCode != SIGN_IN)
 				return;
 
+			Log.d("On Activity Result", "At Activity Result");
 			Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
+			Log.d("On Activity Result", task.toString());
 			try { setAccount(task.getResult(ApiException.class)); }
 			catch (ApiException e) { Log.e(TAG, "sign in failed with code: " + e.getStatusCode()); }
 		}
 
 		private void setAccount(GoogleSignInAccount account)
 		{
+			Log.d(TAG, "begin set account");
 			SettingsUtil.SINGLETON.setName(account.getDisplayName());
 			SettingsUtil.SINGLETON.setEmail(account.getEmail());
 			SettingsUtil.SINGLETON.setImageUrl(account.getPhotoUrl().toString());
-			Internet.downloadImage(account.getPhotoUrl().toString(), image);
+//			Internet.downloadImage(account.getPhotoUrl().toString(), image);
 			//TODO send server id token, save response
-			Log.i(TAG, "updateAccount: " + account.toJson());
+			Log.d(TAG, "updateAccount: " + account.toJson());
 		}
 	}
 	enum Page
