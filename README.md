@@ -38,6 +38,22 @@ SDK Tools (tab)
  
 _Last updated **09/22/2018**_.
 ​
+### Code Review
+After pushing any changes to the codebase, let's get your code reviewed. Some general guidelines:
+- Before you start changing any code, make sure you're synced with the master branch.
+- Create a new branch off master, and give it an informative name.
+- Commit your changes to this feature branch. Commit often so that you don't accidentally lose your progress!
+- Open a pull request (PR), give it a meaningful title and describe the changes that you made. Take note of any future improvements or any existing bugs with the changes you made. Give some steps as to how to test the changes you've made. 
+- Notify others of the PR you created, and ask the relevant people to review it for you. They may leave comments and request changes, in which case you should make changes and push new commits to the same branch; the PR will update automatically!
+- Finally, when the change is approved by the reviewer, you can go ahead and merge the branch into the master branch.
+
+Some things to watch out for when reviewing someone else's code:
+- Is the code documented? Are there comments that give details about what the code is doing?
+- Have commented-out lines of code been deleted?
+- Are your variable names clear, short, and meaningful?
+- Are your functions short and have a single purpose?
+- Are there redundancies in your code?
+
 ## Dependencies & Libraries
  * <a href="https://github.com/google/guava">Guava</a> - a Google Library containing lots of helpful classes for Java. Most notably, immutable data structures (like ImmutableList) and EventBus, which provides a way for classes that do not have references to each other to communicate.
  * <a href="https://github.com/dlew/joda-time-android">JodaTime</a> - a library for immutable time objects, unsupported by Java 7. Includes lots of useful data structures and methods; plus, immutable objects are almost always safer when passing by reference.
