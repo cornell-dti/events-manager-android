@@ -57,6 +57,7 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
     private Button calendarButton;
     DatePickerDialog.OnDateSetListener dateSetListener;
     private static DateTime searchDate;
+    private TabLayout tabLayout;
 
     public static void start(Context context)
     {
@@ -95,12 +96,22 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
         pager.setOffscreenPageLimit(Page.values().length);
 			  SearchAdapter searchFragmentAdapter = new SearchAdapter(getSupportFragmentManager());
         pager.setAdapter(searchFragmentAdapter);
-        //DEPRECATED: RecyclerUtil.configureEvents(recyclerView);
-        //setOnScrollListener();
 
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
+        tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(pager);
-
+				tabLayout.addOnTabSelectedListener(
+						new TabLayout.ViewPagerOnTabSelectedListener(pager) {
+							@Override
+							public void onTabSelected(TabLayout.Tab tab) {
+								super.onTabSelected(tab);
+								if (tab.getPosition() != 0) {
+									calendarButton.setVisibility(View.INVISIBLE);
+								}
+								else {
+									calendarButton.setVisibility(View.VISIBLE);
+								}
+							}
+						});
     }
 
     //change selected date when scrolling through events
