@@ -6,8 +6,10 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
+import android.support.v7.widget.Toolbar;
 
 import com.dti.cornell.events.models.Organization;
 import com.dti.cornell.events.utils.Data;
@@ -25,6 +27,7 @@ public class OrganizationActivity extends AppCompatActivity implements View.OnCl
 	private Organization organization;
 	private boolean userIsFollowing;
 	private TextView followingButton;
+	private TextView title;
 
 	public static void startWithOrganization(Organization organization, Context context)
 	{
@@ -73,6 +76,8 @@ public class OrganizationActivity extends AppCompatActivity implements View.OnCl
 	private void findViews()
 	{
 		findViewById(R.id.follow).setOnClickListener(this);
+		title = findViewById(R.id.toolbarTitle);
+
 		website = findViewById(R.id.website);
 		email = findViewById(R.id.email);
 		bio = findViewById(R.id.bio);
@@ -91,7 +96,8 @@ public class OrganizationActivity extends AppCompatActivity implements View.OnCl
 		website.setText(organization.website);
 		email.setText(organization.email);
 		bio.setText(organization.description);
-
+		title.setText(organization.name);
+		Log.d("ORGANIZATION", title.getText().toString());
 		EventCardAdapter adapter = new EventCardAdapter(this);
 		eventsRecycler.setAdapter(adapter);
 		adapter.setData(Data.events());

@@ -24,6 +24,47 @@
 			android:orientation="vertical"
 			app:layout_constraintGuide_end="@dimen/spacing_xxl"/>
 
+		<android.support.design.widget.AppBarLayout xmlns:android="http://schemas.android.com/apk/res/android"
+			xmlns:app="http://schemas.android.com/apk/res-auto"
+			xmlns:tools="http://schemas.android.com/tools"
+			android:id="@+id/appBarLayout2"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:background="@android:color/white"
+			android:theme="@style/AppTheme.NoActionBar">
+
+			<android.support.v7.widget.Toolbar
+				android:id="@+id/toolbar"
+				android:layout_width="match_parent"
+				android:layout_height="@dimen/toolbar_height"
+				app:popupTheme="@style/AppTheme.PopupOverlay"
+				app:titleTextAppearance="@style/PageTitle"
+				tools:title="Test title">
+
+				<android.support.constraint.ConstraintLayout
+					android:layout_width="match_parent"
+					android:layout_height="match_parent">
+
+					<TextView
+						android:id="@+id/toolbarTitle"
+						style="@style/PageTitle"
+						android:layout_width="match_parent"
+						android:layout_height="match_parent"
+						android:layout_marginTop="0dp"
+						android:layout_marginLeft="60dp"
+						android:layout_marginRight="70dp"
+						android:textSize="20dp"
+						android:textColor="@android:color/black"
+						android:textStyle="bold"
+						tools:text="Test Title" />
+
+				</android.support.constraint.ConstraintLayout>
+
+			</android.support.v7.widget.Toolbar>
+
+
+		</android.support.design.widget.AppBarLayout>
+
 		<android.support.design.widget.FloatingActionButton
 			android:id="@+id/backButton"
 			android:layout_width="wrap_content"
@@ -48,7 +89,7 @@
 			app:layout_constraintHorizontal_bias="0.0"
 			app:layout_constraintLeft_toLeftOf="@+id/leftGuide"
 			app:layout_constraintRight_toRightOf="@+id/rightGuide"
-			app:layout_constraintTop_toBottomOf="@+id/backButton" />
+			app:layout_constraintTop_toBottomOf="@+id/appBarLayout2" />
 
 		<TextView
 			android:id="@+id/about"
