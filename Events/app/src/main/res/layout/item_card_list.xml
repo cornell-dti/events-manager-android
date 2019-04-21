@@ -13,6 +13,7 @@
 		android:layout_marginStart="@dimen/spacing_xxl"
 		android:textAllCaps="true"
 		android:textColor="@color/gray"
+		android:textStyle="bold"
 		app:layout_constraintStart_toStartOf="parent"
 		app:layout_constraintTop_toTopOf="parent"
 		tools:text="@string/section_popular" />

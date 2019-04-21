@@ -34,6 +34,7 @@
 			android:layout_marginTop="@dimen/spacing_xl"
 			tools:text="Cornell-A-Palooza"
 			style="@style/H2"
+			android:textStyle="bold"
 			app:layout_constraintBottom_toTopOf="@+id/location"
 			app:layout_constraintEnd_toEndOf="parent"
 			app:layout_constraintStart_toStartOf="parent"
@@ -75,7 +76,8 @@
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
 					tools:text="April"
-					style="@style/H3"/>
+					style="@style/H3"
+					android:textStyle="bold"/>
 
 				<TextView
 					android:id="@+id/day"
@@ -97,7 +99,8 @@
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
 					android:text="@string/event_starts"
-					style="@style/H3"/>
+					style="@style/H3"
+					android:textStyle="bold"/>
 
 				<TextView
 					android:id="@+id/startTime"
@@ -119,7 +122,8 @@
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
 					android:text="@string/event_going"
-					style="@style/H3"/>
+					style="@style/H3"
+					android:textStyle="bold"/>
 
 				<TextView
 					android:id="@+id/numGoing"

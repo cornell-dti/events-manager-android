@@ -4,7 +4,8 @@
 	xmlns:app="http://schemas.android.com/apk/res-auto"
 	xmlns:tools="http://schemas.android.com/tools"
 	android:layout_width="match_parent"
-	android:layout_height="match_parent">
+	android:layout_height="match_parent"
+	xmlns:card_view="http://schemas.android.com/apk/res-auto" >
 
 	<android.support.constraint.ConstraintLayout
 		android:layout_width="match_parent"
@@ -36,7 +37,7 @@
 			<android.support.v7.widget.Toolbar
 				android:id="@+id/toolbar"
 				android:layout_width="match_parent"
-				android:layout_height="@dimen/toolbar_height"
+				android:layout_height="120dp"
 				app:popupTheme="@style/AppTheme.PopupOverlay"
 				app:titleTextAppearance="@style/PageTitle"
 				tools:title="Test title">
@@ -45,18 +46,38 @@
 					android:layout_width="match_parent"
 					android:layout_height="match_parent">
 
+					<android.support.v7.widget.CardView
+						android:id="@+id/toolbarImageContainer"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						app:layout_constraintEnd_toEndOf="parent"
+						app:layout_constraintStart_toStartOf="parent"
+						app:layout_constraintTop_toTopOf="parent"
+						card_view:cardCornerRadius="25dp"
+						card_view:cardPreventCornerOverlap="false">
+
+						<ImageView
+							android:id="@+id/toolbarImage"
+							android:layout_width="50dp"
+							android:layout_height="50dp"
+							android:background="@drawable/bg_round_button_white"
+							android:src="@drawable/taranaburke" />
+					</android.support.v7.widget.CardView>
+
+
 					<TextView
 						android:id="@+id/toolbarTitle"
 						style="@style/PageTitle"
 						android:layout_width="match_parent"
-						android:layout_height="match_parent"
+						android:layout_height="50dp"
 						android:layout_marginTop="0dp"
 						android:layout_marginLeft="60dp"
 						android:layout_marginRight="70dp"
-						android:textSize="20dp"
+						android:textSize="16dp"
+						android:gravity="center"
 						android:textColor="@android:color/black"
-						android:textStyle="bold"
-						tools:text="Test Title" />
+						tools:text="Test Title"
+						app:layout_constraintTop_toBottomOf="@+id/toolbarImageContainer" />
 
 				</android.support.constraint.ConstraintLayout>
 
@@ -82,14 +103,17 @@
 		<TextView
 			android:id="@+id/follow"
 			style="@style/mainButton"
-			android:layout_width="0dp"
+			android:layout_width="160dp"
 			android:layout_height="wrap_content"
-			android:layout_marginTop="8dp"
+			android:layout_marginTop="52dp"
+			android:elevation="5dp"
 			android:text="@string/button_follow"
-			app:layout_constraintHorizontal_bias="0.0"
+			android:textStyle="bold"
+			android:translationZ="5dp"
+			app:layout_constraintHorizontal_bias="0.5"
 			app:layout_constraintLeft_toLeftOf="@+id/leftGuide"
 			app:layout_constraintRight_toRightOf="@+id/rightGuide"
-			app:layout_constraintTop_toBottomOf="@+id/appBarLayout2" />
+			app:layout_constraintTop_toBottomOf="@+id/backButton" />
 
 		<TextView
 			android:id="@+id/about"
@@ -99,6 +123,8 @@
 			android:textAllCaps="true"
 			android:layout_marginTop="@dimen/spacing_3l"
 			style="@style/H2"
+			android:textStyle="bold"
+			android:textColor="@color/gray"
 			app:layout_constraintTop_toBottomOf="@+id/follow"
 			app:layout_constraintLeft_toLeftOf="@+id/leftGuide"/>
 
@@ -119,6 +145,7 @@
 			android:text="@string/header_website"
 			android:layout_marginTop="@dimen/spacing_xl"
 			style="@style/P1"
+			android:textStyle="bold"
 			app:layout_constraintTop_toBottomOf="@+id/aboutDivider"
 			app:layout_constraintLeft_toLeftOf="@+id/leftGuide"/>
 
@@ -142,6 +169,7 @@
 			android:text="@string/header_email"
 			android:layout_marginTop="@dimen/spacing_m"
 			style="@style/P1"
+			android:textStyle="bold"
 			app:layout_constraintTop_toBottomOf="@+id/website"
 			app:layout_constraintLeft_toLeftOf="@+id/leftGuide"/>
 
@@ -155,6 +183,7 @@
 			app:layout_constraintLeft_toLeftOf="@+id/website"
 			app:layout_constraintRight_toRightOf="@+id/rightGuide"
 			app:layout_constraintTop_toTopOf="@+id/emailHeader"
+
 			tools:text="david@reallySuperLongEmailThatWillSpanMultipleLines.org" />
 
 		<TextView
@@ -164,6 +193,7 @@
 			android:text="@string/header_bio"
 			android:layout_marginTop="@dimen/spacing_m"
 			style="@style/P1"
+			android:textStyle="bold"
 			app:layout_constraintTop_toBottomOf="@+id/email"
 			app:layout_constraintLeft_toLeftOf="@+id/leftGuide"/>
 
@@ -186,6 +216,8 @@
 			android:textAllCaps="true"
 			android:layout_marginTop="@dimen/spacing_3l"
 			style="@style/H2"
+			android:textStyle="bold"
+			android:textColor="@color/gray"
 			app:layout_constraintTop_toBottomOf="@+id/bio"
 			app:layout_constraintLeft_toLeftOf="@+id/leftGuide"/>
 
@@ -219,6 +251,8 @@
 			android:textAllCaps="true"
 			android:layout_marginTop="@dimen/spacing_3l"
 			style="@style/H2"
+			android:textStyle="bold"
+			android:textColor="@color/gray"
 			app:layout_constraintTop_toBottomOf="@+id/eventsRecycler"
 			app:layout_constraintLeft_toLeftOf="@+id/leftGuide"/>
 

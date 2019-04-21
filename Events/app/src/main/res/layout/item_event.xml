@@ -41,6 +41,7 @@
 		android:layout_marginStart="16dp"
 		android:ellipsize="end"
 		android:lines="1"
+		android:textStyle="bold"
 		app:layout_constraintBottom_toTopOf="@+id/friendsGoing"
 		app:layout_constraintEnd_toEndOf="parent"
 		app:layout_constraintStart_toEndOf="@+id/startTime"
