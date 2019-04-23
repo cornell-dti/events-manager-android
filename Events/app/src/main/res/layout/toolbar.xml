@@ -22,7 +22,7 @@
 
 			<android.support.design.widget.FloatingActionButton
 				android:id="@+id/back2"
-				android:alpha="0"
+				android:alpha="0.0"
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
 				android:layout_marginTop="12dp"

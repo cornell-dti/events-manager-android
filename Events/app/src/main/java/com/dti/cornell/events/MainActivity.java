@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.BottomNavigationView;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
@@ -30,9 +31,10 @@ import com.google.common.eventbus.Subscribe;
 
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener
+public class MainActivity extends AppCompatActivity implements View.OnClickListener, BottomNavigationView.OnNavigationItemSelectedListener
 {
 	private Toolbar toolbar;
+	private FloatingActionButton backButton;
 	private Toolbar profileToolbar;
 	private TextView toolbarTitleSmall;
 	private TextView toolbarTitleBig;
@@ -57,6 +59,8 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 		toolbar.setVisibility(View.VISIBLE);
 		toolbarShrunk = false;
 		setSupportActionBar(toolbar);
+		backButton = findViewById(R.id.back2);
+		backButton.setOnClickListener(this);
 		profileToolbar = findViewById(R.id.profileToolbar);
 		toolbarTitleSmall = findViewById(R.id.toolbarTitleSmall);
 		toolbarTitleBig = findViewById(R.id.toolbarTitleBig);
@@ -339,6 +343,28 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 		if (ms.scrollY < 30 && toolbarShrunk) {
 			expandToolBar();
 		}
+	}
+
+	public void showBackButton() {
+		expandToolBar();
+//		toolbarTitleBig.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+		backButton.setAlpha(1.0f);
+	}
+
+	public void hideBackButton() {
+		backButton.setAlpha(0.0f);
+	}
+
+	public void onClick(View v)
+	{
+		hideBackButton();
+		Fragment fragment = new DiscoverFragment();
+		toolbar.setVisibility(View.VISIBLE);
+		expandToolBar();
+		datePicker.setVisibility(View.GONE);
+		profileToolbar.setVisibility(View.GONE);
+		noEventsForYou.setVisibility(View.GONE);
+		transitionToFragment(fragment);
 	}
 
 
