@@ -10,6 +10,7 @@ import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -43,6 +44,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 	private RecyclerView datePicker;
 	private boolean toolbarShrunk;
 	ConstraintLayout noEventsForYou;
+	SwipeRefreshLayout swipeRefreshLayout;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
@@ -68,6 +70,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 		toolbarTitleBig = findViewById(R.id.toolbarTitleBig);
 		noEventsForYou = findViewById(R.id.noEventsForYouLayout);
 		noEventsForYou.setVisibility(View.GONE);
+		swipeRefreshLayout = findViewById(R.id.swiperefresh);
+		swipeRefreshLayout.setOnRefreshListener(
+				new SwipeRefreshLayout.OnRefreshListener() {
+					@Override
+					public void onRefresh() {
+						Log.i("REFRESHED", "onRefresh called from SwipeRefreshLayout");
+						swipeRefreshLayout.setRefreshing(false);
+//						// This method performs the actual data-refresh operation.
+//						// The method calls setRefreshing(false) when it's finished.
+//						myUpdateOperation();
+					}
+				}
+		);
 
 		datePicker = findViewById(R.id.datePicker);
 		int horizMargin = getResources().getDimensionPixelSize(R.dimen.spacing_xl);
@@ -252,7 +267,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 	public void shrinkToolBar() {
 		toolbarShrunk = true;
 		Log.i("Toolbar height", Integer.toString(toolbar.getMeasuredHeight()));
-		ValueAnimator anim = ValueAnimator.ofInt(toolbar.getMeasuredHeight(), 190);
+		Resources r = this.getResources();
+		int newHeight = (int) TypedValue.applyDimension(
+				TypedValue.COMPLEX_UNIT_DIP,
+				50,
+				r.getDisplayMetrics()
+		);
+		ValueAnimator anim = ValueAnimator.ofInt(toolbar.getMeasuredHeight(), newHeight);
 		anim.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
 			@Override
 			public void onAnimationUpdate(ValueAnimator valueAnimator) {
@@ -296,7 +317,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 		toolbarShrunk = false;
 		Log.i("Toolbar height", Integer.toString(toolbar.getMeasuredHeight()));
 		// Height animation
-		ValueAnimator anim = ValueAnimator.ofInt(toolbar.getMeasuredHeight(), 244);
+		Resources r = this.getResources();
+		int newHeight = (int) TypedValue.applyDimension(
+				TypedValue.COMPLEX_UNIT_DIP,
+				70,
+				r.getDisplayMetrics()
+		);
+		ValueAnimator anim = ValueAnimator.ofInt(toolbar.getMeasuredHeight(), newHeight);
 		anim.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
 			@Override
 			public void onAnimationUpdate(ValueAnimator valueAnimator) {
@@ -403,7 +430,5 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 		noEventsForYou.setVisibility(View.GONE);
 		transitionToFragment(fragment);
 	}
-
-
 
 }
