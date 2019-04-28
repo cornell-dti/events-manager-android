@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ShareCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -229,6 +230,11 @@ public class DetailsActivity extends AppCompatActivity implements OnMapReadyCall
 				break;
 			case R.id.share:
 				Log.i("DetailsActivity", "TODO share pressed");
+				ShareCompat.IntentBuilder.from(this)
+						.setType("text/plain")
+						.setChooserTitle("Choose how to share this event")
+						.setText("http://play.google.com")
+						.startChooser();
 				break;
 			case R.id.more:
 				description.setMaxLines(Integer.MAX_VALUE);

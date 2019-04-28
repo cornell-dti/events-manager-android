@@ -2,6 +2,7 @@ package com.dti.cornell.events;
 
 import android.animation.ValueAnimator;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -13,6 +14,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -132,6 +134,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 				datePicker.setVisibility(View.GONE);
 				profileToolbar.setVisibility(View.GONE);
 				noEventsForYou.setVisibility(View.GONE);
+				hideBackButton();
 				break;
 			case R.id.tab_for_you:
 				setToolbarText(R.string.tab_for_you);
@@ -140,6 +143,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 				expandToolBar();
 				datePicker.setVisibility(View.GONE);
 				profileToolbar.setVisibility(View.GONE);
+				hideBackButton();
 				break;
 			case R.id.tab_my_events:
 				setToolbarText(R.string.tab_my_events);
@@ -149,6 +153,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 				datePicker.setVisibility(View.VISIBLE);
 				profileToolbar.setVisibility(View.GONE);
 				noEventsForYou.setVisibility(View.GONE);
+				hideBackButton();
 				break;
 			case R.id.tab_profile:
 				fragment = new ProfileFragment();
@@ -157,6 +162,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 				datePicker.setVisibility(View.GONE);
 				profileToolbar.setVisibility(View.VISIBLE);
 				noEventsForYou.setVisibility(View.GONE);
+				hideBackButton();
 				break;
 			default:
 				return false;
@@ -211,6 +217,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 				toolbar.setVisibility(View.VISIBLE);
 				datePicker.setVisibility(View.GONE);
 				profileToolbar.setVisibility(View.GONE);
+				hideBackButton();
 				break;
 			case R.id.tab_for_you:
 				setToolbarText(R.string.tab_for_you);
@@ -218,6 +225,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 				toolbar.setVisibility(View.VISIBLE);
 				datePicker.setVisibility(View.GONE);
 				profileToolbar.setVisibility(View.GONE);
+				hideBackButton();
 				break;
 			case R.id.tab_my_events:
 				setToolbarText(R.string.tab_my_events);
@@ -225,12 +233,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 				toolbar.setVisibility(View.VISIBLE);
 				datePicker.setVisibility(View.VISIBLE);
 				profileToolbar.setVisibility(View.GONE);
+				hideBackButton();
 				break;
 			case R.id.tab_profile:
 				fragment = new ProfileFragment();
 				toolbar.setVisibility(View.GONE);
 				datePicker.setVisibility(View.GONE);
 				profileToolbar.setVisibility(View.VISIBLE);
+				hideBackButton();
 				break;
 			default:
 				return super.onOptionsItemSelected(item);
@@ -347,11 +357,38 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 	public void showBackButton() {
 		expandToolBar();
-//		toolbarTitleBig.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+		Resources r = this.getResources();
+		int leftMargin = (int) TypedValue.applyDimension(
+				TypedValue.COMPLEX_UNIT_DIP,
+				50,
+				r.getDisplayMetrics()
+		);
+		int topMargin = (int) TypedValue.applyDimension(
+				TypedValue.COMPLEX_UNIT_DIP,
+				12,
+				r.getDisplayMetrics()
+		);
+		ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) toolbarTitleBig.getLayoutParams();
+		params.leftMargin = leftMargin;
+		toolbarTitleBig.setLayoutParams(params);
 		backButton.setAlpha(1.0f);
 	}
 
 	public void hideBackButton() {
+		Resources r = this.getResources();
+		int leftMargin = (int) TypedValue.applyDimension(
+				TypedValue.COMPLEX_UNIT_DIP,
+				0,
+				r.getDisplayMetrics()
+		);
+		int topMargin = (int) TypedValue.applyDimension(
+				TypedValue.COMPLEX_UNIT_DIP,
+				12,
+				r.getDisplayMetrics()
+		);
+		ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) toolbarTitleBig.getLayoutParams();
+		params.leftMargin = leftMargin;
+		toolbarTitleBig.setLayoutParams(params);
 		backButton.setAlpha(0.0f);
 	}
 
