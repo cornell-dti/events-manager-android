@@ -428,6 +428,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 		datePicker.setVisibility(View.GONE);
 		profileToolbar.setVisibility(View.GONE);
 		noEventsForYou.setVisibility(View.GONE);
+		setToolbarText(R.string.tab_discover);
 		transitionToFragment(fragment);
 	}
 

@@ -10,6 +10,7 @@
 	<string name="tab_for_you"><b>For You</b></string>
 	<string name="tab_my_events"><b>My Events</b></string>
 	<string name="tab_profile"><b>Profile</b></string>
+	<string name="page_all_events"><b>All Events</b></string>
 
 	<string name="event_starts">Starts</string>
 	<string name="event_going">Going</string>

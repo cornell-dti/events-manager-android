@@ -16,5 +16,7 @@ class SeeMoreViewHolder extends RecyclerView.ViewHolder implements View.OnClickL
 	{
 		MainActivity activity = (MainActivity) itemView.getContext();
 		activity.transitionToFragment(new EventListFragment());
+		activity.showBackButton();
+		activity.setToolbarText(R.string.page_all_events);
 	}
 }
