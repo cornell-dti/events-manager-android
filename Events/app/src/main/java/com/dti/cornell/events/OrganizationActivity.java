@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.support.v7.widget.Toolbar;
 
@@ -22,6 +23,7 @@ public class OrganizationActivity extends AppCompatActivity implements View.OnCl
 	private TextView website;
 	private TextView email;
 	private TextView bio;
+	private ScrollView scrollView;
 	private RecyclerView eventsRecycler;
 	private RecyclerView tagRecycler;
 	private Organization organization;
@@ -51,6 +53,7 @@ public class OrganizationActivity extends AppCompatActivity implements View.OnCl
 		if(userIsFollowing){
 			setFollowButtonState();
 		}
+		scrollView.smoothScrollTo(0,0);
 	}
 
 	@Override
@@ -83,7 +86,7 @@ public class OrganizationActivity extends AppCompatActivity implements View.OnCl
 		bio = findViewById(R.id.bio);
 		FloatingActionButton backButton = findViewById(R.id.backButton);
 		backButton.setOnClickListener(this);
-
+		scrollView = findViewById(R.id.scrollView);
 		eventsRecycler = findViewById(R.id.eventsRecycler);
 		RecyclerUtil.addHorizontalSpacing(eventsRecycler);
 
