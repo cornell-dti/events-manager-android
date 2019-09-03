@@ -24,12 +24,12 @@ public class Event implements Comparable<Event>
 	public final String location;
 	public final String googlePlaceID;
 	public final ImmutableList<String> participantIDs;
-	private final int pictureID;
+	public final String pictureID;
 	public final int organizerID;
 	public final ImmutableList<Integer> tagIDs;
 	private static final String TAG = Event.class.getSimpleName();
 
-	public Event(int id, DateTime startTime, DateTime endTime, String title, String description, String location, String googlePlaceID, ImmutableList<String> participantIDs, int pictureID, int organizerID, ImmutableList<Integer> tagIDs)
+	public Event(int id, DateTime startTime, DateTime endTime, String title, String description, String location, String googlePlaceID, ImmutableList<String> participantIDs, String pictureID, int organizerID, ImmutableList<Integer> tagIDs)
 	{
 		this.id = id;
 		this.startTime = startTime;
@@ -61,6 +61,7 @@ public class Event implements Comparable<Event>
 
 	public static Event fromString(String input)
 	{
+		System.out.println(input);
 		String[] values = input.split(ToStringUtil.FIELD_SEPARATOR);
 		int id = Integer.valueOf(values[0]);
 		DateTime start = DateTime.parse(values[1]);
@@ -70,9 +71,14 @@ public class Event implements Comparable<Event>
 		String location = values[5];
 		String placeID = values[6];
 		ImmutableList<String> participantIDs = ToStringUtil.listFromString(values[7]);
-		int pictureID = Integer.valueOf(values[8]);
+		String pictureID = values[8];
 		int organizerID = Integer.valueOf(values[9]);
-		ImmutableList<Integer> tagIDs = ToStringUtil.intListFromString(values[10]);
+		ImmutableList<Integer> tagIDs;
+		if(values.length > 10){
+			 tagIDs = ToStringUtil.intListFromString(values[10]);
+		} else {
+			tagIDs = ImmutableList.of();
+		}
 		return new Event(id, start, end, title, description, location, placeID, participantIDs, pictureID, organizerID, tagIDs);
 	}
 

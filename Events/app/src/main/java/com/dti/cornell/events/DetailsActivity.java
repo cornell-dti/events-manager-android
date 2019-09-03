@@ -14,12 +14,14 @@ import android.view.View;
 import android.view.ViewTreeObserver;
 import android.view.WindowManager;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.dti.cornell.events.models.Event;
 import com.dti.cornell.events.models.Organization;
 import com.dti.cornell.events.utils.Data;
 import com.dti.cornell.events.utils.EventUtil;
+import com.dti.cornell.events.utils.Internet;
 import com.dti.cornell.events.utils.RecyclerUtil;
 import com.google.android.gms.location.places.GeoDataClient;
 import com.google.android.gms.location.places.Place;
@@ -53,7 +55,9 @@ public class DetailsActivity extends AppCompatActivity implements OnMapReadyCall
 	private RecyclerView tagRecycler;
 	private Event event;
 	private TextView bookmarkedButton;
+	private ProgressBar imageLoadingBar;
 	private boolean isBookmarked;
+	public ImageView image;
 
 	private static final int DESCRIPTION_MAX_LINES = 3;
 
@@ -99,7 +103,7 @@ public class DetailsActivity extends AppCompatActivity implements OnMapReadyCall
 
 	private void findViews()
 	{
-		ImageView image = findViewById(R.id.image);
+		image = findViewById(R.id.image);
 		title = findViewById(R.id.title);
 		description = findViewById(R.id.description);
 		time = findViewById(R.id.time);
@@ -110,6 +114,7 @@ public class DetailsActivity extends AppCompatActivity implements OnMapReadyCall
 		more = findViewById(R.id.more);
 		more.setOnClickListener(this);
 		moreButtonGradient = findViewById(R.id.moreButtonGradient);
+		imageLoadingBar = findViewById(R.id.imageLoadingBar);
 		findViewById(R.id.back).setOnClickListener(this);
 		findViewById(R.id.share).setOnClickListener(this);
 
@@ -145,6 +150,11 @@ public class DetailsActivity extends AppCompatActivity implements OnMapReadyCall
 		isBookmarked = EventUtil.userHasBookmarked(event.id);
 
 		configureDescription();
+
+		image = findViewById(R.id.image);
+//		Internet.getImageForEvent(event, image);
+		Internet.getImageForEventStopProgress(event, image, imageLoadingBar);
+		startMap();
 	}
 
 	private void configureDescription()
@@ -189,7 +199,30 @@ public class DetailsActivity extends AppCompatActivity implements OnMapReadyCall
 			public void onComplete(@NonNull Task<PlaceBufferResponse> task)
 			{
 				if (!task.isSuccessful()) {
-					Log.e(TAG, "onMapReady: place not found");
+					Log.e(TAG, "onMapReady: place not found for placeID: " + event.googlePlaceID);
+					Log.e(TAG, task.getException().getMessage());
+					// Use Cornell's place ID instead
+					geoDataClient.getPlaceById("ChIJndqRYRqC0IkR9J8bgk3mDvU").addOnCompleteListener(
+							new OnCompleteListener<PlaceBufferResponse>(){
+								@Override
+								public void onComplete(@NonNull Task<PlaceBufferResponse> task)
+								{
+									if (!task.isSuccessful()) {
+										Log.e(TAG, "onMapReady: place not found");
+										return;
+									}
+
+									PlaceBufferResponse places = task.getResult();
+									Place place = places.get(0);
+									placeName = place.getName().toString();
+									placeAddress = place.getAddress().toString();
+									LatLng position = place.getLatLng();
+									map.moveCamera(CameraUpdateFactory.newLatLngZoom(position, MAP_ZOOM));
+									map.addMarker(new MarkerOptions().position(position).title(event.location));
+									places.release();
+
+								}
+							});
 					return;
 				}
 

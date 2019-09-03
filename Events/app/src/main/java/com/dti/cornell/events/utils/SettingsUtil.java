@@ -22,6 +22,9 @@ public class SettingsUtil
 	public static SettingsUtil SINGLETON;
 	private final SharedPreferences settings;
 
+	//local data holders
+	Map<Integer, Event> events = new HashMap<>();
+
 	//keys
 	private static final String TIMESTAMP = "timestamp";
 	private static final String EVENTS = "events";
@@ -46,7 +49,8 @@ public class SettingsUtil
 	public String getTimestamp()
 	{
 		//default = oldest possible time
-		return settings.getString(TIMESTAMP, new DateTime(0).toString(Internet.TIME_FORMAT));
+//		return settings.getString(TIMESTAMP, new DateTime(0).toString(Internet.TIME_FORMAT));
+		return "2017-02-19T01:43:40.753131-05:00";
 	}
 	public void setTimestamp(String timestamp)
 	{
@@ -57,19 +61,26 @@ public class SettingsUtil
 
 	public Map<Integer, Event> getEvents()
 	{
-		Set<String> eventStrings = settings.getStringSet(EVENTS, Collections.<String>emptySet());
-		Map<Integer, Event> events = new HashMap<>(eventStrings.size());
-		for (String eventString : eventStrings)
-		{
-			Event event = Event.fromString(eventString);
-			events.put(event.id, event);
-		}
-		return events;
+		return this.events;
+//		Set<String> eventStrings = settings.getStringSet(EVENTS, Collections.<String>emptySet());
+//		Map<Integer, Event> events = new HashMap<>(eventStrings.size());
+//		for (String eventString : eventStrings)
+//		{
+//			Event event = Event.fromString(eventString);
+//			events.put(event.id, event);
+//		}
+//		return events;
 	}
 
 	public void setEvents(Map<Integer, Event> events)
 	{
-		setStringSet(new HashSet<>(events.values()), EVENTS);
+		this.events = events;
+//		HashSet<String> eventsStrings = new HashSet<String>();
+//		for(Event e : events.values()){
+//			eventsStrings.add(e.toString());
+//		}
+//		Log.e("SETTINGSUTIL", eventsStrings.toString());
+//		setStringSet(eventsStrings, EVENTS);
 	}
 
 	public Map<Integer, Organization> getOrganizations()

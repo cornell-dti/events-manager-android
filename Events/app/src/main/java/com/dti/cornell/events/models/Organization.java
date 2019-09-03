@@ -14,7 +14,7 @@ public class Organization implements Comparable<Organization>
 	public final int id;
 	public final String name;
 	public final String description;
-	private final int pictureID;
+	public final int pictureID;
 	private final ImmutableList<Integer> eventIDs;
 	private final ImmutableList<String> memberIDs;
 	public final ImmutableList<Integer> tagIDs;

@@ -6,9 +6,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.dti.cornell.events.models.Event;
+import com.dti.cornell.events.models.Organization;
+import com.dti.cornell.events.utils.Data;
+import com.dti.cornell.events.utils.Internet;
 import com.dti.cornell.events.utils.TagUtil;
 
-public class EventCardViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener
+import java.util.List;
+
+public class EventCardViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, Data.DataUpdateListener
 {
 	private final TextView title;
 	private final TextView location;
@@ -16,12 +21,14 @@ public class EventCardViewHolder extends RecyclerView.ViewHolder implements View
 	private final TextView day;
 	private final TextView startTime;
 	private final TextView numGoing;
+	private final ImageView image;
 	private Event event;
 
 	public EventCardViewHolder(View itemView)
 	{
 		super(itemView);
-		ImageView image = itemView.findViewById(R.id.image);
+		Data.registerListener(this);
+		image = itemView.findViewById(R.id.image);
 		title = itemView.findViewById(R.id.title);
 		location = itemView.findViewById(R.id.location);
 		month = itemView.findViewById(R.id.month);
@@ -40,6 +47,7 @@ public class EventCardViewHolder extends RecyclerView.ViewHolder implements View
 		day.setText(event.startTime.toString("d"));
 		startTime.setText(event.startTime.toString("h:mm a"));
 		numGoing.setText(Integer.toString(event.participantIDs.size()));
+		Internet.getImageForEvent(this.event, this.image);
 	}
 
 
@@ -50,5 +58,20 @@ public class EventCardViewHolder extends RecyclerView.ViewHolder implements View
 		for(Integer id : event.tagIDs){
 			TagUtil.addTagToList(id);
 		}
+	}
+
+	@Override
+	public void eventUpdate(List<Event> e) {
+		Internet.getImageForEvent(this.event, this.image);
+	}
+
+	@Override
+	public void orgUpdate(List<Organization> o) {
+
+	}
+
+	@Override
+	public void tagUpdate(List<String> t) {
+
 	}
 }

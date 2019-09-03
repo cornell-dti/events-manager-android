@@ -20,19 +20,6 @@
 			android:layout_width="match_parent"
 			android:layout_height="match_parent" >
 
-			<android.support.design.widget.FloatingActionButton
-				android:id="@+id/back2"
-				android:alpha="0.0"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:layout_marginTop="12dp"
-				android:src="@drawable/ic_arrow_back_white_24dp"
-				android:tint="@color/colorPrimary"
-				app:backgroundTint="@android:color/background_light"
-				app:fabSize="mini"
-				app:layout_constraintStart_toStartOf="parent"
-				app:layout_constraintTop_toTopOf="parent" />
-
 			<TextView
 				android:id="@+id/toolbarTitleBig"
 				style="@style/PageTitle"
@@ -40,6 +27,20 @@
 				android:layout_height="match_parent"
 				android:layout_marginTop="12dp"
 				tools:text="Test Title" />
+
+			<android.support.design.widget.FloatingActionButton
+				android:id="@+id/back2"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginStart="5dp"
+				android:layout_marginTop="12dp"
+				android:alpha="0.0"
+				android:src="@drawable/ic_arrow_back_white_24dp"
+				android:tint="@color/colorPrimary"
+				app:backgroundTint="@android:color/background_light"
+				app:fabSize="mini"
+				app:layout_constraintStart_toStartOf="parent"
+				app:layout_constraintTop_toTopOf="parent" />
 
 			<TextView
 				android:id="@+id/toolbarTitleSmall"

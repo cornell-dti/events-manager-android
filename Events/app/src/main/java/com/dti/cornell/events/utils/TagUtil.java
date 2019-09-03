@@ -147,6 +147,9 @@ public class TagUtil {
         }
         List<Integer> tagIDs = new ArrayList<>();
         for(int i = 0; i < numberOfTagsDesired; i++){
+            if(i == tagsInterested.size()){
+                break;
+            }
             tagIDs.add(tagsInterested.get(i));
         }
         return tagIDs;

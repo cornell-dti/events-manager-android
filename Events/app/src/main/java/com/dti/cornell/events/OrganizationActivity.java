@@ -8,12 +8,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.support.v7.widget.Toolbar;
 
 import com.dti.cornell.events.models.Organization;
 import com.dti.cornell.events.utils.Data;
+import com.dti.cornell.events.utils.Internet;
 import com.dti.cornell.events.utils.OrganizationUtil;
 import com.dti.cornell.events.utils.RecyclerUtil;
 
@@ -30,6 +32,7 @@ public class OrganizationActivity extends AppCompatActivity implements View.OnCl
 	private boolean userIsFollowing;
 	private TextView followingButton;
 	private TextView title;
+	private ImageView toolbarImage;
 
 	public static void startWithOrganization(Organization organization, Context context)
 	{
@@ -79,6 +82,8 @@ public class OrganizationActivity extends AppCompatActivity implements View.OnCl
 	private void findViews()
 	{
 		findViewById(R.id.follow).setOnClickListener(this);
+
+		toolbarImage = findViewById(R.id.toolbarImage);
 		title = findViewById(R.id.toolbarTitle);
 
 		website = findViewById(R.id.website);
@@ -96,6 +101,7 @@ public class OrganizationActivity extends AppCompatActivity implements View.OnCl
 
 	private void configure(Organization organization)
 	{
+		Internet.getImageForOrganization(organization, toolbarImage);
 		website.setText(organization.website);
 		email.setText(organization.email);
 		bio.setText(organization.description);

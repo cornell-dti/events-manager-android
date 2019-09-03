@@ -19,12 +19,16 @@ import android.util.TypedValue;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.dti.cornell.events.models.Event;
+import com.dti.cornell.events.models.Organization;
 import com.dti.cornell.events.utils.Data;
 import com.dti.cornell.events.utils.EventBusUtils;
 import com.dti.cornell.events.utils.EventUtil;
+import com.dti.cornell.events.utils.Internet;
 import com.dti.cornell.events.utils.OrganizationUtil;
 import com.dti.cornell.events.utils.SearchUtil;
 import com.dti.cornell.events.utils.SettingsUtil;
@@ -34,7 +38,7 @@ import com.google.common.eventbus.Subscribe;
 
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener, BottomNavigationView.OnNavigationItemSelectedListener
+public class MainActivity extends AppCompatActivity implements View.OnClickListener, BottomNavigationView.OnNavigationItemSelectedListener, Data.DataUpdateListener
 {
 	private Toolbar toolbar;
 	private FloatingActionButton backButton;
@@ -45,6 +49,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 	private boolean toolbarShrunk;
 	ConstraintLayout noEventsForYou;
 	SwipeRefreshLayout swipeRefreshLayout;
+	private ImageView progressBlocker;
+	private ProgressBar progressBar;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
@@ -55,6 +61,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 		//Register for scroll event
 		EventBusUtils.SINGLETON.register(this);
+		Data.registerListener(this);
 
 //		if (SettingsUtil.SINGLETON.getFirstRun())
 //		startActivity(new Intent(this, OnboardingActivity.class));
@@ -65,6 +72,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 		setSupportActionBar(toolbar);
 		backButton = findViewById(R.id.back2);
 		backButton.setOnClickListener(this);
+
+		progressBlocker = findViewById(R.id.loadBlocker);
+		progressBar = findViewById(R.id.progressBar);
+
 		profileToolbar = findViewById(R.id.profileToolbar);
 		toolbarTitleSmall = findViewById(R.id.toolbarTitleSmall);
 		toolbarTitleBig = findViewById(R.id.toolbarTitleBig);
@@ -121,6 +132,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 			// Handle app link data here
 			Log.e("URL GIVEN", scheme+"://"+fullPath);
 		}
+
+//		Internet.getEventFeed();
 	}
 
 //	private void setTabBarFont(BottomNavigationView tabBar)
@@ -172,10 +185,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 				break;
 			case R.id.tab_profile:
 				fragment = new ProfileFragment();
-				toolbar.setVisibility(View.GONE);
+				setToolbarText(R.string.tab_profile);
+				toolbar.setVisibility(View.VISIBLE);
 				expandToolBar();
 				datePicker.setVisibility(View.GONE);
-				profileToolbar.setVisibility(View.VISIBLE);
+				profileToolbar.setVisibility(View.GONE);
 				noEventsForYou.setVisibility(View.GONE);
 				hideBackButton();
 				break;
@@ -432,4 +446,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 		transitionToFragment(fragment);
 	}
 
+	@Override
+	public void eventUpdate(List<Event> e) {
+		progressBar.setVisibility(View.GONE);
+		progressBlocker.setVisibility(View.GONE);
+	}
+
+	@Override
+	public void orgUpdate(List<Organization> o) {
+		progressBar.setVisibility(View.GONE);
+		progressBlocker.setVisibility(View.GONE);
+	}
+
+	@Override
+	public void tagUpdate(List<String> t) {
+		progressBar.setVisibility(View.GONE);
+		progressBlocker.setVisibility(View.GONE);
+	}
 }
