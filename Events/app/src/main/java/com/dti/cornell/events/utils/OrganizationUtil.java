@@ -48,6 +48,7 @@ public class OrganizationUtil {
         for(Integer i : followedOrganizations){
             if(firstLoop){
                 sb.append(i);
+                firstLoop = false;
             } else {
                 sb.append("::");
                 sb.append(i);
