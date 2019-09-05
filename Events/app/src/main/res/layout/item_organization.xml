@@ -16,15 +16,14 @@
 
 	<TextView
 		android:id="@+id/name"
+		style="@style/H2"
 		android:layout_width="0dp"
 		android:layout_height="wrap_content"
 		android:layout_marginLeft="@dimen/spacing_xl"
-		app:layout_constraintLeft_toRightOf="@+id/image"
-		app:layout_constraintTop_toTopOf="parent"
 		app:layout_constraintBottom_toBottomOf="parent"
+		app:layout_constraintLeft_toRightOf="@+id/image"
 		app:layout_constraintRight_toRightOf="parent"
-		style="@style/H3"
-		tools:text="Cornell Design &amp; Tech Initiative"
-		/>
+		app:layout_constraintTop_toTopOf="parent"
+		tools:text="Cornell Design &amp; Tech Initiative" />
 
 </android.support.constraint.ConstraintLayout>

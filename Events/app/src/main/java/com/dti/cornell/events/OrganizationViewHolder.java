@@ -18,6 +18,7 @@ public class OrganizationViewHolder extends RecyclerView.ViewHolder implements V
 	private final Drawable background;
 	private Organization organization;
 	private int position;
+	private boolean selectable;
 
 	public OrganizationViewHolder(View itemView)
 	{
@@ -28,10 +29,11 @@ public class OrganizationViewHolder extends RecyclerView.ViewHolder implements V
 		itemView.setOnClickListener(this);
 	}
 
-	public void configure(Organization organization, int position)
+	public void configure(Organization organization, int position, boolean selectable)
 	{
 		this.organization = organization;
 		this.position = position;
+		this.selectable = selectable;
 		name.setText(organization.name);
 		Internet.getImageForOrganization(organization, image);
 	}
@@ -48,6 +50,8 @@ public class OrganizationViewHolder extends RecyclerView.ViewHolder implements V
 	public void onClick(View view)
 	{
 		EventBusUtils.SINGLETON.post(new EventBusUtils.OrganizationSelected(organization, position));
-		OrganizationActivity.startWithOrganization(organization, view.getContext());
+		if(!selectable){
+			OrganizationActivity.startWithOrganization(organization, view.getContext());
+		}
 	}
 }

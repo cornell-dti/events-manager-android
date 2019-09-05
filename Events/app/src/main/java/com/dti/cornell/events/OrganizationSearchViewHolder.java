@@ -44,7 +44,7 @@ public class OrganizationSearchViewHolder extends RecyclerView.ViewHolder implem
         this.organization = organization;
         this.position = position;
         name.setText(organization.name);
-        Internet.getImageForOrganization(this.organization, image);
+        Internet.getImageForOrganizationStopProgress(this.organization, image, imageLoadingBar);
     }
 
     public void setSelected(boolean selected)

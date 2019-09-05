@@ -49,7 +49,7 @@ class OrganizationAdapter extends RecyclerView.Adapter<OrganizationViewHolder>
 	public void onBindViewHolder(@NonNull OrganizationViewHolder holder, int position)
 	{
 		Organization org = organizations.get(position);
-		holder.configure(org, position);
+		holder.configure(org, position, selectable);
 		if (selectable)
 			holder.setSelected(selected.contains(org));
 	}
