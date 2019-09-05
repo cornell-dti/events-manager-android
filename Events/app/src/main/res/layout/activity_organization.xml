@@ -26,36 +26,60 @@
 			android:orientation="vertical"
 			app:layout_constraintGuide_end="@dimen/spacing_xxl"/>
 
-		<android.support.design.widget.AppBarLayout xmlns:android="http://schemas.android.com/apk/res/android"
-			xmlns:app="http://schemas.android.com/apk/res-auto"
-			xmlns:tools="http://schemas.android.com/tools"
+		<android.support.design.widget.AppBarLayout
 			android:id="@+id/appBarLayout2"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
 			android:background="@android:color/white"
-			android:theme="@style/AppTheme.NoActionBar">
+			android:theme="@style/AppTheme.NoActionBar"
+			app:layout_constraintTop_toTopOf="parent">
 
 			<android.support.v7.widget.Toolbar
 				android:id="@+id/toolbar"
 				android:layout_width="match_parent"
 				android:layout_height="120dp"
-				app:popupTheme="@style/AppTheme.PopupOverlay"
-				app:titleTextAppearance="@style/PageTitle"
+				card_view:popupTheme="@style/AppTheme.PopupOverlay"
+				card_view:titleTextAppearance="@style/PageTitle"
 				tools:title="Test title">
 
 				<android.support.constraint.ConstraintLayout
 					android:layout_width="match_parent"
 					android:layout_height="match_parent">
 
+					<TextView
+						android:id="@+id/toolbarTitle"
+						style="@style/PageTitle"
+						android:layout_width="wrap_content"
+						android:layout_height="40dp"
+						android:layout_marginTop="2dp"
+						android:gravity="center"
+						android:textColor="@android:color/black"
+						android:textSize="16sp"
+						app:layout_constraintEnd_toStartOf="@+id/rightGuide2"
+						app:layout_constraintStart_toStartOf="parent"
+						card_view:layout_constraintTop_toBottomOf="@+id/toolbarImageContainer"
+						tools:text="Test Title" />
+
+					<android.support.constraint.Guideline
+						android:id="@+id/rightGuide2"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:layout_marginEnd="20dp"
+						android:orientation="vertical"
+						app:layout_constraintEnd_toEndOf="parent"
+						card_view:layout_constraintGuide_end="@dimen/spacing_xxl" />
+
+
 					<android.support.v7.widget.CardView
 						android:id="@+id/toolbarImageContainer"
 						android:layout_width="wrap_content"
 						android:layout_height="wrap_content"
-						app:layout_constraintEnd_toEndOf="parent"
-						app:layout_constraintStart_toStartOf="parent"
-						app:layout_constraintTop_toTopOf="parent"
+						card_view:layout_constraintEnd_toEndOf="@+id/toolbarTitle"
+						card_view:layout_constraintStart_toStartOf="@+id/toolbarTitle"
 						card_view:cardCornerRadius="25dp"
-						card_view:cardPreventCornerOverlap="false">
+						card_view:cardPreventCornerOverlap="false"
+
+						card_view:layout_constraintTop_toTopOf="parent">
 
 						<ImageView
 							android:id="@+id/toolbarImage"
@@ -64,21 +88,6 @@
 							android:background="@drawable/bg_round_button_white"
 							android:src="@drawable/taranaburke" />
 					</android.support.v7.widget.CardView>
-
-
-					<TextView
-						android:id="@+id/toolbarTitle"
-						style="@style/PageTitle"
-						android:layout_width="match_parent"
-						android:layout_height="50dp"
-						android:layout_marginTop="0dp"
-						android:layout_marginLeft="60dp"
-						android:layout_marginRight="70dp"
-						android:textSize="16dp"
-						android:gravity="center"
-						android:textColor="@android:color/black"
-						tools:text="Test Title"
-						app:layout_constraintTop_toBottomOf="@+id/toolbarImageContainer" />
 
 				</android.support.constraint.ConstraintLayout>
 

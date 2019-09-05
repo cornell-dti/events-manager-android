@@ -15,74 +15,69 @@
 		app:layout_constraintStart_toStartOf="parent"
 		app:layout_constraintTop_toTopOf="parent">
 
-		<ImageView
-			android:id="@+id/buttonDivider"
-			android:layout_width="0dp"
-			android:layout_height="2dp"
-			app:layout_constraintBottom_toBottomOf="@+id/bookmark"
-			app:layout_constraintEnd_toEndOf="parent"
-			app:layout_constraintStart_toStartOf="parent"
-			app:layout_constraintTop_toTopOf="@+id/bookmark"
-			app:srcCompat="@color/gray" />
+		<android.support.constraint.ConstraintLayout
+			android:id="@+id/constraintLayout2"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent">
 
-		<ImageView
-			android:id="@+id/image"
-			android:layout_width="0dp"
-			android:layout_height="0dp"
-			android:layout_marginTop="16dp"
-			android:paddingTop="@dimen/status_bar_height"
-			android:scaleType="centerCrop"
-			app:layout_constraintBottom_toTopOf="@+id/bookmark"
-			app:layout_constraintDimensionRatio="2:1"
-			app:layout_constraintEnd_toEndOf="parent"
-			app:layout_constraintHorizontal_bias="0.0"
-			app:layout_constraintStart_toStartOf="parent"
-			app:layout_constraintTop_toTopOf="parent" />
+			<ImageView
+				android:id="@+id/image"
+				android:layout_width="0dp"
+				android:layout_height="0dp"
+				android:paddingTop="@dimen/status_bar_height"
+				android:scaleType="centerCrop"
+				app:layout_constraintDimensionRatio="2:1"
+				app:layout_constraintEnd_toEndOf="parent"
+				app:layout_constraintHorizontal_bias="0.0"
+				app:layout_constraintStart_toStartOf="parent"
+				app:layout_constraintTop_toTopOf="parent"
+				app:layout_constraintVertical_bias="0.363" />
 
-		<ProgressBar
-			android:id="@+id/imageLoadingBar"
-			style="@style/Widget.AppCompat.ProgressBar"
-			android:layout_width="100dp"
-			android:layout_height="100dp"
-			android:layout_marginBottom="8dp"
-			android:layout_marginEnd="8dp"
-			android:layout_marginStart="8dp"
-			android:layout_marginTop="8dp"
-			android:indeterminate="true"
-			android:indeterminateTint="@color/colorPrimary"
-			android:progressTint="@color/colorPrimary"
-			android:visibility="visible"
-			app:layout_constraintBottom_toBottomOf="@+id/image"
-			app:layout_constraintEnd_toEndOf="parent"
-			app:layout_constraintStart_toStartOf="parent"
-			app:layout_constraintTop_toTopOf="@+id/image" />
+			<ProgressBar
+				android:id="@+id/imageLoadingBar"
+				style="@style/Widget.AppCompat.ProgressBar"
+				android:layout_width="100dp"
+				android:layout_height="100dp"
+				android:layout_marginBottom="8dp"
+				android:layout_marginEnd="8dp"
+				android:layout_marginStart="8dp"
+				android:layout_marginTop="8dp"
+				android:indeterminate="true"
+				android:indeterminateTint="@color/colorPrimary"
+				android:progressTint="@color/colorPrimary"
+				android:visibility="visible"
+				app:layout_constraintBottom_toBottomOf="@+id/image"
+				app:layout_constraintEnd_toEndOf="parent"
+				app:layout_constraintStart_toStartOf="parent"
+				app:layout_constraintTop_toTopOf="@+id/image" />
 
-		<android.support.design.widget.FloatingActionButton
-			android:id="@+id/back"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:layout_marginStart="@dimen/spacing_xxl"
-			android:layout_marginTop="35dp"
-			android:src="@drawable/ic_arrow_back_white_24dp"
-			android:tint="@color/colorPrimary"
-			app:backgroundTint="@android:color/white"
-			app:fabSize="mini"
-			app:layout_constraintStart_toStartOf="parent"
-			app:layout_constraintTop_toTopOf="parent"
-			tools:tint="@color/colorPrimary" />
+			<android.support.design.widget.FloatingActionButton
+				android:id="@+id/back"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginStart="@dimen/spacing_xxl"
+				android:layout_marginTop="35dp"
+				android:src="@drawable/ic_arrow_back_white_24dp"
+				android:tint="@color/colorPrimary"
+				app:backgroundTint="@android:color/white"
+				app:fabSize="mini"
+				app:layout_constraintStart_toStartOf="parent"
+				app:layout_constraintTop_toTopOf="parent"
+				tools:tint="@color/colorPrimary" />
 
-		<android.support.design.widget.FloatingActionButton
-			android:id="@+id/share"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:layout_marginEnd="@dimen/spacing_xxl"
-			android:layout_marginTop="35dp"
-			android:src="@drawable/ic_share_white_24dp"
-			android:tint="@color/colorPrimary"
-			app:backgroundTint="@android:color/white"
-			app:fabSize="mini"
-			app:layout_constraintEnd_toEndOf="parent"
-			app:layout_constraintTop_toTopOf="parent" />
+			<android.support.design.widget.FloatingActionButton
+				android:id="@+id/share"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginEnd="@dimen/spacing_xxl"
+				android:layout_marginTop="35dp"
+				android:src="@drawable/ic_share_white_24dp"
+				android:tint="@color/colorPrimary"
+				app:backgroundTint="@android:color/white"
+				app:fabSize="mini"
+				app:layout_constraintEnd_toEndOf="parent"
+				app:layout_constraintTop_toTopOf="parent" />
+		</android.support.constraint.ConstraintLayout>
 
 		<TextView
 			android:id="@+id/time"
@@ -121,7 +116,7 @@
 			android:layout_width="@dimen/spacing_xxl"
 			android:layout_height="@dimen/spacing_xxl"
 			android:layout_marginTop="@dimen/spacing_l"
-			android:src="@drawable/ic_dashboard_black_24dp"
+			android:src="@drawable/ic_discover"
 			app:layout_constraintStart_toStartOf="@+id/title"
 			app:layout_constraintTop_toBottomOf="@+id/organizationImage" />
 
@@ -142,7 +137,7 @@
 			android:layout_width="@dimen/spacing_xxl"
 			android:layout_height="@dimen/spacing_xxl"
 			android:layout_marginTop="@dimen/spacing_l"
-			android:src="@drawable/ic_dashboard_black_24dp"
+			android:src="@drawable/ic_profile"
 			app:layout_constraintStart_toStartOf="@+id/title"
 			app:layout_constraintTop_toBottomOf="@+id/goingImage" />
 
@@ -177,11 +172,13 @@
 			style="@style/mainButton"
 			android:layout_width="200dp"
 			android:layout_height="wrap_content"
+			android:layout_marginTop="184dp"
 			android:text="@string/button_bookmarked"
 			android:textStyle="bold"
 			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintHorizontal_bias="0.497"
 			app:layout_constraintStart_toStartOf="parent"
-			app:layout_constraintTop_toBottomOf="@+id/image" />
+			app:layout_constraintTop_toTopOf="@+id/constraintLayout2" />
 
 		<TextView
 			android:id="@+id/title"
@@ -190,7 +187,7 @@
 			android:layout_height="wrap_content"
 			android:layout_marginEnd="16dp"
 			android:layout_marginStart="24dp"
-			android:layout_marginTop="@dimen/spacing_3l"
+			android:layout_marginTop="8dp"
 			app:layout_constraintEnd_toEndOf="parent"
 			app:layout_constraintStart_toStartOf="parent"
 			app:layout_constraintTop_toBottomOf="@+id/bookmark"
@@ -212,10 +209,9 @@
 			android:layout_width="@dimen/spacing_xxl"
 			android:layout_height="@dimen/spacing_xxl"
 			android:layout_marginTop="@dimen/spacing_3l"
-			android:src="@drawable/ic_dashboard_black_24dp"
+			android:src="@drawable/ic_my_events"
 			app:layout_constraintStart_toStartOf="@+id/title"
-			app:layout_constraintTop_toBottomOf="@+id/description"
-			app:srcCompat="@drawable/ic_my_events" />
+			app:layout_constraintTop_toBottomOf="@+id/description" />
 
 		<TextView
 			android:id="@+id/location"
@@ -249,7 +245,7 @@
 			android:layout_width="@dimen/spacing_xxl"
 			android:layout_height="@dimen/spacing_xxl"
 			android:layout_marginTop="@dimen/spacing_l"
-			android:src="@drawable/ic_dashboard_black_24dp"
+			android:src="@drawable/ic_for_you"
 			app:layout_constraintStart_toStartOf="@+id/title"
 			app:layout_constraintTop_toBottomOf="@+id/timeImage"
 			app:srcCompat="@drawable/ic_person_outline_black_24dp" />
