@@ -9,10 +9,12 @@ import android.widget.TextView;
 
 import com.dti.cornell.events.models.Organization;
 import com.dti.cornell.events.utils.EventBusUtils;
+import com.dti.cornell.events.utils.Internet;
 
 public class OrganizationViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener
 {
 	private final TextView name;
+	private ImageView image;
 	private final Drawable background;
 	private Organization organization;
 	private int position;
@@ -20,7 +22,7 @@ public class OrganizationViewHolder extends RecyclerView.ViewHolder implements V
 	public OrganizationViewHolder(View itemView)
 	{
 		super(itemView);
-		ImageView image = itemView.findViewById(R.id.image);
+		image = itemView.findViewById(R.id.image);
 		name = itemView.findViewById(R.id.name);
 		background = itemView.getBackground();
 		itemView.setOnClickListener(this);
@@ -28,10 +30,10 @@ public class OrganizationViewHolder extends RecyclerView.ViewHolder implements V
 
 	public void configure(Organization organization, int position)
 	{
-		//todo get image
 		this.organization = organization;
 		this.position = position;
 		name.setText(organization.name);
+		Internet.getImageForOrganization(organization, image);
 	}
 
 	public void setSelected(boolean selected)
