@@ -2,6 +2,7 @@ package com.dti.cornell.events;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Paint;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -91,6 +92,8 @@ public class DetailsActivity extends AppCompatActivity implements OnMapReadyCall
 		findViews();
 
 		configure(event);
+
+		organization.setPaintFlags(organization.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
 	}
 
 	private void setStatusBarTranslucent()

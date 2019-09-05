@@ -13,10 +13,13 @@ import android.view.ViewGroup;
 
 import com.dti.cornell.events.utils.Data;
 import com.dti.cornell.events.utils.EventBusUtils;
+import com.dti.cornell.events.utils.EventUtil;
 import com.dti.cornell.events.utils.RecyclerUtil;
 import com.google.common.eventbus.Subscribe;
 
 import org.joda.time.DateTime;
+
+import java.util.stream.Collectors;
 
 public class MyEventsFragment extends Fragment
 {
@@ -33,7 +36,8 @@ public class MyEventsFragment extends Fragment
 
 		recyclerView = view.findViewById(R.id.recyclerView);
 		RecyclerUtil.addDivider(recyclerView);
-		adapter = new EventAdapter(getContext(), Data.events());
+		adapter = new EventAdapter(getContext(), Data.events().stream().filter(
+				(val)->EventUtil.userHasBookmarked(val.id)).collect(Collectors.toList()));
 		recyclerView.setAdapter(adapter);
 		layoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
 		setOnScrollListener();
