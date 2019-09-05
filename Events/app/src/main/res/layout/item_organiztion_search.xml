@@ -16,16 +16,31 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
+        <ProgressBar
+            android:id="@+id/imageLoadingBar2"
+            style="@style/Widget.AppCompat.ProgressBar"
+            android:layout_width="48dp"
+            android:layout_height="57dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:indeterminate="true"
+            android:indeterminateTint="@color/colorPrimary"
+            android:progressTint="@color/colorPrimary"
+            android:visibility="visible"
+            app:layout_constraintBottom_toBottomOf="@+id/image"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/image" />
+
         <ImageView
             android:id="@+id/orgImageView"
             android:layout_width="52dp"
             android:layout_height="52dp"
-            android:layout_marginStart="4dp"
-            android:layout_marginTop="4dp"
-            android:background="@drawable/bg_round_button_red"
+            android:layout_marginStart="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/imageLoadingBar2"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/bg_round_button_red" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/orgNameView"

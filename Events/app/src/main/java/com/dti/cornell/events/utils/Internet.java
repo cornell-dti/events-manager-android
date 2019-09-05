@@ -224,6 +224,10 @@ public class Internet {
 	 */
 	public static void getImageForOrganization(final Organization org, final ImageView imageView)
 	{
+		if(Data.bitmapForURL.containsKey(org.pictureID)){
+			imageView.setImageBitmap(Data.bitmapForURL.get(org.pictureID));
+			return;
+		}
 		Log.e("INTERNET DATA HERE!!!!!", DATABASE + "org/" + org.id + "/");
 		JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET,
 				DATABASE + "org/" + org.id + "/",
@@ -260,6 +264,68 @@ public class Internet {
 								imageView.setImageBitmap(bitmap);
 								Data.bitmapForURL.put(orgProfilePicURLFinal, bitmap);
 							}
+						}
+					}, "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/1024px-No_image_available.svg.png").execute();
+				} catch (JSONException e) {
+					Log.e(TAG, "Could not get orgProfilePic");
+					e.printStackTrace();
+				}
+			}
+		}, ERROR_LISTENER);
+		requestQueue.add(request);
+	}
+
+	/**
+	 * Try to download image from the internet to the given {@link ImageView}.
+	 *
+	 * @param org Organization to get image for
+	 * @param imageView View to display image
+	 */
+	public static void getImageForOrganizationStopProgress(final Organization org, final ImageView imageView, ProgressBar progressBar)
+	{
+		final ProgressBar progress = progressBar;
+		if(Data.bitmapForURL.containsKey(org.pictureID)){
+			imageView.setImageBitmap(Data.bitmapForURL.get(org.pictureID));
+			progress.setVisibility(View.INVISIBLE);
+			return;
+		}
+		Log.e("INTERNET DATA HERE!!!!!", DATABASE + "org/" + org.id + "/");
+		JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET,
+				DATABASE + "org/" + org.id + "/",
+				null, new Response.Listener<JSONObject>() {
+			@Override
+			public void onResponse(JSONObject response) {
+				JSONArray photos;
+				String orgProfilePicURL = "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/1024px-No_image_available.svg.png";
+				try {
+					photos = response.getJSONArray("photo");
+					for(int i = 0; i < photos.length(); i++){
+						JSONObject obj = photos.getJSONObject(i);
+						int photoID = obj.getInt("id");
+						if(!Data.mediaForID.containsKey(photoID)){
+							Data.mediaForID.put(photoID, obj.getString("link"));
+						}
+						if(photoID == org.pictureID){
+							orgProfilePicURL = obj.getString("link");
+						}
+					}
+					final String orgProfilePicURLFinal = orgProfilePicURL;
+					if(Data.bitmapForURL.containsKey(orgProfilePicURLFinal)){
+						imageView.setImageBitmap(Data.bitmapForURL.get(orgProfilePicURLFinal));
+						return;
+					}
+					new GetImage(orgProfilePicURLFinal, new Callback<Bitmap>()
+					{
+						@Override
+						public void execute(Bitmap bitmap)
+						{
+							if (bitmap == null) {
+								Log.e(TAG, "Image could not be loaded: " + orgProfilePicURLFinal);
+							} else{
+								imageView.setImageBitmap(bitmap);
+								Data.bitmapForURL.put(orgProfilePicURLFinal, bitmap);
+							}
+							progress.setVisibility(View.INVISIBLE);
 						}
 					}, "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/1024px-No_image_available.svg.png").execute();
 				} catch (JSONException e) {

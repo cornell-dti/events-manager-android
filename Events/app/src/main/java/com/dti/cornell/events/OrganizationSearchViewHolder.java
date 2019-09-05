@@ -10,25 +10,30 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.dti.cornell.events.models.Organization;
 import com.dti.cornell.events.utils.EventBusUtils;
 import com.dti.cornell.events.utils.EventBusUtils;
+import com.dti.cornell.events.utils.Internet;
 
 public class OrganizationSearchViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener
 {
     private final Context context;
     private final TextView name;
+    private ImageView image;
     private final Drawable background;
     private Organization organization;
+    private ProgressBar imageLoadingBar;
     private int position;
 
     public OrganizationSearchViewHolder(View itemView)
     {
         super(itemView);
-        ImageView image = itemView.findViewById(R.id.orgImageView);
+        image = itemView.findViewById(R.id.orgImageView);
         name = itemView.findViewById(R.id.orgNameView);
+        imageLoadingBar = itemView.findViewById(R.id.imageLoadingBar2);
         background = itemView.getBackground();
         itemView.setOnClickListener(this);
         context = itemView.getContext();
@@ -36,10 +41,10 @@ public class OrganizationSearchViewHolder extends RecyclerView.ViewHolder implem
 
     public void configure(Organization organization, int position)
     {
-        //todo get image
         this.organization = organization;
         this.position = position;
         name.setText(organization.name);
+        Internet.getImageForOrganization(this.organization, image);
     }
 
     public void setSelected(boolean selected)
