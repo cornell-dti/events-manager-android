@@ -48,5 +48,6 @@ public class OrganizationViewHolder extends RecyclerView.ViewHolder implements V
 	public void onClick(View view)
 	{
 		EventBusUtils.SINGLETON.post(new EventBusUtils.OrganizationSelected(organization, position));
+		OrganizationActivity.startWithOrganization(organization, view.getContext());
 	}
 }

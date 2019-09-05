@@ -261,7 +261,7 @@ public class Internet {
 								Data.bitmapForURL.put(orgProfilePicURLFinal, bitmap);
 							}
 						}
-					}).execute();
+					}, "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/1024px-No_image_available.svg.png").execute();
 				} catch (JSONException e) {
 					Log.e(TAG, "Could not get orgProfilePic");
 					e.printStackTrace();
@@ -296,7 +296,7 @@ public class Internet {
 					Data.bitmapForURL.put(event.pictureID, bitmap);
 				}
 			}
-		}).execute();
+		}, "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/1024px-No_image_available.svg.png").execute();
 	}
 
 	/**
@@ -327,17 +327,19 @@ public class Internet {
 				}
 				progress.setVisibility(View.INVISIBLE);
 			}
-		}).execute();
+		}, "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/1024px-No_image_available.svg.png").execute();
 	}
 
 	private static class GetImage extends AsyncTask<Void, Void, Bitmap>
 	{
 		private final String urlString;
+		private final String backupURL;
 		private final Callback<Bitmap> callback;
 
-		public GetImage(String urlString, Callback<Bitmap> callback){
+		public GetImage(String urlString, Callback<Bitmap> callback, String backupURL){
 			this.urlString = urlString;
 			this.callback = callback;
+			this.backupURL = backupURL;
 		}
 
 
@@ -350,7 +352,7 @@ public class Internet {
 			} catch (Exception e) {
 				Log.d(TAG, "Get image from url " + urlString + " failed");
 				try {
-					return BitmapFactory.decodeStream(new URL("https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/1024px-No_image_available.svg.png").openStream());
+					return BitmapFactory.decodeStream(new URL(backupURL).openStream());
 				} catch (IOException e1) {
 					e1.printStackTrace();
 					return null;
