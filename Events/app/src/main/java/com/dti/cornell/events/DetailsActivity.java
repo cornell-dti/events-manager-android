@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.ShareCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
@@ -59,6 +60,7 @@ public class DetailsActivity extends AppCompatActivity implements OnMapReadyCall
 	private ProgressBar imageLoadingBar;
 	private boolean isBookmarked;
 	public ImageView image;
+	private ConstraintLayout imageAndButtons;
 
 	private static final int DESCRIPTION_MAX_LINES = 3;
 
@@ -128,6 +130,7 @@ public class DetailsActivity extends AppCompatActivity implements OnMapReadyCall
 		RecyclerUtil.addHorizontalSpacing(tagRecycler);
 
 		bookmarkedButton = findViewById(R.id.bookmark);
+		imageAndButtons = findViewById(R.id.constraintLayout2);
 
 	}
 
@@ -155,6 +158,9 @@ public class DetailsActivity extends AppCompatActivity implements OnMapReadyCall
 		configureDescription();
 
 		image = findViewById(R.id.image);
+
+		imageAndButtons.setY(60);
+
 //		Internet.getImageForEvent(event, image);
 		Internet.getImageForEventStopProgress(event, image, imageLoadingBar);
 		startMap();

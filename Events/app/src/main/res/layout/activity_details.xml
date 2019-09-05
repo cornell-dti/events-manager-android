@@ -18,7 +18,8 @@
 		<android.support.constraint.ConstraintLayout
 			android:id="@+id/constraintLayout2"
 			android:layout_width="match_parent"
-			android:layout_height="match_parent">
+			android:layout_height="wrap_content"
+			app:layout_constraintTop_toTopOf="parent">
 
 			<ImageView
 				android:id="@+id/image"
@@ -28,10 +29,9 @@
 				android:scaleType="centerCrop"
 				app:layout_constraintDimensionRatio="2:1"
 				app:layout_constraintEnd_toEndOf="parent"
-				app:layout_constraintHorizontal_bias="0.0"
+				app:layout_constraintHorizontal_bias="1.0"
 				app:layout_constraintStart_toStartOf="parent"
-				app:layout_constraintTop_toTopOf="parent"
-				app:layout_constraintVertical_bias="0.363" />
+				app:layout_constraintTop_toTopOf="parent" />
 
 			<ProgressBar
 				android:id="@+id/imageLoadingBar"
@@ -56,7 +56,7 @@
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
 				android:layout_marginStart="@dimen/spacing_xxl"
-				android:layout_marginTop="35dp"
+				android:layout_marginTop="20dp"
 				android:src="@drawable/ic_arrow_back_white_24dp"
 				android:tint="@color/colorPrimary"
 				app:backgroundTint="@android:color/white"
@@ -70,7 +70,7 @@
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
 				android:layout_marginEnd="@dimen/spacing_xxl"
-				android:layout_marginTop="35dp"
+				android:layout_marginTop="20dp"
 				android:src="@drawable/ic_share_white_24dp"
 				android:tint="@color/colorPrimary"
 				app:backgroundTint="@android:color/white"
@@ -173,13 +173,12 @@
 			style="@style/mainButton"
 			android:layout_width="200dp"
 			android:layout_height="wrap_content"
-			android:layout_marginTop="184dp"
 			android:text="@string/button_bookmarked"
 			android:textStyle="bold"
 			app:layout_constraintEnd_toEndOf="parent"
 			app:layout_constraintHorizontal_bias="0.497"
 			app:layout_constraintStart_toStartOf="parent"
-			app:layout_constraintTop_toTopOf="@+id/constraintLayout2" />
+			app:layout_constraintTop_toBottomOf="@+id/constraintLayout2" />
 
 		<TextView
 			android:id="@+id/title"
@@ -188,7 +187,6 @@
 			android:layout_height="wrap_content"
 			android:layout_marginEnd="16dp"
 			android:layout_marginStart="24dp"
-			android:layout_marginTop="8dp"
 			app:layout_constraintEnd_toEndOf="parent"
 			app:layout_constraintStart_toStartOf="parent"
 			app:layout_constraintTop_toBottomOf="@+id/bookmark"
@@ -230,12 +228,10 @@
 			android:id="@+id/tagRecycler"
 			android:layout_width="0dp"
 			android:layout_height="@dimen/tag_height"
-			android:layout_marginBottom="@dimen/spacing_3l"
 			android:layout_marginEnd="16dp"
 			android:layout_marginTop="@dimen/spacing_xxl"
 			android:orientation="horizontal"
 			app:layoutManager="android.support.v7.widget.LinearLayoutManager"
-			app:layout_constraintBottom_toBottomOf="parent"
 			app:layout_constraintEnd_toEndOf="parent"
 			app:layout_constraintStart_toEndOf="@+id/tags"
 			app:layout_constraintTop_toBottomOf="@+id/map"

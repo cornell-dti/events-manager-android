@@ -43,7 +43,7 @@
 					android:layout_marginEnd="70dp"
 					android:layout_marginStart="70dp"
 					android:layout_marginTop="8dp"
-					android:text="No events available for you. Click on some events to begin suggestion."
+					android:text="For You currently has no events. Click on events with #tags to recieve suggestions."
 					android:textAlignment="center"
 					android:textSize="18sp"
 					android:textStyle="bold"
