@@ -11,4 +11,4 @@ jobs:
         with:
           java-version: 1.8
       - name: Build with Gradle
-        run: cd Events/app/ && ./gradlew build
+        run: cd Events/app/ && gradle build
