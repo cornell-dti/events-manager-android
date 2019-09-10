@@ -4,16 +4,11 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
-import android.provider.Settings;
-import androidx.annotation.WorkerThread;
-import com.google.android.material.snackbar.Snackbar;
-import androidx.collection.LruCache;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 
-import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -21,7 +16,6 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-import com.dti.cornell.events.DetailsActivity;
 import com.dti.cornell.events.models.Event;
 import com.dti.cornell.events.models.Location;
 import com.dti.cornell.events.models.Organization;
@@ -31,14 +25,14 @@ import org.joda.time.DateTimeZone;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.json.JSONStringer;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
+
+import androidx.annotation.WorkerThread;
+import androidx.collection.LruCache;
 
 /**
  * Created by jaggerbrulato on 3/20/18.
@@ -423,12 +417,36 @@ public class Internet {
 		@WorkerThread
 		protected Bitmap doInBackground(Void... params) {
 			try {
+				int desiredWidth = 900;
 				Log.e("GETIMAGE at URL: ", urlString);
-				return BitmapFactory.decodeStream(new URL(urlString).openStream());
+				Bitmap largeBitmap = BitmapFactory.decodeStream(new URL(urlString).openStream());
+				int w = largeBitmap.getWidth();
+				int h = largeBitmap.getHeight();
+				if(w <= desiredWidth){
+					return largeBitmap;
+				}
+				int w_scale = w / desiredWidth;
+				int new_w = w / w_scale;
+				int new_h = h / w_scale;
+				Bitmap scaled = Bitmap.createScaledBitmap(largeBitmap, new_w, new_h, true);
+				return scaled;
 			} catch (Exception e) {
+				Log.e(TAG, e.getMessage());
 				Log.d(TAG, "Get image from url " + urlString + " failed");
 				try {
-					return BitmapFactory.decodeStream(new URL(backupURL).openStream());
+					if(Data.bitmapForURL.containsKey(backupURL)){
+						return Data.bitmapForURL.get(backupURL);
+					}
+					int desiredWidth = 900;
+					Log.e("GETIMAGE at URL: ", backupURL);
+					Bitmap largeBitmap = BitmapFactory.decodeStream(new URL(backupURL).openStream());
+					int w = largeBitmap.getWidth();
+					int h = largeBitmap.getHeight();
+					int w_scale = w / desiredWidth;
+					int new_w = w / w_scale;
+					int new_h = h / w_scale;
+					Bitmap scaled = Bitmap.createScaledBitmap(largeBitmap, new_w, new_h, true);
+					return scaled;
 				} catch (IOException e1) {
 					e1.printStackTrace();
 					return null;

@@ -149,7 +149,7 @@ public class DetailsActivity extends AppCompatActivity implements OnMapReadyCall
 		description.setText(event.description);
 		time.setText(event.startTime.toString("EEEE, MMMM d 'at' h:mm a"));
 		numGoing.setText(getString(R.string.numGoing, event.participantIDs.size()));
-		organization.setText(Data.organizationForID.get(event.organizerID).name);
+		organization.setText(Data.organizationForID.containsKey(event.organizerID) ? Data.organizationForID.get(event.organizerID).name : "No organization available");
 		location.setText(event.location);
 
 		TagAdapter adapter = new TagAdapter(this, event.tagIDs, false);
