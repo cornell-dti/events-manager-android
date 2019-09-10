@@ -97,10 +97,12 @@
 			style="@style/H1"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
+			android:layout_marginBottom="16dp"
+			android:layout_marginStart="16dp"
 			android:text="@string/tags"
-			app:layout_constraintBottom_toBottomOf="@+id/tagRecycler"
-			app:layout_constraintStart_toStartOf="@+id/locationImage"
-			app:layout_constraintTop_toTopOf="@+id/tagRecycler" />
+			android:textSize="16sp"
+			app:layout_constraintBottom_toBottomOf="parent"
+			app:layout_constraintStart_toStartOf="parent" />
 
 		<View
 			android:id="@+id/moreButtonGradient"
@@ -172,8 +174,9 @@
 			android:id="@+id/bookmark"
 			style="@style/mainButton"
 			android:layout_width="200dp"
-			android:layout_height="wrap_content"
+			android:layout_height="44dp"
 			android:text="@string/button_bookmarked"
+			android:textAlignment="center"
 			android:textStyle="bold"
 			app:layout_constraintEnd_toEndOf="parent"
 			app:layout_constraintHorizontal_bias="0.497"
@@ -208,7 +211,7 @@
 			android:id="@+id/timeImage"
 			android:layout_width="@dimen/spacing_xxl"
 			android:layout_height="@dimen/spacing_xxl"
-			android:layout_marginTop="@dimen/spacing_3l"
+			android:layout_marginTop="16dp"
 			android:src="@drawable/ic_my_events"
 			app:layout_constraintStart_toStartOf="@+id/title"
 			app:layout_constraintTop_toBottomOf="@+id/description" />
@@ -228,14 +231,14 @@
 		<androidx.recyclerview.widget.RecyclerView
 			android:id="@+id/tagRecycler"
 			android:layout_width="0dp"
-			android:layout_height="@dimen/tag_height"
-			android:layout_marginEnd="16dp"
-			android:layout_marginTop="@dimen/spacing_xxl"
+			android:layout_height="wrap_content"
 			android:orientation="horizontal"
 			app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+			app:layout_constraintBottom_toBottomOf="@+id/tags"
 			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintHorizontal_bias="1.0"
 			app:layout_constraintStart_toEndOf="@+id/tags"
-			app:layout_constraintTop_toBottomOf="@+id/map"
+			app:layout_constraintTop_toTopOf="@+id/tags"
 			tools:listitem="@layout/item_tag" />
 
 		<ImageView
@@ -252,10 +255,12 @@
 			android:name="com.google.android.gms.maps.MapFragment"
 			android:layout_width="0dp"
 			android:layout_height="0dp"
+			android:layout_marginBottom="16dp"
 			android:layout_marginEnd="16dp"
 			android:layout_marginStart="16dp"
 			android:layout_marginTop="@dimen/spacing_xxl"
-			app:layout_constraintDimensionRatio="5:2"
+			app:layout_constraintBottom_toTopOf="@+id/tags"
+			app:layout_constraintDimensionRatio=""
 			app:layout_constraintEnd_toEndOf="parent"
 			app:layout_constraintStart_toStartOf="parent"
 			app:layout_constraintTop_toBottomOf="@+id/locationImage" />
