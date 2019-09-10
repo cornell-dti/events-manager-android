@@ -1,8 +1,8 @@
 package com.dti.cornell.events.models;
 
-import android.support.annotation.StringRes;
-
 import java.util.List;
+
+import androidx.annotation.StringRes;
 
 public class CardList
 {

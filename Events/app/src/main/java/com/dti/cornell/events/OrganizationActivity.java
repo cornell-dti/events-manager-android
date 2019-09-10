@@ -3,23 +3,27 @@ package com.dti.cornell.events;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.RecyclerView;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.TextView;
-import android.support.v7.widget.Toolbar;
+import androidx.appcompat.widget.Toolbar;
 
+import com.dti.cornell.events.models.Event;
 import com.dti.cornell.events.models.Organization;
 import com.dti.cornell.events.utils.Data;
 import com.dti.cornell.events.utils.Internet;
 import com.dti.cornell.events.utils.OrganizationUtil;
 import com.dti.cornell.events.utils.RecyclerUtil;
 
-public class OrganizationActivity extends AppCompatActivity implements View.OnClickListener
+import java.util.List;
+import java.util.stream.Collectors;
+
+public class OrganizationActivity extends AppCompatActivity implements View.OnClickListener, Data.DataUpdateListener
 {
 	private static final String ORGANIZATION_KEY = "organization";
 	private TextView website;
@@ -47,6 +51,7 @@ public class OrganizationActivity extends AppCompatActivity implements View.OnCl
 		setTheme(R.style.AppTheme_NoActionBar);
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_organization);
+		Data.registerListener(this);
 
 		organization = Organization.fromString(getIntent().getExtras().getString(ORGANIZATION_KEY));
 		findViews();
@@ -109,7 +114,9 @@ public class OrganizationActivity extends AppCompatActivity implements View.OnCl
 		Log.d("ORGANIZATION", title.getText().toString());
 		EventCardAdapter adapter = new EventCardAdapter(this);
 		eventsRecycler.setAdapter(adapter);
-		adapter.setData(Data.events());
+		adapter.setData(Data.events().stream().filter((val) -> {
+			return val.organizerID == this.organization.id;
+		}).collect(Collectors.toList()));
 
 		tagRecycler.setAdapter(new TagAdapter(this, organization.tagIDs, false));
 	}
@@ -134,5 +141,22 @@ public class OrganizationActivity extends AppCompatActivity implements View.OnCl
 				}
 				break;
 		}
+	}
+
+	@Override
+	public void eventUpdate(List<Event> e) {
+
+	}
+
+	@Override
+	public void orgUpdate(List<Organization> o) {
+		int orgID = organization.id;
+		organization = Data.organizationForID.get(orgID);
+		email.setText(organization.email);
+	}
+
+	@Override
+	public void tagUpdate(List<String> t) {
+
 	}
 }

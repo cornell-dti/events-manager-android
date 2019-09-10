@@ -5,18 +5,18 @@
 	android:layout_width="match_parent"
 	android:layout_height="match_parent">
 
-	<android.support.constraint.ConstraintLayout
+	<androidx.constraintlayout.widget.ConstraintLayout
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content">
 
-		<android.support.constraint.Guideline
+		<androidx.constraintlayout.widget.Guideline
 			android:id="@+id/leftGuide"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:orientation="vertical"
 			app:layout_constraintGuide_begin="@dimen/spacing_xxl" />
 
-		<android.support.constraint.Guideline
+		<androidx.constraintlayout.widget.Guideline
 			android:id="@+id/rightGuide"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
@@ -44,14 +44,14 @@
 			app:layout_constraintRight_toRightOf="@+id/rightGuide"
 			app:layout_constraintTop_toBottomOf="@+id/following" />
 
-		<android.support.v7.widget.RecyclerView
+		<androidx.recyclerview.widget.RecyclerView
 			android:id="@+id/followingRecycler"
 			android:layout_width="0dp"
 			android:layout_height="wrap_content"
 			android:layout_marginBottom="@dimen/spacing_3l"
 			android:layout_marginTop="@dimen/spacing_xl"
 			android:orientation="vertical"
-			app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+			app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
 			app:layout_constraintLeft_toLeftOf="@+id/leftGuide"
 			app:layout_constraintRight_toRightOf="@+id/rightGuide"
 			app:layout_constraintTop_toBottomOf="@+id/followingDivider"
@@ -79,14 +79,14 @@
 			app:layout_constraintRight_toRightOf="@+id/rightGuide"
 			app:layout_constraintTop_toBottomOf="@+id/tags" />
 
-		<android.support.v7.widget.RecyclerView
+		<androidx.recyclerview.widget.RecyclerView
 			android:id="@+id/tagRecycler"
 			android:layout_width="0dp"
 			android:layout_height="wrap_content"
 			android:layout_marginBottom="@dimen/spacing_3l"
 			android:layout_marginTop="@dimen/spacing_xl"
 			android:orientation="horizontal"
-			app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+			app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
 			app:layout_constraintEnd_toEndOf="parent"
 			app:layout_constraintStart_toStartOf="parent"
 			app:layout_constraintTop_toBottomOf="@+id/tagsDivider"
@@ -186,5 +186,5 @@
 			app:layout_constraintTop_toTopOf="@+id/netID"
 			tools:text="dc788" />
 
-	</android.support.constraint.ConstraintLayout>
+	</androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

@@ -5,12 +5,6 @@ import android.content.Intent;
 import android.graphics.Paint;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.constraint.ConstraintLayout;
-import android.support.v4.app.ShareCompat;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewTreeObserver;
@@ -25,18 +19,25 @@ import com.dti.cornell.events.utils.Data;
 import com.dti.cornell.events.utils.EventUtil;
 import com.dti.cornell.events.utils.Internet;
 import com.dti.cornell.events.utils.RecyclerUtil;
-import com.google.android.gms.location.places.GeoDataClient;
-import com.google.android.gms.location.places.Place;
-import com.google.android.gms.location.places.PlaceBufferResponse;
-import com.google.android.gms.location.places.Places;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
+import com.google.android.libraries.places.api.Places;
+import com.google.android.libraries.places.api.model.Place;
+import com.google.android.libraries.places.api.net.FetchPlaceRequest;
+import com.google.android.libraries.places.api.net.PlacesClient;
+
+import java.util.Arrays;
+import java.util.List;
+
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.app.ShareCompat;
+import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * Created by jaggerbrulato on 2/27/18.
@@ -66,7 +67,8 @@ public class DetailsActivity extends AppCompatActivity implements OnMapReadyCall
 
 	//map stuff
 	private static final int MAP_ZOOM = 15;
-	private GeoDataClient geoDataClient;
+	private PlacesClient placesClient;
+//	private GeoDataClient geoDataClient;
 	@Nullable
 	private String placeName;
 	@Nullable
@@ -87,7 +89,8 @@ public class DetailsActivity extends AppCompatActivity implements OnMapReadyCall
 		setContentView(R.layout.activity_details);
 		setStatusBarTranslucent();
 
-		geoDataClient = Places.getGeoDataClient(this);
+		Places.initialize(getApplicationContext(), getString(R.string.google_maps_key));
+		this.placesClient = Places.createClient(this);
 
 		//get the event
 		event = Event.fromString(getIntent().getExtras().getString(EVENT_KEY));
@@ -202,48 +205,22 @@ public class DetailsActivity extends AppCompatActivity implements OnMapReadyCall
 	@Override
 	public void onMapReady(final GoogleMap map)
 	{
-		geoDataClient.getPlaceById(event.googlePlaceID).addOnCompleteListener(new OnCompleteListener<PlaceBufferResponse>()
-		{
-			@Override
-			public void onComplete(@NonNull Task<PlaceBufferResponse> task)
-			{
-				if (!task.isSuccessful()) {
-					Log.e(TAG, "onMapReady: place not found for placeID: " + event.googlePlaceID);
-					Log.e(TAG, task.getException().getMessage());
-					// Use Cornell's place ID instead
-					geoDataClient.getPlaceById("ChIJndqRYRqC0IkR9J8bgk3mDvU").addOnCompleteListener(
-							new OnCompleteListener<PlaceBufferResponse>(){
-								@Override
-								public void onComplete(@NonNull Task<PlaceBufferResponse> task)
-								{
-									if (!task.isSuccessful()) {
-										Log.e(TAG, "onMapReady: place not found");
-										return;
-									}
 
-									PlaceBufferResponse places = task.getResult();
-									Place place = places.get(0);
-									placeName = place.getName().toString();
-									placeAddress = place.getAddress().toString();
-									LatLng position = place.getLatLng();
-									map.moveCamera(CameraUpdateFactory.newLatLngZoom(position, MAP_ZOOM));
-									map.addMarker(new MarkerOptions().position(position).title(event.location));
-									places.release();
+		String placeId = event.googlePlaceID;
 
-								}
-							});
-					return;
-				}
+		List<Place.Field> placeFields = Arrays.asList(Place.Field.ID, Place.Field.NAME, Place.Field.LAT_LNG);
 
-				PlaceBufferResponse places = task.getResult();
-				Place place = places.get(0);
-				placeName = place.getName().toString();
-				placeAddress = place.getAddress().toString();
-				LatLng position = place.getLatLng();
-				map.moveCamera(CameraUpdateFactory.newLatLngZoom(position, MAP_ZOOM));
-				map.addMarker(new MarkerOptions().position(position).title(event.location));
-				places.release();
-			}
+		FetchPlaceRequest request = FetchPlaceRequest.builder(placeId, placeFields).build();
+
+		this.placesClient.fetchPlace(request).addOnSuccessListener((response) -> {
+			Place place = response.getPlace();
+			placeName = place.getName();
+			placeAddress = place.getAddress();
+			LatLng position = place.getLatLng();
+			map.moveCamera(CameraUpdateFactory.newLatLngZoom(position, MAP_ZOOM));
+			map.addMarker(new MarkerOptions().position(position).title(event.location));
+		}).addOnFailureListener((exception) -> {
+			Log.e(TAG, "Error on PlaceID fetch request: " + exception.getMessage());
 		});
 	}
 

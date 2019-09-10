@@ -1,15 +1,12 @@
 package com.dti.cornell.events;
 
-import android.content.Context;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v7.widget.RecyclerView;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
 
 import com.dti.cornell.events.models.CardList;
 import com.dti.cornell.events.utils.RecyclerUtil;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 class CardListViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener
 {

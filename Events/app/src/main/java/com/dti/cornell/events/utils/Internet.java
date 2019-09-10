@@ -5,9 +5,9 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.provider.Settings;
-import android.support.annotation.WorkerThread;
-import android.support.design.widget.Snackbar;
-import android.support.v4.util.LruCache;
+import androidx.annotation.WorkerThread;
+import com.google.android.material.snackbar.Snackbar;
+import androidx.collection.LruCache;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -47,7 +47,7 @@ import java.util.Map;
 public class Internet {
 	private static final DateTimeZone timeZone = DateTimeZone.forID("EST");
 	public static final String TIME_FORMAT = "yyyyMMddHHmmss";
-	private static final String DATABASE = "http://cuevents-app.herokuapp.com/";
+	private static final String DATABASE = "https://cuevents-app.herokuapp.com/";
     private static final String TAG = Internet.class.getSimpleName();
 
 	private static RequestQueue requestQueue;
@@ -117,7 +117,7 @@ public class Internet {
 		Log.i("INTERNET", url);
 
 		JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET,
-				"http://cuevents-app.herokuapp.com/feed/events/?timestamp=2017-02-19T01:43:40.753131-05:00&start=19990219T014510&end=20210321T014510",
+				DATABASE + "feed/events/?timestamp=2017-02-19T01:43:40.753131-05:00&start=19990219T014510&end=20210321T014510",
 				null, new Response.Listener<JSONObject>()
 		{
 			@Override
@@ -147,7 +147,9 @@ public class Internet {
 							if(event == null){
 								Log.i("INTERNET", jsonEvent.toString());
 							}
-							allEvents.put(event.id, event);
+							if(event != null){
+								allEvents.put(event.id, event);
+							}
 						}
 					}
 
@@ -237,6 +239,14 @@ public class Internet {
 				JSONArray photos;
 				String orgProfilePicURL = "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/1024px-No_image_available.svg.png";
 				try {
+					String email = response.getString("email");
+					Organization newOrg = org;
+					if(email.isEmpty()){
+						email = "No email.";
+					}
+					newOrg.email = email;
+					Data.organizationForID.put(org.id, newOrg);
+					Data.emitOrgUpdate();
 					photos = response.getJSONArray("photo");
 					for(int i = 0; i < photos.length(); i++){
 						JSONObject obj = photos.getJSONObject(i);

@@ -1,6 +1,6 @@
 package com.dti.cornell.events.models;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 import android.text.TextUtils;
 
 import com.dti.cornell.events.utils.ToStringUtil;

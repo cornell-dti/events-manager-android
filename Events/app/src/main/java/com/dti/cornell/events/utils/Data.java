@@ -43,6 +43,10 @@ public final class Data
 		selectedDate = now;
 	}
 
+	public void init(){
+		mediaForID.put(-1, "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/1024px-No_image_available.svg.png");
+	}
+
 	public static void getData(){
 		Internet.getEventFeed();
 

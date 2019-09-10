@@ -224,8 +224,16 @@ public class EventUtil {
             if(orgWebsite.isEmpty()){
                 orgWebsite = "No website.";
             }
-            int orgPhotoID = orgJSON.getJSONArray("photo").getInt(0);
+            JSONArray orgPhotos = orgJSON.getJSONArray("photo");
+            int orgPhotoID;
+            if(orgPhotos.length() > 0){
+                orgPhotoID = orgPhotos.getInt(0);
+            } else {
+                orgPhotoID = -1;
+            }
             JSONArray orgTagsJSON = orgJSON.getJSONArray("tags");
+
+//            String orgEmail = orgJSON.getString("email");
 
             List<Integer> orgTagIDs = new ArrayList<>();
 
@@ -240,7 +248,7 @@ public class EventUtil {
             // END REGISTERING THE TAGS
 
             Organization org = new Organization(orgID, orgName, orgDescription, orgPhotoID,
-                    ImmutableList.<Integer>of(), ImmutableList.<String>of(), ImmutableList.copyOf(orgTagIDs), orgWebsite, "example@gmail.com");
+                    ImmutableList.<Integer>of(), ImmutableList.<String>of(), ImmutableList.copyOf(orgTagIDs), orgWebsite, "Loading...");
             Data.organizationForID.put(orgID, org);
 
             // END SETTING THE ORGANIZER

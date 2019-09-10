@@ -1,6 +1,6 @@
 package com.dti.cornell.events.utils;
 
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.dti.cornell.events.R;
 

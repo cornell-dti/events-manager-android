@@ -1,6 +1,6 @@
 package com.dti.cornell.events.models;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 import android.text.TextUtils;
 
 import com.dti.cornell.events.utils.ToStringUtil;
@@ -19,7 +19,7 @@ public class Organization implements Comparable<Organization>
 	private final ImmutableList<String> memberIDs;
 	public final ImmutableList<Integer> tagIDs;
 	public final String website;
-	public final String email;
+	public String email;
 
 	public Organization(int id, String name, String description, int pictureID, ImmutableList<Integer> eventIDs, ImmutableList<String> memberIDs, ImmutableList<Integer> tagIDs, String website, String email)
 	{
