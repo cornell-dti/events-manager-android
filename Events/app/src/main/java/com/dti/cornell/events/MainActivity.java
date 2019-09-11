@@ -27,7 +27,6 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.common.eventbus.Subscribe;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import androidx.annotation.NonNull;
@@ -467,13 +466,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 	}
 
 	@Override
-	public void onStop(){
-		super.onStop();
-	}
-
-	ArrayList<String> openedURLS = new ArrayList<>();
-
-	@Override
 	public void onResume(){
 		super.onResume();
 		progressBar.setVisibility(View.VISIBLE);
@@ -483,17 +475,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 			Uri data = getIntent().getData();
 			String scheme = data.getScheme();
 			String fullPath = data.getEncodedSchemeSpecificPart();
-			if(openedURLS.contains(scheme +":"+fullPath)){
-				return;
-			}
 			int eventID = Integer.valueOf((scheme +":"+fullPath).split("/")[(scheme +":"+fullPath).split("/").length-1]);
-			openedURLS.add(scheme +":"+fullPath);
 			if(Data.eventForID.containsKey(eventID)){
 				DetailsActivity.startWithEvent(Data.getEventFromID(eventID),
 						this);
 			} else {
 				Internet.getEventsThenOpenEvent(eventID, this);
 			}
+			getIntent().setData(null);
 			// Handle app link data here
 			Log.e("URL GIVEN", scheme +":"+fullPath);
 		}
