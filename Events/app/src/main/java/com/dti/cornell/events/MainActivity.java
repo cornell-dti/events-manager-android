@@ -18,6 +18,7 @@ import com.dti.cornell.events.models.Organization;
 import com.dti.cornell.events.utils.Data;
 import com.dti.cornell.events.utils.EventBusUtils;
 import com.dti.cornell.events.utils.EventUtil;
+import com.dti.cornell.events.utils.Internet;
 import com.dti.cornell.events.utils.OrganizationUtil;
 import com.dti.cornell.events.utils.SettingsUtil;
 import com.dti.cornell.events.utils.SpacingItemDecoration;
@@ -26,9 +27,8 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.common.eventbus.Subscribe;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -125,15 +125,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 				Log.e("ATT LOADED", String.valueOf(loadedEventID));
 			}
 		}
-
-		Timer t =  new Timer();
-		t.schedule(new TimerTask() {
-			@Override
-			public void run() {
-				progressBar.setVisibility(View.GONE);
-				progressBlocker.setVisibility(View.GONE);
-			}
-		}, 5000);
 
 //		Internet.getEventFeed();
 	}
@@ -452,15 +443,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 	public void eventUpdate(List<Event> e) {
 		progressBar.setVisibility(View.GONE);
 		progressBlocker.setVisibility(View.GONE);
-		if(getIntent().getData()!=null){
-			Uri data = getIntent().getData();
-			String scheme = data.getScheme();
-			String fullPath = data.getEncodedSchemeSpecificPart();
-			// Handle app link data here
-			DetailsActivity.startWithEvent(Data.getEventFromID(Integer.valueOf((scheme +":"+fullPath).split("/")[(scheme +":"+fullPath).split("/").length-1])),
-					this);
-			Log.e("URL GIVEN", scheme +":"+fullPath);
-		}
+//		if(getIntent().getData()!=null){
+//			Uri data = getIntent().getData();
+//			String scheme = data.getScheme();
+//			String fullPath = data.getEncodedSchemeSpecificPart();
+//			// Handle app link data here
+////			DetailsActivity.startWithEvent(Data.getEventFromID(Integer.valueOf((scheme +":"+fullPath).split("/")[(scheme +":"+fullPath).split("/").length-1])),
+//					this);
+//			Log.e("URL GIVEN", scheme +":"+fullPath);
+//		}
 	}
 
 	@Override
@@ -473,5 +464,38 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 	public void tagUpdate(List<String> t) {
 		progressBar.setVisibility(View.GONE);
 		progressBlocker.setVisibility(View.GONE);
+	}
+
+	@Override
+	public void onStop(){
+		super.onStop();
+	}
+
+	ArrayList<String> openedURLS = new ArrayList<>();
+
+	@Override
+	public void onResume(){
+		super.onResume();
+		progressBar.setVisibility(View.VISIBLE);
+		progressBlocker.setVisibility(View.VISIBLE);
+		Data.getData();
+		if(getIntent().getData()!=null){
+			Uri data = getIntent().getData();
+			String scheme = data.getScheme();
+			String fullPath = data.getEncodedSchemeSpecificPart();
+			if(openedURLS.contains(scheme +":"+fullPath)){
+				return;
+			}
+			int eventID = Integer.valueOf((scheme +":"+fullPath).split("/")[(scheme +":"+fullPath).split("/").length-1]);
+			openedURLS.add(scheme +":"+fullPath);
+			if(Data.eventForID.containsKey(eventID)){
+				DetailsActivity.startWithEvent(Data.getEventFromID(eventID),
+						this);
+			} else {
+				Internet.getEventsThenOpenEvent(eventID, this);
+			}
+			// Handle app link data here
+			Log.e("URL GIVEN", scheme +":"+fullPath);
+		}
 	}
 }

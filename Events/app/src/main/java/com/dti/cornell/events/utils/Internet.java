@@ -16,6 +16,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.dti.cornell.events.DetailsActivity;
 import com.dti.cornell.events.models.Event;
 import com.dti.cornell.events.models.Location;
 import com.dti.cornell.events.models.Organization;
@@ -338,6 +339,80 @@ public class Internet {
 				}
 			}
 		}, ERROR_LISTENER);
+		requestQueue.add(request);
+	}
+
+	public static void getEventsThenOpenEvent(int eventID, Context context)
+	{
+		DateTime startTime = new DateTime(timeZone);
+		final DateTime endTime = startTime.plusDays(Data.NUM_DAYS_IN_FEED);
+		String timestamp = addTToTimestamp(SettingsUtil.SINGLETON.getTimestamp());
+		String url = DATABASE + "feed/events/?timestamp=" + timestamp + "&start=" +
+				addTToTimestamp(startTime.toString(TIME_FORMAT)) + "&end=" + addTToTimestamp(endTime.toString(TIME_FORMAT));
+		Log.i("INTERNET", addTToTimestamp(startTime.toString(TIME_FORMAT)));
+		Log.i("INTERNET", url);
+
+		JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET,
+				DATABASE + "feed/events/?timestamp=2017-02-19T01:43:40.753131-05:00&start=19990219T014510&end=20210321T014510",
+				null, new Response.Listener<JSONObject>()
+		{
+			@Override
+			public void onResponse(JSONObject response)
+			{
+				try
+				{
+					Log.e("INTERNET", response.toString());
+					JSONArray events = response.getJSONArray("events");
+					String newTimestamp = response.getString("timestamp");
+
+//					Map<Integer, Event> savedEvents = SettingsUtil.SINGLETON.getEvents();
+//					for (int i = 0; i < updated.length(); i++)
+//					{
+//						Event event = Event.fromJSON(updated.getJSONObject(i));
+//						savedEvents.put(event.id, event);
+//					}
+//					for (int i = 0; i < deleted.length(); i++)
+//						savedEvents.remove(deleted.getInt(i));
+
+					Map<Integer, Event> allEvents = new HashMap<>();
+
+					if(events.length() > 0){
+						for(int i = 0; i < events.length(); i++){
+							JSONObject jsonEvent = events.getJSONObject(i);
+							Event event = EventUtil.eventFromJSON(jsonEvent);
+							if(event == null){
+								Log.i("INTERNET", jsonEvent.toString());
+							}
+							if(event != null){
+								allEvents.put(event.id, event);
+							}
+						}
+					}
+
+
+
+
+					SettingsUtil.SINGLETON.setEvents(allEvents);
+
+					for(Event e : allEvents.values()){
+						Data.eventForID.put(e.id, e);
+					}
+					Data.emitEventUpdate();
+					Log.i("INTERNET SINGLETON", SettingsUtil.SINGLETON.getEvents().toString());
+					Log.i("INTERNET SINGLETON", Data.events().toString());
+
+
+					SettingsUtil.SINGLETON.setTimestamp(newTimestamp);
+
+					DetailsActivity.startWithEvent(Data.getEventFromID(eventID), context);
+				}
+				catch (JSONException e)
+				{
+					Log.e(TAG, "getEventFeed: ", e);
+				}
+			}
+		}, ERROR_LISTENER);
+
 		requestQueue.add(request);
 	}
 
