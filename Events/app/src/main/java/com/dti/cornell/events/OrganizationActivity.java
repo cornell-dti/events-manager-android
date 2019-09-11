@@ -3,15 +3,11 @@ package com.dti.cornell.events;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.TextView;
-import androidx.appcompat.widget.Toolbar;
 
 import com.dti.cornell.events.models.Event;
 import com.dti.cornell.events.models.Organization;
@@ -19,9 +15,14 @@ import com.dti.cornell.events.utils.Data;
 import com.dti.cornell.events.utils.Internet;
 import com.dti.cornell.events.utils.OrganizationUtil;
 import com.dti.cornell.events.utils.RecyclerUtil;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.List;
 import java.util.stream.Collectors;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ShareCompat;
+import androidx.recyclerview.widget.RecyclerView;
 
 public class OrganizationActivity extends AppCompatActivity implements View.OnClickListener, Data.DataUpdateListener
 {
@@ -140,12 +141,25 @@ public class OrganizationActivity extends AppCompatActivity implements View.OnCl
 					setFollowButtonState();
 				}
 				break;
+			case R.id.share:
+				ShareCompat.IntentBuilder.from(this)
+						.setType("text/plain")
+						.setChooserTitle("Choose how to share this organization")
+						.setText("https://www.cuevents.org/org/" + this.organization.id)
+						.startChooser();
+				break;
 		}
 	}
 
 	@Override
 	public void eventUpdate(List<Event> e) {
+		EventCardAdapter adapter = new EventCardAdapter(this);
+		eventsRecycler.setAdapter(adapter);
+		adapter.setData(Data.events().stream().filter((val) -> {
+			return val.organizerID == this.organization.id;
+		}).collect(Collectors.toList()));
 
+		tagRecycler.setAdapter(new TagAdapter(this, organization.tagIDs, false));
 	}
 
 	@Override

@@ -1,6 +1,5 @@
 package com.dti.cornell.events.models;
 
-import androidx.annotation.NonNull;
 import android.text.TextUtils;
 
 import com.dti.cornell.events.utils.ToStringUtil;
@@ -9,16 +8,18 @@ import com.google.common.collect.ImmutableList;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import androidx.annotation.NonNull;
+
 public class Organization implements Comparable<Organization>
 {
 	public final int id;
 	public final String name;
-	public final String description;
+	public String description;
 	public final int pictureID;
 	private final ImmutableList<Integer> eventIDs;
 	private final ImmutableList<String> memberIDs;
 	public final ImmutableList<Integer> tagIDs;
-	public final String website;
+	public String website;
 	public String email;
 
 	public Organization(int id, String name, String description, int pictureID, ImmutableList<Integer> eventIDs, ImmutableList<String> memberIDs, ImmutableList<Integer> tagIDs, String website, String email)

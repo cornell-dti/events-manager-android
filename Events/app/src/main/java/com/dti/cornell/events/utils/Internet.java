@@ -20,6 +20,7 @@ import com.dti.cornell.events.DetailsActivity;
 import com.dti.cornell.events.models.Event;
 import com.dti.cornell.events.models.Location;
 import com.dti.cornell.events.models.Organization;
+import com.google.common.collect.ImmutableList;
 
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
@@ -572,4 +573,86 @@ public class Internet {
 	}
 
 	// LOCATION HANDLER END
+
+
+
+	//
+
+	/**
+	 * Try to download image from the internet to the given {@link ImageView}.
+	 *
+	 */
+	public static void getSingleOrganization(final int orgID, Callback<Organization> callback)
+	{
+		if(Data.organizationForID.containsKey(orgID)){
+			return;
+		}
+		JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET,
+				DATABASE + "org/" + orgID + "/",
+				null, new Response.Listener<JSONObject>() {
+			@Override
+			public void onResponse(JSONObject response) {
+				JSONArray photos;
+				String orgProfilePicURL = "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/1024px-No_image_available.svg.png";
+				try {
+					String email = response.getString("email");
+					String name = response.getString("name");
+					String bio = response.getString("bio");
+					photos = response.getJSONArray("photo");
+					String website = response.getString("website");
+					int orgPhotoID = -1;
+					for(int i = 0; i < photos.length(); i++){
+						JSONObject obj = photos.getJSONObject(i);
+						int photoID = obj.getInt("id");
+						if(!Data.mediaForID.containsKey(photoID)){
+							Data.mediaForID.put(photoID, obj.getString("link"));
+						}
+						if(i == 0){
+							orgPhotoID = photoID;
+						}
+						if(photoID == orgPhotoID){
+							orgProfilePicURL = obj.getString("link");
+						}
+					}
+
+					// TODO : GET TAGS AND SET
+
+					Organization newOrg = new Organization(orgID, name, bio,orgPhotoID, ImmutableList.<Integer>of(), ImmutableList.<String>of(), ImmutableList.<Integer>of(),
+						website, email);
+					if(email.isEmpty()){
+						email = "No email.";
+					}
+					if(newOrg.description.isEmpty()){
+						newOrg.description = "No description.";
+					}
+					if(newOrg.website.isEmpty()){
+						newOrg.website = "No website.";
+					}
+					newOrg.email = email;
+					Data.organizationForID.put(orgID, newOrg);
+					Data.emitOrgUpdate();
+
+					callback.execute(newOrg);
+
+					final String orgProfilePicURLFinal = orgProfilePicURL;
+					new GetImage(orgProfilePicURLFinal, new Callback<Bitmap>()
+					{
+						@Override
+						public void execute(Bitmap bitmap)
+						{
+							if (bitmap == null) {
+								Log.e(TAG, "Image could not be loaded: " + orgProfilePicURLFinal);
+							} else{
+								Data.bitmapForURL.put(orgProfilePicURLFinal, bitmap);
+							}
+						}
+					}, "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/1024px-No_image_available.svg.png").execute();
+				} catch (JSONException e) {
+					Log.e(TAG, "Could not get orgProfilePic");
+					e.printStackTrace();
+				}
+			}
+		}, ERROR_LISTENER);
+		requestQueue.add(request);
+	}
 }

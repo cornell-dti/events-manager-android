@@ -1,12 +1,7 @@
 package com.dti.cornell.events;
 
 import android.content.Context;
-import android.nfc.Tag;
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -21,12 +16,14 @@ import com.dti.cornell.events.models.Organization;
 import com.dti.cornell.events.utils.Data;
 import com.dti.cornell.events.utils.EventBusUtils;
 import com.dti.cornell.events.utils.RecyclerUtil;
-import com.google.common.eventbus.EventBus;
-
-import org.joda.time.DateTime;
 
 import java.util.Arrays;
 import java.util.List;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.RecyclerView;
 
 public class DiscoverFragment extends Fragment implements Data.DataUpdateListener
 {
@@ -101,7 +98,6 @@ public class DiscoverFragment extends Fragment implements Data.DataUpdateListene
 		List<CardList> data = Arrays.asList(new CardList(R.string.section_popular, true, events),
 				new CardList(R.string.section_today_events, true, events),
 				new CardList(R.string.section_tomorrow_events, true, events));
-		RecyclerUtil.addVerticalSpacing(recyclerView);
 		recyclerView.setAdapter(new CardSectionAdapter(this.createContext, data, true));
 
 		this.recyclerView = recyclerView;
