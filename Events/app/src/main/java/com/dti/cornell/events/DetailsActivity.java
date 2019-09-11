@@ -252,7 +252,7 @@ public class DetailsActivity extends AppCompatActivity implements OnMapReadyCall
 				ShareCompat.IntentBuilder.from(this)
 						.setType("text/plain")
 						.setChooserTitle("Choose how to share this event")
-						.setText("http://play.google.com")
+						.setText("https://www.cuevents.org/event/" + this.event.id)
 						.startChooser();
 				break;
 			case R.id.more:

@@ -9,6 +9,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * Created by jboss925 on 8/29/18.
@@ -29,10 +30,9 @@ public class TagUtil {
             //Needs context to load. Must call loadTags() from activity.
             return;
         }
-        if(tagsInterested.contains(tagID)){
-            return;
+        if(!tagsInterested.contains(tagID)){
+            tagsInterested.add(tagID);
         }
-        tagsInterested.add(tagID);
         if(tagIDsAndImportance.containsKey(tagID)){
             tagIDsAndImportance.put(tagID, tagIDsAndImportance.get(tagID) + 1);
         } else {
@@ -145,14 +145,15 @@ public class TagUtil {
         if(tagsInterested.size() == 0){
             return new ArrayList<>();
         }
-        List<Integer> tagIDs = new ArrayList<>();
-        for(int i = 0; i < numberOfTagsDesired; i++){
-            if(i == tagsInterested.size()){
-                break;
-            }
-            tagIDs.add(tagsInterested.get(i));
-        }
-        return tagIDs;
+        List<IDAndFrequency> idAndFrequencies = tagsInterested.stream().map((val) -> {
+            return new IDAndFrequency(val, tagIDsAndImportance.get(val));
+        }).collect(Collectors.toList());
+        Collections.sort(idAndFrequencies, Comparators.FREQUENCY);
+        Collections.reverse(idAndFrequencies);
+
+        return idAndFrequencies.stream().map((val) -> {
+            return val.ID;
+        }).collect(Collectors.toList()).subList(0, Math.min(numberOfTagsDesired, idAndFrequencies.size()));
     }
 
     public static class IDAndFrequency implements Comparable<IDAndFrequency>{

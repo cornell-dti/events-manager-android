@@ -1,19 +1,9 @@
 package com.dti.cornell.events;
 
 import android.animation.ValueAnimator;
-import android.content.Intent;
 import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import androidx.constraintlayout.widget.ConstraintLayout;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import androidx.fragment.app.Fragment;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.appcompat.widget.Toolbar;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.MenuItem;
@@ -28,15 +18,25 @@ import com.dti.cornell.events.models.Organization;
 import com.dti.cornell.events.utils.Data;
 import com.dti.cornell.events.utils.EventBusUtils;
 import com.dti.cornell.events.utils.EventUtil;
-import com.dti.cornell.events.utils.Internet;
 import com.dti.cornell.events.utils.OrganizationUtil;
-import com.dti.cornell.events.utils.SearchUtil;
 import com.dti.cornell.events.utils.SettingsUtil;
 import com.dti.cornell.events.utils.SpacingItemDecoration;
 import com.dti.cornell.events.utils.TagUtil;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.common.eventbus.Subscribe;
 
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener, BottomNavigationView.OnNavigationItemSelectedListener, Data.DataUpdateListener
 {
@@ -125,13 +125,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 				Log.e("ATT LOADED", String.valueOf(loadedEventID));
 			}
 		}
-		if(getIntent().getData()!=null){
-			Uri data = getIntent().getData();
-			String scheme = data.getScheme();
-			String fullPath = data.getEncodedSchemeSpecificPart();
-			// Handle app link data here
-			Log.e("URL GIVEN", scheme+"://"+fullPath);
-		}
+
+		Timer t =  new Timer();
+		t.schedule(new TimerTask() {
+			@Override
+			public void run() {
+				progressBar.setVisibility(View.GONE);
+				progressBlocker.setVisibility(View.GONE);
+			}
+		}, 5000);
 
 //		Internet.getEventFeed();
 	}
@@ -450,6 +452,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 	public void eventUpdate(List<Event> e) {
 		progressBar.setVisibility(View.GONE);
 		progressBlocker.setVisibility(View.GONE);
+		if(getIntent().getData()!=null){
+			Uri data = getIntent().getData();
+			String scheme = data.getScheme();
+			String fullPath = data.getEncodedSchemeSpecificPart();
+			// Handle app link data here
+			DetailsActivity.startWithEvent(Data.getEventFromID(Integer.valueOf((scheme +":"+fullPath).split("/")[(scheme +":"+fullPath).split("/").length-1])),
+					this);
+			Log.e("URL GIVEN", scheme +":"+fullPath);
+		}
 	}
 
 	@Override

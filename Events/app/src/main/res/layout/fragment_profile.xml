@@ -44,19 +44,18 @@
 			app:layout_constraintRight_toRightOf="@+id/rightGuide"
 			app:layout_constraintTop_toBottomOf="@+id/following" />
 
-		<androidx.recyclerview.widget.RecyclerView
-			android:id="@+id/followingRecycler"
-			android:layout_width="0dp"
-			android:layout_height="wrap_content"
-			android:layout_marginBottom="@dimen/spacing_3l"
-			android:layout_marginTop="@dimen/spacing_xl"
-			android:orientation="vertical"
-			app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-			app:layout_constraintLeft_toLeftOf="@+id/leftGuide"
-			app:layout_constraintRight_toRightOf="@+id/rightGuide"
-			app:layout_constraintTop_toBottomOf="@+id/followingDivider"
-			tools:itemCount="3"
-			tools:listitem="@layout/item_organization" />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/followingRecycler"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:orientation="vertical"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintLeft_toLeftOf="@+id/leftGuide"
+            app:layout_constraintRight_toRightOf="@+id/rightGuide"
+            app:layout_constraintTop_toBottomOf="@+id/followingDivider"
+            tools:itemCount="3"
+            tools:listitem="@layout/item_organization" />
 
 		<TextView
 			android:id="@+id/tags"
@@ -79,18 +78,17 @@
 			app:layout_constraintRight_toRightOf="@+id/rightGuide"
 			app:layout_constraintTop_toBottomOf="@+id/tags" />
 
-		<androidx.recyclerview.widget.RecyclerView
-			android:id="@+id/tagRecycler"
-			android:layout_width="0dp"
-			android:layout_height="wrap_content"
-			android:layout_marginBottom="@dimen/spacing_3l"
-			android:layout_marginTop="@dimen/spacing_xl"
-			android:orientation="horizontal"
-			app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-			app:layout_constraintEnd_toEndOf="parent"
-			app:layout_constraintStart_toStartOf="parent"
-			app:layout_constraintTop_toBottomOf="@+id/tagsDivider"
-			tools:listitem="@layout/item_tag" />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/tagRecycler"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:orientation="horizontal"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/leftGuide"
+            app:layout_constraintTop_toBottomOf="@+id/tagsDivider"
+            tools:listitem="@layout/item_tag" />
 
 		<TextView
 			android:id="@+id/settings"
