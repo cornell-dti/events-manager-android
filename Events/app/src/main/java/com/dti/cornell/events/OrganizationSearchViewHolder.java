@@ -6,8 +6,7 @@ package com.dti.cornell.events;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
-import androidx.core.content.ContextCompat;
-import androidx.recyclerview.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -15,13 +14,15 @@ import android.widget.TextView;
 
 import com.dti.cornell.events.models.Organization;
 import com.dti.cornell.events.utils.EventBusUtils;
-import com.dti.cornell.events.utils.EventBusUtils;
 import com.dti.cornell.events.utils.Internet;
+
+import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.RecyclerView;
 
 public class OrganizationSearchViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener
 {
     private final Context context;
-    private final TextView name;
+    private TextView name;
     private ImageView image;
     private final Drawable background;
     private Organization organization;
@@ -41,9 +42,10 @@ public class OrganizationSearchViewHolder extends RecyclerView.ViewHolder implem
 
     public void configure(Organization organization, int position)
     {
+        Log.e("SEARCH VIEW HOLDER", String.valueOf(position));
         this.organization = organization;
         this.position = position;
-        name.setText(organization.name);
+        this.name.setText(organization.name);
         Internet.getImageForOrganizationStopProgress(this.organization, image, imageLoadingBar);
     }
 

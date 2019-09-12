@@ -102,6 +102,38 @@ public class Internet {
 		});
 	}
 
+	public static void incrementEventAttendance(int eventID)
+	{
+
+		JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET,
+				DATABASE + "attendance/increment/"+eventID,
+				null, new Response.Listener<JSONObject>()
+		{
+			@Override
+			public void onResponse(JSONObject response)
+			{
+			}
+		}, ERROR_LISTENER);
+
+		requestQueue.add(request);
+	}
+
+	public static void unincrementEventAttendance(int eventID)
+	{
+
+		JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET,
+				DATABASE + "attendance/unincrement/"+eventID,
+				null, new Response.Listener<JSONObject>()
+		{
+			@Override
+			public void onResponse(JSONObject response)
+			{
+			}
+		}, ERROR_LISTENER);
+
+		requestQueue.add(request);
+	}
+
 	public static void getEventFeed()
 	{
 		DateTime startTime = new DateTime(timeZone);
@@ -318,6 +350,7 @@ public class Internet {
 					final String orgProfilePicURLFinal = orgProfilePicURL;
 					if(Data.bitmapForURL.containsKey(orgProfilePicURLFinal)){
 						imageView.setImageBitmap(Data.bitmapForURL.get(orgProfilePicURLFinal));
+						progress.setVisibility(View.INVISIBLE);
 						return;
 					}
 					new GetImage(orgProfilePicURLFinal, new Callback<Bitmap>()

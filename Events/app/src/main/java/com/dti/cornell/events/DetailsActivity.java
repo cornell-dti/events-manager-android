@@ -269,10 +269,12 @@ public class DetailsActivity extends AppCompatActivity implements OnMapReadyCall
 					EventUtil.setNotBookmarked(event.id);
 					isBookmarked = false;
 					setBookmarkedButtonState();
+					Internet.unincrementEventAttendance(this.event.id);
 				} else {
 					EventUtil.setBookmarked(event.id);
 					isBookmarked = true;
 					setBookmarkedButtonState();
+					Internet.incrementEventAttendance(this.event.id);
 				}
 				break;
 		}

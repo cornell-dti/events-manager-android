@@ -65,7 +65,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 		Data.registerListener(this);
 
 //		if (SettingsUtil.SINGLETON.getFirstRun())
-//		startActivity(new Intent(this, OnboardingActivity.class));
+//			startActivity(new Intent(this, OnboardingActivity.class));
 
 		toolbar = findViewById(R.id.toolbar);
 		toolbar.setVisibility(View.VISIBLE);

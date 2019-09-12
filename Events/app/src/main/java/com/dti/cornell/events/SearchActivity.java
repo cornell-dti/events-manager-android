@@ -7,17 +7,6 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.constraintlayout.widget.ConstraintLayout;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.tabs.TabLayout;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentPagerAdapter;
-import androidx.viewpager.widget.ViewPager;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -31,6 +20,8 @@ import com.dti.cornell.events.models.Event;
 import com.dti.cornell.events.models.Organization;
 import com.dti.cornell.events.utils.EventBusUtils;
 import com.dti.cornell.events.utils.SearchUtil;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.tabs.TabLayout;
 import com.google.common.eventbus.Subscribe;
 
 import org.joda.time.DateTime;
@@ -38,7 +29,16 @@ import org.joda.time.DateTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Calendar;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager.widget.ViewPager;
 
 ;
 
@@ -317,6 +317,7 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
                 return;
             }
             List<Event> events = SearchUtil.getEventsFromSearch(searchChanged.text, searchChanged.date);
+            Log.e("SEARCH", events.toString());
             adapter.updateList(events);
         }
     }
@@ -378,6 +379,7 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
                 return;
             }
             List<Organization> orgs = SearchUtil.getOrgsFromSearch(searchChanged.text);
+            Log.e("SEARCH UTIL", orgs.toString());
             adapter.updateList(orgs);
         }
     }

@@ -25,6 +25,7 @@
 				android:id="@+id/image"
 				android:layout_width="0dp"
 				android:layout_height="0dp"
+				android:background="@color/common_google_signin_btn_text_dark_focused"
 				android:paddingTop="@dimen/status_bar_height"
 				android:scaleType="centerCrop"
 				app:layout_constraintDimensionRatio="2:1"
@@ -81,7 +82,7 @@
 
 		<TextView
 			android:id="@+id/time"
-			style="@style/P1"
+			style="@style/H2"
 			android:layout_width="0dp"
 			android:layout_height="wrap_content"
 			android:layout_marginEnd="8dp"
@@ -94,13 +95,14 @@
 
 		<TextView
 			android:id="@+id/tags"
-			style="@style/H1"
+			style="@style/H2"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:layout_marginBottom="16dp"
 			android:layout_marginStart="24dp"
 			android:text="@string/tags"
 			android:textSize="16sp"
+			android:textStyle="bold"
 			app:layout_constraintBottom_toBottomOf="parent"
 			app:layout_constraintStart_toStartOf="parent" />
 
@@ -124,7 +126,7 @@
 
 		<TextView
 			android:id="@+id/numGoing"
-			style="@style/P1"
+			style="@style/H2"
 			android:layout_width="0dp"
 			android:layout_height="wrap_content"
 			android:layout_marginStart="@dimen/spacing_xxl"
@@ -145,7 +147,7 @@
 
 		<TextView
 			android:id="@+id/organization"
-			style="@style/P1"
+			style="@style/H2"
 			android:layout_width="0dp"
 			android:layout_height="wrap_content"
 			android:layout_marginStart="@dimen/spacing_xxl"
@@ -218,7 +220,7 @@
 
 		<TextView
 			android:id="@+id/location"
-			style="@style/P1"
+			style="@style/H2"
 			android:layout_width="0dp"
 			android:layout_height="wrap_content"
 			android:layout_marginStart="@dimen/spacing_xxl"

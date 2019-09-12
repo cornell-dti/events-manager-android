@@ -5,8 +5,6 @@ package com.dti.cornell.events;
  */
 
 import android.content.Context;
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
@@ -18,20 +16,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import android.content.Context;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-import android.view.LayoutInflater;
-import android.view.ViewGroup;
-
-import com.dti.cornell.events.models.Event;
-import com.dti.cornell.events.models.Organization;
-import com.dti.cornell.events.utils.EventBusUtils;
-import com.google.common.eventbus.Subscribe;
-
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
 
 public class OrganizationSearchAdapter extends RecyclerView.Adapter<OrganizationSearchViewHolder>
 {

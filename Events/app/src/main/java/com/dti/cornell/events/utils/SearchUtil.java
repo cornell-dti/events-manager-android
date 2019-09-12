@@ -3,11 +3,10 @@ package com.dti.cornell.events.utils;
 import com.dti.cornell.events.models.Event;
 import com.dti.cornell.events.models.Organization;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-
 import org.joda.time.DateTime;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by jboss925 on 9/3/18.
