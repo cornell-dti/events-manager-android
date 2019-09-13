@@ -55,6 +55,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 	private ImageView progressBlocker;
 	private ImageView noConnection;
 	private ProgressBar progressBar;
+	private BottomNavigationView tabBar;
 
 	private boolean hasReturned = false;
 
@@ -121,6 +122,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 		toolbarTitleBig = findViewById(R.id.toolbarTitleBig);
 		noEventsForYou = findViewById(R.id.noEventsForYouLayout);
 		noEventsForYou.setVisibility(View.GONE);
+		tabBar = findViewById(R.id.tabBar);
 		swipeRefreshLayout = findViewById(R.id.swiperefresh);
 		swipeRefreshLayout.setOnRefreshListener(
 				new SwipeRefreshLayout.OnRefreshListener() {
@@ -279,6 +281,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 	{
 		super.onStart();
 		EventBusUtils.SINGLETON.register(this);
+        transitionToAppropriateFragment();
 	}
 
 	@Override
@@ -569,14 +572,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 	public void onClick(View v)
 	{
 		hideBackButton();
-		Fragment fragment = new DiscoverFragment();
-		toolbar.setVisibility(View.VISIBLE);
-		expandToolBar();
-		datePicker.setVisibility(View.GONE);
-		profileToolbar.setVisibility(View.GONE);
-		noEventsForYou.setVisibility(View.GONE);
-		setToolbarText(R.string.tab_discover);
-		transitionToFragment(fragment);
+		transitionToAppropriateFragment();
+//		Fragment fragment = new DiscoverFragment();
+//		toolbar.setVisibility(View.VISIBLE);
+//		expandToolBar();
+//		datePicker.setVisibility(View.GONE);
+//		profileToolbar.setVisibility(View.GONE);
+//		noEventsForYou.setVisibility(View.GONE);
+//		setToolbarText(R.string.tab_discover);
+//		transitionToFragment(fragment);
 	}
 
 	@Override
@@ -608,9 +612,57 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 		progressBlocker.setVisibility(View.GONE);
 	}
 
+	public void transitionToAppropriateFragment(){
+        Fragment fragment;
+        switch(tabBar.getSelectedItemId()){
+            case R.id.tab_discover:
+                setToolbarText(R.string.tab_discover);
+                fragment = new DiscoverFragment();
+                toolbar.setVisibility(View.VISIBLE);
+                datePicker.setVisibility(View.GONE);
+                profileToolbar.setVisibility(View.GONE);
+                hideBackButton();
+                break;
+            case R.id.tab_for_you:
+                setToolbarText(R.string.tab_for_you);
+                fragment = new ForYouFragment();
+                toolbar.setVisibility(View.VISIBLE);
+                datePicker.setVisibility(View.GONE);
+                profileToolbar.setVisibility(View.GONE);
+                hideBackButton();
+                break;
+            case R.id.tab_my_events:
+                setToolbarText(R.string.tab_my_events);
+                fragment = new MyEventsFragment();
+                toolbar.setVisibility(View.VISIBLE);
+                datePicker.setVisibility(View.VISIBLE);
+                profileToolbar.setVisibility(View.GONE);
+                hideBackButton();
+                break;
+            case R.id.tab_profile:
+                fragment = new ProfileFragment();
+                toolbar.setVisibility(View.GONE);
+                datePicker.setVisibility(View.GONE);
+                profileToolbar.setVisibility(View.VISIBLE);
+                hideBackButton();
+                break;
+            default:
+                setToolbarText(R.string.tab_discover);
+                fragment = new DiscoverFragment();
+                toolbar.setVisibility(View.VISIBLE);
+                datePicker.setVisibility(View.GONE);
+                profileToolbar.setVisibility(View.GONE);
+                hideBackButton();
+                break;
+        }
+        transitionToFragment(fragment);
+    }
+
 	@Override
 	public void onResume(){
 		super.onResume();
+
+		transitionToAppropriateFragment();
 //		progressBar.setVisibility(View.GONE);
 //		progressBlocker.setVisibility(View.GONE);
 //		Data.getData();

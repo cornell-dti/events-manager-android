@@ -1,10 +1,6 @@
 package com.dti.cornell.events;
 
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +13,11 @@ import com.dti.cornell.events.utils.TagUtil;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.RecyclerView;
 
 public class ForYouFragment extends Fragment
 {
@@ -33,7 +34,7 @@ public class ForYouFragment extends Fragment
 		List<Integer> bestTagIDs = TagUtil.getMostPopularTags(3);
 		List<CardList> data = new ArrayList<>();
 		for(int tagID : bestTagIDs){
-			data.add(new CardList(Data.tagForID.get(tagID), false, TagUtil.suggestEventsForTagID(tagID)));
+			data.add(new CardList(Data.tagForID.get(tagID), true, TagUtil.suggestEventsForTagID(tagID)));
 		}
 		if(data.size() == 0){
 			container.findViewById(R.id.noEventsForYouLayout).setVisibility(View.VISIBLE);
