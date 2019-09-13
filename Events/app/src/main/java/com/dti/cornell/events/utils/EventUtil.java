@@ -287,7 +287,7 @@ public class EventUtil {
                 pictureID = eventJSON.getJSONArray("media").getJSONObject(0).getString("link");
 //                pictureID = "https://i." + pictureID.split("amazonaws.com/")[1].split("https://")[1] + "/image.png";
             } else {
-                pictureID = "https://dti-events-public.s3.amazonaws.com/user_media/8/20190912_221057_icons8-no-image-96.png";
+                pictureID = "https://dti-events-public.s3.amazonaws.com/user_media/8/20190913_064940_Gray Square.png";
 //                pictureID = "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/1024px-No_image_available.svg.png";
             }
 
