@@ -13,6 +13,7 @@ class CardListViewHolder extends RecyclerView.ViewHolder implements View.OnClick
 	private final TextView section;
 	private final TextView seeMore;
 	private final EventCardAdapter adapter;
+	private CardList cardList;
 //	private final FloatingActionButton backButton;
 
 	public CardListViewHolder(View itemView)
@@ -30,6 +31,7 @@ class CardListViewHolder extends RecyclerView.ViewHolder implements View.OnClick
 
 	public void configure(CardList cardList)
 	{
+		this.cardList = cardList;
 		if(cardList.sectionText == ""){
 			section.setText(cardList.section);
 		} else{
@@ -44,6 +46,8 @@ class CardListViewHolder extends RecyclerView.ViewHolder implements View.OnClick
 	{
 		MainActivity activity = (MainActivity) itemView.getContext();
 		activity.showBackButton();
-		activity.transitionToFragment(new EventListFragment());
+		activity.transitionToFragment(new EventListFragment(this.cardList.events));
+		activity.setToolbarText(cardList.getSectionText().toUpperCase());
+		activity.setSeeMoreTitle();
 	}
 }

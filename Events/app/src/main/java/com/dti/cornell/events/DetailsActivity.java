@@ -130,7 +130,7 @@ public class DetailsActivity extends AppCompatActivity implements OnMapReadyCall
 		mapFragment.getMapAsync(this);
 
 		tagRecycler = findViewById(R.id.tagRecycler);
-		RecyclerUtil.addHorizontalSpacing(tagRecycler);
+		RecyclerUtil.addTagHorizontalSpacing(tagRecycler);
 
 		bookmarkedButton = findViewById(R.id.bookmark);
 		imageAndButtons = findViewById(R.id.constraintLayout2);

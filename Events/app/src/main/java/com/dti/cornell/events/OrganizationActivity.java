@@ -118,7 +118,7 @@ public class OrganizationActivity extends AppCompatActivity implements View.OnCl
 		adapter.setData(Data.events().stream().filter((val) -> {
 			return val.organizerID == this.organization.id;
 		}).collect(Collectors.toList()));
-
+		Log.e("ORG ACTIVITY", organization.tagIDs.toString());
 		tagRecycler.setAdapter(new TagAdapter(this, organization.tagIDs, false));
 	}
 

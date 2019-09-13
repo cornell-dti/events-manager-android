@@ -72,6 +72,24 @@ public class DiscoverFragment extends Fragment implements Data.DataUpdateListene
 	}
 
 	@Override
+	public void onPause(){
+		super.onPause();
+		Data.unregisterListener(this);
+	}
+
+	@Override
+	public void onResume(){
+		super.onResume();
+		Data.registerListener(this);
+	}
+
+	@Override
+	public void onStop(){
+		super.onStop();
+		Data.unregisterListener(this);
+	}
+
+	@Override
 	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater)
 	{
 		inflater.inflate(R.menu.search, menu);
@@ -112,10 +130,10 @@ public class DiscoverFragment extends Fragment implements Data.DataUpdateListene
 		List<Event> popularEvents = new ArrayList<>(events);
 		popularEvents.sort(Comparators.NUM_ATTENDEES);
 		Collections.reverse(popularEvents);
-		List<CardList> data = Arrays.asList(new CardList(R.string.section_popular, true, popularEvents),
-				new CardList(R.string.section_today_events, true,
+		List<CardList> data = Arrays.asList(new CardList(getString(R.string.section_popular), true, popularEvents),
+				new CardList(getString(R.string.section_today_events), true,
 						EventUtil.getEventsBetween(DateTime.now().withTimeAtStartOfDay(), DateTime.now().plusDays(1).withTimeAtStartOfDay())),
-				new CardList(R.string.section_tomorrow_events, true,
+				new CardList(getString(R.string.section_tomorrow_events), true,
 						EventUtil.getEventsBetween(DateTime.now().plusDays(1).withTimeAtStartOfDay(), DateTime.now().plusDays(2).withTimeAtStartOfDay())));
 		recyclerView.setAdapter(new CardSectionAdapter(recyclerView.getContext(), data, true));
 		this.recyclerView = recyclerView;

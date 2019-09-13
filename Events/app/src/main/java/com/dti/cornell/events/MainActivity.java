@@ -1,5 +1,6 @@
 package com.dti.cornell.events;
 
+import android.animation.Animator;
 import android.animation.ValueAnimator;
 import android.content.Context;
 import android.content.res.Resources;
@@ -186,6 +187,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 		switch (item.getItemId())
 		{
 			case R.id.tab_discover:
+				hideBackButton();
 				setToolbarText(R.string.tab_discover);
 				fragment = new DiscoverFragment();
 				toolbar.setVisibility(View.VISIBLE);
@@ -193,18 +195,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 				datePicker.setVisibility(View.GONE);
 				profileToolbar.setVisibility(View.GONE);
 				noEventsForYou.setVisibility(View.GONE);
-				hideBackButton();
 				break;
 			case R.id.tab_for_you:
+				hideBackButton();
 				setToolbarText(R.string.tab_for_you);
 				fragment = new ForYouFragment();
 				toolbar.setVisibility(View.VISIBLE);
 				expandToolBar();
 				datePicker.setVisibility(View.GONE);
 				profileToolbar.setVisibility(View.GONE);
-				hideBackButton();
 				break;
 			case R.id.tab_my_events:
+				hideBackButton();
 				setToolbarText(R.string.tab_my_events);
 				fragment = new MyEventsFragment();
 				toolbar.setVisibility(View.VISIBLE);
@@ -212,9 +214,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 				datePicker.setVisibility(View.VISIBLE);
 				profileToolbar.setVisibility(View.GONE);
 				noEventsForYou.setVisibility(View.GONE);
-				hideBackButton();
 				break;
 			case R.id.tab_profile:
+				hideBackButton();
 				fragment = new ProfileFragment();
 				setToolbarText(R.string.tab_profile);
 				toolbar.setVisibility(View.VISIBLE);
@@ -222,7 +224,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 				datePicker.setVisibility(View.GONE);
 				profileToolbar.setVisibility(View.GONE);
 				noEventsForYou.setVisibility(View.GONE);
-				hideBackButton();
 				break;
 			default:
 				return false;
@@ -358,6 +359,46 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 		}
 	}
 
+	public void setSeeMoreTitle() {
+		toolbarShrunk = true;
+		Log.i("Toolbar height", Integer.toString(toolbar.getMeasuredHeight()));
+		toolbarTitleBig.setAlpha(0);
+		// Small text animation animation
+		if (toolbarTitleSmall.getAlpha() != 1) {
+			ValueAnimator smallTextAnim = ValueAnimator.ofFloat(0f, 1f);
+			smallTextAnim.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+				@Override
+				public void onAnimationUpdate(ValueAnimator valueAnimator) {
+					float alpha = (float) valueAnimator.getAnimatedValue();
+					toolbarTitleSmall.setAlpha(alpha);
+				}
+			});
+			smallTextAnim.addListener(new Animator.AnimatorListener() {
+				@Override
+				public void onAnimationStart(Animator animator) {
+					toolbarTitleBig.setAlpha(0);
+				}
+
+				@Override
+				public void onAnimationEnd(Animator animator) {
+					toolbarTitleSmall.setAlpha(1);
+				}
+
+				@Override
+				public void onAnimationCancel(Animator animator) {
+
+				}
+
+				@Override
+				public void onAnimationRepeat(Animator animator) {
+
+				}
+			});
+			smallTextAnim.setDuration(400);
+			smallTextAnim.start();
+		}
+	}
+
 	public void expandToolBar() {
 		toolbarShrunk = false;
 		Log.i("Toolbar height", Integer.toString(toolbar.getMeasuredHeight()));
@@ -414,6 +455,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 		toolbarTitleBig.setText(text);
 	}
 
+	public void setToolbarText(String text) {
+		toolbar.setTitle(text);
+		toolbarTitleSmall.setText(text);
+		toolbarTitleBig.setText(text);
+	}
+
 	@Subscribe
 	public void onSearchChanged(EventBusUtils.MainActivityScrolled ms)
 	{
@@ -428,8 +475,24 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 	}
 
 	public void showBackButton() {
-		expandToolBar();
 		Resources r = this.getResources();
+		int newHeight = (int) TypedValue.applyDimension(
+				TypedValue.COMPLEX_UNIT_DIP,
+				70,
+				r.getDisplayMetrics()
+		);
+		ValueAnimator anim = ValueAnimator.ofInt(toolbar.getMeasuredHeight(), newHeight);
+		anim.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+			@Override
+			public void onAnimationUpdate(ValueAnimator valueAnimator) {
+				int val = (Integer) valueAnimator.getAnimatedValue();
+				ViewGroup.LayoutParams layoutParams = toolbar.getLayoutParams();
+				layoutParams.height = val;
+				toolbar.setLayoutParams(layoutParams);
+			}
+		});
+		anim.setDuration(200);
+		anim.start();
 		int leftMargin = (int) TypedValue.applyDimension(
 				TypedValue.COMPLEX_UNIT_DIP,
 				50,

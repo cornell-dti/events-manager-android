@@ -1,12 +1,13 @@
 package com.dti.cornell.events;
 
 import android.content.Context;
-import androidx.recyclerview.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 
 import com.dti.cornell.events.models.Event;
 import com.dti.cornell.events.utils.TagUtil;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 class EventViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener
 {
@@ -38,7 +39,7 @@ class EventViewHolder extends RecyclerView.ViewHolder implements View.OnClickLis
 		endTime.setText(event.endTime.toString("hh:mm a"));
 		title.setText(event.title);
 		location.setText(event.location);
-		friendsGoing.setText(Integer.toString(event.participantIDs.size()));
+		friendsGoing.setText(Integer.toString(event.numAttendees));
 	}
 
 	@Override

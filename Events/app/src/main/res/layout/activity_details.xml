@@ -234,6 +234,7 @@
 			android:id="@+id/tagRecycler"
 			android:layout_width="0dp"
 			android:layout_height="wrap_content"
+			android:layout_marginStart="6dp"
 			android:orientation="horizontal"
 			app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
 			app:layout_constraintBottom_toBottomOf="@+id/tags"
