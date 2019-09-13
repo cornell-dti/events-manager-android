@@ -43,8 +43,6 @@ public class TagActivity extends AppCompatActivity implements View.OnClickListen
 
 			RecyclerView recyclerView = findViewById(R.id.recyclerView);
 			int tagID = getIntent().getIntExtra("TAG_ID", 0);
-        Log.e("CALLED", tagID + "");
-        Log.e("CALLED", TagUtil.getEventsWithTag(tagID).toString());
         EventAdapter adapter = new EventAdapter(this, TagUtil.getEventsWithTag(tagID));
 
         recyclerView.setAdapter(adapter);

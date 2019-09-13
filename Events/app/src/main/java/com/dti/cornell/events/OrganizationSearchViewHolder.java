@@ -6,7 +6,6 @@ package com.dti.cornell.events;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -42,7 +41,6 @@ public class OrganizationSearchViewHolder extends RecyclerView.ViewHolder implem
 
     public void configure(Organization organization, int position)
     {
-        Log.e("SEARCH VIEW HOLDER", String.valueOf(position));
         this.organization = organization;
         this.position = position;
         this.name.setText(organization.name);

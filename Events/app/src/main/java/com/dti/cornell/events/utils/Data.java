@@ -1,7 +1,6 @@
 package com.dti.cornell.events.utils;
 
 import android.graphics.Bitmap;
-import android.util.Log;
 
 import com.dti.cornell.events.models.Event;
 import com.dti.cornell.events.models.Location;
@@ -48,9 +47,6 @@ public final class Data
 
 	public static void getData(){
 		Internet.getEventFeed();
-
-		Log.e("DATA OUTPUT", eventForID.toString());
-		Log.e("DATA OUTPUT", SettingsUtil.SINGLETON.getEvents().toString());
 	}
 
 	public static void createDummyData()

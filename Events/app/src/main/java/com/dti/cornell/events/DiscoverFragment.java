@@ -126,7 +126,6 @@ public class DiscoverFragment extends Fragment implements Data.DataUpdateListene
 	public void updateData(){
 		RecyclerView recyclerView = this.recyclerView;
 		List<Event> events = Data.events();
-		Log.e("DISCOVER", events.toString());
 		List<Event> popularEvents = new ArrayList<>(events);
 		popularEvents.sort(Comparators.NUM_ATTENDEES);
 		Collections.reverse(popularEvents);

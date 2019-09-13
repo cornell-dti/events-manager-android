@@ -248,7 +248,6 @@ public class DetailsActivity extends AppCompatActivity implements OnMapReadyCall
 				onBackPressed();
 				break;
 			case R.id.share:
-				Log.i("DetailsActivity", "TODO share pressed");
 				ShareCompat.IntentBuilder.from(this)
 						.setType("text/plain")
 						.setChooserTitle("Choose how to share this event")

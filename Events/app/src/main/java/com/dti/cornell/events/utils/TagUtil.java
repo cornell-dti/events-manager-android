@@ -116,7 +116,6 @@ public class TagUtil {
         List<Event> returnEvents = new ArrayList<>();
         for(IDAndFrequency idf : frequencyOfEventIDs){
             returnEvents.add(Data.getEventFromID(idf.ID));
-            Log.e("SUGGESTED EVENT", Data.getEventFromID(idf.ID) + "::" + idf.frequency);
         }
 
 
@@ -140,7 +139,6 @@ public class TagUtil {
             }
 
         }
-        Log.e("DEBUG TAGUTIL", sb.toString());
         return sb.toString();
     }
 

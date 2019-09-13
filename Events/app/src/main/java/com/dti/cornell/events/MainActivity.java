@@ -103,8 +103,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 				}
 			}
 			getIntent().setData(null);
-			// Handle app link data here
-			Log.e("URL GIVEN", scheme +":"+fullPath);
 		}
 
 		toolbar = findViewById(R.id.toolbar);
@@ -182,22 +180,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 		if(!TagUtil.tagsLoaded){
 			SettingsUtil.SINGLETON.loadTags();
-			Log.e("HELP", "TAGS LOADED CALLED");
-			for (Integer loadedTag : TagUtil.tagsInterested){
-				Log.e("TAG LOADED", String.valueOf(loadedTag));
-			}
 		}
 		if(!OrganizationUtil.organizationsLoaded){
 			SettingsUtil.SINGLETON.loadOrganizations();
-			for (Integer loadedOrgID : OrganizationUtil.followedOrganizations){
-				Log.e("ORG LOADED", String.valueOf(loadedOrgID));
-			}
 		}
 		if(!EventUtil.attendanceLoaded){
 			SettingsUtil.SINGLETON.loadAttendance();
-			for (Integer loadedEventID : EventUtil.allAttendanceEvents){
-				Log.e("ATT LOADED", String.valueOf(loadedEventID));
-			}
 		}
 
 //		Internet.getEventFeed();
@@ -354,7 +342,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 	public void shrinkToolBar() {
 		toolbarShrunk = true;
-		Log.i("Toolbar height", Integer.toString(toolbar.getMeasuredHeight()));
 		Resources r = this.getResources();
 		int newHeight = (int) TypedValue.applyDimension(
 				TypedValue.COMPLEX_UNIT_DIP,
@@ -403,7 +390,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 	public void setSeeMoreTitle() {
 		toolbarShrunk = true;
-		Log.i("Toolbar height", Integer.toString(toolbar.getMeasuredHeight()));
 		toolbarTitleBig.setAlpha(0);
 		// Small text animation animation
 		if (toolbarTitleSmall.getAlpha() != 1) {
@@ -443,7 +429,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 	public void expandToolBar() {
 		toolbarShrunk = false;
-		Log.i("Toolbar height", Integer.toString(toolbar.getMeasuredHeight()));
 		// Height animation
 		Resources r = this.getResources();
 		int newHeight = (int) TypedValue.applyDimension(
@@ -506,8 +491,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 	@Subscribe
 	public void onSearchChanged(EventBusUtils.MainActivityScrolled ms)
 	{
-		//check if ms.scrollY is whatever value and do shit
-		Log.d("Y scroll value", Integer.toString(ms.scrollY));
+		//check if ms.scrollY is whatever value and do stuff
 		if (ms.scrollY >= 30 && !toolbarShrunk) {
 			shrinkToolBar();
 		}
@@ -696,8 +680,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 				}
 			}
 			getIntent().setData(null);
-			// Handle app link data here
-			Log.e("URL GIVEN", scheme +":"+fullPath);
 		}
 	}
 }

@@ -112,13 +112,11 @@ public class OrganizationActivity extends AppCompatActivity implements View.OnCl
 		email.setText(organization.email);
 		bio.setText(organization.description);
 		title.setText(organization.name);
-		Log.d("ORGANIZATION", title.getText().toString());
 		EventCardAdapter adapter = new EventCardAdapter(this);
 		eventsRecycler.setAdapter(adapter);
 		adapter.setData(Data.events().stream().filter((val) -> {
 			return val.organizerID == this.organization.id;
 		}).collect(Collectors.toList()));
-		Log.e("ORG ACTIVITY", organization.tagIDs.toString());
 		tagRecycler.setAdapter(new TagAdapter(this, organization.tagIDs, false));
 	}
 

@@ -108,12 +108,10 @@ public class EventUtil {
             }
             firstLoop = false;
         }
-        Log.e("ENCODED", sb.toString());
         return sb.toString();
     }
 
     public static List<Integer> decodeEventIDs(String eventIDsString){
-        Log.e("EVENT UTIL", eventIDsString);
         if(eventIDsString.isEmpty()){
             return new ArrayList<>();
         }
@@ -125,7 +123,6 @@ public class EventUtil {
                 String encodedTF = splits[1];
                 if(encodedTF.equalsIgnoreCase("t")){
                     eventIDs.add(Integer.valueOf(splits[0]));
-                    Log.e("EVENT LOADED", splits[0]);
                 }
 //            }
 //            if(attendance == ATTENDANCE.GOING){
@@ -288,7 +285,6 @@ public class EventUtil {
             String pictureID;
             if(eventJSON.getJSONArray("media").length() > 0){
                 pictureID = eventJSON.getJSONArray("media").getJSONObject(0).getString("link");
-                Log.e("EVENTUTIL", pictureID);
 //                pictureID = "https://i." + pictureID.split("amazonaws.com/")[1].split("https://")[1] + "/image.png";
             } else {
                 pictureID = "https://dti-events-public.s3.amazonaws.com/user_media/8/20190912_221057_icons8-no-image-96.png";

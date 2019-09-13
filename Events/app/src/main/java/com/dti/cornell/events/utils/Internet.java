@@ -141,8 +141,6 @@ public class Internet {
 		String timestamp = addTToTimestamp(SettingsUtil.SINGLETON.getTimestamp());
 		String url = DATABASE + "feed/events/?timestamp=" + timestamp + "&start=" +
 				addTToTimestamp(startTime.toString(TIME_FORMAT)) + "&end=" + addTToTimestamp(endTime.toString(TIME_FORMAT));
-		Log.i("INTERNET", addTToTimestamp(startTime.toString(TIME_FORMAT)));
-		Log.i("INTERNET", url);
 
 		JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET,
 				DATABASE + "feed/events/?timestamp=2017-02-19T01:43:40.753131-05:00&start=19990219T014510&end=20210321T014510",
@@ -153,7 +151,6 @@ public class Internet {
 			{
 				try
 				{
-					Log.e("INTERNET", response.toString());
 					JSONArray events = response.getJSONArray("events");
 					String newTimestamp = response.getString("timestamp");
 
@@ -173,7 +170,7 @@ public class Internet {
 							JSONObject jsonEvent = events.getJSONObject(i);
 							Event event = EventUtil.eventFromJSON(jsonEvent);
 							if(event == null){
-								Log.i("INTERNET", jsonEvent.toString());
+								Log.e("INTERNET", jsonEvent.toString());
 							}
 							if(event != null){
 								allEvents.put(event.id, event);
@@ -187,8 +184,6 @@ public class Internet {
 						Data.eventForID.put(e.id, e);
 					}
 					Data.emitEventUpdate();
-					Log.i("INTERNET SINGLETON", SettingsUtil.SINGLETON.getEvents().toString());
-					Log.i("INTERNET SINGLETON", Data.events().toString());
 
 
 					SettingsUtil.SINGLETON.setTimestamp(newTimestamp);
@@ -255,7 +250,6 @@ public class Internet {
 			imageView.setImageBitmap(Data.bitmapForURL.get(org.pictureID));
 			return;
 		}
-		Log.e("INTERNET DATA HERE!!!!!", DATABASE + "org/" + org.id + "/");
 		JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET,
 				DATABASE + "org/" + org.id + "/",
 				null, new Response.Listener<JSONObject>() {
@@ -324,7 +318,6 @@ public class Internet {
 			progress.setVisibility(View.INVISIBLE);
 			return;
 		}
-		Log.e("INTERNET DATA HERE!!!!!", DATABASE + "org/" + org.id + "/");
 		JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET,
 				DATABASE + "org/" + org.id + "/",
 				null, new Response.Listener<JSONObject>() {
@@ -380,8 +373,6 @@ public class Internet {
 		String timestamp = addTToTimestamp(SettingsUtil.SINGLETON.getTimestamp());
 		String url = DATABASE + "feed/events/?timestamp=" + timestamp + "&start=" +
 				addTToTimestamp(startTime.toString(TIME_FORMAT)) + "&end=" + addTToTimestamp(endTime.toString(TIME_FORMAT));
-		Log.i("INTERNET", addTToTimestamp(startTime.toString(TIME_FORMAT)));
-		Log.i("INTERNET", url);
 
 		JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET,
 				DATABASE + "feed/events/?timestamp=2017-02-19T01:43:40.753131-05:00&start=19990219T014510&end=20210321T014510",
@@ -392,7 +383,6 @@ public class Internet {
 			{
 				try
 				{
-					Log.e("INTERNET", response.toString());
 					JSONArray events = response.getJSONArray("events");
 					String newTimestamp = response.getString("timestamp");
 
@@ -426,8 +416,6 @@ public class Internet {
 						Data.eventForID.put(e.id, e);
 					}
 					Data.emitEventUpdate();
-					Log.i("INTERNET SINGLETON", SettingsUtil.SINGLETON.getEvents().toString());
-					Log.i("INTERNET SINGLETON", Data.events().toString());
 
 
 					SettingsUtil.SINGLETON.setTimestamp(newTimestamp);
@@ -521,7 +509,6 @@ public class Internet {
 		protected Bitmap doInBackground(Void... params) {
 			try {
 				int desiredWidth = 900;
-				Log.e("GETIMAGE at URL: ", urlString);
 				Bitmap largeBitmap = BitmapFactory.decodeStream(new URL(urlString).openStream());
 				int w = largeBitmap.getWidth();
 				int h = largeBitmap.getHeight();
@@ -535,13 +522,12 @@ public class Internet {
 				return scaled;
 			} catch (Exception e) {
 				Log.e(TAG, e.getMessage());
-				Log.d(TAG, "Get image from url " + urlString + " failed");
+				Log.d(TAG, "Get image from url " + urlString + " failed. Trying " + backupURL);
 				try {
 					if(Data.bitmapForURL.containsKey(backupURL)){
 						return Data.bitmapForURL.get(backupURL);
 					}
 					int desiredWidth = 900;
-					Log.e("GETIMAGE at URL: ", backupURL);
 					Bitmap largeBitmap = BitmapFactory.decodeStream(new URL(backupURL).openStream());
 					int w = largeBitmap.getWidth();
 					int h = largeBitmap.getHeight();

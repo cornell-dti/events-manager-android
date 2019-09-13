@@ -81,7 +81,6 @@ public class SettingsUtil
 		for(Event e : events){
 			eventsStrings.add(e.toString());
 		}
-		Log.e("SETTINGSUTIL", "HERE ARE STRINGS --> " + eventsStrings.toString());
 		setStringSet(eventsStrings, EVENTS);
 	}
 
@@ -177,7 +176,6 @@ public class SettingsUtil
 		Set<String> eventStringSet = settings.getStringSet(EVENTS, new HashSet<>());
 		Set<Event> events = eventStringSet.stream().map((val) -> Event.fromString(val)).collect(Collectors.toSet());
 		for(Event e : events){
-			Log.e("SETTINGSUTIL", "EVENT LOADED with ID: " + e.id);
 			Data.eventForID.put(e.id, e);
 		}
 		if(events.size() > 0){
@@ -190,7 +188,6 @@ public class SettingsUtil
 		//String toBeDecoded = PreferenceManager.getDefaultSharedPreferences(context).getString("TAG_STRING", "");
 		SharedPreferences sp = settings;
 		String toBeDecoded = sp.getString("TAG_STRING", "DEFAULT");
-		Log.e("TAG STRING ENCODED", toBeDecoded);
 		if(toBeDecoded.equalsIgnoreCase("DEFAULT")){
 			Log.e("SettingsUtil Tags", "Tags are null!");
 			toBeDecoded = "";
@@ -206,7 +203,6 @@ public class SettingsUtil
 	public void loadOrganizations(){
 		SharedPreferences sp = settings;
 		String toBeDecoded = sp.getString("ORGANIZATION_STRING", "DEFAULT");
-		Log.e("ORG STRING ENCODED", toBeDecoded);
 		if(toBeDecoded.equalsIgnoreCase("DEFAULT")){
 			Log.e("loadOrgs", "TOBEDECODED IS NULL");
 			toBeDecoded = "";
@@ -219,7 +215,6 @@ public class SettingsUtil
 		//String toBeDecoded = PreferenceManager.getDefaultSharedPreferences(context).getString("ATTENDANCE_STRING", "");
 		SharedPreferences sp = settings;
 		String toBeDecoded = sp.getString("ATTENDANCE_STRING", "DEFAULT");
-		Log.e("ATT STRING ENCODED", toBeDecoded);
 		if(toBeDecoded.equalsIgnoreCase("DEFAULT")){
 			Log.e("loadAttendance", "TOBEDECODED IS NULL");
 			toBeDecoded = "";
@@ -242,14 +237,12 @@ public class SettingsUtil
 //		SharedPreferences settings;
 //		settings = context.getSharedPreferences("ORGANIZATION_STRING", Context.MODE_PRIVATE);
 //		settings.edit().putString(OrganizationUtil.encodeOrganizationIDs(), null).apply();
-		Log.e("OrgEncodeCheck", OrganizationUtil.encodeOrganizationIDs());
 		SharedPreferences.Editor e = settings.edit();
 		e.putString("ORGANIZATION_STRING", OrganizationUtil.encodeOrganizationIDs());
 		e.commit();
 	}
 
 	public void saveAttendance(){
-		Log.e("EventEncodeCheck", EventUtil.encodeEventIDs());
 		SharedPreferences.Editor e = settings.edit();
 		e.putString("ATTENDANCE_STRING", EventUtil.encodeEventIDs());
 		e.commit();

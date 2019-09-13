@@ -2,16 +2,6 @@ package com.dti.cornell.events;
 
 import android.content.Intent;
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-
-import androidx.fragment.app.FragmentPagerAdapter;
-
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.viewpager.widget.ViewPager;
-import androidx.recyclerview.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,7 +10,6 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.dti.cornell.events.utils.Data;
-import com.dti.cornell.events.utils.Internet;
 import com.dti.cornell.events.utils.RecyclerUtil;
 import com.dti.cornell.events.utils.SettingsUtil;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -31,6 +20,15 @@ import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager.widget.ViewPager;
 
 public class OnboardingActivity extends AppCompatActivity
 {
@@ -184,22 +182,18 @@ public class OnboardingActivity extends AppCompatActivity
 			if (requestCode != SIGN_IN)
 				return;
 
-			Log.d("On Activity Result", "At Activity Result");
 			Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
-			Log.d("On Activity Result", task.toString());
 			try { setAccount(task.getResult(ApiException.class)); }
 			catch (ApiException e) { Log.e(TAG, "sign in failed with code: " + e.getStatusCode()); }
 		}
 
 		private void setAccount(GoogleSignInAccount account)
 		{
-			Log.d(TAG, "begin set account");
 			SettingsUtil.SINGLETON.setName(account.getDisplayName());
 			SettingsUtil.SINGLETON.setEmail(account.getEmail());
 			SettingsUtil.SINGLETON.setImageUrl(account.getPhotoUrl().toString());
 //			Internet.downloadImage(account.getPhotoUrl().toString(), image);
 			//TODO send server id token, save response
-			Log.d(TAG, "updateAccount: " + account.toString());
 		}
 	}
 	enum Page

@@ -195,8 +195,7 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     @Override
-    public void onBackPressed() { //TODO is this needed?
-        Log.e("HELP", "SHITT GOT PRESSED");
+    public void onBackPressed() {
         setContentView(R.layout.activity_main);
         super.onBackPressed();
     }
@@ -317,7 +316,6 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
                 return;
             }
             List<Event> events = SearchUtil.getEventsFromSearch(searchChanged.text, searchChanged.date);
-            Log.e("SEARCH", events.toString());
             adapter.updateList(events);
         }
     }
@@ -379,7 +377,6 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
                 return;
             }
             List<Organization> orgs = SearchUtil.getOrgsFromSearch(searchChanged.text);
-            Log.e("SEARCH UTIL", orgs.toString());
             adapter.updateList(orgs);
         }
     }
