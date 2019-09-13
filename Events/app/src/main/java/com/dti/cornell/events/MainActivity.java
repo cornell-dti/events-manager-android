@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.MenuItem;
@@ -52,6 +53,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 	ConstraintLayout noEventsForYou;
 	SwipeRefreshLayout swipeRefreshLayout;
 	private ImageView progressBlocker;
+	private ImageView noConnection;
 	private ProgressBar progressBar;
 
 	@Override
@@ -124,8 +126,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 					public void onRefresh() {
 						Log.i("REFRESHED", "onRefresh called from SwipeRefreshLayout");
 						swipeRefreshLayout.setRefreshing(false);
-						progressBar.setVisibility(View.VISIBLE);
-						progressBlocker.setVisibility(View.VISIBLE);
+						if(noConnection.getVisibility() != View.VISIBLE){
+							progressBar.setVisibility(View.VISIBLE);
+							progressBlocker.setVisibility(View.VISIBLE);
+						}
 						Data.getData();
 //						// This method performs the actual data-refresh operation.
 //						// The method calls setRefreshing(false) when it's finished.
@@ -139,27 +143,41 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 		datePicker.addItemDecoration(new SpacingItemDecoration(horizMargin, 0));
 		datePicker.setAdapter(new DateAdapter(this));
 
+		noConnection = findViewById(R.id.imageView3);
+		noConnection.setVisibility(View.GONE);
+		new Handler().postDelayed(new Runnable() {
+			@Override
+			public void run() {
+				noConnection.setVisibility(View.VISIBLE);
+			}
+		}, 5000);
+
 		BottomNavigationView tabBar = findViewById(R.id.tabBar);
 		tabBar.setOnNavigationItemSelectedListener(this);
 		tabBar.setSelectedItemId(R.id.tab_discover);    //select discover page first
 		setToolbarText(R.string.tab_discover);
 //		setTabBarFont(tabBar);
 
+		if(Data.events().size() > 0){
+			progressBar.setVisibility(View.GONE);
+			progressBlocker.setVisibility(View.GONE);
+		}
+
 		if(!TagUtil.tagsLoaded){
-			SettingsUtil.loadTags(this);
+			SettingsUtil.SINGLETON.loadTags();
 			Log.e("HELP", "TAGS LOADED CALLED");
 			for (Integer loadedTag : TagUtil.tagsInterested){
 				Log.e("TAG LOADED", String.valueOf(loadedTag));
 			}
 		}
 		if(!OrganizationUtil.organizationsLoaded){
-			SettingsUtil.loadOrganizations(this);
+			SettingsUtil.SINGLETON.loadOrganizations();
 			for (Integer loadedOrgID : OrganizationUtil.followedOrganizations){
 				Log.e("ORG LOADED", String.valueOf(loadedOrgID));
 			}
 		}
 		if(!EventUtil.attendanceLoaded){
-			SettingsUtil.loadAttendance(this);
+			SettingsUtil.SINGLETON.loadAttendance();
 			for (Integer loadedEventID : EventUtil.allAttendanceEvents){
 				Log.e("ATT LOADED", String.valueOf(loadedEventID));
 			}
@@ -249,12 +267,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 	}
 
 	@Override
+	protected void onStop(){
+		SettingsUtil.SINGLETON.saveTags();
+		SettingsUtil.SINGLETON.saveFollowedOrganizations();
+		SettingsUtil.SINGLETON.saveAttendance();
+		SettingsUtil.SINGLETON.saveEvents(Data.events());
+		EventBusUtils.SINGLETON.unregister(this);
+		super.onStop();
+	}
+
+	@Override
 	protected void onDestroy()
 	{
-		SettingsUtil.saveTags(this);
-		SettingsUtil.saveFollowedOrganizations(this);
-		SettingsUtil.saveAttendance(this);
-		EventBusUtils.SINGLETON.unregister(this);
 		super.onDestroy();
 	}
 
@@ -542,6 +566,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 	@Override
 	public void eventUpdate(List<Event> e) {
+		noConnection.setVisibility(View.GONE);
 		progressBar.setVisibility(View.GONE);
 		progressBlocker.setVisibility(View.GONE);
 //		if(getIntent().getData()!=null){

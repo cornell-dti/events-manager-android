@@ -181,11 +181,6 @@ public class Internet {
 						}
 					}
 
-
-
-
-					SettingsUtil.SINGLETON.setEvents(allEvents);
-
 					Data.eventForID.clear();
 
 					for(Event e : allEvents.values()){
@@ -426,9 +421,6 @@ public class Internet {
 					}
 
 
-
-
-					SettingsUtil.SINGLETON.setEvents(allEvents);
 
 					for(Event e : allEvents.values()){
 						Data.eventForID.put(e.id, e);

@@ -8,14 +8,14 @@ import android.util.Log;
 import com.dti.cornell.events.models.Event;
 import com.dti.cornell.events.models.Organization;
 
-import org.joda.time.DateTime;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 public class SettingsUtil
 {
@@ -61,7 +61,10 @@ public class SettingsUtil
 
 	public Map<Integer, Event> getEvents()
 	{
-		return this.events;
+		if(Data.events().isEmpty()){
+			loadEvents();
+		}
+		return Data.eventForID;
 //		Set<String> eventStrings = settings.getStringSet(EVENTS, Collections.<String>emptySet());
 //		Map<Integer, Event> events = new HashMap<>(eventStrings.size());
 //		for (String eventString : eventStrings)
@@ -72,15 +75,14 @@ public class SettingsUtil
 //		return events;
 	}
 
-	public void setEvents(Map<Integer, Event> events)
+	public void saveEvents(List<Event> events)
 	{
-		this.events = events;
-//		HashSet<String> eventsStrings = new HashSet<String>();
-//		for(Event e : events.values()){
-//			eventsStrings.add(e.toString());
-//		}
-//		Log.e("SETTINGSUTIL", eventsStrings.toString());
-//		setStringSet(eventsStrings, EVENTS);
+		HashSet<String> eventsStrings = new HashSet<String>();
+		for(Event e : events){
+			eventsStrings.add(e.toString());
+		}
+		Log.e("SETTINGSUTIL", "HERE ARE STRINGS --> " + eventsStrings.toString());
+		setStringSet(eventsStrings, EVENTS);
 	}
 
 	public Map<Integer, Organization> getOrganizations()
@@ -171,11 +173,22 @@ public class SettingsUtil
 
 
 
+	public void loadEvents(){
+		Set<String> eventStringSet = settings.getStringSet(EVENTS, new HashSet<>());
+		Set<Event> events = eventStringSet.stream().map((val) -> Event.fromString(val)).collect(Collectors.toSet());
+		for(Event e : events){
+			Log.e("SETTINGSUTIL", "EVENT LOADED with ID: " + e.id);
+			Data.eventForID.put(e.id, e);
+		}
+		if(events.size() > 0){
+			Data.emitEventUpdate();
+		}
+	}
 
 
-	public static void loadTags(Context context){
+	public void loadTags(){
 		//String toBeDecoded = PreferenceManager.getDefaultSharedPreferences(context).getString("TAG_STRING", "");
-		SharedPreferences sp = context.getSharedPreferences("TAGS", Context.MODE_PRIVATE);
+		SharedPreferences sp = settings;
 		String toBeDecoded = sp.getString("TAG_STRING", "DEFAULT");
 		Log.e("TAG STRING ENCODED", toBeDecoded);
 		if(toBeDecoded.equalsIgnoreCase("DEFAULT")){
@@ -190,8 +203,8 @@ public class SettingsUtil
 		TagUtil.tagsLoaded = true;
 	}
 
-	public static void loadOrganizations(Context context){
-		SharedPreferences sp = context.getSharedPreferences("ORGS", Context.MODE_PRIVATE);
+	public void loadOrganizations(){
+		SharedPreferences sp = settings;
 		String toBeDecoded = sp.getString("ORGANIZATION_STRING", "DEFAULT");
 		Log.e("ORG STRING ENCODED", toBeDecoded);
 		if(toBeDecoded.equalsIgnoreCase("DEFAULT")){
@@ -202,9 +215,9 @@ public class SettingsUtil
 		OrganizationUtil.organizationsLoaded = true;
 	}
 
-	public static void loadAttendance(Context context){
+	public void loadAttendance(){
 		//String toBeDecoded = PreferenceManager.getDefaultSharedPreferences(context).getString("ATTENDANCE_STRING", "");
-		SharedPreferences sp = context.getSharedPreferences("ATTENDANCE", Context.MODE_PRIVATE);
+		SharedPreferences sp = settings;
 		String toBeDecoded = sp.getString("ATTENDANCE_STRING", "DEFAULT");
 		Log.e("ATT STRING ENCODED", toBeDecoded);
 		if(toBeDecoded.equalsIgnoreCase("DEFAULT")){
@@ -218,26 +231,26 @@ public class SettingsUtil
 		EventUtil.attendanceLoaded = true;
 	}
 
-	public static void saveTags(Context context){
-		SharedPreferences.Editor e = context.getSharedPreferences("TAGS", Context.MODE_PRIVATE).edit();
+	public void saveTags(){
+		SharedPreferences.Editor e = settings.edit();
 		e.putString("TAG_STRING", TagUtil.encodeTagIDs());
 		e.commit();
 		//PreferenceManager.getDefaultSharedPreferences(context).edit().putString("TAG_STRING", TagUtil.encodeTagIDs()).commit();
 	}
 
-	public static void saveFollowedOrganizations(Context context){
+	public void saveFollowedOrganizations(){
 //		SharedPreferences settings;
 //		settings = context.getSharedPreferences("ORGANIZATION_STRING", Context.MODE_PRIVATE);
 //		settings.edit().putString(OrganizationUtil.encodeOrganizationIDs(), null).apply();
 		Log.e("OrgEncodeCheck", OrganizationUtil.encodeOrganizationIDs());
-		SharedPreferences.Editor e = context.getSharedPreferences("ORGS", Context.MODE_PRIVATE).edit();
+		SharedPreferences.Editor e = settings.edit();
 		e.putString("ORGANIZATION_STRING", OrganizationUtil.encodeOrganizationIDs());
 		e.commit();
 	}
 
-	public static void saveAttendance(Context context){
+	public void saveAttendance(){
 		Log.e("EventEncodeCheck", EventUtil.encodeEventIDs());
-		SharedPreferences.Editor e = context.getSharedPreferences("ATTENDANCE", Context.MODE_PRIVATE).edit();
+		SharedPreferences.Editor e = settings.edit();
 		e.putString("ATTENDANCE_STRING", EventUtil.encodeEventIDs());
 		e.commit();
 		//PreferenceManager.getDefaultSharedPreferences(context).edit().putString("ATTENDANCE_STRING", EventUtil.encodeEventIDs()).commit();

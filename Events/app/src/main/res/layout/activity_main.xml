@@ -12,14 +12,23 @@
 		android:id="@+id/appBarLayout"
 		layout="@layout/toolbar" />
 
+	<ImageView
+		android:id="@+id/imageView3"
+		android:layout_width="42dp"
+		android:layout_height="42dp"
+		android:layout_marginTop="16dp"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toBottomOf="@+id/appBarLayout"
+		app:srcCompat="@drawable/quantum_ic_cloud_off_vd_theme_24" />
+
 	<androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 		android:id="@+id/swiperefresh"
 		android:layout_width="match_parent"
 		android:layout_height="0dp"
-		app:layout_constraintBottom_toTopOf="@+id/tabBar"
 		app:layout_constraintEnd_toEndOf="parent"
 		app:layout_constraintStart_toStartOf="parent"
-		app:layout_constraintTop_toBottomOf="@+id/appBarLayout">
+		app:layout_constraintTop_toBottomOf="@+id/imageView3">
 
 		<FrameLayout
 			android:id="@+id/fragmentContainer"
@@ -28,7 +37,7 @@
 			app:layout_constraintBottom_toTopOf="@+id/tabBar"
 			app:layout_constraintEnd_toEndOf="parent"
 			app:layout_constraintStart_toStartOf="parent"
-			app:layout_constraintTop_toBottomOf="@+id/appBarLayout">
+			app:layout_constraintTop_toBottomOf="parent">
 
 			<androidx.constraintlayout.widget.ConstraintLayout
 				android:id="@+id/noEventsForYouLayout"

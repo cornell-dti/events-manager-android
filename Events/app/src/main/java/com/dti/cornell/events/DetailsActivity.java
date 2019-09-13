@@ -262,7 +262,9 @@ public class DetailsActivity extends AppCompatActivity implements OnMapReadyCall
 				break;
 			case R.id.organization:
 				Organization organization = Data.organizationForID.get(event.organizerID);
-				OrganizationActivity.startWithOrganization(organization, this);
+				if(organization != null){
+					OrganizationActivity.startWithOrganization(organization, this);
+				}
 				break;
 			case R.id.bookmark:
 				if(EventUtil.userHasBookmarked(event.id)){
