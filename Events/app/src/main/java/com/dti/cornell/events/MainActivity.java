@@ -56,6 +56,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 	private ImageView noConnection;
 	private ProgressBar progressBar;
 
+	private boolean hasReturned = false;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
@@ -129,7 +131,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 						if(noConnection.getVisibility() != View.VISIBLE){
 							progressBar.setVisibility(View.VISIBLE);
 							progressBlocker.setVisibility(View.VISIBLE);
+							new Handler().postDelayed(new Runnable() {
+								@Override
+								public void run() {
+									if(!hasReturned){
+										noConnection.setVisibility(View.VISIBLE);
+										progressBar.setVisibility(View.GONE);
+										progressBlocker.setVisibility(View.GONE);
+									}
+								}
+							}, 4000);
 						}
+						hasReturned = false;
 						Data.getData();
 //						// This method performs the actual data-refresh operation.
 //						// The method calls setRefreshing(false) when it's finished.
@@ -148,7 +161,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 		new Handler().postDelayed(new Runnable() {
 			@Override
 			public void run() {
-				noConnection.setVisibility(View.VISIBLE);
+				if(!hasReturned){
+					noConnection.setVisibility(View.VISIBLE);
+				}
 			}
 		}, 5000);
 
@@ -569,6 +584,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 		noConnection.setVisibility(View.GONE);
 		progressBar.setVisibility(View.GONE);
 		progressBlocker.setVisibility(View.GONE);
+		hasReturned = true;
 //		if(getIntent().getData()!=null){
 //			Uri data = getIntent().getData();
 //			String scheme = data.getScheme();
