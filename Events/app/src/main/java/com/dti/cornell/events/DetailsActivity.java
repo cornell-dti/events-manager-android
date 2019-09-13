@@ -58,6 +58,7 @@ public class DetailsActivity extends AppCompatActivity implements OnMapReadyCall
 	private RecyclerView tagRecycler;
 	private Event event;
 	private TextView bookmarkedButton;
+	private TextView tagsText;
 	private ProgressBar imageLoadingBar;
 	private boolean isBookmarked;
 	public ImageView image;
@@ -123,6 +124,7 @@ public class DetailsActivity extends AppCompatActivity implements OnMapReadyCall
 		more.setOnClickListener(this);
 		moreButtonGradient = findViewById(R.id.moreButtonGradient);
 		imageLoadingBar = findViewById(R.id.imageLoadingBar);
+		tagsText = findViewById(R.id.tags);
 		findViewById(R.id.back).setOnClickListener(this);
 		findViewById(R.id.share).setOnClickListener(this);
 
@@ -154,6 +156,14 @@ public class DetailsActivity extends AppCompatActivity implements OnMapReadyCall
 
 		TagAdapter adapter = new TagAdapter(this, event.tagIDs, false);
 		tagRecycler.setAdapter(adapter);
+
+		if(event.tagIDs.isEmpty()){
+			tagRecycler.setVisibility(View.GONE);
+			tagsText.setVisibility(View.GONE);
+		} else {
+			tagRecycler.setVisibility(View.VISIBLE);
+			tagsText.setVisibility(View.VISIBLE);
+		}
 
 		bookmarkedButton.setOnClickListener(this);
 		isBookmarked = EventUtil.userHasBookmarked(event.id);
