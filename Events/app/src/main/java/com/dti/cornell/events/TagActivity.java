@@ -3,16 +3,17 @@ package com.dti.cornell.events;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
 import com.dti.cornell.events.utils.Data;
 import com.dti.cornell.events.utils.TagUtil;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 
 /**
@@ -43,8 +44,8 @@ public class TagActivity extends AppCompatActivity implements View.OnClickListen
 			RecyclerView recyclerView = findViewById(R.id.recyclerView);
 			int tagID = getIntent().getIntExtra("TAG_ID", 0);
         Log.e("CALLED", tagID + "");
-        Log.e("CALLED", TagUtil.suggestEventsForTagID(tagID).toString());
-        EventAdapter adapter = new EventAdapter(this, TagUtil.suggestEventsForTagID(tagID));
+        Log.e("CALLED", TagUtil.getEventsWithTag(tagID).toString());
+        EventAdapter adapter = new EventAdapter(this, TagUtil.getEventsWithTag(tagID));
 
         recyclerView.setAdapter(adapter);
 			RecyclerView.LayoutManager layoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();

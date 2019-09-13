@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * Created by jboss925 on 9/10/18.
@@ -290,7 +291,8 @@ public class EventUtil {
                 Log.e("EVENTUTIL", pictureID);
 //                pictureID = "https://i." + pictureID.split("amazonaws.com/")[1].split("https://")[1] + "/image.png";
             } else {
-                pictureID = "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/1024px-No_image_available.svg.png";
+                pictureID = "https://dti-events-public.s3.amazonaws.com/user_media/8/20190912_221057_icons8-no-image-96.png";
+//                pictureID = "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/1024px-No_image_available.svg.png";
             }
 
             Event event = new Event(id, startDateTime, endDateTime, name, description, location,
@@ -302,6 +304,22 @@ public class EventUtil {
             e.printStackTrace();
         }
         return null;
+    }
+
+
+    /**
+     * Returns all events that are occurring between the start and end DateTime objects.
+     * This includes events which started before the start time, but continue past the start time.
+     * It also includes events which start before the end time, but continue past the end time.
+     * @param start - the start time you want to sample at
+     * @param end - the end time you want to stop sampling at
+     * @return the events which are active between the start and end times.
+     */
+    public static List<Event> getEventsBetween(DateTime start, DateTime end){
+        List<Event> events = Data.events();
+        return events.stream().filter((val) -> {
+            return val.startTime.isBefore(end) && val.endTime.isAfter(start);
+        }).collect(Collectors.toList());
     }
 
 }

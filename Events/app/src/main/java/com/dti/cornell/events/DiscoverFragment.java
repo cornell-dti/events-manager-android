@@ -13,11 +13,17 @@ import android.view.ViewGroup;
 import com.dti.cornell.events.models.CardList;
 import com.dti.cornell.events.models.Event;
 import com.dti.cornell.events.models.Organization;
+import com.dti.cornell.events.utils.Comparators;
 import com.dti.cornell.events.utils.Data;
 import com.dti.cornell.events.utils.EventBusUtils;
+import com.dti.cornell.events.utils.EventUtil;
 import com.dti.cornell.events.utils.RecyclerUtil;
 
+import org.joda.time.DateTime;
+
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import androidx.annotation.NonNull;
@@ -41,17 +47,11 @@ public class DiscoverFragment extends Fragment implements Data.DataUpdateListene
 
 		Data.registerListener(this);
 
-		RecyclerView recyclerView = view.findViewById(R.id.recyclerView);
-		List<Event> events = Data.events();
-		Log.e("DISCOVER", events.toString());
-		List<CardList> data = Arrays.asList(new CardList(R.string.section_popular, true, events),
-				new CardList(R.string.section_today_events, true, events),
-				new CardList(R.string.section_tomorrow_events, true, events));
-		RecyclerUtil.addVerticalSpacing(recyclerView);
-		this.createContext = getContext();
-		recyclerView.setAdapter(new CardSectionAdapter(this.createContext, data, true));
+		this.createContext = this.getContext();
 
-		this.recyclerView = recyclerView;
+		this.recyclerView = view.findViewById(R.id.recyclerView);
+		updateData();
+		RecyclerUtil.addVerticalSpacing(recyclerView);
 
 		setOnScrollListener();
 
@@ -92,17 +92,7 @@ public class DiscoverFragment extends Fragment implements Data.DataUpdateListene
 
 	@Override
 	public void eventUpdate(List<Event> e) {
-		RecyclerView recyclerView = this.recyclerView;
-		List<Event> events = Data.events();
-		Log.e("DISCOVER", events.toString());
-		List<CardList> data = Arrays.asList(new CardList(R.string.section_popular, true, events),
-				new CardList(R.string.section_today_events, true, events),
-				new CardList(R.string.section_tomorrow_events, true, events));
-		recyclerView.setAdapter(new CardSectionAdapter(this.createContext, data, true));
-
-		this.recyclerView = recyclerView;
-
-		setOnScrollListener();
+		updateData();
 	}
 
 	@Override
@@ -113,5 +103,21 @@ public class DiscoverFragment extends Fragment implements Data.DataUpdateListene
 	@Override
 	public void tagUpdate(List<String> t) {
 
+	}
+
+	public void updateData(){
+		RecyclerView recyclerView = this.recyclerView;
+		List<Event> events = Data.events();
+		Log.e("DISCOVER", events.toString());
+		List<Event> popularEvents = new ArrayList<>(events);
+		popularEvents.sort(Comparators.NUM_ATTENDEES);
+		Collections.reverse(popularEvents);
+		List<CardList> data = Arrays.asList(new CardList(R.string.section_popular, true, popularEvents),
+				new CardList(R.string.section_today_events, true,
+						EventUtil.getEventsBetween(DateTime.now().withTimeAtStartOfDay(), DateTime.now().plusDays(1).withTimeAtStartOfDay())),
+				new CardList(R.string.section_tomorrow_events, true,
+						EventUtil.getEventsBetween(DateTime.now().plusDays(1).withTimeAtStartOfDay(), DateTime.now().plusDays(2).withTimeAtStartOfDay())));
+		recyclerView.setAdapter(new CardSectionAdapter(recyclerView.getContext(), data, true));
+		this.recyclerView = recyclerView;
 	}
 }

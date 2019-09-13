@@ -91,6 +91,7 @@
 							android:id="@+id/toolbarImage"
 							android:layout_width="50dp"
 							android:layout_height="50dp"
+							android:scaleType="centerCrop"
 							android:src="@color/cardview_light_background" />
 					</androidx.cardview.widget.CardView>
 

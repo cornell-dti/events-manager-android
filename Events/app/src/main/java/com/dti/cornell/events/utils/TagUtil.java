@@ -45,6 +45,25 @@ public class TagUtil {
         tagIDsAndImportance = new HashMap<>();
     }
 
+    public static List<Event> getEventsWithTag(int tagID){
+        if(!tagsLoaded){
+            Log.e("TAGS","Tags have not yet been loaded! You can't ask for events unless" +
+                    "the tags are loaded!");
+//            loadTags();
+            //Needs context to load. Must call loadTags() from activity.
+            return new ArrayList<>();
+        }
+
+        //Check events for tagID, add them.
+        List<Integer> suggestedEvents = new ArrayList<>();
+        for (Event event : Data.events()){
+            if (event.tagIDs.contains(tagID)){
+                suggestedEvents.add(event.id);
+            }
+        }
+        return suggestedEvents.stream().map((val) -> Data.eventForID.get(val)).collect(Collectors.toList());
+    }
+
     public static List<Event> suggestEventsForTagID(int tagID){
         if(!tagsLoaded){
             Log.e("TAGS","Tags have not yet been loaded! You can't ask for events unless" +
