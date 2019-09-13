@@ -14,6 +14,8 @@ import com.dti.cornell.events.models.Event;
 import com.dti.cornell.events.models.Organization;
 import com.dti.cornell.events.utils.Data;
 import com.dti.cornell.events.utils.OrganizationUtil;
+import com.dti.cornell.events.utils.RecyclerUtil;
+import com.dti.cornell.events.utils.SettingsUtil;
 import com.dti.cornell.events.utils.TagUtil;
 import com.google.common.collect.ImmutableList;
 
@@ -45,6 +47,7 @@ public class ProfileFragment extends Fragment implements Data.DataUpdateListener
 		rootView = view;
 		findViews(view);
 		configure();
+		RecyclerUtil.addTagHorizontalSpacing(tagRecycler);
 		Data.registerListener(this);
 		// Inflate the layout for this fragment
 		return view;
@@ -52,6 +55,17 @@ public class ProfileFragment extends Fragment implements Data.DataUpdateListener
 
 	public void findViews(View v){
 		notifyReminderAmount = v.findViewById(R.id.notifyMeAmount);
+		notifyReminderAmount.setText(SettingsUtil.SINGLETON.getSettingsObject().notifyMeTime);
+		notifyReminderAmount.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				if(dropdown.getVisibility() == View.VISIBLE){
+					dropdown.setVisibility(View.GONE);
+				} else if(dropdown.getVisibility() == View.GONE){
+					dropdown.setVisibility(View.VISIBLE);
+				}
+			}
+		});
 		dropdown = v.findViewById(R.id.spinner);
 		String[] items = new String[]{"15 Minutes Before", "30 Minutes Before", "45 Minutes Before", "1 Hour Before"};
 		ArrayAdapter<String> adapter = new ArrayAdapter<>(v.getContext(), android.R.layout.simple_spinner_dropdown_item, items);

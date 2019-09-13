@@ -178,6 +178,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 			progressBlocker.setVisibility(View.GONE);
 		}
 
+        SettingsUtil.SINGLETON.loadSettings();
+
 		if(!TagUtil.tagsLoaded){
 			SettingsUtil.SINGLETON.loadTags();
 		}
@@ -278,6 +280,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 		SettingsUtil.SINGLETON.saveFollowedOrganizations();
 		SettingsUtil.SINGLETON.saveAttendance();
 		SettingsUtil.SINGLETON.saveEvents(Data.events());
+        SettingsUtil.SINGLETON.saveSettings(SettingsUtil.SINGLETON.getSettingsObject());
 		EventBusUtils.SINGLETON.unregister(this);
 		super.onStop();
 	}

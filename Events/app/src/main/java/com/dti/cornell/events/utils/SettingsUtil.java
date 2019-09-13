@@ -7,6 +7,7 @@ import android.util.Log;
 
 import com.dti.cornell.events.models.Event;
 import com.dti.cornell.events.models.Organization;
+import com.dti.cornell.events.models.Settings;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -21,6 +22,7 @@ public class SettingsUtil
 {
 	public static SettingsUtil SINGLETON;
 	private final SharedPreferences settings;
+	private Settings settingsObject;
 
 	//local data holders
 	Map<Integer, Event> events = new HashMap<>();
@@ -170,6 +172,19 @@ public class SettingsUtil
 				.apply();
 	}
 
+	public Settings getSettingsObject(){
+		return this.settingsObject;
+	}
+
+	public void loadSettings(){
+		String settingsString = settings.getString("SETTINGS", "45 Minutes Before");
+		Settings loadedSettings = Settings.fromString(settingsString);
+		this.settingsObject = loadedSettings;
+	}
+
+	public void saveSettings(Settings s){
+		settings.edit().putString("SETTINGS", s.toString()).apply();
+	}
 
 
 	public void loadEvents(){
