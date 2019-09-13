@@ -39,8 +39,8 @@ public class MyEventsFragment extends Fragment implements Data.DataUpdateListene
 
 		recyclerView = view.findViewById(R.id.recyclerView);
 		RecyclerUtil.addDivider(recyclerView);
-		adapter = new EventAdapter(getContext(), Data.events().stream().filter(
-				(val)->EventUtil.userHasBookmarked(val.id)).collect(Collectors.toList()));
+		adapter = new EventAdapter(recyclerView.getContext(), Data.events().stream().filter(
+				(val)->EventUtil.userHasBookmarked(val.id) && val.endTime.isAfter(DateTime.now())).collect(Collectors.toList()));
 		recyclerView.setAdapter(adapter);
 		layoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
 		setOnScrollListener();
@@ -100,7 +100,7 @@ public class MyEventsFragment extends Fragment implements Data.DataUpdateListene
 	@Override
 	public void eventUpdate(List<Event> e) {
 		adapter = new EventAdapter(recyclerView.getContext(), Data.events().stream().filter(
-				(val)->EventUtil.userHasBookmarked(val.id)).collect(Collectors.toList()));
+				(val)->EventUtil.userHasBookmarked(val.id) && val.endTime.isAfter(DateTime.now())).collect(Collectors.toList()));
 		recyclerView.setAdapter(adapter);
 	}
 

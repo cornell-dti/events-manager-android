@@ -42,7 +42,7 @@ public class ForYouFragment extends Fragment
 			container.findViewById(R.id.noEventsForYouLayout).setVisibility(View.GONE);
 		}
 		RecyclerUtil.addVerticalSpacing(recyclerView);
-		recyclerView.setAdapter(new CardSectionAdapter(getContext(), data, false));
+		recyclerView.setAdapter(new CardSectionAdapter(recyclerView.getContext(), data, false));
 
 		this.recyclerView = recyclerView;
 

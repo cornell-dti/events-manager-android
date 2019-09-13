@@ -2,7 +2,6 @@ package com.dti.cornell.events;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -125,7 +124,7 @@ public class DiscoverFragment extends Fragment implements Data.DataUpdateListene
 
 	public void updateData(){
 		RecyclerView recyclerView = this.recyclerView;
-		List<Event> events = Data.events();
+		List<Event> events = EventUtil.getEventsOnOrAfterToday();
 		List<Event> popularEvents = new ArrayList<>(events);
 		popularEvents.sort(Comparators.NUM_ATTENDEES);
 		Collections.reverse(popularEvents);

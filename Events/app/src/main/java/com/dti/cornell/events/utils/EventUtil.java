@@ -319,6 +319,11 @@ public class EventUtil {
         }).collect(Collectors.toList());
     }
 
+    public static List<Event> getEventsOnOrAfterToday(){
+        return Data.events().stream().filter(
+                (val)->EventUtil.userHasBookmarked(val.id) && val.endTime.isAfter(DateTime.now())).collect(Collectors.toList());
+    }
+
 }
 
 //enum ATTENDANCE {
