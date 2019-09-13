@@ -3,7 +3,6 @@ package com.dti.cornell.events;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ScrollView;
@@ -114,9 +113,13 @@ public class OrganizationActivity extends AppCompatActivity implements View.OnCl
 		title.setText(organization.name);
 		EventCardAdapter adapter = new EventCardAdapter(this);
 		eventsRecycler.setAdapter(adapter);
-		adapter.setData(Data.events().stream().filter((val) -> {
+		List<Event> orgEvents = Data.events().stream().filter((val) -> {
 			return val.organizerID == this.organization.id;
-		}).collect(Collectors.toList()));
+		}).collect(Collectors.toList());
+		adapter.setData(orgEvents);
+		if(orgEvents.size() == 0){
+			Data.getData();
+		}
 		tagRecycler.setAdapter(new TagAdapter(this, organization.tagIDs, false));
 	}
 

@@ -66,7 +66,6 @@ public class Event implements Comparable<Event>
 
 	public static Event fromString(String input)
 	{
-		System.out.println(input);
 		String[] values = input.split(ToStringUtil.FIELD_SEPARATOR);
 		int id = Integer.valueOf(values[0]);
 		DateTime start = DateTime.parse(values[1]);

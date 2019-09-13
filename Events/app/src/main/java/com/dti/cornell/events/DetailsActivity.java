@@ -43,7 +43,7 @@ import androidx.recyclerview.widget.RecyclerView;
  * Created by jaggerbrulato on 2/27/18.
  */
 
-public class DetailsActivity extends AppCompatActivity implements OnMapReadyCallback, View.OnClickListener
+public class DetailsActivity extends AppCompatActivity implements OnMapReadyCallback, View.OnClickListener, Data.DataUpdateListener
 {
 	private static final String TAG = DetailsActivity.class.getSimpleName();
 	private static final String EVENT_KEY = "event";
@@ -89,6 +89,7 @@ public class DetailsActivity extends AppCompatActivity implements OnMapReadyCall
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_details);
 		setStatusBarTranslucent();
+		Data.registerListener(this);
 
 		Places.initialize(getApplicationContext(), getString(R.string.google_maps_key));
 		this.placesClient = Places.createClient(this);
@@ -151,6 +152,9 @@ public class DetailsActivity extends AppCompatActivity implements OnMapReadyCall
 		description.setText(event.description);
 		time.setText(event.startTime.toString("EEEE, MMMM d 'at' h:mm a"));
 		numGoing.setText(getString(R.string.numGoing, this.event.numAttendees));
+		if(!Data.organizationForID.containsKey(event.organizerID)){
+			Data.getData();
+		}
 		organization.setText(Data.organizationForID.containsKey(event.organizerID) ? Data.organizationForID.get(event.organizerID).name : "No organization available");
 		location.setText(event.location);
 
@@ -309,4 +313,18 @@ public class DetailsActivity extends AppCompatActivity implements OnMapReadyCall
 		}
 	}
 
+	@Override
+	public void eventUpdate(List<Event> e) {
+		organization.setText(Data.organizationForID.containsKey(event.organizerID) ? Data.organizationForID.get(event.organizerID).name : "No organization available");
+	}
+
+	@Override
+	public void orgUpdate(List<Organization> o) {
+
+	}
+
+	@Override
+	public void tagUpdate(List<String> t) {
+
+	}
 }
