@@ -128,7 +128,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 					public void onRefresh() {
 						Log.i("REFRESHED", "onRefresh called from SwipeRefreshLayout");
 						swipeRefreshLayout.setRefreshing(false);
-						if(noConnection.getVisibility() != View.VISIBLE){
+						if(!hasReturned){
 							progressBar.setVisibility(View.VISIBLE);
 							progressBlocker.setVisibility(View.VISIBLE);
 							new Handler().postDelayed(new Runnable() {
