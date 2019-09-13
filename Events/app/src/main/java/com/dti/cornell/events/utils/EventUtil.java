@@ -226,7 +226,7 @@ public class EventUtil {
             JSONArray orgPhotos = orgJSON.getJSONArray("photo");
             int orgPhotoID;
             if(orgPhotos.length() > 0){
-                orgPhotoID = orgPhotos.getInt(0);
+                orgPhotoID = orgPhotos.getInt(orgPhotos.length()-1);
             } else {
                 orgPhotoID = -1;
             }
@@ -284,10 +284,11 @@ public class EventUtil {
             String googlePlaceID = eventJSON.getJSONObject("location").getString("place_id");
             String pictureID;
             if(eventJSON.getJSONArray("media").length() > 0){
-                pictureID = eventJSON.getJSONArray("media").getJSONObject(0).getString("link");
+                JSONArray media = eventJSON.getJSONArray("media");
+                pictureID = media.getJSONObject(media.length()-1).getString("link");
 //                pictureID = "https://i." + pictureID.split("amazonaws.com/")[1].split("https://")[1] + "/image.png";
             } else {
-                pictureID = "https://dti-events-public.s3.amazonaws.com/user_media/8/20190913_064940_Gray Square.png";
+                pictureID = "https://dti-events-public.s3.amazonaws.com/user_media/8/20190913_070435_Gray Square.png";
 //                pictureID = "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/1024px-No_image_available.svg.png";
             }
 
