@@ -6,11 +6,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.dti.cornell.events.models.Event;
+import com.dti.cornell.events.models.Organization;
 import com.dti.cornell.events.utils.Data;
 import com.dti.cornell.events.utils.OrganizationUtil;
 import com.dti.cornell.events.utils.TagUtil;
 import com.google.common.collect.ImmutableList;
 
+import java.util.List;
 import java.util.stream.Collectors;
 
 import androidx.fragment.app.Fragment;
@@ -20,7 +23,7 @@ import androidx.recyclerview.widget.RecyclerView;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ProfileFragment extends Fragment
+public class ProfileFragment extends Fragment implements Data.DataUpdateListener
 {
 
 	View rootView;
@@ -36,6 +39,7 @@ public class ProfileFragment extends Fragment
 		rootView = view;
 		findViews(view);
 		configure();
+		Data.registerListener(this);
 		// Inflate the layout for this fragment
 		return view;
 	}
@@ -46,9 +50,25 @@ public class ProfileFragment extends Fragment
 	}
 
 	public void configure(){
-		followingRecycler.setAdapter(new OrganizationAdapter(this.getContext(),
+		followingRecycler.setAdapter(new OrganizationAdapter(followingRecycler.getContext(),
 				Data.organizations().stream().filter((val)->OrganizationUtil.userIsFollowing(val.id)).collect(Collectors.toList()), false));
-		tagRecycler.setAdapter(new TagAdapter(this.getContext(), ImmutableList.copyOf(TagUtil.getMostPopularTags(100)), false));
+		tagRecycler.setAdapter(new TagAdapter(tagRecycler.getContext(), ImmutableList.copyOf(TagUtil.getMostPopularTags(100)), false));
 	}
 
+	@Override
+	public void eventUpdate(List<Event> e) {
+		followingRecycler.setAdapter(new OrganizationAdapter(followingRecycler.getContext(),
+				Data.organizations().stream().filter((val)->OrganizationUtil.userIsFollowing(val.id)).collect(Collectors.toList()), false));
+		tagRecycler.setAdapter(new TagAdapter(tagRecycler.getContext(), ImmutableList.copyOf(TagUtil.getMostPopularTags(100)), false));
+	}
+
+	@Override
+	public void orgUpdate(List<Organization> o) {
+
+	}
+
+	@Override
+	public void tagUpdate(List<String> t) {
+
+	}
 }

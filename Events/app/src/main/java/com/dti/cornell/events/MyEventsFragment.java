@@ -2,15 +2,12 @@ package com.dti.cornell.events;
 
 
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.dti.cornell.events.models.Event;
+import com.dti.cornell.events.models.Organization;
 import com.dti.cornell.events.utils.Data;
 import com.dti.cornell.events.utils.EventBusUtils;
 import com.dti.cornell.events.utils.EventUtil;
@@ -19,9 +16,15 @@ import com.google.common.eventbus.Subscribe;
 
 import org.joda.time.DateTime;
 
+import java.util.List;
 import java.util.stream.Collectors;
 
-public class MyEventsFragment extends Fragment
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+public class MyEventsFragment extends Fragment implements Data.DataUpdateListener
 {
 	private static final String TAG = MyEventsFragment.class.getSimpleName();
 	private RecyclerView recyclerView;
@@ -41,6 +44,8 @@ public class MyEventsFragment extends Fragment
 		recyclerView.setAdapter(adapter);
 		layoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
 		setOnScrollListener();
+
+		Data.registerListener(this);
 
 		return view;
 	}
@@ -90,5 +95,22 @@ public class MyEventsFragment extends Fragment
 		//scroll to the new date
 		int position = adapter.getPositionForDate(Data.selectedDate);
 		layoutManager.scrollToPositionWithOffset(position, 0);
+	}
+
+	@Override
+	public void eventUpdate(List<Event> e) {
+		adapter = new EventAdapter(recyclerView.getContext(), Data.events().stream().filter(
+				(val)->EventUtil.userHasBookmarked(val.id)).collect(Collectors.toList()));
+		recyclerView.setAdapter(adapter);
+	}
+
+	@Override
+	public void orgUpdate(List<Organization> o) {
+
+	}
+
+	@Override
+	public void tagUpdate(List<String> t) {
+
 	}
 }
