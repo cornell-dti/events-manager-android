@@ -501,6 +501,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 	}
 
 	public void showBackButton() {
+		backButton.setClickable(true);
 		Resources r = this.getResources();
 		int newHeight = (int) TypedValue.applyDimension(
 				TypedValue.COMPLEX_UNIT_DIP,
@@ -551,6 +552,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 		params.leftMargin = leftMargin;
 		toolbarTitleBig.setLayoutParams(params);
 		backButton.setAlpha(0.0f);
+		backButton.setClickable(false);
 	}
 
 	public void onClick(View v)
