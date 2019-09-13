@@ -5,6 +5,10 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.dti.cornell.events.models.Event;
 import com.dti.cornell.events.models.Organization;
@@ -29,6 +33,8 @@ public class ProfileFragment extends Fragment implements Data.DataUpdateListener
 	View rootView;
 	RecyclerView followingRecycler;
 	RecyclerView tagRecycler;
+	Spinner dropdown;
+	TextView notifyReminderAmount;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -45,6 +51,23 @@ public class ProfileFragment extends Fragment implements Data.DataUpdateListener
 	}
 
 	public void findViews(View v){
+		notifyReminderAmount = v.findViewById(R.id.notifyMeAmount);
+		dropdown = v.findViewById(R.id.spinner);
+		String[] items = new String[]{"15 Minutes Before", "30 Minutes Before", "45 Minutes Before", "1 Hour Before"};
+		ArrayAdapter<String> adapter = new ArrayAdapter<>(v.getContext(), android.R.layout.simple_spinner_dropdown_item, items);
+		dropdown.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+			@Override
+			public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+				notifyReminderAmount.setText(((String)adapterView.getSelectedItem()));
+			}
+
+			@Override
+			public void onNothingSelected(AdapterView<?> adapterView) {
+				notifyReminderAmount.setText(items[0]);
+			}
+		});
+//set the spinners adapter to the previously created one.
+		dropdown.setAdapter(adapter);
 		followingRecycler = v.findViewById(R.id.followingRecycler);
 		tagRecycler = v.findViewById(R.id.tagRecycler);
 	}
