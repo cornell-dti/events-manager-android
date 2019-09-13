@@ -13,12 +13,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Stream;
 
 /**
  * Created by jboss925 on 9/10/18.
@@ -224,6 +221,10 @@ public class EventUtil {
             if(orgWebsite.isEmpty()){
                 orgWebsite = "No website.";
             }
+            String orgEmail = orgJSON.getString("email");
+            if(orgEmail.isEmpty()){
+                orgEmail = "No email.";
+            }
             JSONArray orgPhotos = orgJSON.getJSONArray("photo");
             int orgPhotoID;
             if(orgPhotos.length() > 0){
@@ -248,7 +249,7 @@ public class EventUtil {
             // END REGISTERING THE TAGS
 
             Organization org = new Organization(orgID, orgName, orgDescription, orgPhotoID,
-                    ImmutableList.<Integer>of(), ImmutableList.<String>of(), ImmutableList.copyOf(orgTagIDs), orgWebsite, "Loading...");
+                    ImmutableList.<Integer>of(), ImmutableList.<String>of(), ImmutableList.copyOf(orgTagIDs), orgWebsite, orgEmail);
             Data.organizationForID.put(orgID, org);
 
             // END SETTING THE ORGANIZER
@@ -293,7 +294,7 @@ public class EventUtil {
             }
 
             Event event = new Event(id, startDateTime, endDateTime, name, description, location,
-                    googlePlaceID, ImmutableList.copyOf(new ArrayList<String>()), pictureID, organizerID, ImmutableList.copyOf(tagIDs));
+                    googlePlaceID, ImmutableList.copyOf(new ArrayList<String>()), pictureID, organizerID, ImmutableList.copyOf(tagIDs), numAttendees);
 
             return event;
 

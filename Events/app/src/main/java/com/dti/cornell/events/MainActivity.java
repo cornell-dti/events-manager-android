@@ -67,6 +67,40 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //		if (SettingsUtil.SINGLETON.getFirstRun())
 //			startActivity(new Intent(this, OnboardingActivity.class));
 
+		if(getIntent().getData()!=null){
+			Uri data = getIntent().getData();
+			String scheme = data.getScheme();
+			String fullPath = data.getEncodedSchemeSpecificPart();
+			int id = Integer.valueOf((scheme +":"+fullPath).split("/")[(scheme +":"+fullPath).split("/").length-1]);
+			String type = (scheme +":"+fullPath).split("/")[(scheme +":"+fullPath).split("/").length-2];
+			if(type.equalsIgnoreCase("event")){
+				int eventID = id;
+				if(Data.eventForID.containsKey(eventID)){
+					DetailsActivity.startWithEvent(Data.getEventFromID(eventID),
+							this);
+				} else {
+					Internet.getEventsThenOpenEvent(eventID, this);
+				}
+			}
+			else if (type.equalsIgnoreCase("org")){
+				int orgID = id;
+				if(Data.organizationForID.containsKey(orgID)){
+					OrganizationActivity.startWithOrganization(Data.organizationForID.get(orgID), this);
+				} else {
+					Context context = this;
+					Internet.getSingleOrganization(orgID, new Callback<Organization>() {
+						@Override
+						public void execute(Organization organization) {
+							OrganizationActivity.startWithOrganization(Data.organizationForID.get(orgID), context);
+						}
+					});
+				}
+			}
+			getIntent().setData(null);
+			// Handle app link data here
+			Log.e("URL GIVEN", scheme +":"+fullPath);
+		}
+
 		toolbar = findViewById(R.id.toolbar);
 		toolbar.setVisibility(View.VISIBLE);
 		toolbarShrunk = false;
@@ -89,6 +123,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 					public void onRefresh() {
 						Log.i("REFRESHED", "onRefresh called from SwipeRefreshLayout");
 						swipeRefreshLayout.setRefreshing(false);
+						progressBar.setVisibility(View.VISIBLE);
+						progressBlocker.setVisibility(View.VISIBLE);
+						Data.getData();
 //						// This method performs the actual data-refresh operation.
 //						// The method calls setRefreshing(false) when it's finished.
 //						myUpdateOperation();
@@ -470,9 +507,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 	@Override
 	public void onResume(){
 		super.onResume();
-		progressBar.setVisibility(View.GONE);
-		progressBlocker.setVisibility(View.GONE);
-		Data.getData();
+//		progressBar.setVisibility(View.GONE);
+//		progressBlocker.setVisibility(View.GONE);
+//		Data.getData();
 		if(getIntent().getData()!=null){
 			Uri data = getIntent().getData();
 			String scheme = data.getScheme();

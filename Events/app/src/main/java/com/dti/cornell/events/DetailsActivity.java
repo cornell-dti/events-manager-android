@@ -148,7 +148,7 @@ public class DetailsActivity extends AppCompatActivity implements OnMapReadyCall
 		title.setText(event.title);
 		description.setText(event.description);
 		time.setText(event.startTime.toString("EEEE, MMMM d 'at' h:mm a"));
-		numGoing.setText(getString(R.string.numGoing, event.participantIDs.size()));
+		numGoing.setText(getString(R.string.numGoing, this.event.numAttendees));
 		organization.setText(Data.organizationForID.containsKey(event.organizerID) ? Data.organizationForID.get(event.organizerID).name : "No organization available");
 		location.setText(event.location);
 
@@ -270,11 +270,17 @@ public class DetailsActivity extends AppCompatActivity implements OnMapReadyCall
 					isBookmarked = false;
 					setBookmarkedButtonState();
 					Internet.unincrementEventAttendance(this.event.id);
+					this.event.numAttendees--;
+					numGoing.setText(getString(R.string.numGoing, this.event.numAttendees));
+					Data.eventForID.put(this.event.id, this.event);
 				} else {
 					EventUtil.setBookmarked(event.id);
 					isBookmarked = true;
 					setBookmarkedButtonState();
 					Internet.incrementEventAttendance(this.event.id);
+					this.event.numAttendees++;
+					numGoing.setText(getString(R.string.numGoing, this.event.numAttendees));
+					Data.eventForID.put(this.event.id, this.event);
 				}
 				break;
 		}

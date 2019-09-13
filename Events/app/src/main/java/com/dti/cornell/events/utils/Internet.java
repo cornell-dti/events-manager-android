@@ -15,6 +15,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.dti.cornell.events.DetailsActivity;
 import com.dti.cornell.events.models.Event;
@@ -105,12 +106,12 @@ public class Internet {
 	public static void incrementEventAttendance(int eventID)
 	{
 
-		JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET,
-				DATABASE + "attendance/increment/"+eventID,
-				null, new Response.Listener<JSONObject>()
+		StringRequest request = new StringRequest(Request.Method.GET,
+				DATABASE + "attendance/increment/"+eventID+"/",
+				new Response.Listener<String>()
 		{
 			@Override
-			public void onResponse(JSONObject response)
+			public void onResponse(String response)
 			{
 			}
 		}, ERROR_LISTENER);
@@ -120,13 +121,12 @@ public class Internet {
 
 	public static void unincrementEventAttendance(int eventID)
 	{
-
-		JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET,
-				DATABASE + "attendance/unincrement/"+eventID,
-				null, new Response.Listener<JSONObject>()
+		StringRequest request = new StringRequest(Request.Method.GET,
+				DATABASE + "attendance/unincrement/"+eventID+"/",
+				new Response.Listener<String>()
 		{
 			@Override
-			public void onResponse(JSONObject response)
+			public void onResponse(String response)
 			{
 			}
 		}, ERROR_LISTENER);
