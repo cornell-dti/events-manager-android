@@ -141,7 +141,6 @@ public class Internet {
 		String timestamp = SettingsUtil.SINGLETON.getTimestamp();
 		String url = DATABASE + "feed/events/?timestamp=" + timestamp + "&start=" +
 				addTToTimestamp(startTime.toString(TIME_FORMAT)) + "&end=" + addTToTimestamp(endTime.toString(TIME_FORMAT));
-		Log.e("INTERNET", url);
 		// DATABASE + "feed/events/?timestamp=2017-02-19T01:43:40.753131-05:00&start=19990219T014510&end=20210321T014510"
 
 		JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET,
