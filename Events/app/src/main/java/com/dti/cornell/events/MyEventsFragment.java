@@ -15,6 +15,7 @@ import com.dti.cornell.events.utils.RecyclerUtil;
 import com.google.common.eventbus.Subscribe;
 
 import org.joda.time.DateTime;
+import org.joda.time.Days;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -39,13 +40,26 @@ public class MyEventsFragment extends Fragment implements Data.DataUpdateListene
 
 		recyclerView = view.findViewById(R.id.recyclerView);
 		RecyclerUtil.addDivider(recyclerView);
+		DateTime earliestDateTime = null;
+		for(Event e : Data.events()){
+			if(earliestDateTime == null){
+				earliestDateTime = e.startTime;
+			}
+			else if(e.startTime.isBefore(earliestDateTime)){
+				earliestDateTime = e.startTime;
+			}
+		}
 		adapter = new EventAdapter(recyclerView.getContext(), Data.events().stream().filter(
-				(val)->EventUtil.userHasBookmarked(val.id) && val.endTime.isAfter(DateTime.now())).collect(Collectors.toList()));
+				(val)->{
+					return EventUtil.userHasBookmarked(val.id) && val.endTime.isAfter(DateTime.now());
+				}).collect(Collectors.toList()));
 		recyclerView.setAdapter(adapter);
 		layoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
 		setOnScrollListener();
 
 		Data.registerListener(this);
+
+		layoutManager.scrollToPosition(Days.daysBetween(DateTime.now().withTimeAtStartOfDay(), Data.selectedDate.withTimeAtStartOfDay()).getDays());
 
 		return view;
 	}
@@ -65,7 +79,7 @@ public class MyEventsFragment extends Fragment implements Data.DataUpdateListene
 					return;
 
 				Data.selectedDate = dateTime;
-				EventBusUtils.SINGLETON.post(new EventBusUtils.DateChanged(TAG));
+				EventBusUtils.SINGLETON.post(new EventBusUtils.DateChanged(""));
 			}
 		});
 	}

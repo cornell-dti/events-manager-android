@@ -25,4 +25,12 @@ public class Comparators {
         }
 
     };
+
+    public static final Comparator<Event> DATE = new Comparator<Event>() {
+        @Override
+        public int compare(Event e1, Event e2) {
+            return e1.startTime.compareTo(e2.startTime);
+        }
+
+    };
 }
