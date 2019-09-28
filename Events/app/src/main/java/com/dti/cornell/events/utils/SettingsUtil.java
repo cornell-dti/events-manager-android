@@ -36,6 +36,7 @@ public class SettingsUtil
 	private static final String EMAIL = "email";
 	private static final String TOKEN = "token";
 	private static final String IMAGE_URL = "imageURL";
+	private static final String NOTIFICATION_TIME_BEFORE_EVENT = "notifTimeBeforeEvent";
 
 	private SettingsUtil(Context context)
 	{
@@ -58,6 +59,23 @@ public class SettingsUtil
 	{
 		settings.edit()
 				.putString(TIMESTAMP, timestamp)
+				.apply();
+	}
+
+	public String getNotificationTimeBeforeEvent()
+	{
+		//default = oldest possible time
+		String notificationSetting = settings.getString(NOTIFICATION_TIME_BEFORE_EVENT, "null");
+		if(notificationSetting.equalsIgnoreCase("null")){
+			return "15";
+		} else {
+			return notificationSetting;
+		}
+	}
+	public void setNotificationTimeBeforeEvent(String date)
+	{
+		settings.edit()
+				.putString(NOTIFICATION_TIME_BEFORE_EVENT, date)
 				.apply();
 	}
 
@@ -175,6 +193,9 @@ public class SettingsUtil
 	public Settings getSettingsObject(){
 		return this.settingsObject;
 	}
+
+
+	// LOADING & SAVING FROM MAINACTIVITY
 
 	public void loadSettings(){
 		String settingsString = settings.getString("SETTINGS", "45 Minutes Before");

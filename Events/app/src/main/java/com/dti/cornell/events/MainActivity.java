@@ -27,11 +27,14 @@ import com.dti.cornell.events.utils.OrganizationUtil;
 import com.dti.cornell.events.utils.SettingsUtil;
 import com.dti.cornell.events.utils.SpacingItemDecoration;
 import com.dti.cornell.events.utils.TagUtil;
+import com.dti.cornell.events.utils.workers.NotifyWorker;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.common.eventbus.Subscribe;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -40,6 +43,8 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+import androidx.work.OneTimeWorkRequest;
+import androidx.work.WorkManager;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener, BottomNavigationView.OnNavigationItemSelectedListener, Data.DataUpdateListener
 {
@@ -578,6 +583,24 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 		progressBar.setVisibility(View.GONE);
 		progressBlocker.setVisibility(View.GONE);
 		hasReturned = true;
+
+		EventUtil.allAttendanceEvents = EventUtil.allAttendanceEvents.stream().filter((val) -> Data.getEventFromID(val) != null).collect(Collectors.toList());
+
+		WorkManager.getInstance(this).cancelAllWorkByTag(Data.NOTIFICATION_TAG);
+		for(Event event : EventUtil.allAttendanceEvents.stream().map((val) -> Data.getEventFromID(val)).collect(Collectors.toSet())){
+
+			androidx.work.Data.Builder builder = new androidx.work.Data.Builder();
+
+			androidx.work.Data inputData = builder.putString("event", event.toString()).build();
+
+			OneTimeWorkRequest notificationWork = new OneTimeWorkRequest.Builder(NotifyWorker.class)
+					.setInitialDelay(Data.getDelayUntilDateInMilliseconds(event.startTime.minusMinutes(Integer.valueOf(SettingsUtil.SINGLETON.getNotificationTimeBeforeEvent()))), TimeUnit.MILLISECONDS)
+					.setInputData(inputData)
+					.addTag(Data.NOTIFICATION_TAG)
+					.build();
+
+			WorkManager.getInstance(this).enqueue(notificationWork);
+		}
 //		if(getIntent().getData()!=null){
 //			Uri data = getIntent().getData();
 //			String scheme = data.getScheme();

@@ -177,8 +177,6 @@ public class EventUtil {
                     startDateSplits.get(2), startTimeSplits.get(0), startTimeSplits.get(1),
                     startDateSplits.get(2));
 
-//            System.out.println(startDateTime);
-
             String endDate = eventJSON.getString("end_date");
             List<Integer> endDateSplits = new ArrayList<>();
             for(String split : endDate.split("-")){
@@ -194,8 +192,6 @@ public class EventUtil {
             DateTime endDateTime = new DateTime(endDateSplits.get(0), endDateSplits.get(1),
                     endDateSplits.get(2), endTimeSplits.get(0), endTimeSplits.get(1),
                     endTimeSplits.get(2));
-
-//            System.out.println(endDateTime);
 
             String name = eventJSON.getString("name");
             String description = eventJSON.getString("description");

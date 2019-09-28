@@ -46,7 +46,7 @@ import androidx.recyclerview.widget.RecyclerView;
 public class DetailsActivity extends AppCompatActivity implements OnMapReadyCallback, View.OnClickListener, Data.DataUpdateListener
 {
 	private static final String TAG = DetailsActivity.class.getSimpleName();
-	private static final String EVENT_KEY = "event";
+	public static final String EVENT_KEY = "event";
 	private TextView title;
 	private TextView description;
 	private TextView more;

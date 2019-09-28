@@ -73,11 +73,12 @@ public class ProfileFragment extends Fragment implements Data.DataUpdateListener
 			@Override
 			public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 				notifyReminderAmount.setText(((String)adapterView.getSelectedItem()));
+				SettingsUtil.SINGLETON.setNotificationTimeBeforeEvent(items[i].split(" ")[0]);
 			}
 
 			@Override
 			public void onNothingSelected(AdapterView<?> adapterView) {
-				notifyReminderAmount.setText(items[0]);
+				notifyReminderAmount.setText((SettingsUtil.SINGLETON.getNotificationTimeBeforeEvent() + " Minutes Before"));
 			}
 		});
 //set the spinners adapter to the previously created one.

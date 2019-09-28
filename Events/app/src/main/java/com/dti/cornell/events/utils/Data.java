@@ -27,8 +27,9 @@ public final class Data
 	public static final Map<Integer, Location> locationForID = new HashMap<>();
 	public static DateTime selectedDate;
 
-	public static final int NUM_DAYS_IN_FEED = 30;
+	public static final int NUM_DAYS_IN_FEED = 90;
 	public static final ImmutableList<DateTime> DATES;
+	public static final String NOTIFICATION_TAG = "cueventsNotificationTag";
 
 	static
 	{
@@ -120,6 +121,11 @@ public final class Data
 		for(DataUpdateListener d : listeners){
 			d.eventUpdate(events());
 		}
+	}
+
+	public static long getDelayUntilDateInMilliseconds(DateTime date){
+		DateTime now = new DateTime();
+		return date.getMillis() - now.getMillis();
 	}
 
 	public static void emitOrgUpdate(){

@@ -45,7 +45,9 @@ public class Internet {
 	private static final DateTimeZone timeZone = DateTimeZone.forID("EST");
 	public static final String TIME_FORMAT = "yyyyMMddHHmmss";
 	private static final String DATABASE = "https://cuevents-app.herokuapp.com/";
-    private static final String TAG = Internet.class.getSimpleName();
+//	private static final String DATABASE = "https://cuevents-staging.herokuapp.com/";
+
+	private static final String TAG = Internet.class.getSimpleName();
 
 	private static RequestQueue requestQueue;
 	private static ImageLoader imageLoader;
@@ -154,15 +156,6 @@ public class Internet {
 				{
 					JSONArray events = response.getJSONArray("events");
 					String newTimestamp = response.getString("timestamp");
-
-//					Map<Integer, Event> savedEvents = SettingsUtil.SINGLETON.getEvents();
-//					for (int i = 0; i < updated.length(); i++)
-//					{
-//						Event event = Event.fromJSON(updated.getJSONObject(i));
-//						savedEvents.put(event.id, event);
-//					}
-//					for (int i = 0; i < deleted.length(); i++)
-//						savedEvents.remove(deleted.getInt(i));
 
 					Map<Integer, Event> allEvents = new HashMap<>();
 

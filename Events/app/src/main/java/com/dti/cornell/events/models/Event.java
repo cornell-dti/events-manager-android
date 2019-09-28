@@ -6,8 +6,6 @@ import com.dti.cornell.events.utils.ToStringUtil;
 import com.google.common.collect.ImmutableList;
 
 import org.joda.time.DateTime;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import androidx.annotation.NonNull;
 
@@ -85,16 +83,6 @@ public class Event implements Comparable<Event>
 			tagIDs = ImmutableList.of();
 		}
 		return new Event(id, start, end, title, description, location, placeID, participantIDs, pictureID, organizerID, tagIDs, numAttendees);
-	}
-
-	public static Event fromJSON(JSONObject json) throws JSONException
-	{
-		int id = json.getInt("pk");
-		String title = json.getString("name");
-		String description = json.getString("description");
-		int organizerID = json.getInt("organizer");
-		return null;
-		//TODO
 	}
 
 	@Override
