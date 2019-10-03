@@ -595,7 +595,7 @@ public class Internet {
 			public void onResponse(JSONObject response) {
 				Event e = EventUtil.eventFromJSON(response);
 				Data.eventForID.put(e.id, e);
-				Data.emitEventUpdate();
+				Data.emitSingleEventUpdate(e);
 				callback.execute(e);
 			}
 		}, ERROR_LISTENER);

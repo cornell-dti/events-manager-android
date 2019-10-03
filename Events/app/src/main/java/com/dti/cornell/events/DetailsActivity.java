@@ -47,7 +47,7 @@ import androidx.recyclerview.widget.RecyclerView;
  * Created by jaggerbrulato on 2/27/18.
  */
 
-public class DetailsActivity extends AppCompatActivity implements OnMapReadyCallback, View.OnClickListener, Data.DataUpdateListener
+public class DetailsActivity extends AppCompatActivity implements OnMapReadyCallback, View.OnClickListener, Data.SingleEventUpdateListener, Data.DataUpdateListener
 {
 	private static final String TAG = DetailsActivity.class.getSimpleName();
 	public static final String EVENT_KEY = "event";
@@ -95,7 +95,8 @@ public class DetailsActivity extends AppCompatActivity implements OnMapReadyCall
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_details);
 		setStatusBarTranslucent();
-		Data.registerListener(this);
+		Data.registerListener((Data.DataUpdateListener)this);
+		Data.registerListener((Data.SingleEventUpdateListener)this);
 
 		Places.initialize(getApplicationContext(), getString(R.string.google_maps_key));
 		this.placesClient = Places.createClient(this);
@@ -355,5 +356,13 @@ public class DetailsActivity extends AppCompatActivity implements OnMapReadyCall
 	@Override
 	public void tagUpdate(List<String> t) {
 
+	}
+
+	@Override
+	public void singleEventUpdate(Event e) {
+		if(this.event.id == e.id){
+			this.configure(e);
+		}
+		Log.e("DATA", "EVENT UPDATE SINGLE CALLED");
 	}
 }

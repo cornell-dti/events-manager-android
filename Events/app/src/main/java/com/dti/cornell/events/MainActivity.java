@@ -279,7 +279,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 	{
 		super.onStart();
 		EventBusUtils.SINGLETON.register(this);
-        transitionToAppropriateFragment();
+//        transitionToAppropriateFragment();
 	}
 
 	@Override
@@ -686,7 +686,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 	public void onResume(){
 		super.onResume();
 
-		transitionToAppropriateFragment();
+//		transitionToAppropriateFragment();
 //		progressBar.setVisibility(View.GONE);
 //		progressBlocker.setVisibility(View.GONE);
 //		Data.getData();

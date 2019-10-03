@@ -109,12 +109,32 @@ public final class Data
 		void tagUpdate(List<String> t);
 	}
 
+	static List<SingleEventUpdateListener> singleEventListeners = new ArrayList<>();
+
+	public interface SingleEventUpdateListener{
+		void singleEventUpdate(Event e);
+	}
+
+	public static void registerListener(SingleEventUpdateListener d){
+		singleEventListeners.add(d);
+	}
+
+	public static void unregisterListener(SingleEventUpdateListener d){
+		singleEventListeners.remove(d);
+	}
+
 	public static void registerListener(DataUpdateListener d){
 		listeners.add(d);
 	}
 
 	public static void unregisterListener(DataUpdateListener d){
 		listeners.remove(d);
+	}
+
+	public static void emitSingleEventUpdate(Event e){
+		for(SingleEventUpdateListener s : singleEventListeners){
+			s.singleEventUpdate(e);
+		}
 	}
 
 	public static void emitEventUpdate(){
