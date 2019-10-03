@@ -171,7 +171,12 @@ public class DetailsActivity extends AppCompatActivity implements OnMapReadyCall
 	{
 		title.setText(event.title);
 		description.setText(event.description);
-		time.setText(event.startTime.toString("EEEE, MMMM d 'at' h:mm a"));
+		if(event.startTime.withTimeAtStartOfDay().isEqual(event.endTime.withTimeAtStartOfDay())){
+			time.setText(event.startTime.toString("EEE. MMMM d") + ", " + event.startTime.toString("h:mm a") + " - " + event.endTime.toString("h:mm a"));
+
+		} else {
+			time.setText(event.startTime.toString("MMM. d, h:mm a") + " - " + event.endTime.toString("MMM. d, h:mm a"));
+		}
 		numGoing.setText(getString(R.string.numGoing, this.event.numAttendees));
 		if(!Data.organizationForID.containsKey(event.organizerID)){
 			Data.getData();

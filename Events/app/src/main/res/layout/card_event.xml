@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView
-	xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:app="http://schemas.android.com/apk/res-auto"
 	xmlns:tools="http://schemas.android.com/tools"
 	android:layout_width="@dimen/card_width"
 	android:layout_height="wrap_content"
+	android:layout_marginBottom="@dimen/spacing_s"
 	android:clickable="true"
 	android:foreground="?android:attr/selectableItemBackground"
-	android:layout_marginBottom="@dimen/spacing_s"
 	app:cardCornerRadius="@dimen/spacing_m">
 
 	<androidx.constraintlayout.widget.ConstraintLayout
@@ -27,6 +26,101 @@
 			app:layout_constraintTop_toTopOf="parent"
 			tools:background="@color/gray" />
 
+		<LinearLayout
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:layout_marginBottom="@dimen/spacing_l"
+			android:layout_marginTop="@dimen/spacing_l"
+			android:baselineAligned="false"
+			android:gravity="center_horizontal"
+			app:layout_constraintBottom_toBottomOf="parent"
+			app:layout_constraintEnd_toEndOf="@+id/title"
+			app:layout_constraintStart_toStartOf="@+id/title"
+			app:layout_constraintTop_toBottomOf="@+id/location">
+
+			<LinearLayout
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_weight="0.33"
+				android:gravity="center"
+				android:orientation="vertical">
+
+				<TextView
+					android:id="@+id/month"
+					style="@style/H3"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:textStyle="bold"
+					tools:text="April" />
+
+				<TextView
+					android:id="@+id/day"
+					style="@style/P1"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_marginTop="@dimen/spacing_s"
+					tools:text="18" />
+			</LinearLayout>
+
+			<LinearLayout
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_weight="0.33"
+				android:gravity="center"
+				android:orientation="vertical">
+
+				<TextView
+					style="@style/H3"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="@string/event_starts"
+					android:textStyle="bold" />
+
+				<TextView
+					android:id="@+id/startTime"
+					style="@style/P1"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_marginTop="@dimen/spacing_s"
+					tools:text="2:30 PM" />
+			</LinearLayout>
+
+			<LinearLayout
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_weight="0.33"
+				android:gravity="center"
+				android:orientation="vertical">
+
+				<TextView
+					style="@style/H3"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="@string/event_going"
+					android:textStyle="bold" />
+
+				<TextView
+					android:id="@+id/numGoing"
+					style="@style/P1"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_marginTop="@dimen/spacing_s"
+					tools:text="166" />
+			</LinearLayout>
+		</LinearLayout>
+
+		<TextView
+			android:id="@+id/location"
+			style="@style/P2"
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="@dimen/spacing_s"
+			android:textColor="@color/gray"
+			app:layout_constraintEnd_toEndOf="@id/title"
+			app:layout_constraintStart_toStartOf="@+id/title"
+			app:layout_constraintTop_toBottomOf="@+id/title"
+			tools:text="Arts Quad" />
+
 		<TextView
 			android:id="@+id/title"
 			style="@style/H2"
@@ -43,100 +137,5 @@
 			app:layout_constraintStart_toStartOf="parent"
 			app:layout_constraintTop_toBottomOf="@+id/image"
 			tools:text="Cornell-A-Palooza" />
-
-		<TextView
-			android:id="@+id/location"
-			android:layout_width="0dp"
-			android:layout_height="wrap_content"
-			android:layout_marginTop="@dimen/spacing_s"
-			tools:text="Arts Quad"
-			android:textColor="@color/gray"
-			style="@style/P2"
-			app:layout_constraintStart_toStartOf="@+id/title"
-			app:layout_constraintEnd_toEndOf="@id/title"
-			app:layout_constraintTop_toBottomOf="@+id/title" />
-
-		<LinearLayout
-			android:layout_width="0dp"
-			android:layout_height="wrap_content"
-			android:layout_marginTop="@dimen/spacing_l"
-			android:layout_marginBottom="@dimen/spacing_l"
-			app:layout_constraintStart_toStartOf="@+id/title"
-			app:layout_constraintEnd_toEndOf="@+id/title"
-			app:layout_constraintTop_toBottomOf="@+id/location"
-			app:layout_constraintBottom_toBottomOf="parent"
-			android:gravity="center_horizontal"
-			android:baselineAligned="false">
-
-			<LinearLayout
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:orientation="vertical"
-				android:gravity="center"
-				android:layout_weight="0.33">
-
-				<TextView
-					android:id="@+id/month"
-					android:layout_width="wrap_content"
-					android:layout_height="wrap_content"
-					tools:text="April"
-					style="@style/H3"
-					android:textStyle="bold"/>
-
-				<TextView
-					android:id="@+id/day"
-					android:layout_width="wrap_content"
-					android:layout_height="wrap_content"
-					android:layout_marginTop="@dimen/spacing_s"
-					tools:text="18"
-					style="@style/P1"/>
-			</LinearLayout>
-
-			<LinearLayout
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:orientation="vertical"
-				android:gravity="center"
-				android:layout_weight="0.33">
-
-				<TextView
-					android:layout_width="wrap_content"
-					android:layout_height="wrap_content"
-					android:text="@string/event_starts"
-					style="@style/H3"
-					android:textStyle="bold"/>
-
-				<TextView
-					android:id="@+id/startTime"
-					android:layout_width="wrap_content"
-					android:layout_height="wrap_content"
-					android:layout_marginTop="@dimen/spacing_s"
-					tools:text="2:30 PM"
-					style="@style/P1"/>
-			</LinearLayout>
-
-			<LinearLayout
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:orientation="vertical"
-				android:gravity="center"
-				android:layout_weight="0.33">
-
-				<TextView
-					android:layout_width="wrap_content"
-					android:layout_height="wrap_content"
-					android:text="@string/event_going"
-					style="@style/H3"
-					android:textStyle="bold"/>
-
-				<TextView
-					android:id="@+id/numGoing"
-					android:layout_width="wrap_content"
-					android:layout_height="wrap_content"
-					android:layout_marginTop="@dimen/spacing_s"
-					tools:text="166"
-					style="@style/P1"/>
-			</LinearLayout>
-		</LinearLayout>
 	</androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>
