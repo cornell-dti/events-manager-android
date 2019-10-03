@@ -29,18 +29,20 @@
 
 		<TextView
 			android:id="@+id/title"
+			style="@style/H2"
 			android:layout_width="0dp"
 			android:layout_height="wrap_content"
 			android:layout_marginEnd="@dimen/spacing_xl"
 			android:layout_marginStart="@dimen/spacing_xl"
 			android:layout_marginTop="@dimen/spacing_xl"
-			tools:text="Cornell-A-Palooza"
-			style="@style/H2"
+			android:ellipsize="end"
+			android:maxLines="1"
 			android:textStyle="bold"
 			app:layout_constraintBottom_toTopOf="@+id/location"
 			app:layout_constraintEnd_toEndOf="parent"
 			app:layout_constraintStart_toStartOf="parent"
-			app:layout_constraintTop_toBottomOf="@+id/image" />
+			app:layout_constraintTop_toBottomOf="@+id/image"
+			tools:text="Cornell-A-Palooza" />
 
 		<TextView
 			android:id="@+id/location"

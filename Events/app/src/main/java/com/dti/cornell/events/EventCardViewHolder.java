@@ -42,6 +42,7 @@ public class EventCardViewHolder extends RecyclerView.ViewHolder implements View
 
 	public void configure(Event event)
 	{
+		this.image.setImageBitmap(null);
 		this.event = event;
 		title.setText(event.title);
 		Location loc = Data.locationForID.get(event.locationID);
