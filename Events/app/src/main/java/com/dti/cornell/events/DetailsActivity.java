@@ -167,15 +167,27 @@ public class DetailsActivity extends AppCompatActivity implements OnMapReadyCall
 		setBookmarkedButtonState();
 	}
 
+	/**
+	 * Returns the correct suffix for the last digit (1st, 2nd, .. , 13th, .. , 23rd)
+	 */
+	public static String getLastDigitSufix(int number) {
+		switch( (number<20) ? number : number%10 ) {
+			case 1 : return "st";
+			case 2 : return "nd";
+			case 3 : return "rd";
+			default : return "th";
+		}
+	}
+
 	private void configure(Event event)
 	{
 		title.setText(event.title);
 		description.setText(event.description);
 		if(event.startTime.withTimeAtStartOfDay().isEqual(event.endTime.withTimeAtStartOfDay())){
-			time.setText(event.startTime.toString("EEE. MMMM d") + ", " + event.startTime.toString("h:mm a") + " - " + event.endTime.toString("h:mm a"));
+			time.setText(event.startTime.toString("EEE. MMMM d") + getLastDigitSufix(event.startTime.dayOfMonth().get()) + ", " + event.startTime.toString("h:mm a") + " - " + event.endTime.toString("h:mm a"));
 
 		} else {
-			time.setText(event.startTime.toString("MMM. d, h:mm a") + " - " + event.endTime.toString("MMM. d, h:mm a"));
+			time.setText(event.startTime.toString("MMM. d") + getLastDigitSufix(event.startTime.dayOfMonth().get()) +event.startTime.toString(", h:mm a") + " - " + event.endTime.toString("MMM. d") + getLastDigitSufix(event.startTime.dayOfMonth().get()) + event.endTime.toString(", h:mm a"));
 		}
 		numGoing.setText(getString(R.string.numGoing, this.event.numAttendees));
 		if(!Data.organizationForID.containsKey(event.organizerID)){
