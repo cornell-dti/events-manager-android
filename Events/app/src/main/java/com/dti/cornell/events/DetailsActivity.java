@@ -171,7 +171,7 @@ public class DetailsActivity extends AppCompatActivity implements OnMapReadyCall
 	 * Returns the correct suffix for the last digit (1st, 2nd, .. , 13th, .. , 23rd)
 	 */
 	public static String getLastDigitSufix(int number) {
-		switch( (number<20) ? number : number%10 ) {
+		switch( (number>10 && number<20) ? number : number%10 ) {
 			case 1 : return "st";
 			case 2 : return "nd";
 			case 3 : return "rd";
