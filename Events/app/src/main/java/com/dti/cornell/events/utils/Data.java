@@ -61,11 +61,11 @@ public final class Data
 		Organization organization = new Organization(1, "Cornell Design & Tech Initiative and more stuff blah blah blah", "Hi there howdy do yall. This is an extremely long, grandiloquent, pontificate description designed for the sole singular purpose of testing limits of descriptions", 1, ImmutableList.of(1, 2, 3, 4, 5, 6, 7), ImmutableList.of("User id"), ImmutableList.of(1,2,3,4), "www.google.com", "dc788@cornell.edu");
 		organizationForID.put(organization.id, organization);
 
-		for (int i = 1; i <= DATES.size(); i++)
-		{
-			Event event = new Event(i, DATES.get(i-1), DATES.get(i-1).plusDays(i).plusMinutes(i*30), "I’m just trying to see what it would look like if there was like an extra long title blah", "The simple yet courageous #metoo hashtag campaign has emerged as a rallying cry for people everywhere who have survived sexual assault and sexual harassment", "Goldwin Smith Hall Room 202", "ChIJndqRYRqC0IkR9J8bgk3mDvU", ImmutableList.of("User id"), "http://imgur.com/", 1, ImmutableList.of(1, 2, 3, 4), 160);
-			eventForID.put(i, event);
-		}
+//		for (int i = 1; i <= DATES.size(); i++)
+//		{
+//			Event event = new Event(i, DATES.get(i-1), DATES.get(i-1).plusDays(i).plusMinutes(i*30), "I’m just trying to see what it would look like if there was like an extra long title blah", "The simple yet courageous #metoo hashtag campaign has emerged as a rallying cry for people everywhere who have survived sexual assault and sexual harassment", "Goldwin Smith Hall Room 202", "ChIJndqRYRqC0IkR9J8bgk3mDvU", ImmutableList.of("User id"), "http://imgur.com/", 1, ImmutableList.of(1, 2, 3, 4), 160);
+//			eventForID.put(i, event);
+//		}
 	}
 
 

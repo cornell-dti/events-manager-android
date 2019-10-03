@@ -32,6 +32,8 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.common.eventbus.Subscribe;
 
+import org.joda.time.DateTime;
+
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
@@ -71,9 +73,22 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 
+		EventBusUtils.SINGLETON.register(this);
 		//Register for scroll event
 		EventBusUtils.SINGLETON.register(this);
 		Data.registerListener(this);
+		SettingsUtil.SINGLETON.loadSettings();
+		SettingsUtil.SINGLETON.loadLocations();
+		SettingsUtil.SINGLETON.loadOrgs();
+		if(!TagUtil.tagsLoaded){
+			SettingsUtil.SINGLETON.loadTags();
+		}
+		if(!OrganizationUtil.organizationsLoaded){
+			SettingsUtil.SINGLETON.loadFollowedOrganizations();
+		}
+		if(!EventUtil.attendanceLoaded){
+			SettingsUtil.SINGLETON.loadAttendance();
+		}
 
 //		if (SettingsUtil.SINGLETON.getFirstRun())
 //			startActivity(new Intent(this, OnboardingActivity.class));
@@ -183,18 +198,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 			progressBlocker.setVisibility(View.GONE);
 		}
 
-        SettingsUtil.SINGLETON.loadSettings();
-
-		if(!TagUtil.tagsLoaded){
-			SettingsUtil.SINGLETON.loadTags();
-		}
-		if(!OrganizationUtil.organizationsLoaded){
-			SettingsUtil.SINGLETON.loadOrganizations();
-		}
-		if(!EventUtil.attendanceLoaded){
-			SettingsUtil.SINGLETON.loadAttendance();
-		}
-
 //		Internet.getEventFeed();
 	}
 
@@ -283,9 +286,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 	protected void onStop(){
 		SettingsUtil.SINGLETON.saveTags();
 		SettingsUtil.SINGLETON.saveFollowedOrganizations();
+		SettingsUtil.SINGLETON.saveOrgs();
 		SettingsUtil.SINGLETON.saveAttendance();
+		SettingsUtil.SINGLETON.saveLocations();
 		SettingsUtil.SINGLETON.saveEvents(Data.events());
-        SettingsUtil.SINGLETON.saveSettings(SettingsUtil.SINGLETON.getSettingsObject());
+//		SettingsUtil.SINGLETON.saveSettings(new Settings("15 Minutes Before", true));
+        SettingsUtil.SINGLETON.saveSettings(SettingsUtil.SINGLETON.getSettings());
 		EventBusUtils.SINGLETON.unregister(this);
 		super.onStop();
 	}
@@ -587,19 +593,25 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 		EventUtil.allAttendanceEvents = EventUtil.allAttendanceEvents.stream().filter((val) -> Data.getEventFromID(val) != null).collect(Collectors.toList());
 
 		WorkManager.getInstance(this).cancelAllWorkByTag(Data.NOTIFICATION_TAG);
-		for(Event event : EventUtil.allAttendanceEvents.stream().map((val) -> Data.getEventFromID(val)).collect(Collectors.toSet())){
+		if(SettingsUtil.SINGLETON.getSettings().doSendNotifications){
+			for(Event event : EventUtil.allAttendanceEvents.stream().map((val) -> Data.getEventFromID(val)).collect(Collectors.toSet())){
 
-			androidx.work.Data.Builder builder = new androidx.work.Data.Builder();
+				if(DateTime.now().isBefore(event.startTime.minusMinutes(Integer.valueOf(SettingsUtil.SINGLETON.getSettings().notifyMeTime.split(" ")[0])))){
+					androidx.work.Data.Builder builder = new androidx.work.Data.Builder();
 
-			androidx.work.Data inputData = builder.putString("event", event.toString()).build();
+					androidx.work.Data inputData = builder.putString("event", event.toString())
+							.putString("location", (Data.locationForID.get(event.locationID) != null) ? Data.locationForID.get(event.locationID).toString() : "-1|||")
+							.build();
 
-			OneTimeWorkRequest notificationWork = new OneTimeWorkRequest.Builder(NotifyWorker.class)
-					.setInitialDelay(Data.getDelayUntilDateInMilliseconds(event.startTime.minusMinutes(Integer.valueOf(SettingsUtil.SINGLETON.getNotificationTimeBeforeEvent()))), TimeUnit.MILLISECONDS)
-					.setInputData(inputData)
-					.addTag(Data.NOTIFICATION_TAG)
-					.build();
+					OneTimeWorkRequest notificationWork = new OneTimeWorkRequest.Builder(NotifyWorker.class)
+							.setInitialDelay(Data.getDelayUntilDateInMilliseconds(event.startTime.minusMinutes(Integer.valueOf(SettingsUtil.SINGLETON.getNotificationTimeBeforeEvent().split(" ")[0]))), TimeUnit.MILLISECONDS)
+							.setInputData(inputData)
+							.addTag(Data.NOTIFICATION_TAG)
+							.build();
 
-			WorkManager.getInstance(this).enqueue(notificationWork);
+					WorkManager.getInstance(this).enqueue(notificationWork);
+				}
+			}
 		}
 //		if(getIntent().getData()!=null){
 //			Uri data = getIntent().getData();
@@ -708,6 +720,33 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 				}
 			}
 			getIntent().setData(null);
+		}
+
+	}
+
+	@Subscribe
+	public void onNotificationTimeChanged(EventBusUtils.NotificationTimeChanged notifChange)
+	{
+		WorkManager.getInstance(this).cancelAllWorkByTag(Data.NOTIFICATION_TAG);
+		if(SettingsUtil.SINGLETON.getSettings().doSendNotifications){
+			for(Event event : EventUtil.allAttendanceEvents.stream().map((val) -> Data.getEventFromID(val)).collect(Collectors.toSet())){
+
+				if(DateTime.now().isBefore(event.startTime.minusMinutes(Integer.valueOf(SettingsUtil.SINGLETON.getSettings().notifyMeTime.split(" ")[0])))){
+					androidx.work.Data.Builder builder = new androidx.work.Data.Builder();
+
+					androidx.work.Data inputData = builder.putString("event", event.toString())
+							.putString("location", (Data.locationForID.get(event.locationID) != null) ? Data.locationForID.get(event.locationID).toString() : "-1|||")
+							.build();
+
+					OneTimeWorkRequest notificationWork = new OneTimeWorkRequest.Builder(NotifyWorker.class)
+							.setInitialDelay(Data.getDelayUntilDateInMilliseconds(event.startTime.minusMinutes(Integer.valueOf(SettingsUtil.SINGLETON.getNotificationTimeBeforeEvent().split(" ")[0]))), TimeUnit.MILLISECONDS)
+							.setInputData(inputData)
+							.addTag(Data.NOTIFICATION_TAG)
+							.build();
+
+					WorkManager.getInstance(this).enqueue(notificationWork);
+				}
+			}
 		}
 	}
 }

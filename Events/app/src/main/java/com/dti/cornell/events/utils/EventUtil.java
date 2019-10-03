@@ -284,11 +284,11 @@ public class EventUtil {
                 pictureID = media.getJSONObject(media.length()-1).getString("link");
 //                pictureID = "https://i." + pictureID.split("amazonaws.com/")[1].split("https://")[1] + "/image.png";
             } else {
-                pictureID = "https://dti-events-public.s3.amazonaws.com/user_media/8/20190913_070435_Gray Square.png";
+                pictureID = "";
 //                pictureID = "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/1024px-No_image_available.svg.png";
             }
 
-            Event event = new Event(id, startDateTime, endDateTime, name, description, location,
+            Event event = new Event(id, startDateTime, endDateTime, name, description, locID,
                     googlePlaceID, ImmutableList.copyOf(new ArrayList<String>()), pictureID, organizerID, ImmutableList.copyOf(tagIDs), numAttendees);
 
             return event;

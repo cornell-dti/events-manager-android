@@ -5,6 +5,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.dti.cornell.events.models.Event;
+import com.dti.cornell.events.models.Location;
 import com.dti.cornell.events.models.Organization;
 import com.dti.cornell.events.utils.Data;
 import com.dti.cornell.events.utils.Internet;
@@ -43,7 +44,8 @@ public class EventCardViewHolder extends RecyclerView.ViewHolder implements View
 	{
 		this.event = event;
 		title.setText(event.title);
-		location.setText(event.location);
+		Location loc = Data.locationForID.get(event.locationID);
+		location.setText((loc != null ? loc.room + ", ": "") + (loc != null ? loc.building : ""));
 		month.setText(event.startTime.toString("MMM"));
 		day.setText(event.startTime.toString("d"));
 		startTime.setText(event.startTime.toString("h:mm a"));

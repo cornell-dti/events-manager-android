@@ -19,7 +19,7 @@ public class OrganizationUtil {
         if(!organizationsLoaded){
             Log.e("ORGS", "Orgs have not yet been loaded! You can't add an org to the list unless" +
                     "the orgs are loaded!");
-            //Needs context to load. Must call loadOrganizations() from activity.
+            //Needs context to load. Must call loadFollowedOrganizations() from activity.
             return;
         }
         if(followedOrganizations.contains(orgID)){
@@ -33,7 +33,7 @@ public class OrganizationUtil {
         if(!organizationsLoaded){
             Log.e("ORGS", "Orgs have not yet been loaded! You can't remove an org from the list unless" +
                     "the orgs are loaded!");
-            //Needs context to load. Must call loadOrganizations() from activity.
+            //Needs context to load. Must call loadFollowedOrganizations() from activity.
             return;
         }
         if(followedOrganizations.contains(orgID)){

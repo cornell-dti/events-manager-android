@@ -1,6 +1,7 @@
 package com.dti.cornell.events.utils;
 
 import com.dti.cornell.events.models.Event;
+import com.dti.cornell.events.models.Location;
 import com.dti.cornell.events.models.Organization;
 
 import org.joda.time.DateTime;
@@ -78,10 +79,12 @@ public class SearchUtil {
     private static boolean eventIsRelatedToSearch(Event e, String search){
         String searchL = search.toLowerCase();
         String[] searchSplits = searchL.split("\\s+");
+        Location loc = Data.locationForID.get(e.locationID);
         for(String searchLC : searchSplits){
             if(cleanString(e.title).contains(searchLC)
                     || cleanString(e.description).contains(searchLC)
-                    || cleanString(e.location).contains(searchLC)
+                    || cleanString(loc.room).contains(searchLC)
+                    || cleanString(loc.building).contains(searchLC)
                     || cleanString(Data.organizationForID.get(e.organizerID).name).contains(searchLC)){
                 return true;
             }

@@ -20,7 +20,7 @@ public class Event implements Comparable<Event>
 	public final DateTime endTime;
 	public final String title;
 	public final String description;
-	public final String location;
+	public final int locationID;
 	public final String googlePlaceID;
 	public final ImmutableList<String> participantIDs;
 	public int numAttendees;
@@ -29,7 +29,7 @@ public class Event implements Comparable<Event>
 	public final ImmutableList<Integer> tagIDs;
 	private static final String TAG = Event.class.getSimpleName();
 
-	public Event(int id, DateTime startTime, DateTime endTime, String title, String description, String location, String googlePlaceID, ImmutableList<String> participantIDs, String pictureID, int organizerID, ImmutableList<Integer> tagIDs
+	public Event(int id, DateTime startTime, DateTime endTime, String title, String description, int locationID, String googlePlaceID, ImmutableList<String> participantIDs, String pictureID, int organizerID, ImmutableList<Integer> tagIDs
 	, int numAttendees)
 	{
 		this.id = id;
@@ -37,7 +37,7 @@ public class Event implements Comparable<Event>
 		this.endTime = endTime;
 		this.title = title;
 		this.description = description;
-		this.location = location;
+		this.locationID = locationID;
 		this.googlePlaceID = googlePlaceID;
 		this.participantIDs = participantIDs;
 		this.pictureID = pictureID;
@@ -53,7 +53,7 @@ public class Event implements Comparable<Event>
 				endTime + ToStringUtil.FIELD_SEPARATOR +
 				title + ToStringUtil.FIELD_SEPARATOR +
 				description + ToStringUtil.FIELD_SEPARATOR +
-				location + ToStringUtil.FIELD_SEPARATOR +
+				locationID + ToStringUtil.FIELD_SEPARATOR +
 				googlePlaceID + ToStringUtil.FIELD_SEPARATOR +
 				TextUtils.join(ToStringUtil.ARRAY_SEPARATOR, participantIDs) + ToStringUtil.FIELD_SEPARATOR +
 				pictureID + ToStringUtil.FIELD_SEPARATOR +
@@ -70,7 +70,7 @@ public class Event implements Comparable<Event>
 		DateTime end = DateTime.parse(values[2]);
 		String title = values[3];
 		String description = values[4];
-		String location = values[5];
+		Integer locationID = Integer.valueOf(values[5]);
 		String placeID = values[6];
 		ImmutableList<String> participantIDs = ToStringUtil.listFromString(values[7]);
 		String pictureID = values[8];
@@ -82,7 +82,7 @@ public class Event implements Comparable<Event>
 		} else {
 			tagIDs = ImmutableList.of();
 		}
-		return new Event(id, start, end, title, description, location, placeID, participantIDs, pictureID, organizerID, tagIDs, numAttendees);
+		return new Event(id, start, end, title, description, locationID, placeID, participantIDs, pictureID, organizerID, tagIDs, numAttendees);
 	}
 
 	@Override

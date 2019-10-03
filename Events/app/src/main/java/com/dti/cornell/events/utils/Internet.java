@@ -250,7 +250,7 @@ public class Internet {
 			@Override
 			public void onResponse(JSONObject response) {
 				JSONArray photos;
-				String orgProfilePicURL = "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/1024px-No_image_available.svg.png";
+				String orgProfilePicURL = "";
 				try {
 					String email = response.getString("email");
 					Organization newOrg = org;
@@ -288,7 +288,7 @@ public class Internet {
 								Data.bitmapForURL.put(orgProfilePicURLFinal, bitmap);
 							}
 						}
-					}, "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/1024px-No_image_available.svg.png").execute();
+					}, "").execute();
 				} catch (JSONException e) {
 					Log.e(TAG, "Could not get orgProfilePic");
 					e.printStackTrace();
@@ -318,7 +318,7 @@ public class Internet {
 			@Override
 			public void onResponse(JSONObject response) {
 				JSONArray photos;
-				String orgProfilePicURL = "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/1024px-No_image_available.svg.png";
+				String orgProfilePicURL = "";
 				try {
 					photos = response.getJSONArray("photo");
 					for(int i = 0; i < photos.length(); i++){
@@ -350,7 +350,7 @@ public class Internet {
 							}
 							progress.setVisibility(View.INVISIBLE);
 						}
-					}, "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/1024px-No_image_available.svg.png").execute();
+					}, "").execute();
 				} catch (JSONException e) {
 					Log.e(TAG, "Could not get orgProfilePic");
 					e.printStackTrace();
@@ -451,7 +451,7 @@ public class Internet {
 					Data.bitmapForURL.put(event.pictureID, bitmap);
 				}
 			}
-		}, "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/1024px-No_image_available.svg.png").execute();
+		}, "").execute();
 	}
 
 	/**
@@ -482,7 +482,7 @@ public class Internet {
 				}
 				progress.setVisibility(View.INVISIBLE);
 			}
-		}, "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/1024px-No_image_available.svg.png").execute();
+		}, "").execute();
 	}
 
 	private static class GetImage extends AsyncTask<Void, Void, Bitmap>
@@ -582,13 +582,27 @@ public class Internet {
 	// LOCATION HANDLER END
 
 
-
-	//
-
 	/**
 	 * Try to download image from the internet to the given {@link ImageView}.
 	 *
 	 */
+	public static void getSingleEvent(final int eventID, Callback<Event> callback)
+	{
+		JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET,
+				DATABASE + "event/" + eventID + "/",
+				null, new Response.Listener<JSONObject>() {
+			@Override
+			public void onResponse(JSONObject response) {
+				Event e = EventUtil.eventFromJSON(response);
+				Data.eventForID.put(e.id, e);
+				Data.emitEventUpdate();
+				callback.execute(e);
+			}
+		}, ERROR_LISTENER);
+		requestQueue.add(request);
+	}
+
+
 	public static void getSingleOrganization(final int orgID, Callback<Organization> callback)
 	{
 		if(Data.organizationForID.containsKey(orgID)){
@@ -600,7 +614,7 @@ public class Internet {
 			@Override
 			public void onResponse(JSONObject response) {
 				JSONArray photos;
-				String orgProfilePicURL = "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/1024px-No_image_available.svg.png";
+				String orgProfilePicURL = "";
 				try {
 					String email = response.getString("email");
 					String name = response.getString("name");
@@ -653,7 +667,7 @@ public class Internet {
 								Data.bitmapForURL.put(orgProfilePicURLFinal, bitmap);
 							}
 						}
-					}, "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/1024px-No_image_available.svg.png").execute();
+					}, "").execute();
 				} catch (JSONException e) {
 					Log.e(TAG, "Could not get orgProfilePic");
 					e.printStackTrace();

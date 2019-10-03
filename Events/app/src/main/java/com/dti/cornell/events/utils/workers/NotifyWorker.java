@@ -6,13 +6,17 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Build;
 import android.util.Log;
 
 import com.dti.cornell.events.DetailsActivity;
 import com.dti.cornell.events.R;
 import com.dti.cornell.events.models.Event;
+import com.dti.cornell.events.models.Location;
 import com.dti.cornell.events.utils.Data;
+
+import org.joda.time.format.DateTimeFormat;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.NotificationCompat;
@@ -24,11 +28,15 @@ import static android.content.Context.NOTIFICATION_SERVICE;
 public class NotifyWorker extends Worker {
 
     Event e;
+    Location loc;
     Context context;
 
     public NotifyWorker(@NonNull Context context, @NonNull WorkerParameters params) {
         super(context, params);
         this.e = Event.fromString(this.getInputData().getString("event"));
+        Log.e("NOTIFYWORKER", this.getInputData().getString("location"));
+        this.loc = Location.fromString(this.getInputData().getString("location"));
+        Log.e("NOTIFYWORKER", this.loc.toString());
         this.context = context;
     }
 
@@ -63,9 +71,10 @@ public class NotifyWorker extends Worker {
             PendingIntent pi = PendingIntent.getActivity(context, 0, intent, 0);
             Notification notification = new NotificationCompat.Builder(context, Data.NOTIFICATION_TAG)
                     .setTicker(e.title)
-                    .setSmallIcon(R.drawable.ic_launcher)
+                    .setSmallIcon(R.drawable.ic_notification)
+                    .setColor(Color.parseColor("#E84646"))
                     .setContentTitle(e.title)
-                    .setContentText(e.description)
+                    .setContentText(e.startTime.toString(DateTimeFormat.shortTime()) + " - " + loc.room + ", " + loc.building)
                     .setContentIntent(pi)
                     .setAutoCancel(true)
                     .build();

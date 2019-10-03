@@ -134,33 +134,35 @@
 		<TextView
 			android:id="@+id/notifyMe"
 			style="@style/P2"
-			android:layout_width="0dp"
+			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:layout_marginTop="@dimen/spacing_l"
 			android:text="@string/settings_notify_me"
 			app:layout_constraintLeft_toLeftOf="@+id/leftGuide"
-			app:layout_constraintRight_toRightOf="@+id/rightGuide"
 			app:layout_constraintTop_toBottomOf="@+id/reminders" />
-
-		<TextView
-			android:id="@+id/notifyMeAmount"
-			style="@style/P2"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:textColor="@color/colorAccent"
-			app:layout_constraintBottom_toBottomOf="@+id/notifyMe"
-			app:layout_constraintRight_toRightOf="@+id/rightGuide"
-			app:layout_constraintTop_toTopOf="@+id/notifyMe"
-			tools:text="1 hour before" />
 
 		<Spinner
 			android:id="@+id/spinner"
-			android:layout_width="0dp"
-			android:layout_height="wrap_content"
-			android:visibility="gone"
+			android:layout_width="0sp"
+			android:layout_height="0sp"
+			android:spinnerMode="dropdown"
+			android:visibility="invisible"
+			app:layout_constraintBottom_toBottomOf="parent"
 			app:layout_constraintEnd_toStartOf="@+id/rightGuide"
-			app:layout_constraintStart_toStartOf="@+id/leftGuide"
-			app:layout_constraintTop_toBottomOf="@+id/notifyMe" />
+			app:layout_constraintTop_toTopOf="@+id/notifyMe" />
+
+		<TextView
+			android:id="@+id/notifyMeTime"
+			style="@style/P2"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="45 Minutes Before"
+			android:textColor="@color/colorAccent"
+			android:textStyle="bold"
+			app:layout_constraintBottom_toBottomOf="@+id/spinner"
+			app:layout_constraintEnd_toStartOf="@+id/spinner"
+			app:layout_constraintRight_toRightOf="@+id/rightGuide"
+			app:layout_constraintTop_toTopOf="@+id/spinner" />
 
 	</androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

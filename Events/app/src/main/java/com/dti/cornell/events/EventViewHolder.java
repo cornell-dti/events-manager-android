@@ -5,6 +5,8 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.dti.cornell.events.models.Event;
+import com.dti.cornell.events.models.Location;
+import com.dti.cornell.events.utils.Data;
 import com.dti.cornell.events.utils.TagUtil;
 
 import androidx.recyclerview.widget.RecyclerView;
@@ -38,7 +40,8 @@ class EventViewHolder extends RecyclerView.ViewHolder implements View.OnClickLis
 		startTime.setText(event.startTime.toString("hh:mm a"));
 		endTime.setText(event.endTime.toString("hh:mm a"));
 		title.setText(event.title);
-		location.setText(event.location);
+		Location loc = Data.locationForID.get(event.locationID);
+		location.setText(loc.room + ", " + loc.building);
 		friendsGoing.setText(Integer.toString(event.numAttendees));
 	}
 

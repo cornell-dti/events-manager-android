@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TextView
-	xmlns:android="http://schemas.android.com/apk/res/android"
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:tools="http://schemas.android.com/tools"
+	style="@style/P2"
 	android:layout_width="wrap_content"
 	android:layout_height="@dimen/tag_height"
+	android:background="@drawable/bg_round_button_red"
+	android:clickable="true"
+	android:elevation="2dp"
+	android:gravity="center"
 	android:paddingLeft="@dimen/spacing_xxl"
 	android:paddingRight="@dimen/spacing_xxl"
-	android:background="@drawable/bg_round_button_red"
 	android:textColor="#FFFFFF"
-	android:gravity="center"
-	android:clickable="true"
-	style="@style/P2"
-	tools:text="#randomTag"/>
+	tools:text="#randomTag" />

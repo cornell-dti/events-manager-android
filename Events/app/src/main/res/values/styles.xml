@@ -54,6 +54,19 @@
 		<item name="android:textSize">12sp</item>
 		<item name="android:textColor">@color/charcoal</item>
 	</style>
+	<style name="H2Bold" parent="@android:style/TextAppearance.Material.Headline">
+		<item name="android:fontFamily">@font/text_bold</item>
+		<item name="android:textStyle">bold</item>
+		<item name="android:textSize">15sp</item>
+		<item name="android:textColor">@color/charcoal</item>
+	</style>
+
+	<style name="OrgName" parent="@android:style/TextAppearance.Material.Headline">
+		<item name="android:fontFamily">@font/display_bold</item>
+		<item name="android:textSize">15sp</item>
+		<item name="android:textStyle">bold</item>
+		<item name="android:textColor">@color/quantum_grey700</item>
+	</style>
 
 	<!--<style name="mainButton" parent="P1">-->
 		<!--<item name="android:clickable">true</item>-->

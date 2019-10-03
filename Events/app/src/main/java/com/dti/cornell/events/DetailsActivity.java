@@ -14,7 +14,9 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.dti.cornell.events.models.Event;
+import com.dti.cornell.events.models.Location;
 import com.dti.cornell.events.models.Organization;
+import com.dti.cornell.events.utils.Callback;
 import com.dti.cornell.events.utils.Data;
 import com.dti.cornell.events.utils.EventUtil;
 import com.dti.cornell.events.utils.Internet;
@@ -32,9 +34,11 @@ import com.google.android.libraries.places.api.net.PlacesClient;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.app.ShareCompat;
 import androidx.recyclerview.widget.RecyclerView;
@@ -60,6 +64,8 @@ public class DetailsActivity extends AppCompatActivity implements OnMapReadyCall
 	private TextView bookmarkedButton;
 	private TextView tagsText;
 	private ProgressBar imageLoadingBar;
+	private CardView mapCard;
+	private View map;
 	private boolean isBookmarked;
 	public ImageView image;
 	private ConstraintLayout imageAndButtons;
@@ -96,11 +102,19 @@ public class DetailsActivity extends AppCompatActivity implements OnMapReadyCall
 
 		//get the event
 		event = Event.fromString(getIntent().getExtras().getString(EVENT_KEY));
+		Internet.getSingleEvent(event.id, new Callback<Event>() {
+			@Override
+			public void execute(Event event) {
+				configure(event);
+			}
+		});
 		findViews();
 
 		configure(event);
 
-		organization.setPaintFlags(organization.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
+		if(Data.organizationForID.get(event.organizerID) != null && !Data.organizationForID.get(event.organizerID).email.equalsIgnoreCase("donotdisplay@cornell.edu")){
+			organization.setPaintFlags(organization.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
+		}
 	}
 
 	private void setStatusBarTranslucent()
@@ -126,6 +140,12 @@ public class DetailsActivity extends AppCompatActivity implements OnMapReadyCall
 		moreButtonGradient = findViewById(R.id.moreButtonGradient);
 		imageLoadingBar = findViewById(R.id.imageLoadingBar);
 		tagsText = findViewById(R.id.tags);
+		map = findViewById(R.id.map);
+		mapCard = findViewById(R.id.toolbarImageContainer);
+		if(event.googlePlaceID.isEmpty() || event.googlePlaceID.equalsIgnoreCase("null") || event.googlePlaceID == null){
+			map.setVisibility(View.GONE);
+			mapCard.setVisibility(View.GONE);
+		}
 		findViewById(R.id.back).setOnClickListener(this);
 		findViewById(R.id.share).setOnClickListener(this);
 
@@ -156,7 +176,8 @@ public class DetailsActivity extends AppCompatActivity implements OnMapReadyCall
 			Data.getData();
 		}
 		organization.setText(Data.organizationForID.containsKey(event.organizerID) ? Data.organizationForID.get(event.organizerID).name : "No organization available");
-		location.setText(event.location);
+		Location loc = Data.locationForID.get(event.locationID);
+		location.setText(loc.room + ", " + loc.building);
 
 		TagAdapter adapter = new TagAdapter(this, event.tagIDs, false);
 		tagRecycler.setAdapter(adapter);
@@ -232,7 +253,7 @@ public class DetailsActivity extends AppCompatActivity implements OnMapReadyCall
 			placeAddress = place.getAddress();
 			LatLng position = place.getLatLng();
 			map.moveCamera(CameraUpdateFactory.newLatLngZoom(position, MAP_ZOOM));
-			map.addMarker(new MarkerOptions().position(position).title(event.location));
+			map.addMarker(new MarkerOptions().position(position).title(Data.locationForID.get(event.locationID).building));
 		}).addOnFailureListener((exception) -> {
 			Log.e(TAG, "Error on PlaceID fetch request: " + exception.getMessage());
 		});
@@ -315,6 +336,14 @@ public class DetailsActivity extends AppCompatActivity implements OnMapReadyCall
 
 	@Override
 	public void eventUpdate(List<Event> e) {
+		String eventString = event.toString();
+		List<Event> findEventRes = e.stream().filter((val) -> val.toString().equalsIgnoreCase(eventString)).collect(Collectors.toList());
+		List<Event> findEventIDRes = e.stream().filter((val) -> val.id == event.id).collect(Collectors.toList());
+		if(findEventIDRes.size() > 0 && findEventRes.size() == 0){
+			Event newEvent = findEventIDRes.get(0);
+			this.event = newEvent;
+			this.configure(newEvent);
+		}
 		organization.setText(Data.organizationForID.containsKey(event.organizerID) ? Data.organizationForID.get(event.organizerID).name : "No organization available");
 	}
 

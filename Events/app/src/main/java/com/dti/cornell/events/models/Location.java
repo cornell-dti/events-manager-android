@@ -10,8 +10,8 @@ public class Location {
     public String room;
     public String building;
     public String placeID;
-    public float xCoord;
-    public float yCoord;
+
+    private static String SEPARATOR = ">>";
 
 
     public Location(int id, String room, String building, String placeID){
@@ -19,6 +19,23 @@ public class Location {
         this.room = room;
         this.building = building;
         this.placeID = placeID;
+    }
+
+    public String toString(){
+        String res = id + SEPARATOR +
+                room + SEPARATOR +
+                building + SEPARATOR
+                + placeID;
+        return res;
+    }
+
+    public static Location fromString(String locString){
+        String[] splits = locString.split(SEPARATOR);
+        int id = Integer.valueOf(splits[0]);
+        String room = splits[1];
+        String building = splits[2];
+        String placeID = splits[3];
+        return new Location(id, room, building, placeID);
     }
 
 }

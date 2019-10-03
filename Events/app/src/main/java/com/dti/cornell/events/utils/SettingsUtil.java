@@ -6,6 +6,7 @@ import android.preference.PreferenceManager;
 import android.util.Log;
 
 import com.dti.cornell.events.models.Event;
+import com.dti.cornell.events.models.Location;
 import com.dti.cornell.events.models.Organization;
 import com.dti.cornell.events.models.Settings;
 
@@ -37,6 +38,8 @@ public class SettingsUtil
 	private static final String TOKEN = "token";
 	private static final String IMAGE_URL = "imageURL";
 	private static final String NOTIFICATION_TIME_BEFORE_EVENT = "notifTimeBeforeEvent";
+	private static final String SETTINGS = "settingsObject";
+	private static final String LOCATIONS = "locations";
 
 	private SettingsUtil(Context context)
 	{
@@ -62,21 +65,30 @@ public class SettingsUtil
 				.apply();
 	}
 
-	public String getNotificationTimeBeforeEvent()
-	{
-		//default = oldest possible time
-		String notificationSetting = settings.getString(NOTIFICATION_TIME_BEFORE_EVENT, "null");
-		if(notificationSetting.equalsIgnoreCase("null")){
-			return "15";
+	public Settings getSettings(){
+		if(settingsObject == null){
+			String settingsString = settings.getString(SETTINGS, "null");
+			if(settingsString.equalsIgnoreCase("null")){
+				return new Settings("15 Minutes Before", true);
+			}
+			this.settingsObject = Settings.fromString(settingsString);
+			return settingsObject;
 		} else {
-			return notificationSetting;
+			return settingsObject;
 		}
 	}
-	public void setNotificationTimeBeforeEvent(String date)
+
+	public void setSettings(Settings settingsObject){
+		this.settingsObject = settingsObject;
+		settings.edit().putString(SETTINGS, settingsObject.toString()).apply();
+	}
+
+	public String getNotificationTimeBeforeEvent()
 	{
-		settings.edit()
-				.putString(NOTIFICATION_TIME_BEFORE_EVENT, date)
-				.apply();
+		if(this.settingsObject == null){
+			return this.getSettings().notifyMeTime;
+		}
+		return settingsObject.notifyMeTime;
 	}
 
 	public Map<Integer, Event> getEvents()
@@ -190,21 +202,51 @@ public class SettingsUtil
 				.apply();
 	}
 
-	public Settings getSettingsObject(){
-		return this.settingsObject;
-	}
-
 
 	// LOADING & SAVING FROM MAINACTIVITY
 
 	public void loadSettings(){
-		String settingsString = settings.getString("SETTINGS", "45 Minutes Before");
+		String settingsString = settings.getString("SETTINGS", "15 Minutes Before>>true");
 		Settings loadedSettings = Settings.fromString(settingsString);
 		this.settingsObject = loadedSettings;
 	}
 
 	public void saveSettings(Settings s){
 		settings.edit().putString("SETTINGS", s.toString()).apply();
+	}
+
+	public void saveOrgs()
+	{
+		HashSet<String> orgStrings = new HashSet<String>();
+		for(Organization o : Data.organizationForID.values()){
+			orgStrings.add(o.toString());
+		}
+		setStringSet(orgStrings, ORGANIZATIONS);
+	}
+
+	public void loadOrgs(){
+		Set<String> orgStringSet = settings.getStringSet(ORGANIZATIONS, new HashSet<>());
+		Set<Organization> orgs = orgStringSet.stream().map((val) -> Organization.fromString(val)).collect(Collectors.toSet());
+		for(Organization o : orgs){
+			Data.organizationForID.put(o.id, o);
+		}
+	}
+
+	public void saveLocations()
+	{
+		HashSet<String> locStrings = new HashSet<String>();
+		for(Location l : Data.locationForID.values()){
+			locStrings.add(l.toString());
+		}
+		setStringSet(locStrings, LOCATIONS);
+	}
+
+	public void loadLocations(){
+		Set<String> locStringSet = settings.getStringSet(LOCATIONS, new HashSet<>());
+		Set<Location> locs = locStringSet.stream().map((val) -> Location.fromString(val)).collect(Collectors.toSet());
+		for(Location l : locs){
+			Data.locationForID.put(l.id, l);
+		}
 	}
 
 
@@ -236,7 +278,7 @@ public class SettingsUtil
 		TagUtil.tagsLoaded = true;
 	}
 
-	public void loadOrganizations(){
+	public void loadFollowedOrganizations(){
 		SharedPreferences sp = settings;
 		String toBeDecoded = sp.getString("ORGANIZATION_STRING", "DEFAULT");
 		if(toBeDecoded.equalsIgnoreCase("DEFAULT")){

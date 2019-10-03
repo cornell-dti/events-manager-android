@@ -18,12 +18,14 @@
 			android:id="@+id/image"
 			android:layout_width="0dp"
 			android:layout_height="0dp"
-			tools:background="@color/gray"
-			app:layout_constraintDimensionRatio="2:1"
+			android:background="@color/unloadedGray"
+			android:scaleType="centerCrop"
 			app:layout_constraintBottom_toTopOf="@+id/title"
+			app:layout_constraintDimensionRatio="2"
 			app:layout_constraintEnd_toEndOf="parent"
 			app:layout_constraintStart_toStartOf="parent"
-			app:layout_constraintTop_toTopOf="parent" />
+			app:layout_constraintTop_toTopOf="parent"
+			tools:background="@color/gray" />
 
 		<TextView
 			android:id="@+id/title"
