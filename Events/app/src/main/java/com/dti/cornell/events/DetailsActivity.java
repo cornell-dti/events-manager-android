@@ -116,10 +116,6 @@ public class DetailsActivity extends AppCompatActivity implements OnMapReadyCall
 
 		configure(event);
 
-		boolean isBooked = Boolean.valueOf(getIntent().getExtras().getString("isBookmarked") != null ? getIntent().getExtras().getString("isBookmarked") : "false");
-		this.isBookmarked = true;
-		this.setBookmarkedButtonState();
-
 		if(Data.organizationForID.get(event.organizerID) != null && !Data.organizationForID.get(event.organizerID).email.equalsIgnoreCase("donotdisplay@cornell.edu")){
 			organization.setPaintFlags(organization.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
 		}
