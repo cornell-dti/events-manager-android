@@ -18,6 +18,7 @@ import com.dti.cornell.events.models.Location;
 import com.dti.cornell.events.models.Organization;
 import com.dti.cornell.events.utils.Callback;
 import com.dti.cornell.events.utils.Data;
+import com.dti.cornell.events.utils.EventBusUtils;
 import com.dti.cornell.events.utils.EventUtil;
 import com.dti.cornell.events.utils.Internet;
 import com.dti.cornell.events.utils.RecyclerUtil;
@@ -107,11 +108,17 @@ public class DetailsActivity extends AppCompatActivity implements OnMapReadyCall
 			@Override
 			public void execute(Event event) {
 				configure(event);
+				EventBusUtils.SINGLETON.post(new EventBusUtils.NotificationUpdate());
 			}
 		});
+
 		findViews();
 
 		configure(event);
+
+		boolean isBooked = Boolean.valueOf(getIntent().getExtras().getString("isBookmarked") != null ? getIntent().getExtras().getString("isBookmarked") : "false");
+		this.isBookmarked = true;
+		this.setBookmarkedButtonState();
 
 		if(Data.organizationForID.get(event.organizerID) != null && !Data.organizationForID.get(event.organizerID).email.equalsIgnoreCase("donotdisplay@cornell.edu")){
 			organization.setPaintFlags(organization.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
@@ -195,7 +202,7 @@ public class DetailsActivity extends AppCompatActivity implements OnMapReadyCall
 		}
 		organization.setText(Data.organizationForID.containsKey(event.organizerID) ? Data.organizationForID.get(event.organizerID).name : "No organization available");
 		Location loc = Data.locationForID.get(event.locationID);
-		location.setText(loc.room + ", " + loc.building);
+		location.setText(loc == null ? "Loading..." : loc.room + ", " + loc.building);
 
 		TagAdapter adapter = new TagAdapter(this, event.tagIDs, false);
 		tagRecycler.setAdapter(adapter);
@@ -210,6 +217,7 @@ public class DetailsActivity extends AppCompatActivity implements OnMapReadyCall
 
 		bookmarkedButton.setOnClickListener(this);
 		isBookmarked = EventUtil.userHasBookmarked(event.id);
+		this.setBookmarkedButtonState();
 
 		configureDescription();
 
@@ -336,6 +344,7 @@ public class DetailsActivity extends AppCompatActivity implements OnMapReadyCall
 					numGoing.setText(getString(R.string.numGoing, this.event.numAttendees));
 					Data.eventForID.put(this.event.id, this.event);
 				}
+				EventBusUtils.SINGLETON.post(new EventBusUtils.NotificationUpdate());
 				break;
 		}
 	}
@@ -379,7 +388,7 @@ public class DetailsActivity extends AppCompatActivity implements OnMapReadyCall
 	public void singleEventUpdate(Event e) {
 		if(this.event.id == e.id){
 			this.configure(e);
+			EventBusUtils.SINGLETON.post(new EventBusUtils.NotificationUpdate());
 		}
-		Log.e("DATA", "EVENT UPDATE SINGLE CALLED");
 	}
 }

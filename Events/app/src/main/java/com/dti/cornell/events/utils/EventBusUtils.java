@@ -49,9 +49,9 @@ public class EventBusUtils
 		}
 	}
 
-	public static final class NotificationTimeChanged
+	public static final class NotificationUpdate
 	{
-		public NotificationTimeChanged() {
+		public NotificationUpdate() {
 		}
 	}
 

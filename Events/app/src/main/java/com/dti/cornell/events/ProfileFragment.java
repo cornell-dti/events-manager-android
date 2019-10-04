@@ -80,7 +80,7 @@ public class ProfileFragment extends Fragment implements Data.DataUpdateListener
 
                         androidx.work.Data inputData = builder.putString("event", event.toString())
                                 .putString("location", (Data.locationForID.get(event.locationID) != null) ? Data.locationForID.get(event.locationID).toString() : "-1|||")
-                                .build();
+								.build();
 
 						OneTimeWorkRequest notificationWork = new OneTimeWorkRequest.Builder(NotifyWorker.class)
 								.setInitialDelay(Data.getDelayUntilDateInMilliseconds(event.startTime.minusMinutes(Integer.valueOf(SettingsUtil.SINGLETON.getNotificationTimeBeforeEvent().split(" ")[0]))), TimeUnit.MILLISECONDS)
@@ -110,7 +110,7 @@ public class ProfileFragment extends Fragment implements Data.DataUpdateListener
 
                         androidx.work.Data inputData = builder.putString("event", event.toString())
                                 .putString("location", (Data.locationForID.get(event.locationID) != null) ? Data.locationForID.get(event.locationID).toString() : "-1|||")
-                                .build();
+								.build();
 
 						OneTimeWorkRequest notificationWork = new OneTimeWorkRequest.Builder(NotifyWorker.class)
 								.setInitialDelay(Data.getDelayUntilDateInMilliseconds(event.startTime.minusMinutes(Integer.valueOf(SettingsUtil.SINGLETON.getNotificationTimeBeforeEvent().split(" ")[0]))), TimeUnit.MILLISECONDS)
@@ -147,7 +147,7 @@ public class ProfileFragment extends Fragment implements Data.DataUpdateListener
 				newSettings.notifyMeTime = items[i];
 				newSettings.doSendNotifications = reminderSwitch.isChecked();
 				SettingsUtil.SINGLETON.setSettings(newSettings);
-				EventBusUtils.SINGLETON.post(new EventBusUtils.NotificationTimeChanged());
+				EventBusUtils.SINGLETON.post(new EventBusUtils.NotificationUpdate());
 			}
 
 			@Override
@@ -164,7 +164,7 @@ public class ProfileFragment extends Fragment implements Data.DataUpdateListener
 			reminderSwitch.setChecked(true);
 			Settings newSettings = new Settings("15 Minutes Before", true);
 			SettingsUtil.SINGLETON.setSettings(newSettings);
-			EventBusUtils.SINGLETON.post(new EventBusUtils.NotificationTimeChanged());
+			EventBusUtils.SINGLETON.post(new EventBusUtils.NotificationUpdate());
 
 		}
 
@@ -175,7 +175,7 @@ public class ProfileFragment extends Fragment implements Data.DataUpdateListener
 				newSettings.doSendNotifications = b;
 				newSettings.notifyMeTime = items[Math.max(dropdown.getSelectedItemPosition(), 0)];
 				SettingsUtil.SINGLETON.setSettings(newSettings);
-				EventBusUtils.SINGLETON.post(new EventBusUtils.NotificationTimeChanged());
+				EventBusUtils.SINGLETON.post(new EventBusUtils.NotificationUpdate());
 			}
 		});
 		reminderSwitch.setChecked(SettingsUtil.SINGLETON.getSettings().doSendNotifications);

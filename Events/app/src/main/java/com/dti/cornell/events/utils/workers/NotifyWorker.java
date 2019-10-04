@@ -15,6 +15,7 @@ import com.dti.cornell.events.R;
 import com.dti.cornell.events.models.Event;
 import com.dti.cornell.events.models.Location;
 import com.dti.cornell.events.utils.Data;
+import com.dti.cornell.events.utils.SettingsUtil;
 
 import org.joda.time.format.DateTimeFormat;
 
@@ -67,6 +68,10 @@ public class NotifyWorker extends Worker {
 
             Intent intent = new Intent(context, DetailsActivity.class);
             intent.putExtra(DetailsActivity.EVENT_KEY, e.toString());
+
+            SettingsUtil.createSingleton(context);
+            SettingsUtil.SINGLETON.loadAttendance();
+            SettingsUtil.SINGLETON.loadLocations();
 
             PendingIntent pi = PendingIntent.getActivity(context, 0, intent, 0);
             Notification notification = new NotificationCompat.Builder(context, Data.NOTIFICATION_TAG)

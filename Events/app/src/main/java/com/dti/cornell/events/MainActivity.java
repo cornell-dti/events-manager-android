@@ -725,7 +725,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 	}
 
 	@Subscribe
-	public void onNotificationTimeChanged(EventBusUtils.NotificationTimeChanged notifChange)
+	public void onNotificationUpdate(EventBusUtils.NotificationUpdate notifChange)
 	{
 		WorkManager.getInstance(this).cancelAllWorkByTag(Data.NOTIFICATION_TAG);
 		if(SettingsUtil.SINGLETON.getSettings().doSendNotifications){
@@ -743,6 +743,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 							.setInputData(inputData)
 							.addTag(Data.NOTIFICATION_TAG)
 							.build();
+
 
 					WorkManager.getInstance(this).enqueue(notificationWork);
 				}
