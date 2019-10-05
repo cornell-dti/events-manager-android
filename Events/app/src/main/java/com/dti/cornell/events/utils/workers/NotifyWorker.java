@@ -15,7 +15,10 @@ import com.dti.cornell.events.R;
 import com.dti.cornell.events.models.Event;
 import com.dti.cornell.events.models.Location;
 import com.dti.cornell.events.utils.Data;
+import com.dti.cornell.events.utils.EventUtil;
+import com.dti.cornell.events.utils.OrganizationUtil;
 import com.dti.cornell.events.utils.SettingsUtil;
+import com.dti.cornell.events.utils.TagUtil;
 
 import org.joda.time.format.DateTimeFormat;
 
@@ -70,8 +73,18 @@ public class NotifyWorker extends Worker {
             intent.putExtra(DetailsActivity.EVENT_KEY, e.toString());
 
             SettingsUtil.createSingleton(context);
-            SettingsUtil.SINGLETON.loadAttendance();
             SettingsUtil.SINGLETON.loadLocations();
+            SettingsUtil.SINGLETON.loadSettings();
+            SettingsUtil.SINGLETON.loadOrgs();
+            if(!TagUtil.tagsLoaded){
+                SettingsUtil.SINGLETON.loadTags();
+            }
+            if(!OrganizationUtil.organizationsLoaded){
+                SettingsUtil.SINGLETON.loadFollowedOrganizations();
+            }
+            if(!EventUtil.attendanceLoaded){
+                SettingsUtil.SINGLETON.loadAttendance();
+            }
 
             PendingIntent pi = PendingIntent.getActivity(context, 0, intent, 0);
             Notification notification = new NotificationCompat.Builder(context, Data.NOTIFICATION_TAG)

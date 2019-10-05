@@ -73,7 +73,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 
-		EventBusUtils.SINGLETON.register(this);
+//		EventBusUtils.SINGLETON.register(this);
 		//Register for scroll event
 		EventBusUtils.SINGLETON.register(this);
 		Data.registerListener(this);
@@ -290,7 +290,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 		SettingsUtil.SINGLETON.saveAttendance();
 		SettingsUtil.SINGLETON.saveLocations();
 		SettingsUtil.SINGLETON.saveEvents(Data.events());
-//		SettingsUtil.SINGLETON.saveSettings(new Settings("15 Minutes Before", true));
         SettingsUtil.SINGLETON.saveSettings(SettingsUtil.SINGLETON.getSettings());
 		EventBusUtils.SINGLETON.unregister(this);
 		super.onStop();

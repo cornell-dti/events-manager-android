@@ -22,6 +22,7 @@ import com.dti.cornell.events.utils.EventBusUtils;
 import com.dti.cornell.events.utils.EventUtil;
 import com.dti.cornell.events.utils.Internet;
 import com.dti.cornell.events.utils.RecyclerUtil;
+import com.dti.cornell.events.utils.SettingsUtil;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
@@ -98,6 +99,7 @@ public class DetailsActivity extends AppCompatActivity implements OnMapReadyCall
 		setStatusBarTranslucent();
 		Data.registerListener((Data.DataUpdateListener)this);
 		Data.registerListener((Data.SingleEventUpdateListener)this);
+		EventBusUtils.SINGLETON.register(this);
 
 		Places.initialize(getApplicationContext(), getString(R.string.google_maps_key));
 		this.placesClient = Places.createClient(this);
@@ -387,4 +389,18 @@ public class DetailsActivity extends AppCompatActivity implements OnMapReadyCall
 			EventBusUtils.SINGLETON.post(new EventBusUtils.NotificationUpdate());
 		}
 	}
+
+	@Override
+	public void onStop(){
+		SettingsUtil.SINGLETON.saveTags();
+		SettingsUtil.SINGLETON.saveFollowedOrganizations();
+		SettingsUtil.SINGLETON.saveOrgs();
+		SettingsUtil.SINGLETON.saveAttendance();
+		SettingsUtil.SINGLETON.saveLocations();
+		SettingsUtil.SINGLETON.saveEvents(Data.events());
+		SettingsUtil.SINGLETON.saveSettings(SettingsUtil.SINGLETON.getSettings());
+		EventBusUtils.SINGLETON.unregister(this);
+		super.onStop();
+	}
+
 }
