@@ -392,13 +392,7 @@ public class DetailsActivity extends AppCompatActivity implements OnMapReadyCall
 
 	@Override
 	public void onStop(){
-		SettingsUtil.SINGLETON.saveTags();
-		SettingsUtil.SINGLETON.saveFollowedOrganizations();
-		SettingsUtil.SINGLETON.saveOrgs();
-		SettingsUtil.SINGLETON.saveAttendance();
-		SettingsUtil.SINGLETON.saveLocations();
-		SettingsUtil.SINGLETON.saveEvents(Data.events());
-		SettingsUtil.SINGLETON.saveSettings(SettingsUtil.SINGLETON.getSettings());
+		SettingsUtil.SINGLETON.doSave();
 		EventBusUtils.SINGLETON.unregister(this);
 		super.onStop();
 	}

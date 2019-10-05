@@ -23,10 +23,8 @@ import com.dti.cornell.events.utils.Data;
 import com.dti.cornell.events.utils.EventBusUtils;
 import com.dti.cornell.events.utils.EventUtil;
 import com.dti.cornell.events.utils.Internet;
-import com.dti.cornell.events.utils.OrganizationUtil;
 import com.dti.cornell.events.utils.SettingsUtil;
 import com.dti.cornell.events.utils.SpacingItemDecoration;
-import com.dti.cornell.events.utils.TagUtil;
 import com.dti.cornell.events.utils.workers.NotifyWorker;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -77,18 +75,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 		//Register for scroll event
 		EventBusUtils.SINGLETON.register(this);
 		Data.registerListener(this);
-		SettingsUtil.SINGLETON.loadSettings();
-		SettingsUtil.SINGLETON.loadLocations();
-		SettingsUtil.SINGLETON.loadOrgs();
-		if(!TagUtil.tagsLoaded){
-			SettingsUtil.SINGLETON.loadTags();
-		}
-		if(!OrganizationUtil.organizationsLoaded){
-			SettingsUtil.SINGLETON.loadFollowedOrganizations();
-		}
-		if(!EventUtil.attendanceLoaded){
-			SettingsUtil.SINGLETON.loadAttendance();
-		}
+		SettingsUtil.SINGLETON.doLoad();
 
 //		if (SettingsUtil.SINGLETON.getFirstRun())
 //			startActivity(new Intent(this, OnboardingActivity.class));
@@ -284,13 +271,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 	@Override
 	protected void onStop(){
-		SettingsUtil.SINGLETON.saveTags();
-		SettingsUtil.SINGLETON.saveFollowedOrganizations();
-		SettingsUtil.SINGLETON.saveOrgs();
-		SettingsUtil.SINGLETON.saveAttendance();
-		SettingsUtil.SINGLETON.saveLocations();
-		SettingsUtil.SINGLETON.saveEvents(Data.events());
-        SettingsUtil.SINGLETON.saveSettings(SettingsUtil.SINGLETON.getSettings());
+		SettingsUtil.doSave();
 		EventBusUtils.SINGLETON.unregister(this);
 		super.onStop();
 	}

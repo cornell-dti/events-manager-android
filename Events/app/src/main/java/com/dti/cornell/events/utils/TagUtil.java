@@ -122,6 +122,41 @@ public class TagUtil {
         return returnEvents;
     }
 
+    public static String encodeTags(){
+        StringBuilder sb = new StringBuilder();
+        boolean firstLoop = true;
+        for(Integer i : Data.tagForID.keySet()){
+            if(firstLoop){
+                sb.append(i);
+                sb.append(";");
+                sb.append(Data.tagForID.get(i));
+                firstLoop = false;
+            } else {
+                sb.append("::");
+                sb.append(i);
+                sb.append(";");
+                sb.append(Data.tagForID.get(i));
+            }
+
+        }
+        return sb.toString();
+    }
+
+    public static Map<Integer, String> decodeTags(String tagsString){
+        if(tagsString.isEmpty() || !tagsString.contains("::")){
+            return new HashMap<>();
+        }
+        String[] tagIDs = tagsString.split("::");
+        HashMap<Integer, Integer> tagIDsInts = new HashMap<>();
+        for (String tagIDAndTag : tagIDs){
+            String[] breakup = tagIDAndTag.split(";");
+            Integer tagID = Integer.valueOf(breakup[0]);
+            String tag = breakup[1];
+            Data.tagForID.put(tagID, tag);
+        }
+        return Data.tagForID;
+    }
+
     public static String encodeTagIDs(){
         StringBuilder sb = new StringBuilder();
         boolean firstLoop = true;

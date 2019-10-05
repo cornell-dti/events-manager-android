@@ -215,6 +215,19 @@ public class SettingsUtil
 		settings.edit().putString("SETTINGS", s.toString()).apply();
 	}
 
+	public void saveTagsObjs(){
+		String tagsString = TagUtil.encodeTags();
+		settings.edit().putString("TAGOBJ", tagsString).apply();
+	}
+
+	public void loadTagsObj(){
+		String encodedTag = settings.getString("TAGOBJ", "");
+		if(encodedTag.isEmpty()){
+			return;
+		}
+		TagUtil.decodeTags(encodedTag);
+	}
+
 	public void saveOrgs()
 	{
 		HashSet<String> orgStrings = new HashSet<String>();
@@ -325,6 +338,33 @@ public class SettingsUtil
 		e.putString("ATTENDANCE_STRING", EventUtil.encodeEventIDs());
 		e.commit();
 		//PreferenceManager.getDefaultSharedPreferences(context).edit().putString("ATTENDANCE_STRING", EventUtil.encodeEventIDs()).commit();
+	}
+
+	public static void doSave(){
+		SettingsUtil.SINGLETON.saveTags();
+		SettingsUtil.SINGLETON.saveFollowedOrganizations();
+		SettingsUtil.SINGLETON.saveOrgs();
+		SettingsUtil.SINGLETON.saveAttendance();
+		SettingsUtil.SINGLETON.saveLocations();
+		SettingsUtil.SINGLETON.saveTagsObjs();
+		SettingsUtil.SINGLETON.saveEvents(Data.events());
+		SettingsUtil.SINGLETON.saveSettings(SettingsUtil.SINGLETON.getSettings());
+	}
+
+	public static void doLoad(){
+		SettingsUtil.SINGLETON.loadSettings();
+		SettingsUtil.SINGLETON.loadLocations();
+		SettingsUtil.SINGLETON.loadOrgs();
+		SettingsUtil.SINGLETON.loadTagsObj();
+		if(!TagUtil.tagsLoaded){
+			SettingsUtil.SINGLETON.loadTags();
+		}
+		if(!OrganizationUtil.organizationsLoaded){
+			SettingsUtil.SINGLETON.loadFollowedOrganizations();
+		}
+		if(!EventUtil.attendanceLoaded){
+			SettingsUtil.SINGLETON.loadAttendance();
+		}
 	}
 
 }

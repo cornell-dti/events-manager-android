@@ -44,18 +44,17 @@
 			app:layout_constraintRight_toRightOf="@+id/rightGuide"
 			app:layout_constraintTop_toBottomOf="@+id/following" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/followingRecycler"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:orientation="vertical"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintLeft_toLeftOf="@+id/leftGuide"
-            app:layout_constraintRight_toRightOf="@+id/rightGuide"
-            app:layout_constraintTop_toBottomOf="@+id/followingDivider"
-            tools:itemCount="3"
-            tools:listitem="@layout/item_organization" />
+		<androidx.recyclerview.widget.RecyclerView
+			android:id="@+id/followingRecycler"
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:orientation="vertical"
+			app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+			app:layout_constraintLeft_toLeftOf="@+id/leftGuide"
+			app:layout_constraintRight_toRightOf="@+id/rightGuide"
+			app:layout_constraintTop_toBottomOf="@+id/followingDivider"
+			tools:itemCount="3"
+			tools:listitem="@layout/item_organization" />
 
 		<TextView
 			android:id="@+id/tags"

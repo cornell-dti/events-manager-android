@@ -24,6 +24,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -132,7 +133,7 @@ public class DiscoverFragment extends Fragment implements Data.DataUpdateListene
 				new CardList(getString(R.string.section_today_events), true,
 						EventUtil.getEventsBetween(DateTime.now().withTimeAtStartOfDay(), DateTime.now().plusDays(1).withTimeAtStartOfDay())),
 				new CardList(getString(R.string.section_tomorrow_events), true,
-						EventUtil.getEventsBetween(DateTime.now().plusDays(1).withTimeAtStartOfDay(), DateTime.now().plusDays(2).withTimeAtStartOfDay())));
+						EventUtil.getEventsBetween(DateTime.now().plusDays(1).withTimeAtStartOfDay(), DateTime.now().plusDays(2).withTimeAtStartOfDay()).stream().filter((val) -> !val.startTime.withTimeAtStartOfDay().isEqual(DateTime.now().withTimeAtStartOfDay())).collect(Collectors.toList())));
 		recyclerView.setAdapter(new CardSectionAdapter(recyclerView.getContext(), data, true));
 		this.recyclerView = recyclerView;
 	}

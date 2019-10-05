@@ -62,7 +62,7 @@ public class SearchUtil {
         String[] searchSplits = searchL.split("\\s+");
         for(String searchLC : searchSplits){
             if(org.name.toLowerCase().replaceAll("’","'").contains(searchLC)
-                    || org.description.toLowerCase().replaceAll("’","'").contains(searchLC)
+//                    || org.description.toLowerCase().replaceAll("’","'").contains(searchLC)
                     || org.email.toLowerCase().replaceAll("’","'").contains(searchLC)
                     || org.website.toLowerCase().replaceAll("’","'").contains(searchLC)){
                 return true;
@@ -82,7 +82,7 @@ public class SearchUtil {
         Location loc = Data.locationForID.get(e.locationID);
         for(String searchLC : searchSplits){
             if(cleanString(e.title).contains(searchLC)
-                    || cleanString(e.description).contains(searchLC)
+//                    || cleanString(e.description).contains(searchLC)
                     || cleanString(loc.room).contains(searchLC)
                     || cleanString(loc.building).contains(searchLC)
                     || cleanString(Data.organizationForID.get(e.organizerID).name).contains(searchLC)){
