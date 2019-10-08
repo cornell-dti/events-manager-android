@@ -29,7 +29,6 @@ public class EventUtil {
 //    public static List<Integer> goingEvents = new ArrayList<>();
     public static boolean attendanceLoaded = false;
 
-
     public static void setBookmarked(Integer eventID){
         if(!attendanceLoaded){
             Log.e("ATTENDANCE", "Attendance has not yet been loaded! You can't remove an event from the list unless" +

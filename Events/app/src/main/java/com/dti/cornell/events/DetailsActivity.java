@@ -29,6 +29,7 @@ import com.google.android.libraries.places.api.Places;
 import com.google.android.libraries.places.api.model.Place;
 import com.google.android.libraries.places.api.net.FetchPlaceRequest;
 import com.google.android.libraries.places.api.net.PlacesClient;
+import com.google.firebase.analytics.FirebaseAnalytics;
 
 import java.util.Arrays;
 import java.util.List;
@@ -75,6 +76,8 @@ public class DetailsActivity extends AppCompatActivity implements OnMapReadyCall
 	@Nullable
 	private String placeAddress;
 
+	private FirebaseAnalytics firebaseAnalytics;
+
 	public static void startWithEvent(Event event, Context context)
 	{
 		Intent intent = new Intent(context, DetailsActivity.class);
@@ -101,6 +104,9 @@ public class DetailsActivity extends AppCompatActivity implements OnMapReadyCall
 		configure(event);
 
 		organization.setPaintFlags(organization.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
+
+		firebaseAnalytics = FirebaseAnalytics.getInstance(this);
+		logFirebaseEvent("eventViewed", event.title);
 	}
 
 	private void setStatusBarTranslucent()
@@ -267,6 +273,7 @@ public class DetailsActivity extends AppCompatActivity implements OnMapReadyCall
 						.setChooserTitle("Choose how to share this event")
 						.setText("https://www.cuevents.org/event/" + this.event.id)
 						.startChooser();
+				//logFirebaseEvent("share", event.title);
 				break;
 			case R.id.more:
 				description.setMaxLines(Integer.MAX_VALUE);
@@ -288,6 +295,7 @@ public class DetailsActivity extends AppCompatActivity implements OnMapReadyCall
 					this.event.numAttendees--;
 					numGoing.setText(getString(R.string.numGoing, this.event.numAttendees));
 					Data.eventForID.put(this.event.id, this.event);
+					logFirebaseEvent("unbookmarked", event.title);
 				} else {
 					EventUtil.setBookmarked(event.id);
 					isBookmarked = true;
@@ -296,6 +304,7 @@ public class DetailsActivity extends AppCompatActivity implements OnMapReadyCall
 					this.event.numAttendees++;
 					numGoing.setText(getString(R.string.numGoing, this.event.numAttendees));
 					Data.eventForID.put(this.event.id, this.event);
+					logFirebaseEvent("bookmarked", event.title);
 				}
 				break;
 		}
@@ -312,6 +321,14 @@ public class DetailsActivity extends AppCompatActivity implements OnMapReadyCall
 			bookmarkedButton.setText(R.string.button_bookmark);
 		}
 	}
+
+	private void logFirebaseEvent(String event, String eventName) {
+		Bundle bundle = new Bundle();
+		bundle.putString("eventName", eventName);
+		firebaseAnalytics.logEvent(event, bundle);
+		firebaseAnalytics.setAnalyticsCollectionEnabled(true);
+	}
+
 
 	@Override
 	public void eventUpdate(List<Event> e) {

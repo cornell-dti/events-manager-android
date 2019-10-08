@@ -15,6 +15,7 @@ import com.dti.cornell.events.utils.Internet;
 import com.dti.cornell.events.utils.OrganizationUtil;
 import com.dti.cornell.events.utils.RecyclerUtil;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.analytics.FirebaseAnalytics;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -37,6 +38,8 @@ public class OrganizationActivity extends AppCompatActivity implements View.OnCl
 	private TextView followingButton;
 	private TextView title;
 	private ImageView toolbarImage;
+
+	private FirebaseAnalytics firebaseAnalytics;
 
 	public static void startWithOrganization(Organization organization, Context context)
 	{
@@ -62,6 +65,8 @@ public class OrganizationActivity extends AppCompatActivity implements View.OnCl
 			setFollowButtonState();
 		}
 		scrollView.smoothScrollTo(0,0);
+
+		firebaseAnalytics = FirebaseAnalytics.getInstance(this);
 	}
 
 	@Override
@@ -136,10 +141,12 @@ public class OrganizationActivity extends AppCompatActivity implements View.OnCl
 					OrganizationUtil.unfollowOrganization(organization.id);
 					userIsFollowing = false;
 					setFollowButtonState();
+					logFirebaseEvent("followButtonUnclicked",organization.name);
 				} else {
 					OrganizationUtil.followOrganization(organization.id);
 					userIsFollowing = true;
 					setFollowButtonState();
+					logFirebaseEvent("followButtonPressed",organization.name);
 				}
 				break;
 			case R.id.share:
@@ -173,5 +180,12 @@ public class OrganizationActivity extends AppCompatActivity implements View.OnCl
 	@Override
 	public void tagUpdate(List<String> t) {
 
+	}
+
+	private void logFirebaseEvent(String event, String orgName) {
+		Bundle bundle = new Bundle();
+		bundle.putString("orgName", orgName);
+		firebaseAnalytics.logEvent(event, bundle);
+		firebaseAnalytics.setAnalyticsCollectionEnabled(true);
 	}
 }

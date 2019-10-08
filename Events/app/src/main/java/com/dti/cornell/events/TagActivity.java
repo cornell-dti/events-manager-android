@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.dti.cornell.events.utils.Data;
 import com.dti.cornell.events.utils.TagUtil;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.analytics.FirebaseAnalytics;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -23,6 +24,8 @@ import androidx.recyclerview.widget.RecyclerView;
 public class TagActivity extends AppCompatActivity implements View.OnClickListener{
 
     private static final String TAG = MyEventsFragment.class.getSimpleName();
+
+    private FirebaseAnalytics firebaseAnalytics;
 
 	public static void startWithTag(Context context, int tagID)
     {
@@ -51,6 +54,10 @@ public class TagActivity extends AppCompatActivity implements View.OnClickListen
 
 			TextView tagNameTitle = findViewById(R.id.tagTitle);
         tagNameTitle.setText(Data.tagForID.get(tagID));
+
+        firebaseAnalytics = FirebaseAnalytics.getInstance(this);
+
+        logFirebaseEvent(Data.tagForID.get(tagID));
 
         //DEPRECATED: RecyclerUtil.configureEvents(recyclerView);
         //setOnScrollListener();
@@ -115,6 +122,14 @@ public class TagActivity extends AppCompatActivity implements View.OnClickListen
     public void onBackPressed() { //TODO is this needed?
         super.onBackPressed();
     }
+
+    private void logFirebaseEvent(String tagName) {
+        Bundle bundle = new Bundle();
+        bundle.putString("tagName", tagName);
+        firebaseAnalytics.logEvent("tagButtonPressed", bundle);
+        firebaseAnalytics.setAnalyticsCollectionEnabled(true);
+    }
+
 
 //    public static class SearchAdapter extends FragmentPagerAdapter
 //    {
