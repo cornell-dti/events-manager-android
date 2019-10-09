@@ -1,5 +1,5 @@
 name: CI
-on: pull_request
+on: push
 
 jobs:
   build:
@@ -10,7 +10,5 @@ jobs:
         uses: actions/setup-java@v1
         with:
           java-version: 1.8
-      - name: Setup dummy Google Map API Key
-        run: echo "GOOGLE_MAPS_API_KEY=DUMMY" >> Events/gradle.properties
       - name: Build with Gradle
-        run: cd Events/app/ && gradle build
+        run: cd Events/ && ./gradlew build
