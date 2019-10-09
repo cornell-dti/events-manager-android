@@ -3,6 +3,7 @@ package com.dti.cornell.events.utils;
 import android.util.Log;
 
 import com.dti.cornell.events.models.Event;
+import com.dti.cornell.events.models.Tag;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -18,6 +19,7 @@ import java.util.stream.Collectors;
 public class TagUtil {
 
     public static List<Integer> tagsInterested;
+    public static List<Tag> allTags = new ArrayList<>();
     public static Map<Integer, Integer> tagIDsAndImportance;
     public static boolean tagsLoaded = false;
     private List<Event> suggestableEvents = new ArrayList<>();

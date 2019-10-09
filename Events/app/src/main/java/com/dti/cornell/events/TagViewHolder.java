@@ -1,5 +1,6 @@
 package com.dti.cornell.events;
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import androidx.core.content.ContextCompat;
@@ -44,6 +45,12 @@ public class TagViewHolder extends RecyclerView.ViewHolder implements View.OnCli
 	public void onClick(View v)
 	{
 		//TODO go to tags list
+		//TODO Check to see if the Activity name matches onboarding's activity name and don't open if so
+		//TODO perhaps use the fact that you know the activity is onboarding to save the clicked
+		//TODO tags in onboarding.
+		if(((Activity)v.getContext()).getLocalClassName().equalsIgnoreCase("Onboarding")){
+			return;
+		}
 		TagActivity.startWithTag(context, this.id);
 		EventBusUtils.SINGLETON.post(new EventBusUtils.TagSelected(id, position));
 	}

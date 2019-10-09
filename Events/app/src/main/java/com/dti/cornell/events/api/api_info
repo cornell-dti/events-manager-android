@@ -1,0 +1,25 @@
+Alias name: cueventsKey
+Creation date: Nov 3, 2018
+Entry type: PrivateKeyEntry
+Certificate chain length: 1
+Certificate[1]:
+Owner: CN=CUEvents, OU=CUEvents, O=CUEvents, L=Ithaca, ST=New York, C=US
+Issuer: CN=CUEvents, OU=CUEvents, O=CUEvents, L=Ithaca, ST=New York, C=US
+Serial number: 2b7d7be7
+Valid from: Sat Nov 03 14:53:36 EDT 2018 until: Mon Oct 10 14:53:36 EDT 2118
+Certificate fingerprints:
+	 MD5:  2F:1B:0B:91:C2:68:20:F6:79:FD:CB:A8:AA:A7:31:ED
+	 SHA1: 82:43:84:B9:6A:31:19:21:18:F8:88:F1:5D:65:39:86:2A:67:3D:42
+	 SHA256: 4A:02:BE:37:FC:C7:EF:D5:16:18:19:DD:19:9F:AC:90:19:9C:9A:9E:58:97:B3:BA:7C:19:13:79:80:4A:28:F4
+	 Signature algorithm name: SHA256withRSA
+	 Version: 3
+
+Extensions: 
+
+#1: ObjectId: 2.5.29.14 Criticality=false
+SubjectKeyIdentifier [
+KeyIdentifier [
+0000: 5E 3F D8 BC 2B F2 4D 22   C7 AB 23 5E A1 43 86 A9  ^?..+.M"..#^.C..
+0010: BB 3C 34 1C                                        .<4.
+]
+]
