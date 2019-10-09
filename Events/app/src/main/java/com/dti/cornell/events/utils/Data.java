@@ -1,6 +1,9 @@
 package com.dti.cornell.events.utils;
 
+import android.graphics.Bitmap;
+
 import com.dti.cornell.events.models.Event;
+import com.dti.cornell.events.models.Location;
 import com.dti.cornell.events.models.Organization;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
@@ -16,13 +19,17 @@ import java.util.Map;
 
 public final class Data
 {
-	private static final Map<Integer, Event> eventForID = new HashMap<>();
+	public static final Map<Integer, Event> eventForID = new HashMap<>();
 	public static final Map<Integer, String> tagForID = new HashMap<>();
 	public static final Map<Integer, Organization> organizationForID = new HashMap<>();
+	public static final Map<Integer, String> mediaForID = new HashMap<>();
+	public static final Map<String, Bitmap> bitmapForURL = new HashMap<>();
+	public static final Map<Integer, Location> locationForID = new HashMap<>();
 	public static DateTime selectedDate;
 
-	public static final int NUM_DAYS_IN_FEED = 30;
+	public static final int NUM_DAYS_IN_FEED = 90;
 	public static final ImmutableList<DateTime> DATES;
+	public static final String NOTIFICATION_TAG = "cueventsNotificationTag";
 
 	static
 	{
@@ -33,6 +40,14 @@ public final class Data
 		DATES = ImmutableList.copyOf(dates);
 
 		selectedDate = now;
+	}
+
+	public void init(){
+		mediaForID.put(-1, "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/1024px-No_image_available.svg.png");
+	}
+
+	public static void getData(){
+		Internet.getEventFeed();
 	}
 
 	public static void createDummyData()
@@ -46,12 +61,14 @@ public final class Data
 		Organization organization = new Organization(1, "Cornell Design & Tech Initiative and more stuff blah blah blah", "Hi there howdy do yall. This is an extremely long, grandiloquent, pontificate description designed for the sole singular purpose of testing limits of descriptions", 1, ImmutableList.of(1, 2, 3, 4, 5, 6, 7), ImmutableList.of("User id"), ImmutableList.of(1,2,3,4), "www.google.com", "dc788@cornell.edu");
 		organizationForID.put(organization.id, organization);
 
-		for (int i = 1; i <= DATES.size(); i++)
-		{
-			Event event = new Event(i, DATES.get(i-1), DATES.get(i-1).plusDays(i).plusMinutes(i*30), "I’m just trying to see what it would look like if there was like an extra long title blah", "The simple yet courageous #metoo hashtag campaign has emerged as a rallying cry for people everywhere who have survived sexual assault and sexual harassment", "Goldwin Smith Hall Room 202", "ChIJndqRYRqC0IkR9J8bgk3mDvU", ImmutableList.of("User id"), 1, 1, ImmutableList.of(1, 2, 3, 4));
-			eventForID.put(i, event);
-		}
+//		for (int i = 1; i <= DATES.size(); i++)
+//		{
+//			Event event = new Event(i, DATES.get(i-1), DATES.get(i-1).plusDays(i).plusMinutes(i*30), "I’m just trying to see what it would look like if there was like an extra long title blah", "The simple yet courageous #metoo hashtag campaign has emerged as a rallying cry for people everywhere who have survived sexual assault and sexual harassment", "Goldwin Smith Hall Room 202", "ChIJndqRYRqC0IkR9J8bgk3mDvU", ImmutableList.of("User id"), "http://imgur.com/", 1, ImmutableList.of(1, 2, 3, 4), 160);
+//			eventForID.put(i, event);
+//		}
 	}
+
+
 	public static List<Event> events()
 	{
 		List<Event> events = Lists.newArrayList(eventForID.values());
@@ -66,6 +83,13 @@ public final class Data
 		return organizations;
 	}
 
+	public static List<String> tags()
+	{
+		List<String> tags = Lists.newArrayList(tagForID.values());
+		Collections.sort(tags);
+		return tags;
+	}
+
 	public static Event getEventFromID(int eventID){
 		return eventForID.get(eventID);
 	}
@@ -74,4 +98,67 @@ public final class Data
 	{
 		return DateTimeComparator.getDateOnlyInstance().compare(dateTime, selectedDate) == 0;
 	}
+
+
+
+	static List<DataUpdateListener> listeners = new ArrayList<>();
+
+	public interface DataUpdateListener{
+		void eventUpdate(List<Event> e);
+		void orgUpdate(List<Organization> o);
+		void tagUpdate(List<String> t);
+	}
+
+	static List<SingleEventUpdateListener> singleEventListeners = new ArrayList<>();
+
+	public interface SingleEventUpdateListener{
+		void singleEventUpdate(Event e);
+	}
+
+	public static void registerListener(SingleEventUpdateListener d){
+		singleEventListeners.add(d);
+	}
+
+	public static void unregisterListener(SingleEventUpdateListener d){
+		singleEventListeners.remove(d);
+	}
+
+	public static void registerListener(DataUpdateListener d){
+		listeners.add(d);
+	}
+
+	public static void unregisterListener(DataUpdateListener d){
+		listeners.remove(d);
+	}
+
+	public static void emitSingleEventUpdate(Event e){
+		for(SingleEventUpdateListener s : singleEventListeners){
+			s.singleEventUpdate(e);
+		}
+	}
+
+	public static void emitEventUpdate(){
+		for(DataUpdateListener d : listeners){
+			d.eventUpdate(events());
+		}
+	}
+
+	public static long getDelayUntilDateInMilliseconds(DateTime date){
+		DateTime now = new DateTime();
+		return date.getMillis() - now.getMillis();
+	}
+
+	public static void emitOrgUpdate(){
+		for(DataUpdateListener d : listeners){
+			d.orgUpdate(organizations());
+		}
+	}
+
+	public static void emitTagUpdate(){
+		for(DataUpdateListener d : listeners){
+			d.tagUpdate(tags());
+		}
+	}
+
+
 }

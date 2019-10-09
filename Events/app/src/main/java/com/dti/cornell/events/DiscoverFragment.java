@@ -1,11 +1,7 @@
 package com.dti.cornell.events;
 
+import android.content.Context;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -15,21 +11,32 @@ import android.view.ViewGroup;
 
 import com.dti.cornell.events.models.CardList;
 import com.dti.cornell.events.models.Event;
+import com.dti.cornell.events.models.Organization;
+import com.dti.cornell.events.utils.Comparators;
 import com.dti.cornell.events.utils.Data;
 import com.dti.cornell.events.utils.EventBusUtils;
+import com.dti.cornell.events.utils.EventUtil;
 import com.dti.cornell.events.utils.RecyclerUtil;
-import com.google.common.eventbus.EventBus;
 
 import org.joda.time.DateTime;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
-public class DiscoverFragment extends Fragment
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.RecyclerView;
+
+public class DiscoverFragment extends Fragment implements Data.DataUpdateListener
 {
 	public static final String TAG = DiscoverFragment.class.getName();
 	public RecyclerView recyclerView;
 	private int mTotalScrolled;
+	private Context createContext;
 
 	@Nullable
 	@Override
@@ -38,15 +45,13 @@ public class DiscoverFragment extends Fragment
 		setHasOptionsMenu(true);
 		View view = inflater.inflate(R.layout.fragment_recycler, container, false);
 
-		RecyclerView recyclerView = view.findViewById(R.id.recyclerView);
-		List<Event> events = Data.events();
-		List<CardList> data = Arrays.asList(new CardList(R.string.section_popular, true, events),
-				new CardList(R.string.section_today_events, true, events),
-				new CardList(R.string.section_tomorrow_events, true, events));
-		RecyclerUtil.addVerticalSpacing(recyclerView);
-		recyclerView.setAdapter(new CardSectionAdapter(getContext(), data, true));
+		Data.registerListener(this);
 
-		this.recyclerView = recyclerView;
+		this.createContext = this.getContext();
+
+		this.recyclerView = view.findViewById(R.id.recyclerView);
+		updateData();
+		RecyclerUtil.addVerticalSpacing(recyclerView);
 
 		setOnScrollListener();
 
@@ -64,6 +69,24 @@ public class DiscoverFragment extends Fragment
 				EventBusUtils.SINGLETON.post(new EventBusUtils.MainActivityScrolled(mTotalScrolled));
 			}
 		});
+	}
+
+	@Override
+	public void onPause(){
+		super.onPause();
+		Data.unregisterListener(this);
+	}
+
+	@Override
+	public void onResume(){
+		super.onResume();
+		Data.registerListener(this);
+	}
+
+	@Override
+	public void onStop(){
+		super.onStop();
+		Data.unregisterListener(this);
 	}
 
 	@Override
@@ -85,4 +108,33 @@ public class DiscoverFragment extends Fragment
 	}
 
 
+	@Override
+	public void eventUpdate(List<Event> e) {
+		updateData();
+	}
+
+	@Override
+	public void orgUpdate(List<Organization> o) {
+
+	}
+
+	@Override
+	public void tagUpdate(List<String> t) {
+
+	}
+
+	public void updateData(){
+		RecyclerView recyclerView = this.recyclerView;
+		List<Event> events = EventUtil.getEventsOnOrAfterToday();
+		List<Event> popularEvents = new ArrayList<>(events);
+		popularEvents.sort(Comparators.NUM_ATTENDEES);
+		Collections.reverse(popularEvents);
+		List<CardList> data = Arrays.asList(new CardList(getString(R.string.section_popular), true, popularEvents),
+				new CardList(getString(R.string.section_today_events), true,
+						EventUtil.getEventsBetween(DateTime.now().withTimeAtStartOfDay(), DateTime.now().plusDays(1).withTimeAtStartOfDay())),
+				new CardList(getString(R.string.section_tomorrow_events), true,
+						EventUtil.getEventsBetween(DateTime.now().plusDays(1).withTimeAtStartOfDay(), DateTime.now().plusDays(2).withTimeAtStartOfDay()).stream().filter((val) -> !val.startTime.withTimeAtStartOfDay().isEqual(DateTime.now().withTimeAtStartOfDay())).collect(Collectors.toList())));
+		recyclerView.setAdapter(new CardSectionAdapter(recyclerView.getContext(), data, true));
+		this.recyclerView = recyclerView;
+	}
 }

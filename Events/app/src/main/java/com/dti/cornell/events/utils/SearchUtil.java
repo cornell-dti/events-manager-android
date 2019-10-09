@@ -1,13 +1,13 @@
 package com.dti.cornell.events.utils;
 
 import com.dti.cornell.events.models.Event;
+import com.dti.cornell.events.models.Location;
 import com.dti.cornell.events.models.Organization;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-
 import org.joda.time.DateTime;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by jboss925 on 9/3/18.
@@ -62,7 +62,7 @@ public class SearchUtil {
         String[] searchSplits = searchL.split("\\s+");
         for(String searchLC : searchSplits){
             if(org.name.toLowerCase().replaceAll("’","'").contains(searchLC)
-                    || org.description.toLowerCase().replaceAll("’","'").contains(searchLC)
+//                    || org.description.toLowerCase().replaceAll("’","'").contains(searchLC)
                     || org.email.toLowerCase().replaceAll("’","'").contains(searchLC)
                     || org.website.toLowerCase().replaceAll("’","'").contains(searchLC)){
                 return true;
@@ -79,10 +79,12 @@ public class SearchUtil {
     private static boolean eventIsRelatedToSearch(Event e, String search){
         String searchL = search.toLowerCase();
         String[] searchSplits = searchL.split("\\s+");
+        Location loc = Data.locationForID.get(e.locationID);
         for(String searchLC : searchSplits){
             if(cleanString(e.title).contains(searchLC)
-                    || cleanString(e.description).contains(searchLC)
-                    || cleanString(e.location).contains(searchLC)
+//                    || cleanString(e.description).contains(searchLC)
+                    || cleanString(loc.room).contains(searchLC)
+                    || cleanString(loc.building).contains(searchLC)
                     || cleanString(Data.organizationForID.get(e.organizerID).name).contains(searchLC)){
                 return true;
             }

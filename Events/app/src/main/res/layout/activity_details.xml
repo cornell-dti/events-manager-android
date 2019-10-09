@@ -8,87 +8,202 @@
 	android:fillViewport="true"
 	android:fitsSystemWindows="false">
 
-	<android.support.constraint.ConstraintLayout
+	<androidx.constraintlayout.widget.ConstraintLayout
 		android:layout_width="match_parent"
-		android:layout_height="wrap_content">
+		android:layout_height="wrap_content"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="parent">
+
+		<androidx.constraintlayout.widget.ConstraintLayout
+			android:id="@+id/constraintLayout2"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:background="@color/unloadedGray"
+			android:elevation="-2dp"
+			app:layout_constraintTop_toTopOf="parent">
+
+			<ImageView
+				android:id="@+id/image"
+				android:layout_width="0dp"
+				android:layout_height="0dp"
+				android:adjustViewBounds="false"
+				android:background="@color/unloadedGray"
+				android:paddingTop="@dimen/status_bar_height"
+				android:scaleType="centerCrop"
+				app:layout_constraintDimensionRatio="2"
+				app:layout_constraintEnd_toEndOf="parent"
+				app:layout_constraintHorizontal_bias="1.0"
+				app:layout_constraintStart_toStartOf="parent"
+				app:layout_constraintTop_toTopOf="parent" />
+
+			<ProgressBar
+				android:id="@+id/imageLoadingBar"
+				style="@style/Widget.AppCompat.ProgressBar"
+				android:layout_width="100dp"
+				android:layout_height="100dp"
+				android:layout_marginBottom="8dp"
+				android:layout_marginEnd="8dp"
+				android:layout_marginStart="8dp"
+				android:layout_marginTop="8dp"
+				android:indeterminate="true"
+				android:indeterminateTint="@color/colorPrimary"
+				android:progressTint="@color/colorPrimary"
+				android:visibility="visible"
+				app:layout_constraintBottom_toBottomOf="@+id/image"
+				app:layout_constraintEnd_toEndOf="parent"
+				app:layout_constraintStart_toStartOf="parent"
+				app:layout_constraintTop_toTopOf="@+id/image" />
+
+			<com.google.android.material.floatingactionbutton.FloatingActionButton
+				android:id="@+id/back"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginStart="@dimen/spacing_xxl"
+				android:layout_marginTop="10dp"
+				android:src="@drawable/ic_arrow_back_white_24dp"
+				android:tint="@color/colorPrimary"
+				app:backgroundTint="@android:color/white"
+				app:fabSize="mini"
+				app:layout_constraintStart_toStartOf="parent"
+				app:layout_constraintTop_toTopOf="parent"
+				tools:tint="@color/colorPrimary" />
+
+			<com.google.android.material.floatingactionbutton.FloatingActionButton
+				android:id="@+id/share"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginEnd="@dimen/spacing_xxl"
+				android:layout_marginTop="10dp"
+				android:src="@drawable/ic_share_white_24dp"
+				android:tint="@color/colorPrimary"
+				app:backgroundTint="@android:color/white"
+				app:fabSize="mini"
+				app:layout_constraintEnd_toEndOf="parent"
+				app:layout_constraintTop_toTopOf="parent" />
+		</androidx.constraintlayout.widget.ConstraintLayout>
+
+		<TextView
+			android:id="@+id/time"
+			style="@style/H2"
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:layout_marginEnd="8dp"
+			android:layout_marginStart="@dimen/spacing_xxl"
+			app:layout_constraintBottom_toBottomOf="@+id/timeImage"
+			app:layout_constraintEnd_toEndOf="@+id/more"
+			app:layout_constraintStart_toEndOf="@+id/timeImage"
+			app:layout_constraintTop_toTopOf="@+id/timeImage"
+			tools:text="Tuesday, November 30 at 12:00 PM" />
+
+		<TextView
+			android:id="@+id/tags"
+			style="@style/H2"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginBottom="16dp"
+			android:layout_marginStart="24dp"
+			android:text="@string/tags"
+			android:textSize="16sp"
+			android:textStyle="bold"
+			app:layout_constraintBottom_toBottomOf="parent"
+			app:layout_constraintStart_toStartOf="parent" />
 
 		<ImageView
-			android:id="@+id/image"
-			android:layout_width="0dp"
-			android:layout_height="0dp"
-			android:scaleType="centerCrop"
-			android:paddingTop="@dimen/status_bar_height"
-			app:srcCompat="@drawable/taranaburke"
-			app:layout_constraintDimensionRatio="2:1"
-			app:layout_constraintStart_toStartOf="parent"
-			app:layout_constraintEnd_toEndOf="parent"/>
+			android:id="@+id/locationImage"
+			android:layout_width="@dimen/spacing_xxl"
+			android:layout_height="@dimen/spacing_xxl"
+			android:layout_marginTop="@dimen/spacing_l"
+			android:src="@drawable/ic_discover"
+			app:layout_constraintStart_toStartOf="@+id/title"
+			app:layout_constraintTop_toBottomOf="@+id/organizationImage" />
 
-		<android.support.design.widget.FloatingActionButton
-			android:id="@+id/back"
-			android:layout_width="wrap_content"
+		<TextView
+			android:id="@+id/numGoing"
+			style="@style/H2"
+			android:layout_width="0dp"
 			android:layout_height="wrap_content"
 			android:layout_marginStart="@dimen/spacing_xxl"
-			android:layout_marginTop="@dimen/details_button_margin_top"
-			android:src="@drawable/ic_arrow_back_white_24dp"
-			android:tint="@color/colorPrimary"
-			app:backgroundTint="@android:color/white"
-			app:fabSize="mini"
-			app:layout_constraintStart_toStartOf="parent"
-			app:layout_constraintTop_toTopOf="parent"
-			tools:tint="@color/colorPrimary" />
+			app:layout_constraintBottom_toBottomOf="@+id/goingImage"
+			app:layout_constraintEnd_toEndOf="@+id/time"
+			app:layout_constraintStart_toEndOf="@+id/goingImage"
+			app:layout_constraintTop_toTopOf="@+id/goingImage"
+			tools:text="302 Going" />
 
-		<android.support.design.widget.FloatingActionButton
-			android:id="@+id/share"
-			android:layout_width="wrap_content"
+		<ImageView
+			android:id="@+id/organizationImage"
+			android:layout_width="@dimen/spacing_xxl"
+			android:layout_height="@dimen/spacing_xxl"
+			android:layout_marginTop="@dimen/spacing_l"
+			android:src="@drawable/ic_profile"
+			app:layout_constraintStart_toStartOf="@+id/title"
+			app:layout_constraintTop_toBottomOf="@+id/goingImage" />
+
+		<TextView
+			android:id="@+id/organization"
+			style="@style/H2"
+			android:layout_width="0dp"
 			android:layout_height="wrap_content"
-			android:layout_marginEnd="@dimen/spacing_xxl"
-			android:layout_marginTop="@dimen/details_button_margin_top"
-			android:src="@drawable/ic_share_white_24dp"
-			android:tint="@color/colorPrimary"
-			app:backgroundTint="@android:color/white"
-			app:fabSize="mini"
-			app:layout_constraintEnd_toEndOf="parent"
-			app:layout_constraintTop_toTopOf="parent" />
+			android:layout_marginStart="@dimen/spacing_xxl"
+			android:textColor="@color/colorPrimary"
+			app:layout_constraintBottom_toBottomOf="@+id/organizationImage"
+			app:layout_constraintEnd_toEndOf="@+id/numGoing"
+			app:layout_constraintStart_toEndOf="@+id/organizationImage"
+			app:layout_constraintTop_toTopOf="@+id/organizationImage"
+			tools:text="Cornell Design &amp; Tech Initiative" />
+
+		<TextView
+			android:id="@+id/description"
+			style="@style/P1"
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="@dimen/spacing_m"
+			android:ellipsize="end"
+			android:textColor="@color/gray"
+			app:layout_constraintEnd_toEndOf="@+id/title"
+			app:layout_constraintStart_toStartOf="@+id/title"
+			app:layout_constraintTop_toBottomOf="@+id/title"
+			tools:maxLines="3"
+			tools:text="The simple yet courageous #metoo hashtag campaign has emerged as a rallying cry for people everywhere who have survived sexual assault and sexual harassment" />
 
 		<TextView
 			android:id="@+id/bookmark"
 			style="@style/mainButton"
+			android:layout_width="200dp"
+			android:layout_height="44dp"
+			android:text="@string/button_bookmarked"
+			android:textAlignment="center"
+			android:textStyle="bold"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintHorizontal_bias="0.497"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toBottomOf="@+id/constraintLayout2" />
+
+		<TextView
+			android:id="@+id/title"
+			style="@style/H1"
 			android:layout_width="0dp"
 			android:layout_height="wrap_content"
 			android:layout_marginEnd="16dp"
-			android:layout_marginStart="16dp"
-			android:layout_marginTop="@dimen/spacing_xxl"
-			android:text="@string/button_bookmarked"
-			android:textStyle="bold"
+			android:layout_marginStart="24dp"
+			android:layout_marginTop="8dp"
+			android:ellipsize="end"
+			android:maxLines="3"
 			app:layout_constraintEnd_toEndOf="parent"
 			app:layout_constraintStart_toStartOf="parent"
-			app:layout_constraintTop_toBottomOf="@+id/image" />
-
-
-		<TextView
-			android:layout_width="0dp"
-			android:layout_height="wrap_content"
-			android:id="@+id/title"
-			android:layout_marginTop="@dimen/spacing_3l"
-			style="@style/H1"
-			tools:text="I’m just trying to see what it would look like if there was like an extra long title blah"
-			app:layout_constraintStart_toStartOf="@+id/bookmark"
-			app:layout_constraintEnd_toEndOf="@+id/bookmark"
-			app:layout_constraintTop_toBottomOf="@+id/bookmark"/>
+			app:layout_constraintTop_toBottomOf="@+id/bookmark"
+			tools:text="I’m just trying to see what it would look like if there was like an extra long title blah" />
 
 		<TextView
-			android:id="@+id/description"
-			android:layout_width="0dp"
-			android:layout_height="wrap_content"
-			android:layout_marginTop="@dimen/spacing_m"
-			android:textColor="@color/gray"
-			android:ellipsize="end"
+			android:id="@+id/more"
 			style="@style/P1"
-			app:layout_constraintEnd_toEndOf="@+id/title"
-			app:layout_constraintStart_toStartOf="@+id/title"
-			app:layout_constraintTop_toBottomOf="@+id/title"
-			tools:text="The simple yet courageous #metoo hashtag campaign has emerged as a rallying cry for people everywhere who have survived sexual assault and sexual harassment"
-			tools:maxLines="3"/>
+			android:layout_width="35dp"
+			android:layout_height="wrap_content"
+			android:background="@color/common_google_signin_btn_text_dark_pressed"
+			android:text="@string/more"
+			android:textColor="@color/colorPrimary"
+			app:layout_constraintBottom_toBottomOf="@+id/description"
+			app:layout_constraintEnd_toEndOf="@+id/description" />
 
 		<View
 			android:id="@+id/moreButtonGradient"
@@ -99,137 +214,79 @@
 			app:layout_constraintRight_toLeftOf="@+id/more"
 			app:layout_constraintTop_toTopOf="@+id/more" />
 
-		<TextView
-			android:id="@+id/more"
-			style="@style/P1"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:background="?android:colorBackground"
-			android:text="@string/more"
-			android:textColor="@color/colorPrimary"
-			app:layout_constraintBottom_toBottomOf="@+id/description"
-			app:layout_constraintEnd_toEndOf="@+id/description" />
-
 		<ImageView
 			android:id="@+id/timeImage"
 			android:layout_width="@dimen/spacing_xxl"
 			android:layout_height="@dimen/spacing_xxl"
-			android:layout_marginTop="@dimen/spacing_3l"
-			android:src="@drawable/ic_dashboard_black_24dp"
+			android:layout_marginTop="16dp"
+			android:src="@drawable/ic_my_events"
 			app:layout_constraintStart_toStartOf="@+id/title"
 			app:layout_constraintTop_toBottomOf="@+id/description" />
 
 		<TextView
-			android:id="@+id/time"
+			android:id="@+id/location"
+			style="@style/H2"
 			android:layout_width="0dp"
 			android:layout_height="wrap_content"
 			android:layout_marginStart="@dimen/spacing_xxl"
-			style="@style/P1"
-			tools:text="Tuesday, November 30 at 12:00 PM"
-			app:layout_constraintStart_toEndOf="@+id/timeImage"
-			app:layout_constraintEnd_toEndOf="@+id/bookmark"
-			app:layout_constraintTop_toTopOf="@+id/timeImage"
-			app:layout_constraintBottom_toBottomOf="@+id/timeImage"/>
+			app:layout_constraintBottom_toBottomOf="@+id/locationImage"
+			app:layout_constraintEnd_toEndOf="@+id/organization"
+			app:layout_constraintStart_toEndOf="@+id/locationImage"
+			app:layout_constraintTop_toTopOf="@+id/locationImage"
+			tools:text="Goldwin Smith Hall Room 202" />
+
+		<androidx.recyclerview.widget.RecyclerView
+			android:id="@+id/tagRecycler"
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:layout_marginStart="6dp"
+			android:orientation="horizontal"
+			app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+			app:layout_constraintBottom_toBottomOf="@+id/tags"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintHorizontal_bias="1.0"
+			app:layout_constraintStart_toEndOf="@+id/tags"
+			app:layout_constraintTop_toTopOf="@+id/tags"
+			tools:listitem="@layout/item_tag" />
 
 		<ImageView
 			android:id="@+id/goingImage"
 			android:layout_width="@dimen/spacing_xxl"
 			android:layout_height="@dimen/spacing_xxl"
 			android:layout_marginTop="@dimen/spacing_l"
-			android:src="@drawable/ic_dashboard_black_24dp"
+			android:src="@drawable/ic_for_you"
 			app:layout_constraintStart_toStartOf="@+id/title"
 			app:layout_constraintTop_toBottomOf="@+id/timeImage" />
 
-		<TextView
-			android:id="@+id/numGoing"
-			android:layout_width="0dp"
-			android:layout_height="wrap_content"
-			android:layout_marginStart="@dimen/spacing_xxl"
-			style="@style/P1"
-			tools:text="302 Going"
-			app:layout_constraintStart_toEndOf="@+id/goingImage"
-			app:layout_constraintEnd_toEndOf="@+id/bookmark"
-			app:layout_constraintTop_toTopOf="@+id/goingImage"
-			app:layout_constraintBottom_toBottomOf="@+id/goingImage"/>
+        <androidx.cardview.widget.CardView
+            android:id="@+id/toolbarImageContainer"
+            android:layout_width="0dp"
 
-		<ImageView
-			android:id="@+id/organizationImage"
-			android:layout_width="@dimen/spacing_xxl"
-			android:layout_height="@dimen/spacing_xxl"
-			android:layout_marginTop="@dimen/spacing_l"
-			android:src="@drawable/ic_dashboard_black_24dp"
-			app:layout_constraintStart_toStartOf="@+id/title"
-			app:layout_constraintTop_toBottomOf="@+id/goingImage" />
+            android:layout_height="0dp"
+            android:layout_marginBottom="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            app:cardBackgroundColor="#EAEDEF"
+            app:cardCornerRadius="10dp"
+            app:cardElevation="3dp"
+            app:cardMaxElevation="3dp"
+            app:layout_constraintBottom_toTopOf="@+id/tagRecycler"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/location">
 
-		<TextView
-			android:id="@+id/organization"
-			android:layout_width="0dp"
-			android:layout_height="wrap_content"
-			android:layout_marginStart="@dimen/spacing_xxl"
-			style="@style/P1"
-			tools:text="Cornell Design &amp; Tech Initiative"
-			app:layout_constraintStart_toEndOf="@+id/organizationImage"
-			app:layout_constraintEnd_toEndOf="@+id/bookmark"
-			app:layout_constraintTop_toTopOf="@+id/organizationImage"
-			app:layout_constraintBottom_toBottomOf="@+id/organizationImage"/>
+            <fragment
+                android:id="@+id/map"
+                android:name="com.google.android.gms.maps.MapFragment"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp" />
+        </androidx.cardview.widget.CardView>
 
-		<ImageView
-			android:id="@+id/locationImage"
-			android:layout_width="@dimen/spacing_xxl"
-			android:layout_height="@dimen/spacing_xxl"
-			android:layout_marginTop="@dimen/spacing_l"
-			android:src="@drawable/ic_dashboard_black_24dp"
-			app:layout_constraintStart_toStartOf="@+id/title"
-			app:layout_constraintTop_toBottomOf="@+id/organizationImage" />
-
-		<TextView
-			android:id="@+id/location"
-			android:layout_width="0dp"
-			android:layout_height="wrap_content"
-			android:layout_marginStart="@dimen/spacing_xxl"
-			style="@style/P1"
-			tools:text="Goldwin Smith Hall Room 202"
-			app:layout_constraintStart_toEndOf="@+id/locationImage"
-			app:layout_constraintEnd_toEndOf="@+id/bookmark"
-			app:layout_constraintTop_toTopOf="@+id/locationImage"
-			app:layout_constraintBottom_toBottomOf="@+id/locationImage"/>
-
-		<fragment
-			android:id="@+id/map"
-			android:name="com.google.android.gms.maps.MapFragment"
-			android:layout_width="0dp"
-			android:layout_height="0dp"
-			android:layout_marginTop="@dimen/spacing_xxl"
-			app:layout_constraintDimensionRatio="5:2"
-			app:layout_constraintEnd_toEndOf="@+id/bookmark"
-			app:layout_constraintStart_toStartOf="@+id/bookmark"
-			app:layout_constraintTop_toBottomOf="@+id/locationImage" />
-		
-		<android.support.v7.widget.RecyclerView
-			android:id="@+id/tagRecycler"
-			android:layout_width="0dp"
-			android:layout_height="@dimen/tag_height"
-			android:layout_marginLeft="@dimen/spacing_xl"
-			android:layout_marginTop="@dimen/spacing_xxl"
-			android:layout_marginBottom="@dimen/spacing_3l"
-			android:orientation="horizontal"
-			tools:listitem="@layout/item_tag"
-			app:layoutManager="android.support.v7.widget.LinearLayoutManager"
-			app:layout_constraintTop_toBottomOf="@+id/map"
-			app:layout_constraintEnd_toEndOf="parent"
-			app:layout_constraintBottom_toBottomOf="parent"
-			app:layout_constraintStart_toEndOf="@+id/tags"/>
-
-		<TextView
-			android:id="@+id/tags"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:text="@string/tags"
-			style="@style/H1"
-			app:layout_constraintStart_toStartOf="@+id/bookmark"
-			app:layout_constraintTop_toTopOf="@+id/tagRecycler"
-			app:layout_constraintBottom_toBottomOf="@+id/tagRecycler"/>
-
-	</android.support.constraint.ConstraintLayout>
+	</androidx.constraintlayout.widget.ConstraintLayout>
 
 </ScrollView>

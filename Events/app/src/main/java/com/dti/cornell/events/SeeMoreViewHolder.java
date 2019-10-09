@@ -1,7 +1,10 @@
 package com.dti.cornell.events;
 
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
+
+import com.dti.cornell.events.utils.Data;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 class SeeMoreViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener
 {
@@ -15,6 +18,9 @@ class SeeMoreViewHolder extends RecyclerView.ViewHolder implements View.OnClickL
 	public void onClick(View v)
 	{
 		MainActivity activity = (MainActivity) itemView.getContext();
-		activity.transitionToFragment(new EventListFragment());
+		activity.transitionToFragment(new EventListFragment(Data.events()));
+		activity.showBackButton();
+		activity.setToolbarText(R.string.page_all_events);
+		activity.expandToolBar();
 	}
 }

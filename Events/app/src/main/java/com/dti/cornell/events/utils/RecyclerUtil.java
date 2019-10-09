@@ -1,8 +1,8 @@
 package com.dti.cornell.events.utils;
 
-import android.support.v7.widget.RecyclerView;
-
 import com.dti.cornell.events.R;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 public final class RecyclerUtil
 {
@@ -17,6 +17,12 @@ public final class RecyclerUtil
 	public static void addHorizontalSpacing(RecyclerView recycler)
 	{
 		int margin = recycler.getContext().getResources().getDimensionPixelSize(R.dimen.spacing_xxl);
+		recycler.addItemDecoration(new SpacingItemDecoration(margin, 0));
+	}
+
+	public static void addTagHorizontalSpacing(RecyclerView recycler)
+	{
+		int margin = recycler.getContext().getResources().getDimensionPixelSize(R.dimen.spacing_s);
 		recycler.addItemDecoration(new SpacingItemDecoration(margin, 0));
 	}
 

@@ -1,19 +1,28 @@
 package com.dti.cornell.events;
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.dti.cornell.events.utils.Data;
+import com.dti.cornell.events.models.Event;
 import com.dti.cornell.events.utils.RecyclerUtil;
+
+import java.util.List;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.RecyclerView;
 
 public class EventListFragment extends Fragment
 {
+
+	List<Event> events;
+
+	public EventListFragment(List<Event> initEvents){
+		this.events = initEvents;
+	}
 
 	@Nullable
 	@Override
@@ -23,7 +32,7 @@ public class EventListFragment extends Fragment
 
 		RecyclerView recyclerView = view.findViewById(R.id.recyclerView);
 		RecyclerUtil.addDivider(recyclerView);
-		recyclerView.setAdapter(new EventAdapter(getContext(), Data.events()));
+		recyclerView.setAdapter(new EventAdapter(recyclerView.getContext(), this.events));
 
 		return view;
 	}

@@ -49,6 +49,12 @@ public class EventBusUtils
 		}
 	}
 
+	public static final class NotificationUpdate
+	{
+		public NotificationUpdate() {
+		}
+	}
+
 //	public static final class SearchDateChanged
 //	{
 //		public final DateTime searchDate;

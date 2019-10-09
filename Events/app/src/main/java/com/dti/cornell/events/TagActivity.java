@@ -3,16 +3,18 @@ package com.dti.cornell.events;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
 import com.dti.cornell.events.utils.Data;
 import com.dti.cornell.events.utils.TagUtil;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.analytics.FirebaseAnalytics;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 
 /**
@@ -22,6 +24,8 @@ import com.dti.cornell.events.utils.TagUtil;
 public class TagActivity extends AppCompatActivity implements View.OnClickListener{
 
     private static final String TAG = MyEventsFragment.class.getSimpleName();
+
+    private FirebaseAnalytics firebaseAnalytics;
 
 	public static void startWithTag(Context context, int tagID)
     {
@@ -42,9 +46,7 @@ public class TagActivity extends AppCompatActivity implements View.OnClickListen
 
 			RecyclerView recyclerView = findViewById(R.id.recyclerView);
 			int tagID = getIntent().getIntExtra("TAG_ID", 0);
-        Log.e("CALLED", tagID + "");
-        Log.e("CALLED", TagUtil.suggestEventsForTagID(tagID).toString());
-        EventAdapter adapter = new EventAdapter(this, TagUtil.suggestEventsForTagID(tagID));
+        EventAdapter adapter = new EventAdapter(this, TagUtil.getEventsWithTag(tagID));
 
         recyclerView.setAdapter(adapter);
 			RecyclerView.LayoutManager layoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
@@ -52,6 +54,10 @@ public class TagActivity extends AppCompatActivity implements View.OnClickListen
 
 			TextView tagNameTitle = findViewById(R.id.tagTitle);
         tagNameTitle.setText(Data.tagForID.get(tagID));
+
+        firebaseAnalytics = FirebaseAnalytics.getInstance(this);
+
+        logFirebaseEvent(Data.tagForID.get(tagID));
 
         //DEPRECATED: RecyclerUtil.configureEvents(recyclerView);
         //setOnScrollListener();
@@ -116,6 +122,14 @@ public class TagActivity extends AppCompatActivity implements View.OnClickListen
     public void onBackPressed() { //TODO is this needed?
         super.onBackPressed();
     }
+
+    private void logFirebaseEvent(String tagName) {
+        Bundle bundle = new Bundle();
+        bundle.putString("tagName", tagName);
+        firebaseAnalytics.logEvent("tagButtonPressed", bundle);
+        firebaseAnalytics.setAnalyticsCollectionEnabled(true);
+    }
+
 
 //    public static class SearchAdapter extends FragmentPagerAdapter
 //    {

@@ -5,18 +5,18 @@
 	android:layout_width="match_parent"
 	android:layout_height="match_parent">
 
-	<android.support.constraint.ConstraintLayout
+	<androidx.constraintlayout.widget.ConstraintLayout
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content">
 
-		<android.support.constraint.Guideline
+		<androidx.constraintlayout.widget.Guideline
 			android:id="@+id/leftGuide"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:orientation="vertical"
 			app:layout_constraintGuide_begin="@dimen/spacing_xxl" />
 
-		<android.support.constraint.Guideline
+		<androidx.constraintlayout.widget.Guideline
 			android:id="@+id/rightGuide"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
@@ -44,14 +44,12 @@
 			app:layout_constraintRight_toRightOf="@+id/rightGuide"
 			app:layout_constraintTop_toBottomOf="@+id/following" />
 
-		<android.support.v7.widget.RecyclerView
+		<androidx.recyclerview.widget.RecyclerView
 			android:id="@+id/followingRecycler"
 			android:layout_width="0dp"
 			android:layout_height="wrap_content"
-			android:layout_marginBottom="@dimen/spacing_3l"
-			android:layout_marginTop="@dimen/spacing_xl"
 			android:orientation="vertical"
-			app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+			app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
 			app:layout_constraintLeft_toLeftOf="@+id/leftGuide"
 			app:layout_constraintRight_toRightOf="@+id/rightGuide"
 			app:layout_constraintTop_toBottomOf="@+id/followingDivider"
@@ -79,16 +77,16 @@
 			app:layout_constraintRight_toRightOf="@+id/rightGuide"
 			app:layout_constraintTop_toBottomOf="@+id/tags" />
 
-		<android.support.v7.widget.RecyclerView
+		<androidx.recyclerview.widget.RecyclerView
 			android:id="@+id/tagRecycler"
 			android:layout_width="0dp"
 			android:layout_height="wrap_content"
-			android:layout_marginBottom="@dimen/spacing_3l"
-			android:layout_marginTop="@dimen/spacing_xl"
+			android:layout_marginTop="8dp"
 			android:orientation="horizontal"
-			app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+			app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
 			app:layout_constraintEnd_toEndOf="parent"
-			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintHorizontal_bias="1.0"
+			app:layout_constraintStart_toStartOf="@+id/leftGuide"
 			app:layout_constraintTop_toBottomOf="@+id/tagsDivider"
 			tools:listitem="@layout/item_tag" />
 
@@ -125,7 +123,8 @@
 			app:layout_constraintTop_toBottomOf="@+id/settingsDivider1" />
 
 		<Switch
-            android:layout_width="wrap_content"
+			android:id="@+id/reminderSwitch"
+			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			app:layout_constraintBottom_toBottomOf="@+id/reminders"
 			app:layout_constraintRight_toRightOf="@+id/rightGuide"
@@ -135,56 +134,35 @@
 		<TextView
 			android:id="@+id/notifyMe"
 			style="@style/P2"
-			android:layout_width="0dp"
+			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:layout_marginTop="@dimen/spacing_l"
 			android:text="@string/settings_notify_me"
 			app:layout_constraintLeft_toLeftOf="@+id/leftGuide"
-			app:layout_constraintRight_toRightOf="@+id/rightGuide"
 			app:layout_constraintTop_toBottomOf="@+id/reminders" />
 
-		<TextView
-            style="@style/P2"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:textColor="@color/colorAccent"
-			app:layout_constraintBottom_toBottomOf="@+id/notifyMe"
-			app:layout_constraintRight_toRightOf="@+id/rightGuide"
-			app:layout_constraintTop_toTopOf="@+id/notifyMe"
-			tools:text="1 hour before" />
-
-		<View
-			android:id="@+id/settingsDivider2"
-			android:layout_width="0dp"
-			android:layout_height="1dp"
-			android:layout_marginTop="@dimen/spacing_l"
-			android:background="@drawable/divider"
-			app:layout_constraintLeft_toLeftOf="@+id/leftGuide"
-			app:layout_constraintRight_toRightOf="@+id/rightGuide"
-			app:layout_constraintTop_toBottomOf="@+id/notifyMe" />
+		<Spinner
+			android:id="@+id/spinner"
+			android:layout_width="0sp"
+			android:layout_height="0sp"
+			android:spinnerMode="dropdown"
+			android:visibility="invisible"
+			app:layout_constraintBottom_toBottomOf="parent"
+			app:layout_constraintEnd_toStartOf="@+id/rightGuide"
+			app:layout_constraintTop_toTopOf="@+id/notifyMe" />
 
 		<TextView
-			android:id="@+id/netID"
+			android:id="@+id/notifyMeTime"
 			style="@style/P2"
-			android:layout_width="0dp"
-			android:layout_height="wrap_content"
-			android:layout_marginTop="@dimen/spacing_l"
-			android:layout_marginBottom="@dimen/spacing_l"
-			android:text="@string/settings_net_id"
-			app:layout_constraintLeft_toLeftOf="@+id/leftGuide"
-			app:layout_constraintRight_toRightOf="@+id/rightGuide"
-			app:layout_constraintTop_toBottomOf="@+id/settingsDivider2"
-			app:layout_constraintBottom_toBottomOf="parent"/>
-
-		<TextView
-            style="@style/P2"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
+			android:text="45 Minutes Before"
 			android:textColor="@color/colorAccent"
-			app:layout_constraintBottom_toBottomOf="@+id/netID"
+			android:textStyle="bold"
+			app:layout_constraintBottom_toBottomOf="@+id/spinner"
+			app:layout_constraintEnd_toStartOf="@+id/spinner"
 			app:layout_constraintRight_toRightOf="@+id/rightGuide"
-			app:layout_constraintTop_toTopOf="@+id/netID"
-			tools:text="dc788" />
+			app:layout_constraintTop_toTopOf="@+id/spinner" />
 
-	</android.support.constraint.ConstraintLayout>
+	</androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

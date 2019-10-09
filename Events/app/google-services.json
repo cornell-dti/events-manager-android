@@ -1,0 +1,71 @@
+{
+  "project_info": {
+    "project_number": "498336876169",
+    "firebase_url": "https://propane-melody-209519.firebaseio.com",
+    "project_id": "propane-melody-209519",
+    "storage_bucket": "propane-melody-209519.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:498336876169:android:7d20cec3aafb2eec",
+        "android_client_info": {
+          "package_name": "com.dti.cornell.events"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "498336876169-pe46lq2e14pafj2a43m0fr3gi4b871hv.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.dti.cornell.events",
+            "certificate_hash": "7b64416cb4c1198c2afe234e172471d4c77bf797"
+          }
+        },
+        {
+          "client_id": "498336876169-t17se26b9lcqjnie8oj437ki96ljcjip.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.dti.cornell.events",
+            "certificate_hash": "858afd3f28894e745a58f30f1ceed4b725b08f56"
+          }
+        },
+        {
+          "client_id": "498336876169-9gc09llnpckj0dtbmdoals0lip9emcs8.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.dti.cornell.events",
+            "certificate_hash": "824384b96a31192118f888f15d6539862a673d42"
+          }
+        },
+        {
+          "client_id": "498336876169-ic648e1orr7mjc3ts47o99f9uphpa01f.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBYOJBfBPE1zN_U28gP0J4bXwK2O6FIEjM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "498336876169-ic648e1orr7mjc3ts47o99f9uphpa01f.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "498336876169-c0tedkl028ga401h2qj4g4gelnr68pen.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.dti.cornell.events"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
