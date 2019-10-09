@@ -23,6 +23,7 @@ import com.dti.cornell.events.utils.EventUtil;
 import com.dti.cornell.events.utils.Internet;
 import com.dti.cornell.events.utils.RecyclerUtil;
 import com.dti.cornell.events.utils.SettingsUtil;
+import com.dti.cornell.events.utils.workers.NotifyWorker;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
@@ -33,10 +34,14 @@ import com.google.android.libraries.places.api.Places;
 import com.google.android.libraries.places.api.model.Place;
 import com.google.android.libraries.places.api.net.FetchPlaceRequest;
 import com.google.android.libraries.places.api.net.PlacesClient;
+import com.google.common.eventbus.Subscribe;
 import com.google.firebase.analytics.FirebaseAnalytics;
+
+import org.joda.time.DateTime;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 import androidx.annotation.Nullable;
@@ -45,6 +50,8 @@ import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.app.ShareCompat;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.work.OneTimeWorkRequest;
+import androidx.work.WorkManager;
 
 /**
  * Created by jaggerbrulato on 2/27/18.
@@ -411,6 +418,33 @@ public class DetailsActivity extends AppCompatActivity implements OnMapReadyCall
 		SettingsUtil.SINGLETON.doSave();
 		EventBusUtils.SINGLETON.unregister(this);
 		super.onStop();
+	}
+
+	@Subscribe
+	public void onNotificationUpdate(EventBusUtils.NotificationUpdate notifChange)
+	{
+		WorkManager.getInstance(this).cancelAllWorkByTag(Data.NOTIFICATION_TAG);
+		if(SettingsUtil.SINGLETON.getSettings().doSendNotifications){
+			for(Event event : EventUtil.allAttendanceEvents.stream().map((val) -> Data.getEventFromID(val)).collect(Collectors.toSet())){
+
+				if(DateTime.now().isBefore(event.startTime.minusMinutes(Integer.valueOf(SettingsUtil.SINGLETON.getSettings().notifyMeTime.split(" ")[0])))){
+					androidx.work.Data.Builder builder = new androidx.work.Data.Builder();
+
+					androidx.work.Data inputData = builder.putString("event", event.toString())
+							.putString("location", (Data.locationForID.get(event.locationID) != null) ? Data.locationForID.get(event.locationID).toString() : "-1|||")
+							.build();
+
+					OneTimeWorkRequest notificationWork = new OneTimeWorkRequest.Builder(NotifyWorker.class)
+							.setInitialDelay(Data.getDelayUntilDateInMilliseconds(event.startTime.minusMinutes(Integer.valueOf(SettingsUtil.SINGLETON.getNotificationTimeBeforeEvent().split(" ")[0]))), TimeUnit.MILLISECONDS)
+							.setInputData(inputData)
+							.addTag(Data.NOTIFICATION_TAG)
+							.build();
+
+
+					WorkManager.getInstance(this).enqueue(notificationWork);
+				}
+			}
+		}
 	}
 
 }
