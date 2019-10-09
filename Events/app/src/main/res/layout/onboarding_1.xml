@@ -1,16 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:paddingTop="@dimen/spacing_4l"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
 	xmlns:app="http://schemas.android.com/apk/res-auto">
 
-	<Button
-		android:id="@+id/getStartedButton"
+	<androidx.constraintlayout.widget.Guideline
+		android:id="@+id/leftGuide"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		android:text="@string/onboarding_get_started"
-		app:layout_constraintLeft_toLeftOf="parent"
-		app:layout_constraintRight_toRightOf="parent"
-		style="@style/mainButton"/>
+		android:orientation="vertical"
+		app:layout_constraintGuide_begin="@dimen/spacing_xxl" />
 
-</android.support.constraint.ConstraintLayout>
+	<androidx.constraintlayout.widget.Guideline
+		android:id="@+id/rightGuide"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:orientation="vertical"
+		app:layout_constraintGuide_end="@dimen/spacing_xxl" />
+
+	<TextView
+		android:id="@+id/interact"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:text="@string/onboarding_welcome"
+		app:layout_constraintTop_toTopOf="parent"
+		app:layout_constraintLeft_toLeftOf="@+id/leftGuide"
+		style="@style/PageTitle" />
+
+	<TextView
+		android:id="@+id/interactDescription"
+		android:layout_width="0dp"
+		android:layout_height="wrap_content"
+		android:text="@string/onboarding_welcome_description"
+		android:layout_marginTop="@dimen/spacing_l"
+		app:layout_constraintTop_toBottomOf="@+id/interact"
+		app:layout_constraintLeft_toLeftOf="@+id/leftGuide"
+		app:layout_constraintRight_toRightOf="@+id/rightGuide"
+		style="@style/P1"/>
+
+	<Button
+		android:id="@+id/getStartedButton"
+		style="@style/mainButton"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginBottom="24dp"
+		android:text="@string/onboarding_get_started"
+		app:layout_constraintBottom_toBottomOf="parent"
+		app:layout_constraintLeft_toLeftOf="parent"
+		app:layout_constraintRight_toRightOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

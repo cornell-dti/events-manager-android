@@ -3,28 +3,43 @@ package com.dti.cornell.events;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
+import com.dti.cornell.events.models.Event;
 import com.dti.cornell.events.models.Organization;
 import com.dti.cornell.events.utils.Data;
+import com.dti.cornell.events.utils.Internet;
 import com.dti.cornell.events.utils.OrganizationUtil;
 import com.dti.cornell.events.utils.RecyclerUtil;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.analytics.FirebaseAnalytics;
 
-public class OrganizationActivity extends AppCompatActivity implements View.OnClickListener
+import java.util.List;
+import java.util.stream.Collectors;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ShareCompat;
+import androidx.recyclerview.widget.RecyclerView;
+
+public class OrganizationActivity extends AppCompatActivity implements View.OnClickListener, Data.DataUpdateListener
 {
 	private static final String ORGANIZATION_KEY = "organization";
 	private TextView website;
 	private TextView email;
 	private TextView bio;
+	private ScrollView scrollView;
 	private RecyclerView eventsRecycler;
 	private RecyclerView tagRecycler;
 	private Organization organization;
 	private boolean userIsFollowing;
 	private TextView followingButton;
+	private TextView title;
+	private ImageView toolbarImage;
+
+	private FirebaseAnalytics firebaseAnalytics;
 
 	public static void startWithOrganization(Organization organization, Context context)
 	{
@@ -39,6 +54,7 @@ public class OrganizationActivity extends AppCompatActivity implements View.OnCl
 		setTheme(R.style.AppTheme_NoActionBar);
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_organization);
+		Data.registerListener(this);
 
 		organization = Organization.fromString(getIntent().getExtras().getString(ORGANIZATION_KEY));
 		findViews();
@@ -48,6 +64,9 @@ public class OrganizationActivity extends AppCompatActivity implements View.OnCl
 		if(userIsFollowing){
 			setFollowButtonState();
 		}
+		scrollView.smoothScrollTo(0,0);
+
+		firebaseAnalytics = FirebaseAnalytics.getInstance(this);
 	}
 
 	@Override
@@ -73,12 +92,16 @@ public class OrganizationActivity extends AppCompatActivity implements View.OnCl
 	private void findViews()
 	{
 		findViewById(R.id.follow).setOnClickListener(this);
+
+		toolbarImage = findViewById(R.id.toolbarImage);
+		title = findViewById(R.id.toolbarTitle);
+
 		website = findViewById(R.id.website);
 		email = findViewById(R.id.email);
 		bio = findViewById(R.id.bio);
 		FloatingActionButton backButton = findViewById(R.id.backButton);
 		backButton.setOnClickListener(this);
-
+		scrollView = findViewById(R.id.scrollView);
 		eventsRecycler = findViewById(R.id.eventsRecycler);
 		RecyclerUtil.addHorizontalSpacing(eventsRecycler);
 
@@ -88,14 +111,20 @@ public class OrganizationActivity extends AppCompatActivity implements View.OnCl
 
 	private void configure(Organization organization)
 	{
+		Internet.getImageForOrganization(organization, toolbarImage);
 		website.setText(organization.website);
 		email.setText(organization.email);
 		bio.setText(organization.description);
-
+		title.setText(organization.name);
 		EventCardAdapter adapter = new EventCardAdapter(this);
 		eventsRecycler.setAdapter(adapter);
-		adapter.setData(Data.events());
-
+		List<Event> orgEvents = Data.events().stream().filter((val) -> {
+			return val.organizerID == this.organization.id;
+		}).collect(Collectors.toList());
+		adapter.setData(orgEvents);
+		if(orgEvents.size() == 0){
+			Data.getData();
+		}
 		tagRecycler.setAdapter(new TagAdapter(this, organization.tagIDs, false));
 	}
 
@@ -112,12 +141,51 @@ public class OrganizationActivity extends AppCompatActivity implements View.OnCl
 					OrganizationUtil.unfollowOrganization(organization.id);
 					userIsFollowing = false;
 					setFollowButtonState();
+					logFirebaseEvent("followButtonUnclicked",organization.name);
 				} else {
 					OrganizationUtil.followOrganization(organization.id);
 					userIsFollowing = true;
 					setFollowButtonState();
+					logFirebaseEvent("followButtonPressed",organization.name);
 				}
 				break;
+			case R.id.share:
+				ShareCompat.IntentBuilder.from(this)
+						.setType("text/plain")
+						.setChooserTitle("Choose how to share this organization")
+						.setText("https://www.cuevents.org/org/" + this.organization.id)
+						.startChooser();
+				break;
 		}
+	}
+
+	@Override
+	public void eventUpdate(List<Event> e) {
+		EventCardAdapter adapter = new EventCardAdapter(this);
+		eventsRecycler.setAdapter(adapter);
+		adapter.setData(Data.events().stream().filter((val) -> {
+			return val.organizerID == this.organization.id;
+		}).collect(Collectors.toList()));
+
+		tagRecycler.setAdapter(new TagAdapter(this, organization.tagIDs, false));
+	}
+
+	@Override
+	public void orgUpdate(List<Organization> o) {
+		int orgID = organization.id;
+		organization = Data.organizationForID.get(orgID);
+		email.setText(organization.email);
+	}
+
+	@Override
+	public void tagUpdate(List<String> t) {
+
+	}
+
+	private void logFirebaseEvent(String event, String orgName) {
+		Bundle bundle = new Bundle();
+		bundle.putString("orgName", orgName);
+		firebaseAnalytics.logEvent(event, bundle);
+		firebaseAnalytics.setAnalyticsCollectionEnabled(true);
 	}
 }

@@ -1,8 +1,8 @@
 package com.dti.cornell.events;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
@@ -49,7 +49,7 @@ class OrganizationAdapter extends RecyclerView.Adapter<OrganizationViewHolder>
 	public void onBindViewHolder(@NonNull OrganizationViewHolder holder, int position)
 	{
 		Organization org = organizations.get(position);
-		holder.configure(org, position);
+		holder.configure(org, position, selectable);
 		if (selectable)
 			holder.setSelected(selected.contains(org));
 	}

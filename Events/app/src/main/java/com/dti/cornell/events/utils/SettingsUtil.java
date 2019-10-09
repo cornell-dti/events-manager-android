@@ -6,23 +6,27 @@ import android.preference.PreferenceManager;
 import android.util.Log;
 
 import com.dti.cornell.events.models.Event;
+import com.dti.cornell.events.models.Location;
 import com.dti.cornell.events.models.Organization;
-import com.dti.cornell.events.models.Tag;
-
-import org.joda.time.DateTime;
+import com.dti.cornell.events.models.Settings;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 public class SettingsUtil
 {
 	public static SettingsUtil SINGLETON;
 	private final SharedPreferences settings;
-	private final Context context;
+	private Settings settingsObject;
+
+	//local data holders
+	Map<Integer, Event> events = new HashMap<>();
 
 	//keys
 	private static final String TIMESTAMP = "timestamp";
@@ -33,13 +37,13 @@ public class SettingsUtil
 	private static final String EMAIL = "email";
 	private static final String TOKEN = "token";
 	private static final String IMAGE_URL = "imageURL";
-
-	private static String token = "";
+	private static final String NOTIFICATION_TIME_BEFORE_EVENT = "notifTimeBeforeEvent";
+	private static final String SETTINGS = "settingsObject";
+	private static final String LOCATIONS = "locations";
 
 	private SettingsUtil(Context context)
 	{
 		settings = PreferenceManager.getDefaultSharedPreferences(context);
-		this.context = context;
 	}
 
 	public static void createSingleton(Context context)
@@ -51,7 +55,8 @@ public class SettingsUtil
 	public String getTimestamp()
 	{
 		//default = oldest possible time
-		return settings.getString(TIMESTAMP, Internet.addTToTimestamp(new DateTime(0).toString(Internet.TIME_FORMAT_NO_T)));
+//		return settings.getString(TIMESTAMP, new DateTime(0).toString(Internet.TIME_FORMAT));
+		return "2017-02-19T01:43:40.753131-05:00";
 	}
 	public void setTimestamp(String timestamp)
 	{
@@ -60,21 +65,55 @@ public class SettingsUtil
 				.apply();
 	}
 
-	public Map<Integer, Event> getEvents()
-	{
-		Set<String> eventStrings = settings.getStringSet(EVENTS, Collections.<String>emptySet());
-		Map<Integer, Event> events = new HashMap<>(eventStrings.size());
-		for (String eventString : eventStrings)
-		{
-			Event event = Event.fromString(eventString);
-			events.put(event.id, event);
+	public Settings getSettings(){
+		if(settingsObject == null){
+			String settingsString = settings.getString(SETTINGS, "null");
+			if(settingsString.equalsIgnoreCase("null")){
+				return new Settings("15 Minutes Before", true);
+			}
+			this.settingsObject = Settings.fromString(settingsString);
+			return settingsObject;
+		} else {
+			return settingsObject;
 		}
-		return events;
 	}
 
-	public void setEvents(Map<Integer, Event> events)
+	public void setSettings(Settings settingsObject){
+		this.settingsObject = settingsObject;
+		settings.edit().putString(SETTINGS, settingsObject.toString()).apply();
+	}
+
+	public String getNotificationTimeBeforeEvent()
 	{
-		setStringSet(new HashSet<>(events.values()), EVENTS);
+		if(this.settingsObject == null){
+			return this.getSettings().notifyMeTime;
+		}
+		return settingsObject.notifyMeTime;
+	}
+
+	public Map<Integer, Event> getEvents()
+	{
+		if(Data.events().isEmpty()){
+			loadEvents();
+		}
+		return Data.eventForID;
+//		Set<String> eventStrings = settings.getStringSet(EVENTS, Collections.<String>emptySet());
+//		Map<Integer, Event> events = new HashMap<>(eventStrings.size());
+//		for (String eventString : eventStrings)
+//		{
+//			Event event = Event.fromString(eventString);
+//			events.put(event.id, event);
+//		}
+//		return events;
+	}
+
+	public void saveEvents(List<Event> events)
+	{
+		HashSet<String> eventsStrings = new HashSet<String>();
+		for(Event e : events){
+			eventsStrings.add(e.toString());
+		}
+		setStringSet(eventsStrings, EVENTS);
 	}
 
 	public Map<Integer, Organization> getOrganizations()
@@ -98,22 +137,16 @@ public class SettingsUtil
 	{
 		return settings.getBoolean(FIRST_RUN, true);
 	}
-
-	public void setFirstRun() {
+	public void setFirstRun()
+	{
 		settings.edit()
-			.putBoolean(FIRST_RUN, false)
-			.apply();
-	}
-
-	public void resetFirstRun() {
-		settings.edit()
-				.putBoolean(FIRST_RUN, true)
+				.putBoolean(FIRST_RUN, false)
 				.apply();
 	}
 
 	public String getName()
 	{
-		return settings.getString(NAME, "");
+		return settings.getString(NAME, null);
 	}
 
 	public void setName(String name)
@@ -125,7 +158,7 @@ public class SettingsUtil
 
 	public String getEmail()
 	{
-		return settings.getString(EMAIL, "");
+		return settings.getString(EMAIL, null);
 	}
 
 	public void setEmail(String email)
@@ -137,12 +170,10 @@ public class SettingsUtil
 
 	public String getToken()
 	{
-		return token;
-		//return settings.getString(TOKEN, "");
+		return settings.getString(TOKEN, null);
 	}
 	public void setToken(String token)
 	{
-		SettingsUtil.token = token;
 		settings.edit()
 				.putString(TOKEN, token)
 				.apply();
@@ -150,7 +181,7 @@ public class SettingsUtil
 
 	public String getImageUrl()
 	{
-		return settings.getString(IMAGE_URL, "");
+		return settings.getString(IMAGE_URL, null);
 	}
 
 	public void setImageUrl(String imageUrl)
@@ -172,16 +203,82 @@ public class SettingsUtil
 	}
 
 
+	// LOADING & SAVING FROM MAINACTIVITY
+
+	public void loadSettings(){
+		String settingsString = settings.getString("SETTINGS", "15 Minutes Before>>true");
+		Settings loadedSettings = Settings.fromString(settingsString);
+		this.settingsObject = loadedSettings;
+	}
+
+	public void saveSettings(Settings s){
+		settings.edit().putString("SETTINGS", s.toString()).apply();
+	}
+
+	public void saveTagsObjs(){
+		String tagsString = TagUtil.encodeTags();
+		settings.edit().putString("TAGOBJ", tagsString).apply();
+	}
+
+	public void loadTagsObj(){
+		String encodedTag = settings.getString("TAGOBJ", "");
+		if(encodedTag.isEmpty()){
+			return;
+		}
+		TagUtil.decodeTags(encodedTag);
+	}
+
+	public void saveOrgs()
+	{
+		HashSet<String> orgStrings = new HashSet<String>();
+		for(Organization o : Data.organizationForID.values()){
+			orgStrings.add(o.toString());
+		}
+		setStringSet(orgStrings, ORGANIZATIONS);
+	}
+
+	public void loadOrgs(){
+		Set<String> orgStringSet = settings.getStringSet(ORGANIZATIONS, new HashSet<>());
+		Set<Organization> orgs = orgStringSet.stream().map((val) -> Organization.fromString(val)).collect(Collectors.toSet());
+		for(Organization o : orgs){
+			Data.organizationForID.put(o.id, o);
+		}
+	}
+
+	public void saveLocations()
+	{
+		HashSet<String> locStrings = new HashSet<String>();
+		for(Location l : Data.locationForID.values()){
+			locStrings.add(l.toString());
+		}
+		setStringSet(locStrings, LOCATIONS);
+	}
+
+	public void loadLocations(){
+		Set<String> locStringSet = settings.getStringSet(LOCATIONS, new HashSet<>());
+		Set<Location> locs = locStringSet.stream().map((val) -> Location.fromString(val)).collect(Collectors.toSet());
+		for(Location l : locs){
+			Data.locationForID.put(l.id, l);
+		}
+	}
 
 
-
+	public void loadEvents(){
+		Set<String> eventStringSet = settings.getStringSet(EVENTS, new HashSet<>());
+		Set<Event> events = eventStringSet.stream().map((val) -> Event.fromString(val)).collect(Collectors.toSet());
+		for(Event e : events){
+			Data.eventForID.put(e.id, e);
+		}
+		if(events.size() > 0){
+			Data.emitEventUpdate();
+		}
+	}
 
 
 	public void loadTags(){
 		//String toBeDecoded = PreferenceManager.getDefaultSharedPreferences(context).getString("TAG_STRING", "");
-		SharedPreferences sp = context.getSharedPreferences("TAGS", Context.MODE_PRIVATE);
+		SharedPreferences sp = settings;
 		String toBeDecoded = sp.getString("TAG_STRING", "DEFAULT");
-		Log.e("TAG STRING ENCODED", toBeDecoded);
 		if(toBeDecoded.equalsIgnoreCase("DEFAULT")){
 			Log.e("SettingsUtil Tags", "Tags are null!");
 			toBeDecoded = "";
@@ -191,22 +288,12 @@ public class SettingsUtil
 		for(Integer eventID : TagUtil.tagIDsAndImportance.keySet()){
 			TagUtil.tagsInterested.add(eventID);
 		}
-
-		Set<String> allTags = sp.getStringSet("TAGS_ALL", new HashSet<String>());
-		for(String tag : allTags){
-			TagUtil.allTags.add(Tag.fromString(tag));
-		}
-		if(!allTags.isEmpty()){
-			System.out.println(TagUtil.allTags.get(0));
-		}
-
 		TagUtil.tagsLoaded = true;
 	}
 
-	public void loadOrganizations(){
-		SharedPreferences sp = context.getSharedPreferences("ORGS", Context.MODE_PRIVATE);
+	public void loadFollowedOrganizations(){
+		SharedPreferences sp = settings;
 		String toBeDecoded = sp.getString("ORGANIZATION_STRING", "DEFAULT");
-		Log.e("ORG STRING ENCODED", toBeDecoded);
 		if(toBeDecoded.equalsIgnoreCase("DEFAULT")){
 			Log.e("loadOrgs", "TOBEDECODED IS NULL");
 			toBeDecoded = "";
@@ -217,9 +304,8 @@ public class SettingsUtil
 
 	public void loadAttendance(){
 		//String toBeDecoded = PreferenceManager.getDefaultSharedPreferences(context).getString("ATTENDANCE_STRING", "");
-		SharedPreferences sp = context.getSharedPreferences("ATTENDANCE", Context.MODE_PRIVATE);
+		SharedPreferences sp = settings;
 		String toBeDecoded = sp.getString("ATTENDANCE_STRING", "DEFAULT");
-		Log.e("ATT STRING ENCODED", toBeDecoded);
 		if(toBeDecoded.equalsIgnoreCase("DEFAULT")){
 			Log.e("loadAttendance", "TOBEDECODED IS NULL");
 			toBeDecoded = "";
@@ -232,13 +318,8 @@ public class SettingsUtil
 	}
 
 	public void saveTags(){
-		SharedPreferences.Editor e = context.getSharedPreferences("TAGS", Context.MODE_PRIVATE).edit();
-		e.putString("TAG_LIKES", TagUtil.encodeTagIDs());
-		Set<String> tags = new HashSet<>();
-		for(Tag tag : TagUtil.allTags){
-			tags.add(tag.toString());
-		}
-		e.putStringSet("TAGS_ALL", tags);
+		SharedPreferences.Editor e = settings.edit();
+		e.putString("TAG_STRING", TagUtil.encodeTagIDs());
 		e.commit();
 		//PreferenceManager.getDefaultSharedPreferences(context).edit().putString("TAG_STRING", TagUtil.encodeTagIDs()).commit();
 	}
@@ -247,18 +328,43 @@ public class SettingsUtil
 //		SharedPreferences settings;
 //		settings = context.getSharedPreferences("ORGANIZATION_STRING", Context.MODE_PRIVATE);
 //		settings.edit().putString(OrganizationUtil.encodeOrganizationIDs(), null).apply();
-		Log.e("OrgEncodeCheck", OrganizationUtil.encodeOrganizationIDs());
-		SharedPreferences.Editor e = context.getSharedPreferences("ORGS", Context.MODE_PRIVATE).edit();
+		SharedPreferences.Editor e = settings.edit();
 		e.putString("ORGANIZATION_STRING", OrganizationUtil.encodeOrganizationIDs());
 		e.commit();
 	}
 
 	public void saveAttendance(){
-		Log.e("EventEncodeCheck", EventUtil.encodeEventIDs());
-		SharedPreferences.Editor e = context.getSharedPreferences("ATTENDANCE", Context.MODE_PRIVATE).edit();
+		SharedPreferences.Editor e = settings.edit();
 		e.putString("ATTENDANCE_STRING", EventUtil.encodeEventIDs());
 		e.commit();
 		//PreferenceManager.getDefaultSharedPreferences(context).edit().putString("ATTENDANCE_STRING", EventUtil.encodeEventIDs()).commit();
+	}
+
+	public static void doSave(){
+		SettingsUtil.SINGLETON.saveTags();
+		SettingsUtil.SINGLETON.saveFollowedOrganizations();
+		SettingsUtil.SINGLETON.saveOrgs();
+		SettingsUtil.SINGLETON.saveAttendance();
+		SettingsUtil.SINGLETON.saveLocations();
+		SettingsUtil.SINGLETON.saveTagsObjs();
+		SettingsUtil.SINGLETON.saveEvents(Data.events());
+		SettingsUtil.SINGLETON.saveSettings(SettingsUtil.SINGLETON.getSettings());
+	}
+
+	public static void doLoad(){
+		SettingsUtil.SINGLETON.loadSettings();
+		SettingsUtil.SINGLETON.loadLocations();
+		SettingsUtil.SINGLETON.loadOrgs();
+		SettingsUtil.SINGLETON.loadTagsObj();
+		if(!TagUtil.tagsLoaded){
+			SettingsUtil.SINGLETON.loadTags();
+		}
+		if(!OrganizationUtil.organizationsLoaded){
+			SettingsUtil.SINGLETON.loadFollowedOrganizations();
+		}
+		if(!EventUtil.attendanceLoaded){
+			SettingsUtil.SINGLETON.loadAttendance();
+		}
 	}
 
 }

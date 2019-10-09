@@ -6,10 +6,11 @@
 	<string name="button_follow">follow</string>
 	<string name="button_following">following</string>
 	<string name="tags">Tags</string>
-	<string name="tab_discover">Discover</string>
-	<string name="tab_for_you">For You</string>
-	<string name="tab_my_events">My Events</string>
-	<string name="tab_profile">Profile</string>
+	<string name="tab_discover"><b>Discover</b></string>
+	<string name="tab_for_you"><b>For You</b></string>
+	<string name="tab_my_events"><b>My Events</b></string>
+	<string name="tab_profile"><b>Profile</b></string>
+	<string name="page_all_events"><b>All Events</b></string>
 
 	<string name="event_starts">Starts</string>
 	<string name="event_going">Going</string>
@@ -34,6 +35,8 @@
 	<string name="settings_notify_me">Notify Me</string>
 	<string name="settings_net_id">NetID</string>
 
+	<string name="onboarding_welcome">Welcome</string>
+	<string name="onboarding_welcome_description">Get started with cue, a blah blah blah blah</string>
 	<string name="onboarding_get_started">Get Started</string>
 	<string name="onboarding_next">Next</string>
 	<string name="onboarding_interact">Interact</string>

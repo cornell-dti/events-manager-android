@@ -10,6 +10,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * Created by jboss925 on 8/29/18.
@@ -31,10 +32,9 @@ public class TagUtil {
             //Needs context to load. Must call loadTags() from activity.
             return;
         }
-        if(tagsInterested.contains(tagID)){
-            return;
+        if(!tagsInterested.contains(tagID)){
+            tagsInterested.add(tagID);
         }
-        tagsInterested.add(tagID);
         if(tagIDsAndImportance.containsKey(tagID)){
             tagIDsAndImportance.put(tagID, tagIDsAndImportance.get(tagID) + 1);
         } else {
@@ -45,6 +45,25 @@ public class TagUtil {
     public static void resetTags(){
         tagsInterested = new ArrayList<>();
         tagIDsAndImportance = new HashMap<>();
+    }
+
+    public static List<Event> getEventsWithTag(int tagID){
+        if(!tagsLoaded){
+            Log.e("TAGS","Tags have not yet been loaded! You can't ask for events unless" +
+                    "the tags are loaded!");
+//            loadTags();
+            //Needs context to load. Must call loadTags() from activity.
+            return new ArrayList<>();
+        }
+
+        //Check events for tagID, add them.
+        List<Integer> suggestedEvents = new ArrayList<>();
+        for (Event event : EventUtil.getEventsOnOrAfterToday()){
+            if (event.tagIDs.contains(tagID)){
+                suggestedEvents.add(event.id);
+            }
+        }
+        return suggestedEvents.stream().map((val) -> Data.eventForID.get(val)).collect(Collectors.toList());
     }
 
     public static List<Event> suggestEventsForTagID(int tagID){
@@ -58,7 +77,7 @@ public class TagUtil {
 
         //Check events for tagID, add them.
         List<Integer> suggestedEvents = new ArrayList<>();
-        for (Event event : Data.events()){
+        for (Event event : EventUtil.getEventsOnOrAfterToday()){
             if (event.tagIDs.contains(tagID)){
                 suggestedEvents.add(event.id);
             }
@@ -99,11 +118,45 @@ public class TagUtil {
         List<Event> returnEvents = new ArrayList<>();
         for(IDAndFrequency idf : frequencyOfEventIDs){
             returnEvents.add(Data.getEventFromID(idf.ID));
-            Log.e("SUGGESTED EVENT", Data.getEventFromID(idf.ID) + "::" + idf.frequency);
         }
 
 
         return returnEvents;
+    }
+
+    public static String encodeTags(){
+        StringBuilder sb = new StringBuilder();
+        boolean firstLoop = true;
+        for(Integer i : Data.tagForID.keySet()){
+            if(firstLoop){
+                sb.append(i);
+                sb.append(";");
+                sb.append(Data.tagForID.get(i));
+                firstLoop = false;
+            } else {
+                sb.append("::");
+                sb.append(i);
+                sb.append(";");
+                sb.append(Data.tagForID.get(i));
+            }
+
+        }
+        return sb.toString();
+    }
+
+    public static Map<Integer, String> decodeTags(String tagsString){
+        if(tagsString.isEmpty() || !tagsString.contains("::")){
+            return new HashMap<>();
+        }
+        String[] tagIDs = tagsString.split("::");
+        HashMap<Integer, Integer> tagIDsInts = new HashMap<>();
+        for (String tagIDAndTag : tagIDs){
+            String[] breakup = tagIDAndTag.split(";");
+            Integer tagID = Integer.valueOf(breakup[0]);
+            String tag = breakup[1];
+            Data.tagForID.put(tagID, tag);
+        }
+        return Data.tagForID;
     }
 
     public static String encodeTagIDs(){
@@ -123,7 +176,6 @@ public class TagUtil {
             }
 
         }
-        Log.e("DEBUG TAGUTIL", sb.toString());
         return sb.toString();
     }
 
@@ -147,11 +199,15 @@ public class TagUtil {
         if(tagsInterested.size() == 0){
             return new ArrayList<>();
         }
-        List<Integer> tagIDs = new ArrayList<>();
-        for(int i = 0; i < numberOfTagsDesired; i++){
-            tagIDs.add(tagsInterested.get(i));
-        }
-        return tagIDs;
+        List<IDAndFrequency> idAndFrequencies = tagsInterested.stream().map((val) -> {
+            return new IDAndFrequency(val, tagIDsAndImportance.get(val));
+        }).collect(Collectors.toList());
+        Collections.sort(idAndFrequencies, Comparators.FREQUENCY);
+        Collections.reverse(idAndFrequencies);
+
+        return idAndFrequencies.stream().map((val) -> {
+            return val.ID;
+        }).collect(Collectors.toList()).subList(0, Math.min(numberOfTagsDesired, idAndFrequencies.size()));
     }
 
     public static class IDAndFrequency implements Comparable<IDAndFrequency>{

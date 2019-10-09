@@ -7,18 +7,6 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.constraint.ConstraintLayout;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,6 +19,8 @@ import com.dti.cornell.events.models.Event;
 import com.dti.cornell.events.models.Organization;
 import com.dti.cornell.events.utils.EventBusUtils;
 import com.dti.cornell.events.utils.SearchUtil;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.tabs.TabLayout;
 import com.google.common.eventbus.Subscribe;
 
 import org.joda.time.DateTime;
@@ -38,7 +28,17 @@ import org.joda.time.DateTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Calendar;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.constraintlayout.widget.ConstraintSet;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager.widget.ViewPager;
 
 ;
 
@@ -57,6 +57,8 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
     private Button calendarButton;
     DatePickerDialog.OnDateSetListener dateSetListener;
     private static DateTime searchDate;
+    private TabLayout tabLayout;
+    private ConstraintLayout root;
 
     public static void start(Context context)
     {
@@ -70,6 +72,8 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
         setTheme(R.style.AppTheme_NoActionBar);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
+
+        root = findViewById(R.id.root);
 
         searchBar = findViewById(R.id.searchView);
         searchBar.setOnQueryTextListener(this);
@@ -95,12 +99,30 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
         pager.setOffscreenPageLimit(Page.values().length);
 			  SearchAdapter searchFragmentAdapter = new SearchAdapter(getSupportFragmentManager());
         pager.setAdapter(searchFragmentAdapter);
-        //DEPRECATED: RecyclerUtil.configureEvents(recyclerView);
-        //setOnScrollListener();
 
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
+        tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(pager);
-
+				tabLayout.addOnTabSelectedListener(
+						new TabLayout.ViewPagerOnTabSelectedListener(pager) {
+							@Override
+							public void onTabSelected(TabLayout.Tab tab) {
+								super.onTabSelected(tab);
+								if (tab.getPosition() != 0) {
+									calendarButton.setVisibility(View.INVISIBLE);
+                                    ConstraintSet cs = new ConstraintSet();
+                                    cs.clone(root);
+                                    cs.connect(R.id.searchView, ConstraintSet.END, R.id.root, ConstraintSet.END);
+                                    cs.applyTo(root);
+								}
+								else {
+									calendarButton.setVisibility(View.VISIBLE);
+                                    ConstraintSet cs = new ConstraintSet();
+                                    cs.clone(root);
+                                    cs.connect(R.id.searchView, ConstraintSet.END, R.id.calendarButton, ConstraintSet.START);
+                                    cs.applyTo(root);
+								}
+							}
+						});
     }
 
     //change selected date when scrolling through events
@@ -184,8 +206,7 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     @Override
-    public void onBackPressed() { //TODO is this needed?
-        Log.e("HELP", "SHITT GOT PRESSED");
+    public void onBackPressed() {
         setContentView(R.layout.activity_main);
         super.onBackPressed();
     }
@@ -194,7 +215,7 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
     {
         private static final Page[] pages = Page.values();
 	    private final List<Fragment> fragments = new ArrayList<>(pages.length);
-        private String[] tabs = { "Events", "Orgs", "Tags" };
+        private String[] tabs = { "EVENTS", "ORGS", "TAGS" };
 
         SearchAdapter(FragmentManager fm)
         {

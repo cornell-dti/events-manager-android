@@ -4,27 +4,116 @@
 	xmlns:app="http://schemas.android.com/apk/res-auto"
 	xmlns:tools="http://schemas.android.com/tools"
 	android:layout_width="match_parent"
-	android:layout_height="match_parent">
+	android:layout_height="match_parent"
+	android:id="@+id/scrollView"
+	xmlns:card_view="http://schemas.android.com/apk/res-auto" >
 
-	<android.support.constraint.ConstraintLayout
+	<androidx.constraintlayout.widget.ConstraintLayout
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content">
 
-		<android.support.constraint.Guideline
+		<com.google.android.material.floatingactionbutton.FloatingActionButton
+			android:id="@+id/share"
+			android:layout_width="40dp"
+			android:layout_height="40dp"
+			android:layout_marginEnd="20dp"
+			android:layout_marginTop="8dp"
+			android:onClick="onClick"
+			android:src="@drawable/ic_share_white_24dp"
+			android:tint="@color/colorPrimary"
+			app:layout_constraintEnd_toEndOf="parent"
+			card_view:backgroundTint="@android:color/white"
+			card_view:fabSize="mini"
+			card_view:layout_constraintTop_toTopOf="parent"
+			tools:tint="@color/colorPrimary" />
+
+		<androidx.constraintlayout.widget.Guideline
 			android:id="@+id/leftGuide"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:orientation="vertical"
 			app:layout_constraintGuide_begin="@dimen/spacing_xxl"/>
 
-		<android.support.constraint.Guideline
+		<androidx.constraintlayout.widget.Guideline
 			android:id="@+id/rightGuide"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:orientation="vertical"
 			app:layout_constraintGuide_end="@dimen/spacing_xxl"/>
 
-		<android.support.design.widget.FloatingActionButton
+		<com.google.android.material.appbar.AppBarLayout
+			android:id="@+id/appBarLayout2"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:background="@android:color/white"
+			android:theme="@style/AppTheme.NoActionBar"
+			app:layout_constraintTop_toTopOf="parent">
+
+			<androidx.appcompat.widget.Toolbar
+				android:id="@+id/toolbar"
+				android:layout_width="match_parent"
+				android:layout_height="120dp"
+				android:clickable="true"
+				card_view:popupTheme="@style/AppTheme.PopupOverlay"
+				card_view:titleTextAppearance="@style/PageTitle"
+				tools:title="Test title">
+
+				<androidx.constraintlayout.widget.ConstraintLayout
+					android:layout_width="match_parent"
+					android:layout_height="match_parent">
+
+					<TextView
+						android:id="@+id/toolbarTitle"
+						style="@style/PageTitle"
+						android:layout_width="wrap_content"
+						android:layout_height="40dp"
+						android:layout_marginTop="2dp"
+						android:gravity="center"
+						android:textColor="@android:color/black"
+						android:textSize="16sp"
+						app:layout_constraintEnd_toStartOf="@+id/rightGuide2"
+						app:layout_constraintStart_toStartOf="parent"
+						card_view:layout_constraintTop_toBottomOf="@+id/toolbarImageContainer"
+						tools:text="Test Title" />
+
+					<androidx.cardview.widget.CardView
+						android:id="@+id/toolbarImageContainer"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						app:cardBackgroundColor="@color/unloadedGray"
+						card_view:cardCornerRadius="25dp"
+						card_view:cardPreventCornerOverlap="false"
+
+						card_view:layout_constraintEnd_toEndOf="@+id/toolbarTitle"
+						card_view:layout_constraintStart_toStartOf="@+id/toolbarTitle"
+						card_view:layout_constraintTop_toTopOf="parent">
+
+						<ImageView
+							android:id="@+id/toolbarImage"
+							android:layout_width="50dp"
+							android:layout_height="50dp"
+							android:scaleType="centerCrop" />
+					</androidx.cardview.widget.CardView>
+
+
+					<androidx.constraintlayout.widget.Guideline
+						android:id="@+id/rightGuide2"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:layout_marginEnd="20dp"
+						android:orientation="vertical"
+						app:layout_constraintEnd_toEndOf="parent"
+						app:layout_constraintGuide_percent="0.95189875"
+						card_view:layout_constraintGuide_end="@dimen/spacing_xxl" />
+
+				</androidx.constraintlayout.widget.ConstraintLayout>
+
+			</androidx.appcompat.widget.Toolbar>
+
+
+		</com.google.android.material.appbar.AppBarLayout>
+
+		<com.google.android.material.floatingactionbutton.FloatingActionButton
 			android:id="@+id/backButton"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
@@ -41,25 +130,30 @@
 		<TextView
 			android:id="@+id/follow"
 			style="@style/mainButton"
-			android:layout_width="0dp"
+			android:layout_width="160dp"
 			android:layout_height="wrap_content"
-			android:layout_marginTop="8dp"
+			android:layout_marginTop="52dp"
+			android:elevation="5dp"
 			android:text="@string/button_follow"
-			app:layout_constraintHorizontal_bias="0.0"
+			android:textStyle="bold"
+			android:translationZ="5dp"
+			app:layout_constraintHorizontal_bias="0.5"
 			app:layout_constraintLeft_toLeftOf="@+id/leftGuide"
 			app:layout_constraintRight_toRightOf="@+id/rightGuide"
 			app:layout_constraintTop_toBottomOf="@+id/backButton" />
 
 		<TextView
 			android:id="@+id/about"
+			style="@style/H2"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
+			android:layout_marginTop="16dp"
 			android:text="@string/section_about"
 			android:textAllCaps="true"
-			android:layout_marginTop="@dimen/spacing_3l"
-			style="@style/H2"
-			app:layout_constraintTop_toBottomOf="@+id/follow"
-			app:layout_constraintLeft_toLeftOf="@+id/leftGuide"/>
+			android:textColor="@color/gray"
+			android:textStyle="bold"
+			app:layout_constraintLeft_toLeftOf="@+id/leftGuide"
+			app:layout_constraintTop_toBottomOf="@+id/follow" />
 
 		<View
 			android:id="@+id/aboutDivider"
@@ -78,6 +172,7 @@
 			android:text="@string/header_website"
 			android:layout_marginTop="@dimen/spacing_xl"
 			style="@style/P1"
+			android:textStyle="bold"
 			app:layout_constraintTop_toBottomOf="@+id/aboutDivider"
 			app:layout_constraintLeft_toLeftOf="@+id/leftGuide"/>
 
@@ -101,6 +196,7 @@
 			android:text="@string/header_email"
 			android:layout_marginTop="@dimen/spacing_m"
 			style="@style/P1"
+			android:textStyle="bold"
 			app:layout_constraintTop_toBottomOf="@+id/website"
 			app:layout_constraintLeft_toLeftOf="@+id/leftGuide"/>
 
@@ -114,6 +210,7 @@
 			app:layout_constraintLeft_toLeftOf="@+id/website"
 			app:layout_constraintRight_toRightOf="@+id/rightGuide"
 			app:layout_constraintTop_toTopOf="@+id/emailHeader"
+
 			tools:text="david@reallySuperLongEmailThatWillSpanMultipleLines.org" />
 
 		<TextView
@@ -123,6 +220,7 @@
 			android:text="@string/header_bio"
 			android:layout_marginTop="@dimen/spacing_m"
 			style="@style/P1"
+			android:textStyle="bold"
 			app:layout_constraintTop_toBottomOf="@+id/email"
 			app:layout_constraintLeft_toLeftOf="@+id/leftGuide"/>
 
@@ -145,6 +243,8 @@
 			android:textAllCaps="true"
 			android:layout_marginTop="@dimen/spacing_3l"
 			style="@style/H2"
+			android:textStyle="bold"
+			android:textColor="@color/gray"
 			app:layout_constraintTop_toBottomOf="@+id/bio"
 			app:layout_constraintLeft_toLeftOf="@+id/leftGuide"/>
 
@@ -158,14 +258,14 @@
 			app:layout_constraintLeft_toLeftOf="@+id/leftGuide"
 			app:layout_constraintRight_toRightOf="@+id/rightGuide"/>
 
-		<android.support.v7.widget.RecyclerView
+		<androidx.recyclerview.widget.RecyclerView
 			android:id="@+id/eventsRecycler"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
 			android:layout_marginTop="@dimen/spacing_xl"
 			android:orientation="horizontal"
 			tools:listitem="@layout/card_event"
-			app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+			app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
 			app:layout_constraintTop_toBottomOf="@+id/eventsDivider"
 			app:layout_constraintEnd_toEndOf="parent"
 			app:layout_constraintStart_toStartOf="parent" />
@@ -178,6 +278,8 @@
 			android:textAllCaps="true"
 			android:layout_marginTop="@dimen/spacing_3l"
 			style="@style/H2"
+			android:textStyle="bold"
+			android:textColor="@color/gray"
 			app:layout_constraintTop_toBottomOf="@+id/eventsRecycler"
 			app:layout_constraintLeft_toLeftOf="@+id/leftGuide"/>
 
@@ -191,7 +293,7 @@
 			app:layout_constraintLeft_toLeftOf="@+id/leftGuide"
 			app:layout_constraintRight_toRightOf="@+id/rightGuide"/>
 
-		<android.support.v7.widget.RecyclerView
+		<androidx.recyclerview.widget.RecyclerView
 			android:id="@+id/tagRecycler"
 			android:layout_width="0dp"
 			android:layout_height="wrap_content"
@@ -199,11 +301,11 @@
 			android:layout_marginBottom="@dimen/spacing_3l"
 			android:orientation="horizontal"
 			tools:listitem="@layout/item_tag"
-			app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+			app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
 			app:layout_constraintTop_toBottomOf="@+id/tagsDivider"
 			app:layout_constraintStart_toStartOf="parent"
 			app:layout_constraintEnd_toEndOf="parent"
 			app:layout_constraintBottom_toBottomOf="parent"/>
 
-	</android.support.constraint.ConstraintLayout>
+	</androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

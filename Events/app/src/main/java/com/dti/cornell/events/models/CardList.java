@@ -1,8 +1,10 @@
 package com.dti.cornell.events.models;
 
-import android.support.annotation.StringRes;
+import android.content.res.Resources;
 
 import java.util.List;
+
+import androidx.annotation.StringRes;
 
 public class CardList
 {
@@ -24,6 +26,14 @@ public class CardList
 		this.sectionText = section;
 		this.showSeeMore = showSeeMore;
 		this.events = events;
+	}
+
+	public String getSectionText(){
+		if(sectionText == null){
+			return Resources.getSystem().getString(section);
+		} else {
+			return sectionText;
+		}
 	}
 
 }

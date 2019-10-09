@@ -2,23 +2,30 @@ package com.dti.cornell.events;
 
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v4.app.Fragment;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.dti.cornell.events.models.Event;
+import com.dti.cornell.events.models.Organization;
 import com.dti.cornell.events.utils.Data;
 import com.dti.cornell.events.utils.EventBusUtils;
+import com.dti.cornell.events.utils.EventUtil;
 import com.dti.cornell.events.utils.RecyclerUtil;
 import com.google.common.eventbus.Subscribe;
 
 import org.joda.time.DateTime;
+import org.joda.time.Days;
 
-public class MyEventsFragment extends Fragment
+import java.util.List;
+import java.util.stream.Collectors;
+
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+public class MyEventsFragment extends Fragment implements Data.DataUpdateListener
 {
 	private static final String TAG = MyEventsFragment.class.getSimpleName();
 	private RecyclerView recyclerView;
@@ -33,10 +40,26 @@ public class MyEventsFragment extends Fragment
 
 		recyclerView = view.findViewById(R.id.recyclerView);
 		RecyclerUtil.addDivider(recyclerView);
-		adapter = new EventAdapter(getContext(), Data.events());
+		DateTime earliestDateTime = null;
+		for(Event e : Data.events()){
+			if(earliestDateTime == null){
+				earliestDateTime = e.startTime;
+			}
+			else if(e.startTime.isBefore(earliestDateTime)){
+				earliestDateTime = e.startTime;
+			}
+		}
+		adapter = new EventAdapter(recyclerView.getContext(), Data.events().stream().filter(
+				(val)->{
+					return EventUtil.userHasBookmarked(val.id) && val.endTime.isAfter(DateTime.now());
+				}).collect(Collectors.toList()));
 		recyclerView.setAdapter(adapter);
 		layoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
 		setOnScrollListener();
+
+		Data.registerListener(this);
+
+		layoutManager.scrollToPosition(Days.daysBetween(DateTime.now().withTimeAtStartOfDay(), Data.selectedDate.withTimeAtStartOfDay()).getDays());
 
 		return view;
 	}
@@ -56,7 +79,7 @@ public class MyEventsFragment extends Fragment
 					return;
 
 				Data.selectedDate = dateTime;
-				EventBusUtils.SINGLETON.post(new EventBusUtils.DateChanged(TAG));
+				EventBusUtils.SINGLETON.post(new EventBusUtils.DateChanged(""));
 			}
 		});
 	}
@@ -86,5 +109,22 @@ public class MyEventsFragment extends Fragment
 		//scroll to the new date
 		int position = adapter.getPositionForDate(Data.selectedDate);
 		layoutManager.scrollToPositionWithOffset(position, 0);
+	}
+
+	@Override
+	public void eventUpdate(List<Event> e) {
+		adapter = new EventAdapter(recyclerView.getContext(), Data.events().stream().filter(
+				(val)->EventUtil.userHasBookmarked(val.id) && val.endTime.isAfter(DateTime.now())).collect(Collectors.toList()));
+		recyclerView.setAdapter(adapter);
+	}
+
+	@Override
+	public void orgUpdate(List<Organization> o) {
+
+	}
+
+	@Override
+	public void tagUpdate(List<String> t) {
+
 	}
 }

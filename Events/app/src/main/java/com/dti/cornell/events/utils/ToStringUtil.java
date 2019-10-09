@@ -9,7 +9,7 @@ public final class ToStringUtil
 	private ToStringUtil() {}
 
 	private static final String TAG = ToStringUtil.class.getSimpleName();
-	public static final String FIELD_SEPARATOR = "\0";
+	public static final String FIELD_SEPARATOR = "_____";
 	public static final String ARRAY_SEPARATOR = "|";
 
 	public static ImmutableList<String> listFromString(String input)
@@ -20,8 +20,12 @@ public final class ToStringUtil
 	{
 		String[] split = input.split(Pattern.quote(ARRAY_SEPARATOR));
 		ImmutableList.Builder<Integer> builder = new ImmutableList.Builder<>();
-		for (String string : split)
+		for (String string : split) {
+			if (string.isEmpty()) {
+				break;
+			}
 			builder.add(Integer.valueOf(string));
+		}
 		return builder.build();
 	}
 }

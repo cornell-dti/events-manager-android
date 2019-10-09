@@ -2,14 +2,6 @@ package com.dti.cornell.events;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,7 +10,6 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.dti.cornell.events.utils.Data;
-import com.dti.cornell.events.utils.Internet;
 import com.dti.cornell.events.utils.RecyclerUtil;
 import com.dti.cornell.events.utils.SettingsUtil;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -29,6 +20,15 @@ import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager.widget.ViewPager;
 
 public class OnboardingActivity extends AppCompatActivity
 {
@@ -56,7 +56,7 @@ public class OnboardingActivity extends AppCompatActivity
 					&& SettingsUtil.SINGLETON.getEmail() != null)
 			{
 				//TODO check to make sure all fields are set
-			SettingsUtil.SINGLETON.setFirstRun();
+//			SettingsUtil.SINGLETON.setFirstRun();
 				finish();
 			}
 			else
@@ -162,6 +162,7 @@ public class OnboardingActivity extends AppCompatActivity
 			switch (view.getId())
 			{
 				case R.id.signInButton:
+					Log.d("Pressed sign in button", "Sign in button pressed");
 					Intent signInIntent = signInClient.getSignInIntent();
 					startActivityForResult(signInIntent, SIGN_IN);
 					break;
@@ -188,17 +189,11 @@ public class OnboardingActivity extends AppCompatActivity
 
 		private void setAccount(GoogleSignInAccount account)
 		{
-			Log.e("setAccount", "called");
 			SettingsUtil.SINGLETON.setName(account.getDisplayName());
 			SettingsUtil.SINGLETON.setEmail(account.getEmail());
 			SettingsUtil.SINGLETON.setImageUrl(account.getPhotoUrl().toString());
-			Internet.setFirebaseToken(account.getIdToken());
-			Internet.resetToken(account.getIdToken());
-			Internet.setFirebaseToken(account.getIdToken());
-			Internet.downloadImage(account.getPhotoUrl().toString(), image);
-			Log.i(TAG, "updateAccount: " + account.toJson());
-			Log.e(this.getClass().getName(), "Get all data called");
-			Data.getAllData();
+//			Internet.downloadImage(account.getPhotoUrl().toString(), image);
+			//TODO send server id token, save response
 		}
 	}
 	enum Page
