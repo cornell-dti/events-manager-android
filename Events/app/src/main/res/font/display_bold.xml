@@ -3,6 +3,6 @@
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	android:textStyle="bold">
 	<font
-		app:font="@font/dosis_extra_bold"
 		app:fontStyle="normal"/>
+	<!--		app:font="@font/dosis_extra_bold"-->
 </font-family>

@@ -3,6 +3,7 @@
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	android:textStyle="normal">
 	<font
-		app:fontStyle="normal"
-		app:font="@font/dosis_regular"/>
+		app:fontStyle="normal" />
+	<!--		app:font="@font/dosis_regular"-->
+
 </font-family>
