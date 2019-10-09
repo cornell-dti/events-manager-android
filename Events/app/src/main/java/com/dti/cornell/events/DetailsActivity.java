@@ -316,6 +316,7 @@ public class DetailsActivity extends AppCompatActivity implements OnMapReadyCall
 		switch (v.getId())
 		{
 			case R.id.back:
+				EventBusUtils.SINGLETON.unregister(this);
 				onBackPressed();
 				break;
 			case R.id.share:
@@ -416,7 +417,6 @@ public class DetailsActivity extends AppCompatActivity implements OnMapReadyCall
 	@Override
 	public void onStop(){
 		SettingsUtil.SINGLETON.doSave();
-		EventBusUtils.SINGLETON.unregister(this);
 		super.onStop();
 	}
 
