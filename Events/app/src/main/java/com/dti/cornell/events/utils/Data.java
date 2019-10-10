@@ -48,6 +48,7 @@ public final class Data
 
 	public static void getData(){
 		Internet.getEventFeed();
+		Internet.getTags();
 	}
 
 	public static void createDummyData()

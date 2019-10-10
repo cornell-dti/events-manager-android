@@ -192,6 +192,33 @@ public class Internet {
 		requestQueue.add(request);
 	}
 
+	public static void getTags()
+	{
+		String url = DATABASE + "tag/all/";
+
+		JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET,
+				url,
+				null, new Response.Listener<JSONObject>()
+		{
+			@Override
+			public void onResponse(JSONObject response)
+			{
+				try
+				{
+					JSONArray tags = response.getJSONArray("tags");
+					Log.e("TAGS", tags.toString());
+
+				}
+				catch (Exception e)
+				{
+					Log.e(TAG, "getEventFeed: ", e);
+				}
+			}
+		}, ERROR_LISTENER);
+
+		requestQueue.add(request);
+	}
+
 	public static void getOrganizations()
 	{
 		String timestamp = addTToTimestamp(SettingsUtil.SINGLETON.getTimestamp());
