@@ -61,6 +61,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 	private ImageView noConnection;
 	private ProgressBar progressBar;
 	private BottomNavigationView tabBar;
+	public static String OPEN_EVENT = "open_event";
 
 	private boolean hasReturned = false;
 
@@ -183,6 +184,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 		if(Data.events().size() > 0){
 			progressBar.setVisibility(View.GONE);
 			progressBlocker.setVisibility(View.GONE);
+		}
+
+		if (getIntent().getExtras() != null){
+			boolean mustOpen = getIntent().getExtras().containsKey(OPEN_EVENT) ? getIntent().getExtras().getBoolean(OPEN_EVENT) : false;
+			if(mustOpen){
+				String eventString = getIntent().getExtras().getString(DetailsActivity.EVENT_KEY);
+				DetailsActivity.startWithEvent(Event.fromString(eventString), this);
+			}
 		}
 
 //		Internet.getEventFeed();

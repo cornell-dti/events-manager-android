@@ -11,6 +11,7 @@ import android.os.Build;
 import android.util.Log;
 
 import com.dti.cornell.events.DetailsActivity;
+import com.dti.cornell.events.MainActivity;
 import com.dti.cornell.events.R;
 import com.dti.cornell.events.models.Event;
 import com.dti.cornell.events.models.Location;
@@ -66,7 +67,8 @@ public class NotifyWorker extends Worker {
         try{
             createNotificationChannel();
 
-            Intent intent = new Intent(context, DetailsActivity.class);
+            Intent intent = new Intent(context, MainActivity.class);
+            intent.putExtra(MainActivity.OPEN_EVENT, true);
             intent.putExtra(DetailsActivity.EVENT_KEY, e.toString());
 
             SettingsUtil.createSingleton(context);
