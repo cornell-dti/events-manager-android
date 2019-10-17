@@ -170,7 +170,7 @@
                 style="@style/H2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="@dimen/spacing_3l"
                 android:text="@string/section_about"
                 android:textAllCaps="true"
                 android:textColor="@color/gray"
