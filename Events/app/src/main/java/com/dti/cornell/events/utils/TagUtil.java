@@ -212,10 +212,10 @@ public class TagUtil {
 
     public static class IDAndFrequency implements Comparable<IDAndFrequency>{
 
-        final Integer ID;
+        public final Integer ID;
         public final Integer frequency;
 
-        IDAndFrequency(Integer ID, Integer frequency){
+        public IDAndFrequency(Integer ID, Integer frequency){
             this.frequency = frequency;
             this.ID = ID;
         }

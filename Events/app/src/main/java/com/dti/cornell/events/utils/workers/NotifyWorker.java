@@ -36,9 +36,7 @@ public class NotifyWorker extends Worker {
     public NotifyWorker(@NonNull Context context, @NonNull WorkerParameters params) {
         super(context, params);
         this.e = Event.fromString(this.getInputData().getString("event"));
-        Log.e("NOTIFYWORKER", this.getInputData().getString("location"));
         this.loc = Location.fromString(this.getInputData().getString("location"));
-        Log.e("NOTIFYWORKER", this.loc.toString());
         this.context = context;
     }
 
@@ -88,7 +86,7 @@ public class NotifyWorker extends Worker {
             NotificationManager notificationManager = (NotificationManager) context.getSystemService(NOTIFICATION_SERVICE);
             notificationManager.notify(e.id, notification);
         } catch (Error e){
-            Log.e("NOTIFYWORKER", e.getMessage());
+            Log.e("cue NotifyWorker", e.getMessage());
         }
     }
 }

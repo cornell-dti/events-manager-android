@@ -178,18 +178,18 @@
                 app:layout_constraintLeft_toLeftOf="@id/leftGuide2"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/website"
-                style="@style/P1"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/spacing_l"
-                android:autoLink="web"
-                android:textColor="@color/gray"
-                app:layout_constraintLeft_toRightOf="@+id/websiteHeader"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/websiteHeader"
-                tools:text="reallySuperLongWebsiteThatWillSpanMultipleLines.org" />
+			<TextView
+				android:id="@+id/website"
+				style="@style/P1"
+				android:layout_width="0dp"
+				android:layout_height="wrap_content"
+				android:layout_marginLeft="@dimen/spacing_l"
+				android:autoLink="web"
+				android:textColor="@color/gray"
+				app:layout_constraintLeft_toRightOf="@+id/websiteHeader"
+				app:layout_constraintRight_toRightOf="@id/rightGuide2"
+				app:layout_constraintTop_toTopOf="@+id/websiteHeader"
+				tools:text="reallySuperLongWebsiteThatWillSpanMultipleLines.org" />
 
             <TextView
                 android:id="@+id/emailHeader"
@@ -202,18 +202,18 @@
                 app:layout_constraintLeft_toLeftOf="@id/leftGuide2"
                 app:layout_constraintTop_toBottomOf="@+id/website" />
 
-            <TextView
-                android:id="@+id/email"
-                style="@style/P1"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:autoLink="email"
-                android:textColor="@color/gray"
-                app:layout_constraintLeft_toLeftOf="@+id/website"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/emailHeader"
+			<TextView
+				android:id="@+id/email"
+				style="@style/P1"
+				android:layout_width="0dp"
+				android:layout_height="wrap_content"
+				android:autoLink="email"
+				android:textColor="@color/gray"
+				app:layout_constraintLeft_toLeftOf="@+id/website"
+				app:layout_constraintRight_toRightOf="@id/rightGuide2"
+				app:layout_constraintTop_toTopOf="@+id/emailHeader"
 
-                tools:text="david@reallySuperLongEmailThatWillSpanMultipleLines.org" />
+				tools:text="david@reallySuperLongEmailThatWillSpanMultipleLines.org" />
 
             <TextView
                 android:id="@+id/bioHeader"
@@ -226,16 +226,16 @@
                 app:layout_constraintLeft_toLeftOf="@id/leftGuide2"
                 app:layout_constraintTop_toBottomOf="@+id/email" />
 
-            <TextView
-                android:id="@+id/bio"
-                style="@style/P1"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:textColor="@color/gray"
-                app:layout_constraintLeft_toLeftOf="@+id/website"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/bioHeader"
-                tools:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer vel pharetra tortor, eu cursus urna. Curabitur et libero eget libe" />
+			<TextView
+				android:id="@+id/bio"
+				style="@style/P1"
+				android:layout_width="0dp"
+				android:layout_height="wrap_content"
+				android:textColor="@color/gray"
+				app:layout_constraintLeft_toLeftOf="@+id/website"
+				app:layout_constraintRight_toRightOf="@id/rightGuide2"
+				app:layout_constraintTop_toTopOf="@+id/bioHeader"
+				tools:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer vel pharetra tortor, eu cursus urna. Curabitur et libero eget libe" />
 
             <TextView
                 android:id="@+id/events"
@@ -323,19 +323,19 @@
                 app:layout_constraintTop_toBottomOf="@+id/eventsDivider"
                 tools:listitem="@layout/card_event" />
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/tagRecycler"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/spacing_3l"
-                android:layout_marginTop="@dimen/spacing_xl"
-                android:orientation="horizontal"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tagsDivider"
-                tools:listitem="@layout/item_tag" />
+			<androidx.recyclerview.widget.RecyclerView
+				android:id="@+id/tagRecycler"
+				android:layout_width="0dp"
+				android:layout_height="wrap_content"
+				android:layout_marginBottom="@dimen/spacing_3l"
+				android:layout_marginTop="@dimen/spacing_xl"
+				android:orientation="horizontal"
+				app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+				app:layout_constraintBottom_toBottomOf="parent"
+				app:layout_constraintEnd_toEndOf="@id/rightGuide2"
+				app:layout_constraintStart_toStartOf="@id/leftGuide2"
+				app:layout_constraintTop_toBottomOf="@+id/tagsDivider"
+				tools:listitem="@layout/item_tag" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
