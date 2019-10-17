@@ -1,311 +1,343 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-	xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:card_view="http://schemas.android.com/apk/res-auto"
 	xmlns:tools="http://schemas.android.com/tools"
 	android:layout_width="match_parent"
-	android:layout_height="match_parent"
-	android:id="@+id/scrollView"
-	xmlns:card_view="http://schemas.android.com/apk/res-auto" >
+	android:layout_height="match_parent">
 
-	<androidx.constraintlayout.widget.ConstraintLayout
+	<TextView
+		android:id="@+id/follow"
+		style="@style/mainButton"
+		android:layout_width="160dp"
+		android:layout_height="wrap_content"
+		android:layout_marginTop="52dp"
+		android:elevation="5dp"
+		android:text="@string/button_follow"
+		android:textStyle="bold"
+		android:translationZ="5dp"
+		app:layout_constraintHorizontal_bias="0.5"
+		app:layout_constraintLeft_toLeftOf="@+id/leftGuide"
+		app:layout_constraintRight_toRightOf="@+id/rightGuide"
+		app:layout_constraintTop_toBottomOf="@+id/backButton" />
+
+	<androidx.constraintlayout.widget.Guideline
+		android:id="@+id/leftGuide"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginStart="20dp"
+		android:orientation="vertical"
+		app:layout_constraintGuide_begin="@dimen/spacing_xxl"
+		app:layout_constraintStart_toStartOf="parent" />
+
+	<androidx.constraintlayout.widget.Guideline
+		android:id="@+id/rightGuide"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginEnd="20dp"
+		android:orientation="vertical"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintGuide_end="@dimen/spacing_xxl" />
+
+	<com.google.android.material.appbar.AppBarLayout
+		android:id="@+id/appBarLayout2"
 		android:layout_width="match_parent"
-		android:layout_height="wrap_content">
+		android:layout_height="wrap_content"
+		android:background="@android:color/white"
+		android:theme="@style/AppTheme.NoActionBar"
+		app:layout_constraintTop_toTopOf="parent">
 
-		<com.google.android.material.floatingactionbutton.FloatingActionButton
-			android:id="@+id/share"
-			android:layout_width="40dp"
-			android:layout_height="40dp"
-			android:layout_marginEnd="20dp"
-			android:layout_marginTop="8dp"
-			android:onClick="onClick"
-			android:src="@drawable/ic_share_white_24dp"
-			android:tint="@color/colorPrimary"
-			app:layout_constraintEnd_toEndOf="parent"
-			card_view:backgroundTint="@android:color/white"
-			card_view:fabSize="mini"
-			card_view:layout_constraintTop_toTopOf="parent"
-			tools:tint="@color/colorPrimary" />
-
-		<androidx.constraintlayout.widget.Guideline
-			android:id="@+id/leftGuide"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:orientation="vertical"
-			app:layout_constraintGuide_begin="@dimen/spacing_xxl"/>
-
-		<androidx.constraintlayout.widget.Guideline
-			android:id="@+id/rightGuide"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:orientation="vertical"
-			app:layout_constraintGuide_end="@dimen/spacing_xxl"/>
-
-		<com.google.android.material.appbar.AppBarLayout
-			android:id="@+id/appBarLayout2"
+		<androidx.appcompat.widget.Toolbar
+			android:id="@+id/toolbar"
 			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			android:background="@android:color/white"
-			android:theme="@style/AppTheme.NoActionBar"
-			app:layout_constraintTop_toTopOf="parent">
+			android:layout_height="120dp"
+			android:clickable="true"
+			card_view:popupTheme="@style/AppTheme.PopupOverlay"
+			card_view:titleTextAppearance="@style/PageTitle"
+			tools:title="Test title">
 
-			<androidx.appcompat.widget.Toolbar
-				android:id="@+id/toolbar"
+			<androidx.constraintlayout.widget.ConstraintLayout
 				android:layout_width="match_parent"
-				android:layout_height="120dp"
-				android:clickable="true"
-				card_view:popupTheme="@style/AppTheme.PopupOverlay"
-				card_view:titleTextAppearance="@style/PageTitle"
-				tools:title="Test title">
+				android:layout_height="match_parent">
 
-				<androidx.constraintlayout.widget.ConstraintLayout
-					android:layout_width="match_parent"
-					android:layout_height="match_parent">
+				<TextView
+					android:id="@+id/toolbarTitle"
+					style="@style/PageTitle"
+					android:layout_width="wrap_content"
+					android:layout_height="40dp"
+					android:layout_marginTop="2dp"
+					android:gravity="center"
+					android:textColor="@android:color/black"
+					android:textSize="16sp"
+					app:layout_constraintEnd_toStartOf="@+id/rightGuide2"
+					app:layout_constraintStart_toStartOf="parent"
+					card_view:layout_constraintTop_toBottomOf="@+id/toolbarImageContainer"
+					tools:text="Test Title" />
 
-					<TextView
-						android:id="@+id/toolbarTitle"
-						style="@style/PageTitle"
-						android:layout_width="wrap_content"
-						android:layout_height="40dp"
-						android:layout_marginTop="2dp"
-						android:gravity="center"
-						android:textColor="@android:color/black"
-						android:textSize="16sp"
-						app:layout_constraintEnd_toStartOf="@+id/rightGuide2"
-						app:layout_constraintStart_toStartOf="parent"
-						card_view:layout_constraintTop_toBottomOf="@+id/toolbarImageContainer"
-						tools:text="Test Title" />
+				<androidx.cardview.widget.CardView
+					android:id="@+id/toolbarImageContainer"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					app:cardBackgroundColor="@color/unloadedGray"
+					card_view:cardCornerRadius="25dp"
+					card_view:cardPreventCornerOverlap="false"
 
-					<androidx.cardview.widget.CardView
-						android:id="@+id/toolbarImageContainer"
-						android:layout_width="wrap_content"
-						android:layout_height="wrap_content"
-						app:cardBackgroundColor="@color/unloadedGray"
-						card_view:cardCornerRadius="25dp"
-						card_view:cardPreventCornerOverlap="false"
+					card_view:layout_constraintEnd_toEndOf="@+id/toolbarTitle"
+					card_view:layout_constraintStart_toStartOf="@+id/toolbarTitle"
+					card_view:layout_constraintTop_toTopOf="parent">
 
-						card_view:layout_constraintEnd_toEndOf="@+id/toolbarTitle"
-						card_view:layout_constraintStart_toStartOf="@+id/toolbarTitle"
-						card_view:layout_constraintTop_toTopOf="parent">
-
-						<ImageView
-							android:id="@+id/toolbarImage"
-							android:layout_width="50dp"
-							android:layout_height="50dp"
-							android:scaleType="centerCrop" />
-					</androidx.cardview.widget.CardView>
+					<ImageView
+						android:id="@+id/toolbarImage"
+						android:layout_width="50dp"
+						android:layout_height="50dp"
+						android:scaleType="centerCrop" />
+				</androidx.cardview.widget.CardView>
 
 
-					<androidx.constraintlayout.widget.Guideline
-						android:id="@+id/rightGuide2"
-						android:layout_width="wrap_content"
-						android:layout_height="wrap_content"
-						android:layout_marginEnd="20dp"
-						android:orientation="vertical"
-						app:layout_constraintEnd_toEndOf="parent"
-						app:layout_constraintGuide_percent="0.95189875"
-						card_view:layout_constraintGuide_end="@dimen/spacing_xxl" />
+				<androidx.constraintlayout.widget.Guideline
+					android:id="@+id/rightGuide2"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_marginEnd="20dp"
+					android:orientation="vertical"
+					app:layout_constraintEnd_toEndOf="parent"
+					app:layout_constraintGuide_percent="0.95189875"
+					card_view:layout_constraintGuide_end="@dimen/spacing_xxl" />
 
-				</androidx.constraintlayout.widget.ConstraintLayout>
+			</androidx.constraintlayout.widget.ConstraintLayout>
 
-			</androidx.appcompat.widget.Toolbar>
+		</androidx.appcompat.widget.Toolbar>
 
 
-		</com.google.android.material.appbar.AppBarLayout>
+	</com.google.android.material.appbar.AppBarLayout>
 
-		<com.google.android.material.floatingactionbutton.FloatingActionButton
-			android:id="@+id/backButton"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:layout_marginStart="@dimen/spacing_xxl"
-			android:layout_marginTop="8dp"
-			android:src="@drawable/ic_arrow_back_white_24dp"
-			android:tint="@color/colorPrimary"
-			app:backgroundTint="@android:color/white"
-			app:fabSize="mini"
-			app:layout_constraintStart_toStartOf="parent"
-			app:layout_constraintTop_toTopOf="parent"
-			tools:tint="@color/colorPrimary" />
+	<com.google.android.material.floatingactionbutton.FloatingActionButton
+		android:id="@+id/share"
+		android:layout_width="40dp"
+		android:layout_height="40dp"
+		android:layout_marginEnd="20dp"
+		android:layout_marginTop="8dp"
+		android:onClick="onClick"
+		android:src="@drawable/ic_share_white_24dp"
+		android:tint="@color/colorPrimary"
+		app:layout_constraintEnd_toEndOf="parent"
+		card_view:backgroundTint="@android:color/white"
+		card_view:fabSize="mini"
+		card_view:layout_constraintTop_toTopOf="parent"
+		tools:tint="@color/colorPrimary" />
 
-		<TextView
-			android:id="@+id/follow"
-			style="@style/mainButton"
-			android:layout_width="160dp"
-			android:layout_height="wrap_content"
-			android:layout_marginTop="52dp"
-			android:elevation="5dp"
-			android:text="@string/button_follow"
-			android:textStyle="bold"
-			android:translationZ="5dp"
-			app:layout_constraintHorizontal_bias="0.5"
-			app:layout_constraintLeft_toLeftOf="@+id/leftGuide"
-			app:layout_constraintRight_toRightOf="@+id/rightGuide"
-			app:layout_constraintTop_toBottomOf="@+id/backButton" />
+	<com.google.android.material.floatingactionbutton.FloatingActionButton
+		android:id="@+id/backButton"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginStart="@dimen/spacing_xxl"
+		android:layout_marginTop="8dp"
+		android:src="@drawable/ic_arrow_back_white_24dp"
+		android:tint="@color/colorPrimary"
+		app:backgroundTint="@android:color/white"
+		app:fabSize="mini"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="parent"
+		tools:tint="@color/colorPrimary" />
 
-		<TextView
-			android:id="@+id/about"
-			style="@style/H2"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:layout_marginTop="16dp"
-			android:text="@string/section_about"
-			android:textAllCaps="true"
-			android:textColor="@color/gray"
-			android:textStyle="bold"
-			app:layout_constraintLeft_toLeftOf="@+id/leftGuide"
-			app:layout_constraintTop_toBottomOf="@+id/follow" />
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/appBarLayout2">
 
-		<View
-			android:id="@+id/aboutDivider"
-			android:layout_width="0dp"
-			android:layout_height="1dp"
-			android:background="@drawable/divider"
-			android:layout_marginTop="@dimen/spacing_m"
-			app:layout_constraintTop_toBottomOf="@+id/about"
-			app:layout_constraintLeft_toLeftOf="@+id/leftGuide"
-			app:layout_constraintRight_toRightOf="@+id/rightGuide"/>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-		<TextView
-			android:id="@+id/websiteHeader"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:text="@string/header_website"
-			android:layout_marginTop="@dimen/spacing_xl"
-			style="@style/P1"
-			android:textStyle="bold"
-			app:layout_constraintTop_toBottomOf="@+id/aboutDivider"
-			app:layout_constraintLeft_toLeftOf="@+id/leftGuide"/>
+            <TextView
+                android:id="@+id/websiteHeader"
+                style="@style/P1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@string/header_website"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@id/leftGuide2"
+                app:layout_constraintTop_toTopOf="@id/aboutDivider" />
 
-		<TextView
-			android:id="@+id/website"
-			style="@style/P1"
-			android:layout_width="0dp"
-			android:layout_height="wrap_content"
-			android:layout_marginLeft="@dimen/spacing_l"
-			android:autoLink="web"
-			android:textColor="@color/gray"
-			app:layout_constraintLeft_toRightOf="@+id/websiteHeader"
-			app:layout_constraintRight_toRightOf="@+id/rightGuide"
-			app:layout_constraintTop_toTopOf="@+id/websiteHeader"
-			tools:text="reallySuperLongWebsiteThatWillSpanMultipleLines.org" />
+            <TextView
+                android:id="@+id/about"
+                style="@style/H2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="@string/section_about"
+                android:textAllCaps="true"
+                android:textColor="@color/gray"
+                android:textStyle="bold"
+                app:layout_constraintLeft_toLeftOf="@id/leftGuide2"
+                app:layout_constraintTop_toTopOf="parent" />
 
-		<TextView
-			android:id="@+id/emailHeader"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:text="@string/header_email"
-			android:layout_marginTop="@dimen/spacing_m"
-			style="@style/P1"
-			android:textStyle="bold"
-			app:layout_constraintTop_toBottomOf="@+id/website"
-			app:layout_constraintLeft_toLeftOf="@+id/leftGuide"/>
+            <TextView
+                android:id="@+id/website"
+                style="@style/P1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/spacing_l"
+                android:autoLink="web"
+                android:textColor="@color/gray"
+                app:layout_constraintLeft_toRightOf="@+id/websiteHeader"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/websiteHeader"
+                tools:text="reallySuperLongWebsiteThatWillSpanMultipleLines.org" />
 
-		<TextView
-			android:id="@+id/email"
-			style="@style/P1"
-			android:layout_width="0dp"
-			android:layout_height="wrap_content"
-			android:autoLink="email"
-			android:textColor="@color/gray"
-			app:layout_constraintLeft_toLeftOf="@+id/website"
-			app:layout_constraintRight_toRightOf="@+id/rightGuide"
-			app:layout_constraintTop_toTopOf="@+id/emailHeader"
+            <TextView
+                android:id="@+id/emailHeader"
+                style="@style/P1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_m"
+                android:text="@string/header_email"
+                android:textStyle="bold"
+                app:layout_constraintLeft_toLeftOf="@id/leftGuide2"
+                app:layout_constraintTop_toBottomOf="@+id/website" />
 
-			tools:text="david@reallySuperLongEmailThatWillSpanMultipleLines.org" />
+            <TextView
+                android:id="@+id/email"
+                style="@style/P1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:autoLink="email"
+                android:textColor="@color/gray"
+                app:layout_constraintLeft_toLeftOf="@+id/website"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/emailHeader"
 
-		<TextView
-			android:id="@+id/bioHeader"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:text="@string/header_bio"
-			android:layout_marginTop="@dimen/spacing_m"
-			style="@style/P1"
-			android:textStyle="bold"
-			app:layout_constraintTop_toBottomOf="@+id/email"
-			app:layout_constraintLeft_toLeftOf="@+id/leftGuide"/>
+                tools:text="david@reallySuperLongEmailThatWillSpanMultipleLines.org" />
 
-		<TextView
-			android:id="@+id/bio"
-			android:layout_width="0dp"
-			android:layout_height="wrap_content"
-			android:textColor="@color/gray"
-			style="@style/P1"
-			tools:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer vel pharetra tortor, eu cursus urna. Curabitur et libero eget libe"
-			app:layout_constraintTop_toTopOf="@+id/bioHeader"
-			app:layout_constraintLeft_toLeftOf="@+id/website"
-			app:layout_constraintRight_toRightOf="@+id/rightGuide"/>
+            <TextView
+                android:id="@+id/bioHeader"
+                style="@style/P1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_m"
+                android:text="@string/header_bio"
+                android:textStyle="bold"
+                app:layout_constraintLeft_toLeftOf="@id/leftGuide2"
+                app:layout_constraintTop_toBottomOf="@+id/email" />
 
-		<TextView
-			android:id="@+id/events"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:text="@string/section_events"
-			android:textAllCaps="true"
-			android:layout_marginTop="@dimen/spacing_3l"
-			style="@style/H2"
-			android:textStyle="bold"
-			android:textColor="@color/gray"
-			app:layout_constraintTop_toBottomOf="@+id/bio"
-			app:layout_constraintLeft_toLeftOf="@+id/leftGuide"/>
+            <TextView
+                android:id="@+id/bio"
+                style="@style/P1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textColor="@color/gray"
+                app:layout_constraintLeft_toLeftOf="@+id/website"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/bioHeader"
+                tools:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer vel pharetra tortor, eu cursus urna. Curabitur et libero eget libe" />
 
-		<View
-			android:id="@+id/eventsDivider"
-			android:layout_width="0dp"
-			android:layout_height="1dp"
-			android:background="@drawable/divider"
-			android:layout_marginTop="@dimen/spacing_m"
-			app:layout_constraintTop_toBottomOf="@+id/events"
-			app:layout_constraintLeft_toLeftOf="@+id/leftGuide"
-			app:layout_constraintRight_toRightOf="@+id/rightGuide"/>
+            <TextView
+                android:id="@+id/events"
+                style="@style/H2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_3l"
+                android:text="@string/section_events"
+                android:textAllCaps="true"
+                android:textColor="@color/gray"
+                android:textStyle="bold"
+                app:layout_constraintLeft_toLeftOf="@id/leftGuide2"
+                app:layout_constraintTop_toBottomOf="@+id/bio" />
 
-		<androidx.recyclerview.widget.RecyclerView
-			android:id="@+id/eventsRecycler"
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			android:layout_marginTop="@dimen/spacing_xl"
-			android:orientation="horizontal"
-			tools:listitem="@layout/card_event"
-			app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-			app:layout_constraintTop_toBottomOf="@+id/eventsDivider"
-			app:layout_constraintEnd_toEndOf="parent"
-			app:layout_constraintStart_toStartOf="parent" />
+            <TextView
+                android:id="@+id/tags"
+                style="@style/H2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_3l"
+                android:text="@string/tags"
+                android:textAllCaps="true"
+                android:textColor="@color/gray"
+                android:textStyle="bold"
+                app:layout_constraintLeft_toLeftOf="@id/leftGuide2"
+                app:layout_constraintTop_toBottomOf="@+id/eventsRecycler" />
 
-		<TextView
-			android:id="@+id/tags"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:text="@string/tags"
-			android:textAllCaps="true"
-			android:layout_marginTop="@dimen/spacing_3l"
-			style="@style/H2"
-			android:textStyle="bold"
-			android:textColor="@color/gray"
-			app:layout_constraintTop_toBottomOf="@+id/eventsRecycler"
-			app:layout_constraintLeft_toLeftOf="@+id/leftGuide"/>
+            <View
+                android:id="@+id/aboutDivider"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_marginTop="@dimen/spacing_m"
+                android:background="@drawable/divider"
+                app:layout_constraintLeft_toLeftOf="@id/leftGuide2"
+                app:layout_constraintRight_toRightOf="@id/rightGuide2"
+                app:layout_constraintTop_toBottomOf="@+id/about" />
 
-		<View
-			android:id="@+id/tagsDivider"
-			android:layout_width="0dp"
-			android:layout_height="1dp"
-			android:background="@drawable/divider"
-			android:layout_marginTop="@dimen/spacing_m"
-			app:layout_constraintTop_toBottomOf="@+id/tags"
-			app:layout_constraintLeft_toLeftOf="@+id/leftGuide"
-			app:layout_constraintRight_toRightOf="@+id/rightGuide"/>
+            <View
+                android:id="@+id/eventsDivider"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_marginTop="@dimen/spacing_m"
+                android:background="@drawable/divider"
+                app:layout_constraintLeft_toLeftOf="@id/leftGuide2"
+                app:layout_constraintRight_toRightOf="@id/rightGuide2"
+                app:layout_constraintTop_toBottomOf="@+id/events" />
 
-		<androidx.recyclerview.widget.RecyclerView
-			android:id="@+id/tagRecycler"
-			android:layout_width="0dp"
-			android:layout_height="wrap_content"
-			android:layout_marginTop="@dimen/spacing_xl"
-			android:layout_marginBottom="@dimen/spacing_3l"
-			android:orientation="horizontal"
-			tools:listitem="@layout/item_tag"
-			app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-			app:layout_constraintTop_toBottomOf="@+id/tagsDivider"
-			app:layout_constraintStart_toStartOf="parent"
-			app:layout_constraintEnd_toEndOf="parent"
-			app:layout_constraintBottom_toBottomOf="parent"/>
+            <View
+                android:id="@+id/tagsDivider"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_marginTop="@dimen/spacing_m"
+                android:background="@drawable/divider"
+                app:layout_constraintLeft_toLeftOf="@id/leftGuide2"
+                app:layout_constraintRight_toRightOf="@id/rightGuide2"
+                app:layout_constraintTop_toBottomOf="@+id/tags" />
 
-	</androidx.constraintlayout.widget.ConstraintLayout>
-</ScrollView>
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/leftGuide2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:orientation="vertical"
+                card_view:layout_constraintGuide_begin="@dimen/spacing_xxl"
+                card_view:layout_constraintStart_toStartOf="parent" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/rightGuide2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="20dp"
+                android:orientation="vertical"
+                card_view:layout_constraintEnd_toEndOf="parent"
+                card_view:layout_constraintGuide_end="@dimen/spacing_xxl" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/eventsRecycler"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_xl"
+                android:orientation="horizontal"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/eventsDivider"
+                tools:listitem="@layout/card_event" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/tagRecycler"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/spacing_3l"
+                android:layout_marginTop="@dimen/spacing_xl"
+                android:orientation="horizontal"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tagsDivider"
+                tools:listitem="@layout/item_tag" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
