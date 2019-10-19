@@ -19,14 +19,15 @@
 
         <TextView
             android:id="@+id/tagTextView"
-            style="@style/OrgName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/bg_round_button_red"
+            android:fontFamily="sans-serif"
             android:paddingBottom="8dp"
-            android:paddingEnd="16dp"
-            android:paddingStart="16dp"
+            android:paddingEnd="@dimen/spacing_xxl"
+            android:paddingStart="@dimen/spacing_xxl"
             android:paddingTop="8dp"
+            android:textAppearance="@style/H2"
             android:textColor="@color/common_google_signin_btn_text_dark_default"
             android:textSize="15sp"
             app:layout_constraintBottom_toBottomOf="parent"

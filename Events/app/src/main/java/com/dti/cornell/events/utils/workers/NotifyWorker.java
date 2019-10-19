@@ -11,6 +11,7 @@ import android.os.Build;
 import android.util.Log;
 
 import com.dti.cornell.events.DetailsActivity;
+import com.dti.cornell.events.MainActivity;
 import com.dti.cornell.events.R;
 import com.dti.cornell.events.models.Event;
 import com.dti.cornell.events.models.Location;
@@ -35,9 +36,7 @@ public class NotifyWorker extends Worker {
     public NotifyWorker(@NonNull Context context, @NonNull WorkerParameters params) {
         super(context, params);
         this.e = Event.fromString(this.getInputData().getString("event"));
-        Log.e("NOTIFYWORKER", this.getInputData().getString("location"));
         this.loc = Location.fromString(this.getInputData().getString("location"));
-        Log.e("NOTIFYWORKER", this.loc.toString());
         this.context = context;
     }
 
@@ -66,7 +65,8 @@ public class NotifyWorker extends Worker {
         try{
             createNotificationChannel();
 
-            Intent intent = new Intent(context, DetailsActivity.class);
+            Intent intent = new Intent(context, MainActivity.class);
+            intent.putExtra(MainActivity.OPEN_EVENT, true);
             intent.putExtra(DetailsActivity.EVENT_KEY, e.toString());
 
             SettingsUtil.createSingleton(context);
@@ -86,7 +86,7 @@ public class NotifyWorker extends Worker {
             NotificationManager notificationManager = (NotificationManager) context.getSystemService(NOTIFICATION_SERVICE);
             notificationManager.notify(e.id, notification);
         } catch (Error e){
-            Log.e("NOTIFYWORKER", e.getMessage());
+            Log.e("cue NotifyWorker", e.getMessage());
         }
     }
 }

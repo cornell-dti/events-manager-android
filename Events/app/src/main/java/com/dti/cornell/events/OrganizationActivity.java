@@ -10,13 +10,19 @@ import android.widget.TextView;
 
 import com.dti.cornell.events.models.Event;
 import com.dti.cornell.events.models.Organization;
+import com.dti.cornell.events.utils.Comparators;
 import com.dti.cornell.events.utils.Data;
 import com.dti.cornell.events.utils.Internet;
 import com.dti.cornell.events.utils.OrganizationUtil;
 import com.dti.cornell.events.utils.RecyclerUtil;
+import com.dti.cornell.events.utils.TagUtil;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.common.collect.ImmutableList;
 import com.google.firebase.analytics.FirebaseAnalytics;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -106,7 +112,7 @@ public class OrganizationActivity extends AppCompatActivity implements View.OnCl
 		RecyclerUtil.addHorizontalSpacing(eventsRecycler);
 
 		tagRecycler = findViewById(R.id.tagRecycler);
-		RecyclerUtil.addHorizontalSpacing(tagRecycler);
+		RecyclerUtil.addOrgTagRecyclerHorizontalSpacing(tagRecycler);
 	}
 
 	private void configure(Organization organization)
@@ -122,10 +128,10 @@ public class OrganizationActivity extends AppCompatActivity implements View.OnCl
 			return val.organizerID == this.organization.id;
 		}).collect(Collectors.toList());
 		adapter.setData(orgEvents);
+		updateTagRecycler(orgEvents);
 		if(orgEvents.size() == 0){
 			Data.getData();
 		}
-		tagRecycler.setAdapter(new TagAdapter(this, organization.tagIDs, false));
 	}
 
 	@Override
@@ -163,11 +169,11 @@ public class OrganizationActivity extends AppCompatActivity implements View.OnCl
 	public void eventUpdate(List<Event> e) {
 		EventCardAdapter adapter = new EventCardAdapter(this);
 		eventsRecycler.setAdapter(adapter);
-		adapter.setData(Data.events().stream().filter((val) -> {
+		List<Event> orgEvents = Data.events().stream().filter((val) -> {
 			return val.organizerID == this.organization.id;
-		}).collect(Collectors.toList()));
-
-		tagRecycler.setAdapter(new TagAdapter(this, organization.tagIDs, false));
+		}).collect(Collectors.toList());
+		adapter.setData(orgEvents);
+		updateTagRecycler(orgEvents);
 	}
 
 	@Override
@@ -187,5 +193,27 @@ public class OrganizationActivity extends AppCompatActivity implements View.OnCl
 		bundle.putString("orgName", orgName);
 		firebaseAnalytics.logEvent(event, bundle);
 		firebaseAnalytics.setAnalyticsCollectionEnabled(true);
+	}
+
+	private void updateTagRecycler(List<Event> orgEvents){
+		HashMap<Integer, TagUtil.IDAndFrequency> tagFreq = new HashMap<>();
+
+		for(Event event : orgEvents){
+			for(Integer tagID : event.tagIDs){
+				if(tagFreq.containsKey(tagID)){
+					TagUtil.IDAndFrequency old = tagFreq.get(tagID);
+					tagFreq.put(tagID, new TagUtil.IDAndFrequency(tagID, old.frequency + 1));
+				} else {
+					tagFreq.put(tagID, new TagUtil.IDAndFrequency(tagID, 1));
+				}
+			}
+		}
+
+		List<TagUtil.IDAndFrequency> sorted = new ArrayList<>(tagFreq.values());
+		Collections.sort(sorted, Comparators.FREQUENCY);
+		List<Integer> sortedTagIDs = sorted.stream().map((val) -> val.ID).collect(Collectors.toList());
+		Collections.reverse(sortedTagIDs);
+
+		tagRecycler.setAdapter(new TagAdapter(this, ImmutableList.copyOf(sortedTagIDs), false));
 	}
 }

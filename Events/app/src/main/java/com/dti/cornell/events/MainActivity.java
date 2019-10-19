@@ -49,6 +49,7 @@ import androidx.work.WorkManager;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener, BottomNavigationView.OnNavigationItemSelectedListener, Data.DataUpdateListener
 {
 	private Toolbar toolbar;
+	public boolean isCurrentlySeeMore = false;
 	private FloatingActionButton backButton;
 	private Toolbar profileToolbar;
 	private TextView toolbarTitleSmall;
@@ -61,6 +62,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 	private ImageView noConnection;
 	private ProgressBar progressBar;
 	private BottomNavigationView tabBar;
+	public static String OPEN_EVENT = "open_event";
 
 	private boolean hasReturned = false;
 
@@ -183,6 +185,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 		if(Data.events().size() > 0){
 			progressBar.setVisibility(View.GONE);
 			progressBlocker.setVisibility(View.GONE);
+		}
+
+		if (getIntent().getExtras() != null){
+			boolean mustOpen = getIntent().getExtras().containsKey(OPEN_EVENT) ? getIntent().getExtras().getBoolean(OPEN_EVENT) : false;
+			if(mustOpen){
+				String eventString = getIntent().getExtras().getString(DetailsActivity.EVENT_KEY);
+				DetailsActivity.startWithEvent(Event.fromString(eventString), this);
+			}
 		}
 
 //		Internet.getEventFeed();
@@ -549,10 +559,22 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 		backButton.setClickable(false);
 	}
 
+	@Override
+	public void onBackPressed(){
+		if(this.isCurrentlySeeMore){
+			this.isCurrentlySeeMore = false;
+			hideBackButton();
+			transitionToAppropriateFragment();
+		} else {
+			super.onBackPressed();
+		}
+	}
+
 	public void onClick(View v)
 	{
 		hideBackButton();
 		transitionToAppropriateFragment();
+		this.isCurrentlySeeMore = false;
 //		Fragment fragment = new DiscoverFragment();
 //		toolbar.setVisibility(View.VISIBLE);
 //		expandToolBar();
@@ -617,7 +639,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 	}
 
 	public void transitionToAppropriateFragment(){
-        Fragment fragment;
+		Fragment fragment;
         switch(tabBar.getSelectedItemId()){
             case R.id.tab_discover:
                 setToolbarText(R.string.tab_discover);

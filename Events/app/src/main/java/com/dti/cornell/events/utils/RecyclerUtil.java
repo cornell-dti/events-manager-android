@@ -20,6 +20,12 @@ public final class RecyclerUtil
 		recycler.addItemDecoration(new SpacingItemDecoration(margin, 0));
 	}
 
+	public static void addOrgTagRecyclerHorizontalSpacing(RecyclerView recycler)
+	{
+		int margin = recycler.getContext().getResources().getDimensionPixelSize(R.dimen.spacing_s);
+		recycler.addItemDecoration(new SpacingItemDecoration(margin, 0));
+	}
+
 	public static void addTagHorizontalSpacing(RecyclerView recycler)
 	{
 		int margin = recycler.getContext().getResources().getDimensionPixelSize(R.dimen.spacing_s);
