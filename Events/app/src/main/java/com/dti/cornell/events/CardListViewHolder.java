@@ -47,6 +47,7 @@ class CardListViewHolder extends RecyclerView.ViewHolder implements View.OnClick
 		MainActivity activity = (MainActivity) itemView.getContext();
 		activity.showBackButton();
 		activity.transitionToFragment(new EventListFragment(this.cardList.events));
+		activity.isCurrentlySeeMore = true;
 		activity.setToolbarText(cardList.getSectionText().toUpperCase());
 		activity.setSeeMoreTitle();
 	}

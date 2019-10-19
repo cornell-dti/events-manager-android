@@ -49,6 +49,7 @@ import androidx.work.WorkManager;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener, BottomNavigationView.OnNavigationItemSelectedListener, Data.DataUpdateListener
 {
 	private Toolbar toolbar;
+	public boolean isCurrentlySeeMore = false;
 	private FloatingActionButton backButton;
 	private Toolbar profileToolbar;
 	private TextView toolbarTitleSmall;
@@ -558,10 +559,22 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 		backButton.setClickable(false);
 	}
 
+	@Override
+	public void onBackPressed(){
+		if(this.isCurrentlySeeMore){
+			this.isCurrentlySeeMore = false;
+			hideBackButton();
+			transitionToAppropriateFragment();
+		} else {
+			super.onBackPressed();
+		}
+	}
+
 	public void onClick(View v)
 	{
 		hideBackButton();
 		transitionToAppropriateFragment();
+		this.isCurrentlySeeMore = false;
 //		Fragment fragment = new DiscoverFragment();
 //		toolbar.setVisibility(View.VISIBLE);
 //		expandToolBar();
@@ -626,7 +639,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 	}
 
 	public void transitionToAppropriateFragment(){
-        Fragment fragment;
+		Fragment fragment;
         switch(tabBar.getSelectedItemId()){
             case R.id.tab_discover:
                 setToolbarText(R.string.tab_discover);

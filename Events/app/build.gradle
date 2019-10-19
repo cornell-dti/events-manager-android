@@ -44,6 +44,7 @@ dependencies {
     implementation 'de.hdodenhof:circleimageview:2.2.0'
     //Internet
     implementation 'com.android.volley:volley:1.1.1'
+//    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
 }
 
 apply plugin: 'com.google.gms.google-services'
