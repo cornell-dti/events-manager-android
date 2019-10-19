@@ -6,6 +6,7 @@ import android.graphics.Paint;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.view.WindowManager;
@@ -233,7 +234,9 @@ public class DetailsActivity extends AppCompatActivity implements OnMapReadyCall
 
 		image = findViewById(R.id.image);
 
-		imageAndButtons.setY(60);
+        int yOffset = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 24.0f, getResources().getDisplayMetrics());
+
+		imageAndButtons.setY(yOffset);
 
 //		Internet.getImageForEvent(event, image);
 		Internet.getImageForEventStopProgress(event, image, imageLoadingBar);
