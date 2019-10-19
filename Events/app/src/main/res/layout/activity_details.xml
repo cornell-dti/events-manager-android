@@ -121,18 +121,18 @@
 			app:layout_constraintTop_toTopOf="@+id/timeImage"
 			tools:text="Tuesday, November 30 at 12:00 PM" />
 
-		<TextView
-			android:id="@+id/tags"
-			style="@style/H2"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:layout_marginBottom="24dp"
-			android:layout_marginStart="24dp"
-			android:text="@string/tags"
-			android:textSize="16sp"
-			android:textStyle="bold"
-			app:layout_constraintBottom_toBottomOf="parent"
-			app:layout_constraintStart_toStartOf="parent" />
+			<TextView
+				android:id="@+id/tags"
+				style="@style/H2"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginBottom="16dp"
+				android:layout_marginStart="24dp"
+				android:text="@string/tags"
+				android:textSize="16sp"
+				android:textStyle="bold"
+				app:layout_constraintBottom_toBottomOf="parent"
+				app:layout_constraintStart_toStartOf="parent" />
 
 		<ImageView
 			android:id="@+id/locationImage"
@@ -271,34 +271,35 @@
 			app:layout_constraintStart_toStartOf="@+id/title"
 			app:layout_constraintTop_toBottomOf="@+id/timeImage" />
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/toolbarImageContainer"
-            android:layout_width="0dp"
-            android:layout_height="172dp"
-            android:layout_marginBottom="16dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="16dp"
-            app:cardBackgroundColor="#EAEDEF"
-            app:cardCornerRadius="10dp"
-            app:cardElevation="3dp"
-            app:cardMaxElevation="3dp"
-            app:layout_constraintBottom_toTopOf="@+id/tagRecycler"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/location">
+			<androidx.cardview.widget.CardView
+				android:id="@+id/toolbarImageContainer"
+				android:layout_width="0dp"
+				android:layout_height="0dp"
+				android:layout_marginBottom="16dp"
+				android:layout_marginEnd="16dp"
+				android:layout_marginStart="16dp"
+				android:layout_marginTop="16dp"
+				app:cardBackgroundColor="#EAEDEF"
+				app:cardCornerRadius="10dp"
+				app:cardElevation="3dp"
+				app:cardMaxElevation="3dp"
+				app:layout_constraintBottom_toTopOf="@+id/tagRecycler"
+				app:layout_constraintEnd_toEndOf="parent"
+				app:layout_constraintHeight_min="120dp"
+				app:layout_constraintStart_toStartOf="parent"
+				app:layout_constraintTop_toBottomOf="@+id/location">
 
-            <fragment
-                android:id="@+id/map"
-                android:name="com.google.android.gms.maps.MapFragment"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginBottom="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp" />
+				<fragment
+					android:id="@+id/map"
+					android:name="com.google.android.gms.maps.MapFragment"
+					android:layout_width="match_parent"
+					android:layout_height="match_parent"
+					android:layout_marginBottom="8dp"
+					android:layout_marginEnd="8dp"
+					android:layout_marginStart="8dp"
+					android:layout_marginTop="8dp" />
 
-        </androidx.cardview.widget.CardView>
+			</androidx.cardview.widget.CardView>
 
 
 		</androidx.constraintlayout.widget.ConstraintLayout>
