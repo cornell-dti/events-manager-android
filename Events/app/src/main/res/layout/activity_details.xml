@@ -1,19 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
+<androidx.constraintlayout.widget.ConstraintLayout
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:app="http://schemas.android.com/apk/res-auto"
 	xmlns:tools="http://schemas.android.com/tools"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
-	android:fillViewport="true"
-	android:fitsSystemWindows="false">
+	app:layout_constraintEnd_toEndOf="parent"
+	app:layout_constraintStart_toStartOf="parent"
+	app:layout_constraintTop_toTopOf="parent">
 
-	<androidx.constraintlayout.widget.ConstraintLayout
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		app:layout_constraintEnd_toEndOf="parent"
-		app:layout_constraintStart_toStartOf="parent"
-		app:layout_constraintTop_toTopOf="parent">
 
 		<androidx.constraintlayout.widget.ConstraintLayout
 			android:id="@+id/constraintLayout2"
@@ -84,6 +79,36 @@
 		</androidx.constraintlayout.widget.ConstraintLayout>
 
 		<TextView
+			android:id="@+id/bookmark"
+			style="@style/mainButton"
+			android:layout_width="200dp"
+			android:layout_height="44dp"
+			android:text="@string/button_bookmarked"
+			android:textAlignment="center"
+			android:textStyle="bold"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintHorizontal_bias="0.497"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toBottomOf="@+id/constraintLayout2" />
+
+		<ScrollView
+			android:layout_width="match_parent"
+			android:layout_height="0dp"
+			android:id="@+id/scrollView"
+			android:fillViewport="true"
+			android:orientation="vertical"
+			android:layout_marginTop="24dp"
+			app:layout_constraintHorizontal_bias="0.0"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintTop_toBottomOf="@+id/constraintLayout2"
+			app:layout_constraintBottom_toBottomOf="parent">
+
+		<androidx.constraintlayout.widget.ConstraintLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content">
+
+		<TextView
 			android:id="@+id/time"
 			style="@style/H2"
 			android:layout_width="0dp"
@@ -101,7 +126,7 @@
 			style="@style/H2"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:layout_marginBottom="16dp"
+			android:layout_marginBottom="24dp"
 			android:layout_marginStart="24dp"
 			android:text="@string/tags"
 			android:textSize="16sp"
@@ -166,18 +191,6 @@
 			tools:maxLines="3"
 			tools:text="The simple yet courageous #metoo hashtag campaign has emerged as a rallying cry for people everywhere who have survived sexual assault and sexual harassment" />
 
-		<TextView
-			android:id="@+id/bookmark"
-			style="@style/mainButton"
-			android:layout_width="200dp"
-			android:layout_height="44dp"
-			android:text="@string/button_bookmarked"
-			android:textAlignment="center"
-			android:textStyle="bold"
-			app:layout_constraintEnd_toEndOf="parent"
-			app:layout_constraintHorizontal_bias="0.497"
-			app:layout_constraintStart_toStartOf="parent"
-			app:layout_constraintTop_toBottomOf="@+id/constraintLayout2" />
 
 		<TextView
 			android:id="@+id/title"
@@ -186,12 +199,12 @@
 			android:layout_height="wrap_content"
 			android:layout_marginEnd="16dp"
 			android:layout_marginStart="24dp"
-			android:layout_marginTop="8dp"
+			android:layout_marginTop="32dp"
 			android:ellipsize="end"
 			android:maxLines="3"
 			app:layout_constraintEnd_toEndOf="parent"
 			app:layout_constraintStart_toStartOf="parent"
-			app:layout_constraintTop_toBottomOf="@+id/bookmark"
+			app:layout_constraintTop_toTopOf="parent"
 			tools:text="I’m just trying to see what it would look like if there was like an extra long title blah" />
 
 		<TextView
@@ -261,11 +274,10 @@
         <androidx.cardview.widget.CardView
             android:id="@+id/toolbarImageContainer"
             android:layout_width="0dp"
-
-            android:layout_height="0dp"
+            android:layout_height="172dp"
             android:layout_marginBottom="16dp"
             android:layout_marginEnd="16dp"
-            android:layout_marginStart="16dp"
+            android:layout_marginStart="24dp"
             android:layout_marginTop="16dp"
             app:cardBackgroundColor="#EAEDEF"
             app:cardCornerRadius="10dp"
@@ -285,8 +297,14 @@
                 android:layout_marginEnd="8dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp" />
+
         </androidx.cardview.widget.CardView>
 
-	</androidx.constraintlayout.widget.ConstraintLayout>
 
-</ScrollView>
+		</androidx.constraintlayout.widget.ConstraintLayout>
+
+		</ScrollView>
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
