@@ -12,6 +12,7 @@ import android.view.ViewTreeObserver;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.dti.cornell.events.models.Event;
@@ -80,6 +81,7 @@ public class DetailsActivity extends AppCompatActivity implements OnMapReadyCall
 	private boolean isBookmarked;
 	public ImageView image;
 	private ConstraintLayout imageAndButtons;
+	private ScrollView scrollView;
 
 	private static final int DESCRIPTION_MAX_LINES = 3;
 
@@ -129,6 +131,8 @@ public class DetailsActivity extends AppCompatActivity implements OnMapReadyCall
 
 		configure(event);
 
+		scrollView.smoothScrollTo(0,0);
+
 		firebaseAnalytics = FirebaseAnalytics.getInstance(this);
 		logFirebaseEvent("eventViewed", event.title);
 		if(Data.organizationForID.get(event.organizerID) != null && !Data.organizationForID.get(event.organizerID).email.equalsIgnoreCase("donotdisplay@cornell.edu")){
@@ -176,6 +180,7 @@ public class DetailsActivity extends AppCompatActivity implements OnMapReadyCall
 
 		bookmarkedButton = findViewById(R.id.bookmark);
 		imageAndButtons = findViewById(R.id.constraintLayout2);
+		scrollView = findViewById(R.id.scrollView);
 
 	}
 
