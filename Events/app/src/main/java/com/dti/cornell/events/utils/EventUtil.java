@@ -307,16 +307,38 @@ public class EventUtil {
      * @param end - the end time you want to stop sampling at
      * @return the events which are active between the start and end times.
      */
-    public static List<Event> getEventsBetween(DateTime start, DateTime end){
+    public static List<Event> getEventsBetweenInclusive(DateTime start, DateTime end){
         List<Event> events = Data.events();
         return events.stream().filter((val) -> {
             return val.startTime.isBefore(end) && val.endTime.isAfter(start);
         }).collect(Collectors.toList());
     }
 
-    public static List<Event> getEventsOnOrAfterToday(){
+    /**
+     * Returns all events that start between params "start" and "end". This, therefore, excludes
+     * events that started before "start" but extend into the range.
+     * @param start - the start time you want to sample at
+     * @param end - the end time you want to stop sampling at
+     * @return the events which start between start and end
+     */
+    public static List<Event> getEventsBetweenExclusive(DateTime start, DateTime end){
+        List<Event> events = Data.events();
+        return events.stream().filter((val) -> {
+            return val.startTime.isAfter(start) && val.startTime.isBefore(end);
+        }).collect(Collectors.toList());
+    }
+
+    public static List<Event> getEventsFromNowOn(){
         return Data.events().stream().filter(
-                (val)->val.endTime.isAfter(DateTime.now().withTimeAtStartOfDay())).collect(Collectors.toList());
+                (val)->val.endTime.isAfter(DateTime.now())).collect(Collectors.toList());
+    }
+
+    public static List<Event> getTodaysEvents(){
+        return getEventsBetweenExclusive(DateTime.now().withTimeAtStartOfDay(), DateTime.now().plusDays(1).withTimeAtStartOfDay());
+    }
+
+    public static List<Event> getTomorrowsEvents(){
+        return getEventsBetweenExclusive(DateTime.now().plusDays(1).withTimeAtStartOfDay(), DateTime.now().plusDays(2).withTimeAtStartOfDay());
     }
 
 }
