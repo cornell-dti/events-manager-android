@@ -58,7 +58,7 @@ public class TagUtil {
 
         //Check events for tagID, add them.
         List<Integer> suggestedEvents = new ArrayList<>();
-        for (Event event : EventUtil.getEventsOnOrAfterToday()){
+        for (Event event : EventUtil.getEventsFromNowOn()){
             if (event.tagIDs.contains(tagID)){
                 suggestedEvents.add(event.id);
             }
@@ -77,7 +77,7 @@ public class TagUtil {
 
         //Check events for tagID, add them.
         List<Integer> suggestedEvents = new ArrayList<>();
-        for (Event event : EventUtil.getEventsOnOrAfterToday()){
+        for (Event event : EventUtil.getEventsFromNowOn()){
             if (event.tagIDs.contains(tagID)){
                 suggestedEvents.add(event.id);
             }

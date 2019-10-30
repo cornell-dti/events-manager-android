@@ -1,168 +1,176 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:app="http://schemas.android.com/apk/res-auto"
 	xmlns:tools="http://schemas.android.com/tools"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent">
 
-	<androidx.constraintlayout.widget.ConstraintLayout
+
+	<androidx.constraintlayout.widget.Guideline
+		android:id="@+id/leftGuide"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:orientation="vertical"
+		app:layout_constraintGuide_begin="@dimen/spacing_xxl" />
+
+	<androidx.constraintlayout.widget.Guideline
+		android:id="@+id/rightGuide"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:orientation="vertical"
+		app:layout_constraintGuide_end="@dimen/spacing_xxl" />
+
+	<TextView
+		android:id="@+id/following"
+		style="@style/H2"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginTop="@dimen/spacing_3l"
+		android:text="@string/button_following"
+		android:textAllCaps="true"
+		app:layout_constraintLeft_toLeftOf="@+id/leftGuide"
+		app:layout_constraintTop_toTopOf="parent" />
+
+	<View
+		android:id="@+id/followingDivider"
+		android:layout_width="0dp"
+		android:layout_height="1dp"
+		android:layout_marginTop="@dimen/spacing_m"
+		android:background="@drawable/divider"
+		app:layout_constraintLeft_toLeftOf="@+id/leftGuide"
+		app:layout_constraintRight_toRightOf="@+id/rightGuide"
+		app:layout_constraintTop_toBottomOf="@+id/following" />
+
+	<ScrollView
+		android:id="@+id/scrollView"
+		android:layout_width="0dp"
+		android:layout_height="wrap_content"
+		app:layout_constraintHeight_max="400dp"
+		app:layout_constrainedHeight="true"
+		app:layout_constraintLeft_toLeftOf="@+id/leftGuide"
+		app:layout_constraintRight_toRightOf="@+id/rightGuide"
+		app:layout_constraintTop_toBottomOf="@+id/followingDivider"
+		app:layout_constraintBottom_toTopOf="@+id/tags">
+
+	<androidx.recyclerview.widget.RecyclerView
+		android:id="@+id/followingRecycler"
 		android:layout_width="match_parent"
-		android:layout_height="wrap_content">
+		android:layout_height="match_parent"
+		android:orientation="vertical"
+		app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+		tools:itemCount="10"
+		tools:listitem="@layout/item_organization" />
 
-		<androidx.constraintlayout.widget.Guideline
-			android:id="@+id/leftGuide"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:orientation="vertical"
-			app:layout_constraintGuide_begin="@dimen/spacing_xxl" />
+	</ScrollView>
 
-		<androidx.constraintlayout.widget.Guideline
-			android:id="@+id/rightGuide"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:orientation="vertical"
-			app:layout_constraintGuide_end="@dimen/spacing_xxl" />
+	<TextView
+		android:id="@+id/tags"
+		style="@style/H2"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginTop="@dimen/spacing_3l"
+		android:text="@string/tags"
+		android:textAllCaps="true"
+		app:layout_constraintLeft_toLeftOf="@+id/leftGuide"
+		app:layout_constraintTop_toBottomOf="@+id/scrollView" />
 
-		<TextView
-			android:id="@+id/following"
-			style="@style/H2"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:layout_marginTop="@dimen/spacing_3l"
-			android:text="@string/button_following"
-			android:textAllCaps="true"
-			app:layout_constraintLeft_toLeftOf="@+id/leftGuide"
-			app:layout_constraintTop_toTopOf="parent" />
+	<View
+		android:id="@+id/tagsDivider"
+		android:layout_width="0dp"
+		android:layout_height="1dp"
+		android:layout_marginTop="@dimen/spacing_m"
+		android:background="@drawable/divider"
+		app:layout_constraintLeft_toLeftOf="@+id/leftGuide"
+		app:layout_constraintRight_toRightOf="@+id/rightGuide"
+		app:layout_constraintTop_toBottomOf="@+id/tags" />
 
-		<View
-			android:id="@+id/followingDivider"
-			android:layout_width="0dp"
-			android:layout_height="1dp"
-			android:layout_marginTop="@dimen/spacing_m"
-			android:background="@drawable/divider"
-			app:layout_constraintLeft_toLeftOf="@+id/leftGuide"
-			app:layout_constraintRight_toRightOf="@+id/rightGuide"
-			app:layout_constraintTop_toBottomOf="@+id/following" />
+	<androidx.recyclerview.widget.RecyclerView
+		android:id="@+id/tagRecycler"
+		android:layout_width="0dp"
+		android:layout_height="wrap_content"
+		android:layout_marginTop="8dp"
+		android:orientation="horizontal"
+		app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintHorizontal_bias="1.0"
+		app:layout_constraintStart_toStartOf="@+id/leftGuide"
+		app:layout_constraintTop_toBottomOf="@+id/tagsDivider"
+		tools:listitem="@layout/item_tag" />
 
-		<androidx.recyclerview.widget.RecyclerView
-			android:id="@+id/followingRecycler"
-			android:layout_width="0dp"
-			android:layout_height="wrap_content"
-			android:orientation="vertical"
-			app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-			app:layout_constraintLeft_toLeftOf="@+id/leftGuide"
-			app:layout_constraintRight_toRightOf="@+id/rightGuide"
-			app:layout_constraintTop_toBottomOf="@+id/followingDivider"
-			tools:itemCount="3"
-			tools:listitem="@layout/item_organization" />
+	<TextView
+		android:id="@+id/settings"
+		style="@style/H2"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginTop="@dimen/spacing_3l"
+		android:text="@string/settings"
+		android:textAllCaps="true"
+		app:layout_constraintLeft_toLeftOf="@+id/leftGuide"
+		app:layout_constraintTop_toBottomOf="@+id/tagRecycler" />
 
-		<TextView
-			android:id="@+id/tags"
-			style="@style/H2"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:layout_marginTop="@dimen/spacing_3l"
-			android:text="@string/tags"
-			android:textAllCaps="true"
-			app:layout_constraintLeft_toLeftOf="@+id/leftGuide"
-			app:layout_constraintTop_toBottomOf="@+id/followingRecycler" />
+	<View
+		android:id="@+id/settingsDivider1"
+		android:layout_width="0dp"
+		android:layout_height="1dp"
+		android:layout_marginTop="@dimen/spacing_m"
+		android:background="@drawable/divider"
+		app:layout_constraintLeft_toLeftOf="@+id/leftGuide"
+		app:layout_constraintRight_toRightOf="@+id/rightGuide"
+		app:layout_constraintTop_toBottomOf="@+id/settings" />
 
-		<View
-			android:id="@+id/tagsDivider"
-			android:layout_width="0dp"
-			android:layout_height="1dp"
-			android:layout_marginTop="@dimen/spacing_m"
-			android:background="@drawable/divider"
-			app:layout_constraintLeft_toLeftOf="@+id/leftGuide"
-			app:layout_constraintRight_toRightOf="@+id/rightGuide"
-			app:layout_constraintTop_toBottomOf="@+id/tags" />
+	<TextView
+		android:id="@+id/reminders"
+		style="@style/P2"
+		android:layout_width="0dp"
+		android:layout_height="wrap_content"
+		android:layout_marginTop="@dimen/spacing_l"
+		android:text="@string/settings_reminders"
+		app:layout_constraintLeft_toLeftOf="@+id/leftGuide"
+		app:layout_constraintRight_toRightOf="@+id/rightGuide"
+		app:layout_constraintTop_toBottomOf="@+id/settingsDivider1" />
 
-		<androidx.recyclerview.widget.RecyclerView
-			android:id="@+id/tagRecycler"
-			android:layout_width="0dp"
-			android:layout_height="wrap_content"
-			android:layout_marginTop="8dp"
-			android:orientation="horizontal"
-			app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-			app:layout_constraintEnd_toEndOf="parent"
-			app:layout_constraintHorizontal_bias="1.0"
-			app:layout_constraintStart_toStartOf="@+id/leftGuide"
-			app:layout_constraintTop_toBottomOf="@+id/tagsDivider"
-			tools:listitem="@layout/item_tag" />
+	<Switch
+		android:id="@+id/reminderSwitch"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		app:layout_constraintBottom_toBottomOf="@+id/reminders"
+		app:layout_constraintRight_toRightOf="@+id/rightGuide"
+		app:layout_constraintTop_toTopOf="@+id/reminders"
+		tools:checked="true" />
 
-		<TextView
-			android:id="@+id/settings"
-			style="@style/H2"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:layout_marginTop="@dimen/spacing_3l"
-			android:text="@string/settings"
-			android:textAllCaps="true"
-			app:layout_constraintLeft_toLeftOf="@+id/leftGuide"
-			app:layout_constraintTop_toBottomOf="@+id/tagRecycler" />
+	<TextView
+		android:id="@+id/notifyMe"
+		style="@style/P2"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginTop="@dimen/spacing_l"
+		android:text="@string/settings_notify_me"
+		app:layout_constraintLeft_toLeftOf="@+id/leftGuide"
+		app:layout_constraintTop_toBottomOf="@+id/reminders" />
 
-		<View
-			android:id="@+id/settingsDivider1"
-			android:layout_width="0dp"
-			android:layout_height="1dp"
-			android:layout_marginTop="@dimen/spacing_m"
-			android:background="@drawable/divider"
-			app:layout_constraintLeft_toLeftOf="@+id/leftGuide"
-			app:layout_constraintRight_toRightOf="@+id/rightGuide"
-			app:layout_constraintTop_toBottomOf="@+id/settings" />
+	<Spinner
+		android:id="@+id/spinner"
+		android:layout_width="0sp"
+		android:layout_height="0sp"
+		android:spinnerMode="dropdown"
+		android:visibility="invisible"
+		app:layout_constraintBottom_toBottomOf="parent"
+		app:layout_constraintEnd_toStartOf="@+id/rightGuide"
+		app:layout_constraintTop_toTopOf="@+id/notifyMe" />
 
-		<TextView
-			android:id="@+id/reminders"
-			style="@style/P2"
-			android:layout_width="0dp"
-			android:layout_height="wrap_content"
-			android:layout_marginTop="@dimen/spacing_l"
-			android:text="@string/settings_reminders"
-			app:layout_constraintLeft_toLeftOf="@+id/leftGuide"
-			app:layout_constraintRight_toRightOf="@+id/rightGuide"
-			app:layout_constraintTop_toBottomOf="@+id/settingsDivider1" />
+	<TextView
+		android:id="@+id/notifyMeTime"
+		style="@style/P2"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:text="45 Minutes Before"
+		android:textColor="@color/colorAccent"
+		android:textStyle="bold"
+		app:layout_constraintBottom_toBottomOf="@+id/spinner"
+		app:layout_constraintEnd_toStartOf="@+id/spinner"
+		app:layout_constraintRight_toRightOf="@+id/rightGuide"
+		app:layout_constraintTop_toTopOf="@+id/spinner" />
 
-		<Switch
-			android:id="@+id/reminderSwitch"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			app:layout_constraintBottom_toBottomOf="@+id/reminders"
-			app:layout_constraintRight_toRightOf="@+id/rightGuide"
-			app:layout_constraintTop_toTopOf="@+id/reminders"
-			tools:checked="true" />
 
-		<TextView
-			android:id="@+id/notifyMe"
-			style="@style/P2"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:layout_marginTop="@dimen/spacing_l"
-			android:text="@string/settings_notify_me"
-			app:layout_constraintLeft_toLeftOf="@+id/leftGuide"
-			app:layout_constraintTop_toBottomOf="@+id/reminders" />
-
-		<Spinner
-			android:id="@+id/spinner"
-			android:layout_width="0sp"
-			android:layout_height="0sp"
-			android:spinnerMode="dropdown"
-			android:visibility="invisible"
-			app:layout_constraintBottom_toBottomOf="parent"
-			app:layout_constraintEnd_toStartOf="@+id/rightGuide"
-			app:layout_constraintTop_toTopOf="@+id/notifyMe" />
-
-		<TextView
-			android:id="@+id/notifyMeTime"
-			style="@style/P2"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:text="45 Minutes Before"
-			android:textColor="@color/colorAccent"
-			android:textStyle="bold"
-			app:layout_constraintBottom_toBottomOf="@+id/spinner"
-			app:layout_constraintEnd_toStartOf="@+id/spinner"
-			app:layout_constraintRight_toRightOf="@+id/rightGuide"
-			app:layout_constraintTop_toTopOf="@+id/spinner" />
-
-	</androidx.constraintlayout.widget.ConstraintLayout>
-</ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

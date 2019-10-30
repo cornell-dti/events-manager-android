@@ -1,5 +1,6 @@
 package com.dti.cornell.events;
 
+import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Paint;
@@ -10,6 +11,8 @@ import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.view.WindowManager;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.ScrollView;
@@ -51,6 +54,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.app.ShareCompat;
+import androidx.core.widget.NestedScrollView;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkManager;
@@ -80,8 +84,8 @@ public class DetailsActivity extends AppCompatActivity implements OnMapReadyCall
 	private View map;
 	private boolean isBookmarked;
 	public ImageView image;
-	private ConstraintLayout imageAndButtons;
-	private ScrollView scrollView;
+	private NestedScrollView scrollView;
+	private int descriptionLineCount = 0;
 
 	private static final int DESCRIPTION_MAX_LINES = 3;
 
@@ -179,7 +183,6 @@ public class DetailsActivity extends AppCompatActivity implements OnMapReadyCall
 		RecyclerUtil.addTagHorizontalSpacing(tagRecycler);
 
 		bookmarkedButton = findViewById(R.id.bookmark);
-		imageAndButtons = findViewById(R.id.constraintLayout2);
 		scrollView = findViewById(R.id.scrollView);
 
 	}
@@ -239,10 +242,6 @@ public class DetailsActivity extends AppCompatActivity implements OnMapReadyCall
 
 		image = findViewById(R.id.image);
 
-        int yOffset = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 24.0f, getResources().getDisplayMetrics());
-
-		imageAndButtons.setY(yOffset);
-
 //		Internet.getImageForEvent(event, image);
 		Internet.getImageForEventStopProgress(event, image, imageLoadingBar);
 		startMap();
@@ -250,7 +249,6 @@ public class DetailsActivity extends AppCompatActivity implements OnMapReadyCall
 
 	private void configureDescription()
 	{
-		description.setMaxLines(DESCRIPTION_MAX_LINES);
 		//find out how many lines the description text will be
 		description.getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener()
 		{
@@ -259,15 +257,21 @@ public class DetailsActivity extends AppCompatActivity implements OnMapReadyCall
 			{
 				if (more.getVisibility() != View.VISIBLE)
 					return true;
-
+				// save description line count only first time
 				int lineCount = description.getLayout().getLineCount();
-				if (lineCount >= DESCRIPTION_MAX_LINES)
+				if (descriptionLineCount > lineCount)
+					return true;
+
+				descriptionLineCount = lineCount;
+				if (descriptionLineCount >= DESCRIPTION_MAX_LINES)
 				{
+					description.setLines(DESCRIPTION_MAX_LINES);
 					more.setVisibility(View.VISIBLE);
 					moreButtonGradient.setVisibility(View.VISIBLE);
 				}
 				else
 				{
+					description.setLines(descriptionLineCount);
 					more.setVisibility(View.GONE);
 					moreButtonGradient.setVisibility(View.GONE);
 				}
@@ -336,9 +340,10 @@ public class DetailsActivity extends AppCompatActivity implements OnMapReadyCall
 				//logFirebaseEvent("share", event.title);
 				break;
 			case R.id.more:
-				description.setMaxLines(Integer.MAX_VALUE);
 				more.setVisibility(View.GONE);
 				moreButtonGradient.setVisibility(View.GONE);
+				ObjectAnimator animation = ObjectAnimator.ofInt(description, "lines", DESCRIPTION_MAX_LINES,descriptionLineCount);
+				animation.setDuration(200).start();
 				break;
 			case R.id.organization:
 				Organization organization = Data.organizationForID.get(event.organizerID);
