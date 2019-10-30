@@ -125,15 +125,15 @@ public class DiscoverFragment extends Fragment implements Data.DataUpdateListene
 
 	public void updateData(){
 		RecyclerView recyclerView = this.recyclerView;
-		List<Event> events = EventUtil.getEventsOnOrAfterToday();
+		List<Event> events = EventUtil.getEventsFromNowOn();
 		List<Event> popularEvents = new ArrayList<>(events);
 		popularEvents.sort(Comparators.NUM_ATTENDEES);
 		Collections.reverse(popularEvents);
 		List<CardList> data = Arrays.asList(new CardList(getString(R.string.section_popular), true, popularEvents),
 				new CardList(getString(R.string.section_today_events), true,
-						EventUtil.getEventsBetween(DateTime.now().withTimeAtStartOfDay(), DateTime.now().plusDays(1).withTimeAtStartOfDay())),
+						EventUtil.getTodaysEvents()),
 				new CardList(getString(R.string.section_tomorrow_events), true,
-						EventUtil.getEventsBetween(DateTime.now().plusDays(1).withTimeAtStartOfDay(), DateTime.now().plusDays(2).withTimeAtStartOfDay()).stream().filter((val) -> !val.startTime.withTimeAtStartOfDay().isEqual(DateTime.now().withTimeAtStartOfDay())).collect(Collectors.toList())));
+						EventUtil.getTomorrowsEvents().stream().filter((val) -> !val.startTime.withTimeAtStartOfDay().isEqual(DateTime.now().withTimeAtStartOfDay())).collect(Collectors.toList())));
 		recyclerView.setAdapter(new CardSectionAdapter(recyclerView.getContext(), data, true));
 		this.recyclerView = recyclerView;
 	}
