@@ -4,18 +4,16 @@ import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Paint;
+import android.graphics.Rect;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
-import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewTreeObserver;
+import android.view.Window;
 import android.view.WindowManager;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
-import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.dti.cornell.events.models.Event;
@@ -52,7 +50,6 @@ import java.util.stream.Collectors;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.app.ShareCompat;
 import androidx.core.widget.NestedScrollView;
 import androidx.recyclerview.widget.RecyclerView;
@@ -184,6 +181,15 @@ public class DetailsActivity extends AppCompatActivity implements OnMapReadyCall
 
 		bookmarkedButton = findViewById(R.id.bookmark);
 		scrollView = findViewById(R.id.scrollView);
+
+		Rect rectangle = new Rect();
+		Window window = getWindow();
+		window.getDecorView().getWindowVisibleDisplayFrame(rectangle);
+		int statusBarHeight = rectangle.top;
+		int contentViewTop =
+				window.findViewById(Window.ID_ANDROID_CONTENT).getTop();
+		int titleBarHeight = contentViewTop - statusBarHeight;
+		image.setPadding(0, titleBarHeight, 0, 0);
 
 	}
 

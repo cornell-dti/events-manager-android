@@ -167,7 +167,6 @@
 		android:text="45 Minutes Before"
 		android:textColor="@color/colorAccent"
 		android:textStyle="bold"
-		app:layout_constraintBottom_toBottomOf="@+id/spinner"
 		app:layout_constraintEnd_toStartOf="@+id/spinner"
 		app:layout_constraintRight_toRightOf="@+id/rightGuide"
 		app:layout_constraintTop_toTopOf="@+id/spinner" />
