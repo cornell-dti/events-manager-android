@@ -113,7 +113,7 @@ public class DetailsActivity extends AppCompatActivity implements OnMapReadyCall
 		setTheme(R.style.AppTheme_NoActionBar);
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_details);
-		setStatusBarTranslucent();
+		//setStatusBarTranslucent();
 		Data.registerListener((Data.DataUpdateListener)this);
 		Data.registerListener((Data.SingleEventUpdateListener)this);
 		EventBusUtils.SINGLETON.register(this);
