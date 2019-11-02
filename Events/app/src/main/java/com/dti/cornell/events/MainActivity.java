@@ -39,6 +39,7 @@ import java.util.stream.Collectors;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
@@ -59,7 +60,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 	ConstraintLayout noEventsForYou;
 	SwipeRefreshLayout swipeRefreshLayout;
 	private ImageView progressBlocker;
-	private ImageView noConnection;
+	private CardView noConnection;
 	private ProgressBar progressBar;
 	private BottomNavigationView tabBar;
 	public static String OPEN_EVENT = "open_event";
@@ -172,9 +173,36 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 			public void run() {
 				if(!hasReturned){
 					noConnection.setVisibility(View.VISIBLE);
+
+
 				}
 			}
 		}, 5000);
+
+		noConnection.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				if (noConnection.getVisibility() == View.VISIBLE) {
+					Log.i("noConnection", "refresh from clicking cloud");
+					if(!hasReturned){
+						progressBar.setVisibility(View.VISIBLE);
+						progressBlocker.setVisibility(View.VISIBLE);
+						new Handler().postDelayed(new Runnable() {
+							@Override
+							public void run() {
+								if(!hasReturned){
+									noConnection.setVisibility(View.VISIBLE);
+									progressBar.setVisibility(View.GONE);
+									progressBlocker.setVisibility(View.GONE);
+								}
+							}
+						}, 4000);
+					}
+					hasReturned = false;
+					Data.getData();
+				}
+			}
+		});
 
 		BottomNavigationView tabBar = findViewById(R.id.tabBar);
 		tabBar.setOnNavigationItemSelectedListener(this);
