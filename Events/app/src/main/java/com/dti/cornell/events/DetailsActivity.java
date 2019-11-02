@@ -110,7 +110,7 @@ public class DetailsActivity extends AppCompatActivity implements OnMapReadyCall
 		setTheme(R.style.AppTheme_NoActionBar);
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_details);
-		setStatusBarTranslucent();
+//		setStatusBarTranslucent();
 		Data.registerListener((Data.DataUpdateListener)this);
 		Data.registerListener((Data.SingleEventUpdateListener)this);
 		EventBusUtils.SINGLETON.register(this);
@@ -346,6 +346,7 @@ public class DetailsActivity extends AppCompatActivity implements OnMapReadyCall
 				//logFirebaseEvent("share", event.title);
 				break;
 			case R.id.more:
+				description.setMaxLines(120);
 				more.setVisibility(View.GONE);
 				moreButtonGradient.setVisibility(View.GONE);
 				ObjectAnimator animation = ObjectAnimator.ofInt(description, "lines", DESCRIPTION_MAX_LINES,descriptionLineCount);
