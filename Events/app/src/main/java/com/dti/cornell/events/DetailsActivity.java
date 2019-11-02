@@ -346,6 +346,7 @@ public class DetailsActivity extends AppCompatActivity implements OnMapReadyCall
 				//logFirebaseEvent("share", event.title);
 				break;
 			case R.id.more:
+				description.setMaxLines(Integer.MAX_VALUE);
 				more.setVisibility(View.GONE);
 				moreButtonGradient.setVisibility(View.GONE);
 				ObjectAnimator animation = ObjectAnimator.ofInt(description, "lines", DESCRIPTION_MAX_LINES,descriptionLineCount);

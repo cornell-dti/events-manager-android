@@ -174,7 +174,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/spacing_m"
-                android:ellipsize="end"
+                android:maxLines="3"
                 android:textColor="@color/gray"
                 app:layout_constraintEnd_toEndOf="@+id/title"
                 app:layout_constraintStart_toStartOf="@+id/title"
@@ -265,7 +265,7 @@
             <androidx.cardview.widget.CardView
                 android:id="@+id/toolbarImageContainer"
                 android:layout_width="0dp"
-                android:layout_height="172dp"
+                android:layout_height="0dp"
                 android:layout_marginBottom="16dp"
                 android:layout_marginEnd="16dp"
                 android:layout_marginStart="24dp"
@@ -276,6 +276,7 @@
                 app:cardMaxElevation="3dp"
                 app:layout_constraintBottom_toTopOf="@+id/tagRecycler"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHeight_min="200dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/location">
 
