@@ -77,7 +77,7 @@ public class OnboardingActivity extends AppCompatActivity
 					&& SettingsUtil.SINGLETON.getEmail() != null)
 			{
 				//TODO check to make sure all fields are set
-			//SettingsUtil.SINGLETON.setFirstRun();
+			SettingsUtil.SINGLETON.setFirstRun();
 				finish();
 			}
 			else
@@ -170,6 +170,7 @@ public class OnboardingActivity extends AppCompatActivity
 					recycler = view.findViewById(R.id.tagRecycler);
 					FlexboxLayoutManager layoutManager = new FlexboxLayoutManager(getContext());
 					layoutManager.canScrollVertically();
+					layoutManager.setAlignItems(AlignItems.BASELINE);
 					recycler.setLayoutManager(layoutManager);
 					tagAdapter = new TagAdapter(getContext(), ImmutableList.copyOf(Data.tagForID.keySet()), true, false);
 					recycler.setAdapter(new TagAdapter(getContext(), ImmutableList.copyOf(Data.tagForID.keySet()), true, false));

@@ -47,10 +47,12 @@ public class TagViewHolder extends RecyclerView.ViewHolder implements View.OnCli
 		if (selected) {
 			itemView.setBackgroundResource(R.drawable.bg_round_button_lg_red_highlight);
 			text.setTextColor(Color.WHITE);
+			selected = !selected;
 
 		} else {
 			itemView.setBackground(background);
 			text.setTextColor(textColor);
+			selected = !selected;
 		}
 	}
 
@@ -62,12 +64,12 @@ public class TagViewHolder extends RecyclerView.ViewHolder implements View.OnCli
 		//TODO perhaps use the fact that you know the activity is onboarding to save the clicked
 		//TODO tags in onboarding.
 		Log.i("tag viewholder", ((Activity)v.getContext()).getLocalClassName());
+		EventBusUtils.SINGLETON.post(new EventBusUtils.TagSelected(id, position));
 		if(((Activity)v.getContext()).getLocalClassName().equalsIgnoreCase("OnboardingActivity")){
-			selected = !selected;
 			setSelected(selected);
 			return;
 		}
 		TagActivity.startWithTag(context, this.id);
-		EventBusUtils.SINGLETON.post(new EventBusUtils.TagSelected(id, position));
+
 	}
 }

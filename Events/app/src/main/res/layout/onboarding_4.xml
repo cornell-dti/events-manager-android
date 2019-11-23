@@ -49,6 +49,7 @@
 		android:orientation="vertical"
 		android:paddingBottom="@dimen/spacing_5l"
 		android:clipToPadding="false"
+		android:paddingLeft="1dp"
 		app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
 		app:layout_constraintLeft_toLeftOf="@+id/leftGuide"
 		app:layout_constraintRight_toRightOf="@+id/rightGuide"

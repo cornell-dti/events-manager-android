@@ -81,7 +81,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 		Data.registerListener(this);
 		SettingsUtil.SINGLETON.doLoad();
 
-		//if (SettingsUtil.SINGLETON.getFirstRun())
+		if (SettingsUtil.SINGLETON.getFirstRun())
 			startActivity(new Intent(this, OnboardingActivity.class));
 
 		if(getIntent().getData()!=null){
