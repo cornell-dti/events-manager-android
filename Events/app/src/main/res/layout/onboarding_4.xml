@@ -44,25 +44,28 @@
 		android:id="@+id/tagRecycler"
 		android:layout_width="0dp"
 		android:layout_height="0dp"
-		android:layout_marginBottom="@dimen/spacing_3l"
+		android:layout_marginBottom="@dimen/spacing_xl"
 		android:layout_marginTop="@dimen/spacing_xl"
 		android:orientation="vertical"
+		android:paddingBottom="@dimen/spacing_5l"
+		android:clipToPadding="false"
 		app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
 		app:layout_constraintLeft_toLeftOf="@+id/leftGuide"
 		app:layout_constraintRight_toRightOf="@+id/rightGuide"
 		app:layout_constraintTop_toBottomOf="@+id/exploreDescription"
-		app:layout_constraintBottom_toTopOf="@+id/doneButton"
+		app:layout_constraintBottom_toBottomOf="parent"
 		tools:listitem="@layout/item_tag" />
-
 
 	<Button
 		android:id="@+id/doneButton"
-		android:layout_width="wrap_content"
+		style="@style/mainButton"
+		android:layout_width="160dp"
 		android:layout_height="wrap_content"
-		android:text="@string/onboarding_done"
 		android:layout_marginBottom="@dimen/spacing_xl"
-		app:layout_constraintLeft_toLeftOf="parent"
-		app:layout_constraintRight_toRightOf="parent"
+		android:background="@drawable/bg_round_button_light_red"
+		android:text="@string/onboarding_done"
+		android:textColor="@android:color/white"
 		app:layout_constraintBottom_toBottomOf="parent"
-		style="@style/mainButton"/>
+		app:layout_constraintLeft_toLeftOf="parent"
+		app:layout_constraintRight_toRightOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

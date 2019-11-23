@@ -194,15 +194,15 @@ public class ProfileFragment extends Fragment implements Data.DataUpdateListener
 
 	public void configure(){
 		followingRecycler.setAdapter(new OrganizationAdapter(followingRecycler.getContext(),
-				Data.organizations().stream().filter((val)->OrganizationUtil.userIsFollowing(val.id)).collect(Collectors.toList()), false));
-		tagRecycler.setAdapter(new TagAdapter(tagRecycler.getContext(), ImmutableList.copyOf(TagUtil.getMostPopularTags(100)), false));
+				Data.organizations().stream().filter((val)->OrganizationUtil.userIsFollowing(val.id)).collect(Collectors.toList()), false, false));
+		tagRecycler.setAdapter(new TagAdapter(tagRecycler.getContext(), ImmutableList.copyOf(TagUtil.getMostPopularTags(100)), false, true));
 	}
 
 	@Override
 	public void eventUpdate(List<Event> e) {
 		followingRecycler.setAdapter(new OrganizationAdapter(followingRecycler.getContext(),
-				Data.organizations().stream().filter((val)->OrganizationUtil.userIsFollowing(val.id)).collect(Collectors.toList()), false));
-		tagRecycler.setAdapter(new TagAdapter(tagRecycler.getContext(), ImmutableList.copyOf(TagUtil.getMostPopularTags(100)), false));
+				Data.organizations().stream().filter((val)->OrganizationUtil.userIsFollowing(val.id)).collect(Collectors.toList()), false, false));
+		tagRecycler.setAdapter(new TagAdapter(tagRecycler.getContext(), ImmutableList.copyOf(TagUtil.getMostPopularTags(100)), false, true));
 	}
 
 	@Override

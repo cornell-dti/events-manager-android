@@ -3,6 +3,7 @@ package com.dti.cornell.events;
 import android.animation.Animator;
 import android.animation.ValueAnimator;
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Bundle;
@@ -74,14 +75,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 
-//		EventBusUtils.SINGLETON.register(this);
+		//EventBusUtils.SINGLETON.register(this);
 		//Register for scroll event
 		EventBusUtils.SINGLETON.register(this);
 		Data.registerListener(this);
 		SettingsUtil.SINGLETON.doLoad();
 
-//		if (SettingsUtil.SINGLETON.getFirstRun())
-//			startActivity(new Intent(this, OnboardingActivity.class));
+		//if (SettingsUtil.SINGLETON.getFirstRun())
+			startActivity(new Intent(this, OnboardingActivity.class));
 
 		if(getIntent().getData()!=null){
 			Uri data = getIntent().getData();
