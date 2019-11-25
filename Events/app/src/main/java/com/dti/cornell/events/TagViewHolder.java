@@ -18,7 +18,7 @@ public class TagViewHolder extends RecyclerView.ViewHolder implements View.OnCli
 {
 	private final Context context;
 	private final Drawable background;
-	private final Integer textColor;
+	private final int textColor;
 	private int id;
 	private int position;
 	private boolean selected;
@@ -32,7 +32,8 @@ public class TagViewHolder extends RecyclerView.ViewHolder implements View.OnCli
 		selected = false;
 		context = itemView.getContext();
 		text = itemView.findViewById(R.id.tag_name_onboarding);
-		textColor = text.getCurrentTextColor();
+		if (text != null) textColor = text.getCurrentTextColor();
+		else textColor = Color.WHITE;
 	}
 
 	public void configure(int id, int position)
@@ -59,11 +60,6 @@ public class TagViewHolder extends RecyclerView.ViewHolder implements View.OnCli
 	@Override
 	public void onClick(View v)
 	{
-		//TODO go to tags list
-		//TODO Check to see if the Activity name matches onboarding's activity name and don't open if so
-		//TODO perhaps use the fact that you know the activity is onboarding to save the clicked
-		//TODO tags in onboarding.
-		Log.i("tag viewholder", ((Activity)v.getContext()).getLocalClassName());
 		EventBusUtils.SINGLETON.post(new EventBusUtils.TagSelected(id, position));
 		if(((Activity)v.getContext()).getLocalClassName().equalsIgnoreCase("OnboardingActivity")){
 			setSelected(selected);

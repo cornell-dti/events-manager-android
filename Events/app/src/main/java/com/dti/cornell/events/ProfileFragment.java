@@ -28,6 +28,7 @@ import com.google.common.collect.ImmutableList;
 
 import org.joda.time.DateTime;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -192,17 +193,27 @@ public class ProfileFragment extends Fragment implements Data.DataUpdateListener
 		tagRecycler = v.findViewById(R.id.tagRecycler);
 	}
 
+	public List<Organization> getFollowedOrganizations() {
+		List<Organization> follow = new ArrayList<>();
+		for (Organization org : Data.organizations()) {
+			if (OrganizationUtil.userIsFollowing(org.id)) follow.add(org);
+		}
+		return follow;
+	}
+
 	public void configure(){
 		followingRecycler.setAdapter(new OrganizationAdapter(followingRecycler.getContext(),
-				Data.organizations().stream().filter((val)->OrganizationUtil.userIsFollowing(val.id)).collect(Collectors.toList()), false, false));
-		tagRecycler.setAdapter(new TagAdapter(tagRecycler.getContext(), ImmutableList.copyOf(TagUtil.getMostPopularTags(100)), false, true));
+				getFollowedOrganizations(), false, false));
+		tagRecycler.setAdapter(new TagAdapter(tagRecycler.getContext(),
+				ImmutableList.copyOf(TagUtil.getMostPopularTags(100)), false, true));
 	}
 
 	@Override
 	public void eventUpdate(List<Event> e) {
 		followingRecycler.setAdapter(new OrganizationAdapter(followingRecycler.getContext(),
-				Data.organizations().stream().filter((val)->OrganizationUtil.userIsFollowing(val.id)).collect(Collectors.toList()), false, false));
-		tagRecycler.setAdapter(new TagAdapter(tagRecycler.getContext(), ImmutableList.copyOf(TagUtil.getMostPopularTags(100)), false, true));
+				getFollowedOrganizations(), false, false));
+		tagRecycler.setAdapter(new TagAdapter(tagRecycler.getContext(),
+				ImmutableList.copyOf(TagUtil.getMostPopularTags(100)), false, true));
 	}
 
 	@Override

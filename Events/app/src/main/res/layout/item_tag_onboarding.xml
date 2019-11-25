@@ -4,7 +4,7 @@
     android:id="@+id/tag_name_onboarding"
     style="@style/P1"
     android:layout_width="wrap_content"
-    android:layout_height="36dp"
+    android:layout_height="wrap_content"
     android:layout_marginLeft="8dp"
     android:layout_marginEnd="8dp"
     android:background="@drawable/bg_round_button_lg_white"
@@ -13,5 +13,7 @@
     android:gravity="center"
     android:paddingLeft="@dimen/spacing_xxl"
     android:paddingRight="@dimen/spacing_xxl"
+    android:paddingTop="6dp"
+    android:paddingBottom="6dp"
     android:textColor="#595959"
     tools:text="#randomTag" />

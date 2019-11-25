@@ -42,7 +42,7 @@
 	<Button
 		android:id="@+id/getStartedButton"
 		style="@style/mainButton"
-		android:layout_width="160dp"
+		android:layout_width="@dimen/onboarding_button_width"
 		android:layout_height="wrap_content"
 		android:layout_marginBottom="24dp"
 		android:background="@drawable/bg_round_button_light_red"

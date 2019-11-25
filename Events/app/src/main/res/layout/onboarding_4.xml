@@ -55,12 +55,12 @@
 		app:layout_constraintRight_toRightOf="@+id/rightGuide"
 		app:layout_constraintTop_toBottomOf="@+id/exploreDescription"
 		app:layout_constraintBottom_toBottomOf="parent"
-		tools:listitem="@layout/item_tag" />
+		tools:listitem="@layout/item_tag_onboarding" />
 
 	<Button
 		android:id="@+id/doneButton"
 		style="@style/mainButton"
-		android:layout_width="160dp"
+		android:layout_width="@dimen/onboarding_button_width"
 		android:layout_height="wrap_content"
 		android:layout_marginBottom="@dimen/spacing_xl"
 		android:background="@drawable/bg_round_button_light_red"

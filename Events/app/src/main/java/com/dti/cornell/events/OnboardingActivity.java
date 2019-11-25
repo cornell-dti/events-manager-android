@@ -204,14 +204,12 @@ public class OnboardingActivity extends AppCompatActivity
 					((OnboardingActivity) getActivity()).flipPage();
 					break;
 				case R.id.getStartedButton:
-					((OnboardingActivity) getActivity()).flipPage();
-					break;
 				case R.id.nextButton:
-					saveSelectedOrganizations(orgAdapter.getSelectedOrganizations());
 					((OnboardingActivity) getActivity()).flipPage();
 					break;
 				case R.id.doneButton:
-					saveSelectedTags(tagAdapter.getSelectedTags());
+					saveSelectedOrganizations(orgAdapter.getSelectedOrganizations());
+					saveSelectedTags(tagAdapter.selected);
 					((OnboardingActivity) getActivity()).flipPage();
 					break;
 			}

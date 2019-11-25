@@ -25,16 +25,16 @@ class TagAdapter extends RecyclerView.Adapter<TagViewHolder>
 	private final LayoutInflater inflater;
 	private final ImmutableList<Integer> tags;
 	private final boolean selectable;
-	private final Set<Integer> selected;
+	public final Set<Integer> selected;
 	private final boolean onboardingTag;
 
 	public TagAdapter(Context context, ImmutableList<Integer> tags, boolean selectable, boolean onboardingTag)
 	{
 		this.tags = tags;
 		this.selectable = selectable;
+		this.onboardingTag = onboardingTag;
 		selected = new HashSet<>(tags.size());
 		inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-		this.onboardingTag = onboardingTag;
 		EventBusUtils.SINGLETON.register(this);
 	}
 

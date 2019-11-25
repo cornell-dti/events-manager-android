@@ -11,10 +11,11 @@
     <TextView
         android:id="@+id/name"
         style="@style/OrgName"
-        android:layout_width="300dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="12dp"
-        android:layout_marginEnd="12sp"
+        android:layout_marginEnd="12dp"
+        android:maxWidth="300dp"
         android:maxLines="1"
         android:ellipsize="end"
         app:layout_constraintBottom_toBottomOf="@+id/toolbarImageContainer"
