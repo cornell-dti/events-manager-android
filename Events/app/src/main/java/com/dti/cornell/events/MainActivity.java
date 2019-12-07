@@ -2,9 +2,14 @@ package com.dti.cornell.events;
 
 import android.animation.Animator;
 import android.animation.ValueAnimator;
+import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -31,12 +36,14 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.common.eventbus.Subscribe;
 
 import org.joda.time.DateTime;
+import org.json.JSONObject;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
@@ -66,6 +73,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 	public static String OPEN_EVENT = "open_event";
 
 	private boolean hasReturned = false;
+	String currentVersion, latestVersion;
+	Dialog dialog;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
@@ -79,6 +88,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 		EventBusUtils.SINGLETON.register(this);
 		Data.registerListener(this);
 		SettingsUtil.SINGLETON.doLoad();
+		getCurrentVersion();
 
 //		if (SettingsUtil.SINGLETON.getFirstRun())
 //			startActivity(new Intent(this, OnboardingActivity.class));
@@ -779,5 +789,35 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 				}
 			}
 		}
+	}
+
+	private void getCurrentVersion(){
+		PackageManager pm = this.getPackageManager();
+		PackageInfo pInfo = null;
+
+		try {
+			pInfo =  pm.getPackageInfo(this.getPackageName(),0);
+
+		} catch (PackageManager.NameNotFoundException e1) {
+			e1.printStackTrace();
+		}
+		currentVersion = pInfo.versionName;
+
+		if(latestVersion!=null) {
+			if (!currentVersion.equalsIgnoreCase(latestVersion)){
+				if(!isFinishing()){ //This would help to prevent Error : BinderProxy@45d459c0 is not valid; is your activity running? error
+					showUpdateDialog();
+				}
+			}
+		}
+
+	}
+
+	private void showUpdateDialog(){
+		final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		builder.setTitle("A New Update is Available. Please Navigate to the App Store to Update.");
+
+		builder.setCancelable(false);
+		dialog = builder.show();
 	}
 }
