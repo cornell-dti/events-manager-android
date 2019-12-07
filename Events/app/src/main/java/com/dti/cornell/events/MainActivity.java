@@ -49,6 +49,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import androidx.work.OneTimeWorkRequest;
@@ -73,8 +74,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 	public static String OPEN_EVENT = "open_event";
 
 	private boolean hasReturned = false;
-	String currentVersion, latestVersion;
-	Dialog dialog;
+	String currentVersion;
+	float minVersion;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
@@ -679,14 +680,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 	public void transitionToAppropriateFragment(){
 		Fragment fragment;
         switch(tabBar.getSelectedItemId()){
-            case R.id.tab_discover:
-                setToolbarText(R.string.tab_discover);
-                fragment = new DiscoverFragment();
-                toolbar.setVisibility(View.VISIBLE);
-                datePicker.setVisibility(View.GONE);
-                profileToolbar.setVisibility(View.GONE);
-                hideBackButton();
-                break;
             case R.id.tab_for_you:
                 setToolbarText(R.string.tab_for_you);
                 fragment = new ForYouFragment();
@@ -710,6 +703,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 profileToolbar.setVisibility(View.VISIBLE);
                 hideBackButton();
                 break;
+			case R.id.tab_discover:
             default:
                 setToolbarText(R.string.tab_discover);
                 fragment = new DiscoverFragment();
@@ -802,22 +796,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 			e1.printStackTrace();
 		}
 		currentVersion = pInfo.versionName;
+		Log.i("Current version","Current Version: " + currentVersion);
 
-		if(latestVersion!=null) {
-			if (!currentVersion.equalsIgnoreCase(latestVersion)){
-				if(!isFinishing()){ //This would help to prevent Error : BinderProxy@45d459c0 is not valid; is your activity running? error
-					showUpdateDialog();
-				}
+		if (Float.valueOf(currentVersion) < minVersion){
+			if(!isFinishing()){ //This would help to prevent Error : BinderProxy@45d459c0 is not valid; is your activity running? error
+				showUpdateDialog();
 			}
 		}
 
 	}
 
 	private void showUpdateDialog(){
-		final AlertDialog.Builder builder = new AlertDialog.Builder(this);
-		builder.setTitle("A New Update is Available. Please Navigate to the App Store to Update.");
-
-		builder.setCancelable(false);
-		dialog = builder.show();
+		FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+		UpdateDialogFragment updateDialog = UpdateDialogFragment.newInstance();
+		updateDialog.setCancelable(false);
+		updateDialog.show(fragmentTransaction, "fragment_update");
 	}
 }

@@ -46,4 +46,7 @@
 	<string name="onboarding_done">Done</string>
 	<string name="onboarding_error">Please log in with your NetID</string>
 	<string name="menu_search">Search</string>
+
+	<string name="update_available">A New Update is Available</string>
+	<string name="update_by_app_store">Please navigate to the Google Play Store to update to the latest version.</string>
 </resources>
