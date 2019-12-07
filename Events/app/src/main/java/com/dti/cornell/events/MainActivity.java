@@ -75,7 +75,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 
-		//EventBusUtils.SINGLETON.register(this);
 		//Register for scroll event
 		EventBusUtils.SINGLETON.register(this);
 		Data.registerListener(this);
@@ -157,7 +156,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 						Data.getData();
 //						// This method performs the actual data-refresh operation.
 //						// The method calls setRefreshing(false) when it's finished.
-//						myUpdateOperation();
 					}
 				}
 		);
@@ -209,7 +207,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 		tabBar.setOnNavigationItemSelectedListener(this);
 		tabBar.setSelectedItemId(R.id.tab_discover);    //select discover page first
 		setToolbarText(R.string.tab_discover);
-//		setTabBarFont(tabBar);
 
 		if(Data.events().size() > 0){
 			progressBar.setVisibility(View.GONE);
@@ -224,20 +221,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 			}
 		}
 
-//		Internet.getEventFeed();
 	}
 
-//	private void setTabBarFont(BottomNavigationView tabBar)
-//	{
-//		Typeface font = ResourcesCompat.getFont(this, R.font.text_regular);
-//		TypefaceSpan span = new TypefaceSpan()
-//		for (int i = 0; i < tabBar.getMenu().size(); i++)
-//		{
-//			MenuItem menuItem = tabBar.getMenu().getItem(i);
-//			SpannableStringBuilder title = new SpannableStringBuilder(menuItem.getTitle());
-//			title.setSpan();
-//		}
-//	}
 
 	@Override
 	public boolean onNavigationItemSelected(@NonNull MenuItem item)
@@ -305,7 +290,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 	{
 		super.onStart();
 		EventBusUtils.SINGLETON.register(this);
-//        transitionToAppropriateFragment();
+
 	}
 
 	@Override
@@ -604,14 +589,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 		hideBackButton();
 		transitionToAppropriateFragment();
 		this.isCurrentlySeeMore = false;
-//		Fragment fragment = new DiscoverFragment();
-//		toolbar.setVisibility(View.VISIBLE);
-//		expandToolBar();
-//		datePicker.setVisibility(View.GONE);
-//		profileToolbar.setVisibility(View.GONE);
-//		noEventsForYou.setVisibility(View.GONE);
-//		setToolbarText(R.string.tab_discover);
-//		transitionToFragment(fragment);
+
 	}
 
 	@Override
@@ -644,15 +622,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 				}
 			}
 		}
-//		if(getIntent().getData()!=null){
-//			Uri data = getIntent().getData();
-//			String scheme = data.getScheme();
-//			String fullPath = data.getEncodedSchemeSpecificPart();
-//			// Handle app link data here
-////			DetailsActivity.startWithEvent(Data.getEventFromID(Integer.valueOf((scheme +":"+fullPath).split("/")[(scheme +":"+fullPath).split("/").length-1])),
-//					this);
-//			Log.e("URL GIVEN", scheme +":"+fullPath);
-//		}
+
 	}
 
 	@Override
@@ -716,11 +686,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 	@Override
 	public void onResume(){
 		super.onResume();
-
-//		transitionToAppropriateFragment();
-//		progressBar.setVisibility(View.GONE);
-//		progressBlocker.setVisibility(View.GONE);
-//		Data.getData();
+		
 		if(getIntent().getData()!=null){
 			Uri data = getIntent().getData();
 			String scheme = data.getScheme();
