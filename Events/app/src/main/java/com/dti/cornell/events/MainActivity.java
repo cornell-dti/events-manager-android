@@ -686,7 +686,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 	@Override
 	public void onResume(){
 		super.onResume();
-		
+
 		if(getIntent().getData()!=null){
 			Uri data = getIntent().getData();
 			String scheme = data.getScheme();
