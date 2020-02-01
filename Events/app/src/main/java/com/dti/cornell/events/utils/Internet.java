@@ -155,7 +155,7 @@ public class Internet {
 				try
 				{
 					JSONArray events = response.getJSONArray("events");
-					String newTimestamp = response.getString("timestamp");
+					String newTimestamp = DateTime.now().toString();
 
 					Map<Integer, Event> allEvents = new HashMap<>();
 
