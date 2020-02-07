@@ -61,7 +61,7 @@ public class TagViewHolder extends RecyclerView.ViewHolder implements View.OnCli
 	public void onClick(View v)
 	{
 		EventBusUtils.SINGLETON.post(new EventBusUtils.TagSelected(id, position));
-		if(((Activity)v.getContext()).getLocalClassName().equalsIgnoreCase("OnboardingActivity")){
+		if(v.getContext() instanceof OnboardingActivity) {
 			setSelected(selected);
 			return;
 		}
