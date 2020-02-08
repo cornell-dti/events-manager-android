@@ -29,6 +29,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 
@@ -53,6 +54,8 @@ public class OnboardingActivity extends AppCompatActivity
 	private static TagAdapter tagAdapter;
 	private static OrganizationAdapter orgAdapter;
 
+	private static FirebaseAnalytics firebaseAnalytics;
+
 	@Override
 	protected void onCreate(@Nullable Bundle savedInstanceState)
 	{
@@ -63,6 +66,8 @@ public class OnboardingActivity extends AppCompatActivity
 		pager = findViewById(R.id.pager);
 		OnboardingAdapter adapter = new OnboardingAdapter(getSupportFragmentManager());
 		pager.setAdapter(adapter);
+
+		firebaseAnalytics = FirebaseAnalytics.getInstance(this);
 
 		//Data.getData();
 	}
@@ -235,6 +240,13 @@ public class OnboardingActivity extends AppCompatActivity
 			SettingsUtil.SINGLETON.setImageUrl(account.getPhotoUrl().toString());
 			Internet.downloadImage(account.getPhotoUrl().toString(), image);
 			//TODO send server id token, save response
+
+			String email = account.getEmail();
+			if (email != null) {
+				String netid = email.substring(0,email.indexOf('@'));
+				logFirebaseEvent(netid);
+			}
+
 		}
 
 		public void saveSelectedTags(Set<Integer> selectedTags) {
@@ -253,9 +265,16 @@ public class OnboardingActivity extends AppCompatActivity
 			}
 		}
 
+		private void logFirebaseEvent(String netid) {
+			Bundle bundle = new Bundle();
+			bundle.putString("netid", netid);
+			firebaseAnalytics.logEvent("usernetid", bundle);
+			firebaseAnalytics.setAnalyticsCollectionEnabled(true);
+		}
+
 	}
-	enum Page
-	{
+
+	enum Page {
 		GetStarted, Login, FollowOrganizations, FollowTags
 	}
 }
