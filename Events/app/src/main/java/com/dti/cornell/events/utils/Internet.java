@@ -142,8 +142,9 @@ public class Internet {
 		DateTime startTime = new DateTime(timeZone);
 		final DateTime endTime = startTime.plusDays(Data.NUM_DAYS_IN_FEED);
 		String timestamp = SettingsUtil.SINGLETON.getTimestamp();
-		String url = DATABASE + "feed/events/?timestamp=" + timestamp + "&start=" +
-				addTToTimestamp(startTime.toString(TIME_FORMAT)) + "&end=" + addTToTimestamp(endTime.toString(TIME_FORMAT));
+		String url = DATABASE + "api/get_event_feed/";
+		//String url = DATABASE + "feed/events/?timestamp=" + timestamp + "&start=" +
+				//addTToTimestamp(startTime.toString(TIME_FORMAT)) + "&end=" + addTToTimestamp(endTime.toString(TIME_FORMAT));
 		// DATABASE + "feed/events/?timestamp=2017-02-19T01:43:40.753131-05:00&start=19990219T014510&end=20210321T014510"
 
 		JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET,
@@ -393,8 +394,9 @@ public class Internet {
 		DateTime startTime = new DateTime(timeZone);
 		final DateTime endTime = startTime.plusDays(Data.NUM_DAYS_IN_FEED);
 		String timestamp = addTToTimestamp(SettingsUtil.SINGLETON.getTimestamp());
-		String url = DATABASE + "feed/events/?timestamp=" + timestamp + "&start=" +
-				addTToTimestamp(startTime.toString(TIME_FORMAT)) + "&end=" + addTToTimestamp(endTime.toString(TIME_FORMAT));
+		String url = DATABASE + "api/get_event_feed/";
+		//String url = DATABASE + "feed/events/?timestamp=" + timestamp + "&start=" +
+				//addTToTimestamp(startTime.toString(TIME_FORMAT)) + "&end=" + addTToTimestamp(endTime.toString(TIME_FORMAT));
 
 		JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET,
 				DATABASE + "feed/events/?timestamp=2017-02-19T01:43:40.753131-05:00&start=19990219T014510&end=20210321T014510",
