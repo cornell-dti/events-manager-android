@@ -1,5 +1,5 @@
 <resources>
-	<string name="app_name">cue</string>
+	<string name="app_name">eve</string>
 	<string name="button_interested">interested</string>
 	<string name="button_bookmarked">bookmarked</string>
 	<string name="button_bookmark">bookmark</string>

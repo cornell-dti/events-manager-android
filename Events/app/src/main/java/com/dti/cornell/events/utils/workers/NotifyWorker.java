@@ -54,8 +54,8 @@ public class NotifyWorker extends Worker {
     private void createNotificationChannel() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             int importance = NotificationManager.IMPORTANCE_DEFAULT;
-            NotificationChannel channel = new NotificationChannel(Data.NOTIFICATION_TAG, "cue notifications", importance);
-            channel.setDescription("cue notifications");
+            NotificationChannel channel = new NotificationChannel(Data.NOTIFICATION_TAG, "even notifications", importance);
+            channel.setDescription("eve notifications");
             NotificationManager notificationManager = (NotificationManager) context.getSystemService(NOTIFICATION_SERVICE);
             notificationManager.createNotificationChannel(channel);
         }
@@ -86,7 +86,7 @@ public class NotifyWorker extends Worker {
             NotificationManager notificationManager = (NotificationManager) context.getSystemService(NOTIFICATION_SERVICE);
             notificationManager.notify(e.id, notification);
         } catch (Error e){
-            Log.e("cue NotifyWorker", e.getMessage());
+            Log.e("eve NotifyWorker", e.getMessage());
         }
     }
 }
