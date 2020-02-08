@@ -110,7 +110,7 @@ public class Internet {
 	{
 
 		StringRequest request = new StringRequest(Request.Method.GET,
-				DATABASE + "attendance/increment/"+eventID+"/",
+				DATABASE + "api/increment_attendance/"+eventID+"/",
 				new Response.Listener<String>()
 		{
 			@Override
@@ -125,7 +125,7 @@ public class Internet {
 	public static void unincrementEventAttendance(int eventID)
 	{
 		StringRequest request = new StringRequest(Request.Method.GET,
-				DATABASE + "attendance/unincrement/"+eventID+"/",
+				DATABASE + "api/decrement_attendance/"+eventID+"/",
 				new Response.Listener<String>()
 		{
 			@Override
@@ -196,7 +196,7 @@ public class Internet {
 
 	public static void getTags()
 	{
-		String url = DATABASE + "tag/all/";
+		String url = DATABASE + "api/get_all_tags/";
 
 		JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET,
 				url,
@@ -274,7 +274,7 @@ public class Internet {
 			return;
 		}
 		JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET,
-				DATABASE + "org/" + org.id + "/",
+				DATABASE + "api/get_profile/" + org.id + "/",
 				null, new Response.Listener<JSONObject>() {
 			@Override
 			public void onResponse(JSONObject response) {
@@ -342,7 +342,7 @@ public class Internet {
 			return;
 		}
 		JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET,
-				DATABASE + "org/" + org.id + "/",
+				DATABASE + "api/get_profile/" + org.id + "/",
 				null, new Response.Listener<JSONObject>() {
 			@Override
 			public void onResponse(JSONObject response) {
@@ -619,7 +619,7 @@ public class Internet {
 	public static void getSingleEvent(final int eventID, Callback<Event> callback)
 	{
 		JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET,
-				DATABASE + "event/" + eventID + "/",
+				DATABASE + "api/get_event/" + eventID + "/",
 				null, new Response.Listener<JSONObject>() {
 			@Override
 			public void onResponse(JSONObject response) {
@@ -639,7 +639,7 @@ public class Internet {
 			return;
 		}
 		JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET,
-				DATABASE + "org/" + orgID + "/",
+				DATABASE + "api/get_profile/" + orgID + "/",
 				null, new Response.Listener<JSONObject>() {
 			@Override
 			public void onResponse(JSONObject response) {
