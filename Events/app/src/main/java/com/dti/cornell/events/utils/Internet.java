@@ -44,9 +44,8 @@ import androidx.collection.LruCache;
 public class Internet {
 	private static final DateTimeZone timeZone = DateTimeZone.forID("EST");
 	public static final String TIME_FORMAT = "yyyyMMddHHmmss";
-	private static final String DATABASE = "https://cuevents-staging-pr-108.herokuapp.com/";
 //	private static final String DATABASE = "https://cuevents-app.herokuapp.com/";
-//	private static final String DATABASE = "https://cuevents-staging.herokuapp.com/";
+	private static final String DATABASE = "https://cuevents-staging.herokuapp.com/";
 
 	private static final String TAG = Internet.class.getSimpleName();
 
