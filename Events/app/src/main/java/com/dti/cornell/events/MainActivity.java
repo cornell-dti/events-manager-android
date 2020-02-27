@@ -47,6 +47,8 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkManager;
 
+import com.uxcam.UXCam;
+
 public class MainActivity extends AppCompatActivity implements View.OnClickListener, BottomNavigationView.OnNavigationItemSelectedListener, Data.DataUpdateListener
 {
 	private Toolbar toolbar;
@@ -73,6 +75,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 		setTheme(R.style.AppTheme_NoActionBar);
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+
+		// UXCam
+		UXCam.startWithKey("d352itwu897kui5");
 
 //		EventBusUtils.SINGLETON.register(this);
 		//Register for scroll event
