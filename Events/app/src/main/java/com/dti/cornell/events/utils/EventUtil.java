@@ -349,6 +349,11 @@ public class EventUtil {
                 (val)->val.endTime.isAfter(DateTime.now())).collect(Collectors.toList());
     }
 
+    public static List<Event> getEventsOnOrAfterToday(){
+        return Data.events().stream().filter(
+                (val)->val.startTime.isAfter(DateTime.now().withTimeAtStartOfDay())).collect(Collectors.toList());
+    }
+
     public static List<Event> getTodaysEvents(){
         return getEventsBetweenExclusive(DateTime.now().withTimeAtStartOfDay(), DateTime.now().plusDays(1).withTimeAtStartOfDay());
     }

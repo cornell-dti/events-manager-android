@@ -49,9 +49,9 @@ public class MyEventsFragment extends Fragment implements Data.DataUpdateListene
 				earliestDateTime = e.startTime;
 			}
 		}
-		adapter = new EventAdapter(recyclerView.getContext(), Data.events().stream().filter(
+		adapter = new EventAdapter(recyclerView.getContext(), EventUtil.getEventsOnOrAfterToday().stream().filter(
 				(val)->{
-					return EventUtil.userHasBookmarked(val.id) && val.endTime.isAfter(DateTime.now());
+					return EventUtil.userHasBookmarked(val.id);
 				}).collect(Collectors.toList()));
 		recyclerView.setAdapter(adapter);
 		layoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
@@ -113,8 +113,8 @@ public class MyEventsFragment extends Fragment implements Data.DataUpdateListene
 
 	@Override
 	public void eventUpdate(List<Event> e) {
-		adapter = new EventAdapter(recyclerView.getContext(), Data.events().stream().filter(
-				(val)->EventUtil.userHasBookmarked(val.id) && val.endTime.isAfter(DateTime.now())).collect(Collectors.toList()));
+		adapter = new EventAdapter(recyclerView.getContext(), EventUtil.getEventsOnOrAfterToday().stream().filter(
+				(val)->EventUtil.userHasBookmarked(val.id)).collect(Collectors.toList()));
 		recyclerView.setAdapter(adapter);
 	}
 
