@@ -1,7 +1,7 @@
 package com.dti.cornell.events;
 
 import android.graphics.drawable.Drawable;
-import androidx.core.content.ContextCompat;
+
 import androidx.recyclerview.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
@@ -41,7 +41,7 @@ public class OrganizationViewHolder extends RecyclerView.ViewHolder implements V
 	public void setSelected(boolean selected)
 	{
 		if (selected)
-			itemView.setBackgroundColor(ContextCompat.getColor(itemView.getContext(), R.color.gray));
+			itemView.setBackgroundResource(R.drawable.bg_round_button_lg_gray_highlight);
 		else
 			itemView.setBackground(background);
 	}

@@ -214,6 +214,6 @@ public class OrganizationActivity extends AppCompatActivity implements View.OnCl
 		List<Integer> sortedTagIDs = sorted.stream().map((val) -> val.ID).collect(Collectors.toList());
 		Collections.reverse(sortedTagIDs);
 
-		tagRecycler.setAdapter(new TagAdapter(this, ImmutableList.copyOf(sortedTagIDs), false));
+		tagRecycler.setAdapter(new TagAdapter(this, ImmutableList.copyOf(sortedTagIDs), false, true));
 	}
 }
