@@ -109,7 +109,7 @@ public class Internet {
 	{
 
 		StringRequest request = new StringRequest(Request.Method.GET,
-				DATABASE + "attendance/increment/"+eventID+"/",
+				DATABASE + "api/increment_attendance/"+eventID+"/",
 				new Response.Listener<String>()
 		{
 			@Override
@@ -124,7 +124,7 @@ public class Internet {
 	public static void unincrementEventAttendance(int eventID)
 	{
 		StringRequest request = new StringRequest(Request.Method.GET,
-				DATABASE + "attendance/unincrement/"+eventID+"/",
+				DATABASE + "api/decrement_attendance/"+eventID+"/",
 				new Response.Listener<String>()
 		{
 			@Override
@@ -141,8 +141,9 @@ public class Internet {
 		DateTime startTime = new DateTime(timeZone);
 		final DateTime endTime = startTime.plusDays(Data.NUM_DAYS_IN_FEED);
 		String timestamp = SettingsUtil.SINGLETON.getTimestamp();
-		String url = DATABASE + "feed/events/?timestamp=" + timestamp + "&start=" +
-				addTToTimestamp(startTime.toString(TIME_FORMAT)) + "&end=" + addTToTimestamp(endTime.toString(TIME_FORMAT));
+		String url = DATABASE + "api/get_event_feed/";
+		//String url = DATABASE + "feed/events/?timestamp=" + timestamp + "&start=" +
+				//addTToTimestamp(startTime.toString(TIME_FORMAT)) + "&end=" + addTToTimestamp(endTime.toString(TIME_FORMAT));
 		// DATABASE + "feed/events/?timestamp=2017-02-19T01:43:40.753131-05:00&start=19990219T014510&end=20210321T014510"
 
 		JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET,
@@ -155,7 +156,7 @@ public class Internet {
 				try
 				{
 					JSONArray events = response.getJSONArray("events");
-					String newTimestamp = response.getString("timestamp");
+					String newTimestamp = DateTime.now().toString();
 
 					Map<Integer, Event> allEvents = new HashMap<>();
 
@@ -194,7 +195,7 @@ public class Internet {
 
 	public static void getTags()
 	{
-		String url = DATABASE + "tag/all/";
+		String url = DATABASE + "api/get_all_tags/";
 
 		JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET,
 				url,
@@ -272,7 +273,7 @@ public class Internet {
 			return;
 		}
 		JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET,
-				DATABASE + "org/" + org.id + "/",
+				DATABASE + "api/get_profile/" + org.id + "/",
 				null, new Response.Listener<JSONObject>() {
 			@Override
 			public void onResponse(JSONObject response) {
@@ -340,7 +341,7 @@ public class Internet {
 			return;
 		}
 		JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET,
-				DATABASE + "org/" + org.id + "/",
+				DATABASE + "api/get_profile/" + org.id + "/",
 				null, new Response.Listener<JSONObject>() {
 			@Override
 			public void onResponse(JSONObject response) {
@@ -392,8 +393,9 @@ public class Internet {
 		DateTime startTime = new DateTime(timeZone);
 		final DateTime endTime = startTime.plusDays(Data.NUM_DAYS_IN_FEED);
 		String timestamp = addTToTimestamp(SettingsUtil.SINGLETON.getTimestamp());
-		String url = DATABASE + "feed/events/?timestamp=" + timestamp + "&start=" +
-				addTToTimestamp(startTime.toString(TIME_FORMAT)) + "&end=" + addTToTimestamp(endTime.toString(TIME_FORMAT));
+		String url = DATABASE + "api/get_event_feed/";
+		//String url = DATABASE + "feed/events/?timestamp=" + timestamp + "&start=" +
+				//addTToTimestamp(startTime.toString(TIME_FORMAT)) + "&end=" + addTToTimestamp(endTime.toString(TIME_FORMAT));
 
 		JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET,
 				DATABASE + "feed/events/?timestamp=2017-02-19T01:43:40.753131-05:00&start=19990219T014510&end=20210321T014510",
@@ -616,7 +618,7 @@ public class Internet {
 	public static void getSingleEvent(final int eventID, Callback<Event> callback)
 	{
 		JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET,
-				DATABASE + "event/" + eventID + "/",
+				DATABASE + "api/get_event/" + eventID + "/",
 				null, new Response.Listener<JSONObject>() {
 			@Override
 			public void onResponse(JSONObject response) {
@@ -636,7 +638,7 @@ public class Internet {
 			return;
 		}
 		JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET,
-				DATABASE + "org/" + orgID + "/",
+				DATABASE + "api/get_profile/" + orgID + "/",
 				null, new Response.Listener<JSONObject>() {
 			@Override
 			public void onResponse(JSONObject response) {

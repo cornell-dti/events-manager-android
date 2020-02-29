@@ -10,6 +10,7 @@
 	<dimen name="spacing_xxl">20dp</dimen>
 	<dimen name="spacing_3l">24dp</dimen>
 	<dimen name="spacing_4l">48dp</dimen>
+	<dimen name="spacing_5l">60dp</dimen>
 
 	<dimen name="toolbar_height">72dp</dimen>
 	<dimen name="card_width">256dp</dimen>
@@ -19,4 +20,5 @@
 	<dimen name="date_size">48dp</dimen>
 	<dimen name="width_more_button_gradient">35dp</dimen>
 	<dimen name="image_size">120dp</dimen>
+	<dimen name="onboarding_button_width">160dp</dimen>
 </resources>

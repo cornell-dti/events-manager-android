@@ -1,5 +1,5 @@
 <resources>
-	<string name="app_name">cue</string>
+	<string name="app_name">eve</string>
 	<string name="button_interested">interested</string>
 	<string name="button_bookmarked">bookmarked</string>
 	<string name="button_bookmark">bookmark</string>
@@ -36,7 +36,7 @@
 	<string name="settings_net_id">NetID</string>
 
 	<string name="onboarding_welcome">Welcome</string>
-	<string name="onboarding_welcome_description">Get started with cue, a blah blah blah blah</string>
+	<string name="onboarding_welcome_description">Get started with eve to find events for you!</string>
 	<string name="onboarding_get_started">Get Started</string>
 	<string name="onboarding_next">Next</string>
 	<string name="onboarding_interact">Interact</string>

@@ -229,7 +229,7 @@ public class DetailsActivity extends AppCompatActivity implements OnMapReadyCall
 		Location loc = Data.locationForID.get(event.locationID);
 		location.setText(loc == null ? "Loading..." : loc.room + ", " + loc.building);
 
-		TagAdapter adapter = new TagAdapter(this, event.tagIDs, false);
+		TagAdapter adapter = new TagAdapter(this, event.tagIDs, false, true);
 		tagRecycler.setAdapter(adapter);
 
 		if(event.tagIDs.isEmpty()){

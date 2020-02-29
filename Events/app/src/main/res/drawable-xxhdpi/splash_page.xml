@@ -2,7 +2,7 @@
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item>
-        <bitmap android:filter="false" android:gravity="fill|center_horizontal|center_vertical" android:src="@drawable/splash_page_image" />
+        <bitmap android:filter="false" android:gravity="fill|center_horizontal|center_vertical" android:src="@drawable/splash_page_image_eve" />
     </item>
 
 </selector>

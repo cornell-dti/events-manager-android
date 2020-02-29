@@ -156,6 +156,9 @@ public class EventUtil {
         allAttendanceEvents = new ArrayList<>(set);
     }
 
+    private static int reverseIndex = -1;
+    private static int orgReverseIndex = -1;
+
     public static Event eventFromJSON(JSONObject eventJSON){
         try {
             int id = eventJSON.getInt("pk");
@@ -199,12 +202,25 @@ public class EventUtil {
             }
             int numAttendees = eventJSON.getInt("num_attendees");
             boolean isPublic = eventJSON.getBoolean("is_public");
-            int organizerID = eventJSON.getJSONObject("organizer").getInt("owner");
+            Object orgIDMaybeNull = eventJSON.getJSONObject("organizer").get("owner");
+            int organizerID;
+            try {
+                organizerID = eventJSON.getJSONObject("organizer").getInt("owner");
+            } catch (JSONException e){
+                organizerID = reverseIndex;
+                reverseIndex--;
+            }
 
             // SET THE ORGANIZER
 
             JSONObject orgJSON = eventJSON.getJSONObject("organizer");
-            int orgID = orgJSON.getInt("owner");
+            int orgID;
+            try {
+                orgID = orgJSON.getInt("owner");
+            } catch (JSONException e) {
+                orgID = orgReverseIndex;
+                orgReverseIndex--;
+            }
             String orgName = orgJSON.getString("name");
             String orgDescription = orgJSON.getString("bio");
             if(orgDescription.isEmpty()){
