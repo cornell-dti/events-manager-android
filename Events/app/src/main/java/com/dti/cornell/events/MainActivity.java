@@ -77,7 +77,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 		setContentView(R.layout.activity_main);
 
 		// UXCam
-		UXCam.startWithKey("bgqqy0hez9v6qm5");
+		UXCam.startWithKey("d352itwu897kui5");
 
 //		EventBusUtils.SINGLETON.register(this);
 		//Register for scroll event
