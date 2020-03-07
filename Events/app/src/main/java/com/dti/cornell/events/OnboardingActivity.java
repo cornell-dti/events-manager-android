@@ -74,8 +74,10 @@ public class OnboardingActivity extends AppCompatActivity
 
 	private void flipPage()
 	{
-		if (pager.getCurrentItem() + 1 < pager.getAdapter().getCount())
+		if (pager.getCurrentItem() + 1 < pager.getAdapter().getCount()) {
+			Log.i("Onboarding", Integer.toString(pager.getAdapter().getCount()));
 			pager.setCurrentItem(pager.getCurrentItem() + 1);
+		}
 		else
 		{
 			if (SettingsUtil.SINGLETON.getName() != null
@@ -188,7 +190,8 @@ public class OnboardingActivity extends AppCompatActivity
 		private void configureGoogleSignIn(View view)
 		{
 			GoogleSignInOptions options = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-					.requestIdToken("498336876169-ic648e1orr7mjc3ts47o99f9uphpa01f.apps.googleusercontent.com")
+					//.requestIdToken("498336876169-ic648e1orr7mjc3ts47o99f9uphpa01f.apps.googleusercontent.com")
+					.requestIdToken(getString(R.string.default_web_client_id))
 					.requestEmail()
 					.requestProfile()
 					.setHostedDomain("cornell.edu")
@@ -238,6 +241,7 @@ public class OnboardingActivity extends AppCompatActivity
 			SettingsUtil.SINGLETON.setName(account.getDisplayName());
 			SettingsUtil.SINGLETON.setEmail(account.getEmail());
 			SettingsUtil.SINGLETON.setImageUrl(account.getPhotoUrl().toString());
+			SettingsUtil.SINGLETON.setToken(account.getIdToken());
 			Internet.downloadImage(account.getPhotoUrl().toString(), image);
 			//TODO send server id token, save response
 
