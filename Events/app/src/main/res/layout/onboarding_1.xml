@@ -42,10 +42,12 @@
 	<Button
 		android:id="@+id/getStartedButton"
 		style="@style/mainButton"
-		android:layout_width="wrap_content"
+		android:layout_width="@dimen/onboarding_button_width"
 		android:layout_height="wrap_content"
 		android:layout_marginBottom="24dp"
+		android:background="@drawable/bg_round_button_light_red"
 		android:text="@string/onboarding_get_started"
+		android:textColor="@android:color/white"
 		app:layout_constraintBottom_toBottomOf="parent"
 		app:layout_constraintLeft_toLeftOf="parent"
 		app:layout_constraintRight_toRightOf="parent" />

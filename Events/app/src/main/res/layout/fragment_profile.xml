@@ -42,27 +42,27 @@
 		app:layout_constraintRight_toRightOf="@+id/rightGuide"
 		app:layout_constraintTop_toBottomOf="@+id/following" />
 
-	<ScrollView
-		android:id="@+id/scrollView"
-		android:layout_width="0dp"
-		android:layout_height="wrap_content"
-		app:layout_constraintHeight_max="400dp"
-		app:layout_constrainedHeight="true"
-		app:layout_constraintLeft_toLeftOf="@+id/leftGuide"
-		app:layout_constraintRight_toRightOf="@+id/rightGuide"
-		app:layout_constraintTop_toBottomOf="@+id/followingDivider"
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constrainedHeight="true"
+        app:layout_constraintHeight_max="320dp"
+        app:layout_constraintLeft_toLeftOf="@+id/leftGuide"
+        app:layout_constraintRight_toRightOf="@+id/rightGuide"
+        app:layout_constraintTop_toBottomOf="@+id/followingDivider"
 		app:layout_constraintBottom_toTopOf="@+id/tags">
 
-	<androidx.recyclerview.widget.RecyclerView
-		android:id="@+id/followingRecycler"
-		android:layout_width="match_parent"
-		android:layout_height="match_parent"
-		android:orientation="vertical"
-		app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-		tools:itemCount="10"
-		tools:listitem="@layout/item_organization" />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/followingRecycler"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:itemCount="10"
+            tools:listitem="@layout/item_organization" />
 
-	</ScrollView>
+    </ScrollView>
 
 	<TextView
 		android:id="@+id/tags"

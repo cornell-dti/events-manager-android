@@ -21,14 +21,16 @@ class OrganizationAdapter extends RecyclerView.Adapter<OrganizationViewHolder>
 	private List<Organization> organizations;
 	private final Set<Organization> selected;
 	private final boolean selectable;
+	private boolean onboardingOrg;
 
-	public OrganizationAdapter(Context context, List<Organization> organizations, boolean selectable)
+	public OrganizationAdapter(Context context, List<Organization> organizations, boolean selectable, boolean onboardingOrg)
 	{
 		this.organizations = organizations;
 		this.selectable = selectable;
 		selected = new HashSet<>(organizations.size());
 		inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		EventBusUtils.SINGLETON.register(this);
+		this.onboardingOrg = onboardingOrg;
 	}
 
 	@Override
@@ -42,7 +44,11 @@ class OrganizationAdapter extends RecyclerView.Adapter<OrganizationViewHolder>
 	@Override
 	public OrganizationViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType)
 	{
-		return new OrganizationViewHolder(inflater.inflate(R.layout.item_organization, parent, false));
+		if (onboardingOrg) {
+			return new OrganizationViewHolder(inflater.inflate(R.layout.item_onboarding_organization, parent, false));
+		} else {
+			return new OrganizationViewHolder(inflater.inflate(R.layout.item_organization, parent, false));
+		}
 	}
 
 	@Override
@@ -59,6 +65,10 @@ class OrganizationAdapter extends RecyclerView.Adapter<OrganizationViewHolder>
 	{
 		return organizations.size();
 	}
+
+	public Set<Organization> getSelectedOrganizations() {
+	    return selected;
+    }
 
 	@Subscribe
 	public void onOrganizationSelected(EventBusUtils.OrganizationSelected organizationSelected)

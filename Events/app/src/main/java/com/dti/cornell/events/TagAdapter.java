@@ -3,6 +3,8 @@ package com.dti.cornell.events;
 import android.content.Context;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
@@ -15,15 +17,22 @@ import java.util.Set;
 
 class TagAdapter extends RecyclerView.Adapter<TagViewHolder>
 {
+	private enum Style {
+		WHITE,
+		RED
+	}
+
 	private final LayoutInflater inflater;
 	private final ImmutableList<Integer> tags;
 	private final boolean selectable;
-	private final Set<Integer> selected;
+	public final Set<Integer> selected;
+	private final boolean onboardingTag;
 
-	public TagAdapter(Context context, ImmutableList<Integer> tags, boolean selectable)
+	public TagAdapter(Context context, ImmutableList<Integer> tags, boolean selectable, boolean onboardingTag)
 	{
 		this.tags = tags;
 		this.selectable = selectable;
+		this.onboardingTag = onboardingTag;
 		selected = new HashSet<>(tags.size());
 		inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		EventBusUtils.SINGLETON.register(this);
@@ -40,7 +49,11 @@ class TagAdapter extends RecyclerView.Adapter<TagViewHolder>
 	@Override
 	public TagViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType)
 	{
-		return new TagViewHolder(inflater.inflate(R.layout.item_tag, parent, false));
+		if (onboardingTag) {
+			return new TagViewHolder(inflater.inflate(R.layout.item_tag, parent, false));
+		} else {
+			return new TagViewHolder(inflater.inflate(R.layout.item_tag_onboarding, parent, false));
+		}
 	}
 
 	@Override
@@ -57,6 +70,10 @@ class TagAdapter extends RecyclerView.Adapter<TagViewHolder>
 		return tags.size();
 	}
 
+	public Set<Integer> getSelectedTags() {
+		return selected;
+	}
+
 	@Subscribe
 	public void onTagSelected(EventBusUtils.TagSelected tagSelected)
 	{
@@ -66,4 +83,6 @@ class TagAdapter extends RecyclerView.Adapter<TagViewHolder>
 			selected.add(tagSelected.tagID);
 		notifyItemChanged(tagSelected.position);
 	}
+
+
 }
