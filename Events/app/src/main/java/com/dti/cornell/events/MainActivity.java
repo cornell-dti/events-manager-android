@@ -40,12 +40,15 @@ import java.util.stream.Collectors;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkManager;
+
+import com.uxcam.UXCam;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener, BottomNavigationView.OnNavigationItemSelectedListener, Data.DataUpdateListener
 {
@@ -73,6 +76,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 		setTheme(R.style.AppTheme_NoActionBar);
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+
+		// UXCam
+		UXCam.startWithKey("bgqqy0hez9v6qm5");
 
 		//Register for scroll event
 		EventBusUtils.SINGLETON.register(this);
@@ -174,6 +180,31 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 				}
 			}
 		}, 5000);
+
+		noConnection.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				if (noConnection.getVisibility() == View.VISIBLE) {
+					Log.i("noConnection", "refresh from clicking cloud");
+					if(!hasReturned){
+						progressBar.setVisibility(View.VISIBLE);
+						progressBlocker.setVisibility(View.VISIBLE);
+						new Handler().postDelayed(new Runnable() {
+							@Override
+							public void run() {
+								if(!hasReturned){
+									noConnection.setVisibility(View.VISIBLE);
+									progressBar.setVisibility(View.GONE);
+									progressBlocker.setVisibility(View.GONE);
+								}
+							}
+						}, 4000);
+					}
+					hasReturned = false;
+					Data.getData();
+				}
+			}
+		});
 
 		BottomNavigationView tabBar = findViewById(R.id.tabBar);
 		tabBar.setOnNavigationItemSelectedListener(this);
