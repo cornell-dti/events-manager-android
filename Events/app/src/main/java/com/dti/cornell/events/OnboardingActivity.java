@@ -7,17 +7,29 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TabHost;
 import android.widget.Toast;
 
+import com.dti.cornell.events.models.Organization;
 import com.dti.cornell.events.utils.Data;
+import com.dti.cornell.events.utils.EventBusUtils;
+import com.dti.cornell.events.utils.Internet;
+import com.dti.cornell.events.utils.OrganizationUtil;
 import com.dti.cornell.events.utils.RecyclerUtil;
 import com.dti.cornell.events.utils.SettingsUtil;
+import com.dti.cornell.events.utils.TagUtil;
+import com.google.android.flexbox.AlignContent;
+import com.google.android.flexbox.AlignItems;
+import com.google.android.flexbox.FlexDirection;
+import com.google.android.flexbox.FlexboxLayoutManager;
+import com.google.android.flexbox.JustifyContent;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 
@@ -27,12 +39,22 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Set;
 
 public class OnboardingActivity extends AppCompatActivity
 {
 	private ViewPager pager;
+	private static TagAdapter tagAdapter;
+	private static OrganizationAdapter orgAdapter;
+
+	private static FirebaseAnalytics firebaseAnalytics;
 
 	@Override
 	protected void onCreate(@Nullable Bundle savedInstanceState)
@@ -44,6 +66,10 @@ public class OnboardingActivity extends AppCompatActivity
 		pager = findViewById(R.id.pager);
 		OnboardingAdapter adapter = new OnboardingAdapter(getSupportFragmentManager());
 		pager.setAdapter(adapter);
+
+		firebaseAnalytics = FirebaseAnalytics.getInstance(this);
+
+		//Data.getData();
 	}
 
 	private void flipPage()
@@ -56,12 +82,19 @@ public class OnboardingActivity extends AppCompatActivity
 					&& SettingsUtil.SINGLETON.getEmail() != null)
 			{
 				//TODO check to make sure all fields are set
-//			SettingsUtil.SINGLETON.setFirstRun();
+			SettingsUtil.SINGLETON.setFirstRun();
 				finish();
 			}
 			else
 				Toast.makeText(this, R.string.onboarding_error, Toast.LENGTH_LONG).show();
 		}
+	}
+
+	@Override
+	public void onBackPressed() {
+		if (pager.getCurrentItem() > 0)
+			pager.setCurrentItem(pager.getCurrentItem() - 1);
+		return;
 	}
 
 	static class OnboardingAdapter extends FragmentPagerAdapter
@@ -132,13 +165,21 @@ public class OnboardingActivity extends AppCompatActivity
 				case FollowOrganizations:
 					view.findViewById(R.id.nextButton).setOnClickListener(this);
 					RecyclerView recycler = view.findViewById(R.id.organizationsRecycler);
-					recycler.setAdapter(new OrganizationAdapter(getContext(), Data.organizations(), true));
+					orgAdapter = new OrganizationAdapter(getContext(), Data.organizations(), true, true);
+					recycler.setAdapter(orgAdapter);
+					Log.i("onboarding organizations", Data.organizations().toString());
 					RecyclerUtil.addVerticalSpacing(recycler);
 					break;
 				case FollowTags:
 					view.findViewById(R.id.doneButton).setOnClickListener(this);
 					recycler = view.findViewById(R.id.tagRecycler);
-					recycler.setAdapter(new TagAdapter(getContext(), ImmutableList.copyOf(Data.tagForID.keySet()), true));
+					FlexboxLayoutManager layoutManager = new FlexboxLayoutManager(getContext());
+					layoutManager.canScrollVertically();
+					layoutManager.setAlignItems(AlignItems.BASELINE);
+					recycler.setLayoutManager(layoutManager);
+					tagAdapter = new TagAdapter(getContext(), ImmutableList.copyOf(Data.tagForID.keySet()), true, false);
+					recycler.setAdapter(new TagAdapter(getContext(), ImmutableList.copyOf(Data.tagForID.keySet()), true, false));
+					Log.i("ongboarding tags", Data.tagForID.keySet().toString());
 					RecyclerUtil.addVerticalSpacing(recycler);
 					break;
 			}
@@ -165,10 +206,15 @@ public class OnboardingActivity extends AppCompatActivity
 					Log.d("Pressed sign in button", "Sign in button pressed");
 					Intent signInIntent = signInClient.getSignInIntent();
 					startActivityForResult(signInIntent, SIGN_IN);
+					((OnboardingActivity) getActivity()).flipPage();
 					break;
 				case R.id.getStartedButton:
 				case R.id.nextButton:
+					((OnboardingActivity) getActivity()).flipPage();
+					break;
 				case R.id.doneButton:
+					saveSelectedOrganizations(orgAdapter.getSelectedOrganizations());
+					saveSelectedTags(tagAdapter.selected);
 					((OnboardingActivity) getActivity()).flipPage();
 					break;
 			}
@@ -192,12 +238,43 @@ public class OnboardingActivity extends AppCompatActivity
 			SettingsUtil.SINGLETON.setName(account.getDisplayName());
 			SettingsUtil.SINGLETON.setEmail(account.getEmail());
 			SettingsUtil.SINGLETON.setImageUrl(account.getPhotoUrl().toString());
-//			Internet.downloadImage(account.getPhotoUrl().toString(), image);
+			Internet.downloadImage(account.getPhotoUrl().toString(), image);
 			//TODO send server id token, save response
+
+			String email = account.getEmail();
+			if (email != null) {
+				String netid = email.substring(0,email.indexOf('@'));
+				logFirebaseEvent(netid);
+			}
+
 		}
+
+		public void saveSelectedTags(Set<Integer> selectedTags) {
+			if (!selectedTags.isEmpty()) {
+				for (Integer id : selectedTags) {
+					TagUtil.addTagToList(id);
+				}
+			}
+		}
+
+		public void saveSelectedOrganizations(Set<Organization> selectedOrgs) {
+			if (!selectedOrgs.isEmpty()) {
+				for (Organization org : selectedOrgs) {
+					OrganizationUtil.followOrganization(org.id);
+				}
+			}
+		}
+
+		private void logFirebaseEvent(String netid) {
+			Bundle bundle = new Bundle();
+			bundle.putString("netid", netid);
+			firebaseAnalytics.logEvent("usernetid", bundle);
+			firebaseAnalytics.setAnalyticsCollectionEnabled(true);
+		}
+
 	}
-	enum Page
-	{
+
+	enum Page {
 		GetStarted, Login, FollowOrganizations, FollowTags
 	}
 }
