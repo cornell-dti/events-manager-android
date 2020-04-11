@@ -161,6 +161,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 						Data.getData();
 //						// This method performs the actual data-refresh operation.
 //						// The method calls setRefreshing(false) when it's finished.
+//						myUpdateOperation();
 					}
 				}
 		);
@@ -210,6 +211,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 		tabBar.setOnNavigationItemSelectedListener(this);
 		tabBar.setSelectedItemId(R.id.tab_discover);    //select discover page first
 		setToolbarText(R.string.tab_discover);
+//		setTabBarFont(tabBar);
 
 		if(Data.events().size() > 0){
 			progressBar.setVisibility(View.GONE);

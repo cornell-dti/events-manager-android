@@ -7,8 +7,8 @@ android {
         applicationId "com.dti.cornell.events"
         minSdkVersion 24
         targetSdkVersion 29
-        versionCode 4
-        versionName "4.0"
+        versionCode 6
+        versionName "6.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {

@@ -2,7 +2,44 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="87ae6fc6-b551-47de-a97e-f70881d077bc" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.gitattributes" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Events/app/release/app-release.aab" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Events/app/src/main/res/drawable-hdpi/splash_page_image_eve.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Events/app/src/main/res/drawable/bg_round_button_lg_gray_highlight.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Events/app/src/main/res/drawable/bg_round_button_lg_red_highlight.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Events/app/src/main/res/drawable/bg_round_button_lg_white.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Events/app/src/main/res/drawable/bg_round_button_light_red.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Events/app/src/main/res/layout/item_onboarding_organization.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Events/app/src/main/res/layout/item_tag_onboarding.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Events/.idea/caches/build_file_checksums.ser" beforeDir="false" afterPath="$PROJECT_DIR$/Events/.idea/caches/build_file_checksums.ser" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Events/.idea/caches/gradle_models.ser" beforeDir="false" afterPath="$PROJECT_DIR$/Events/.idea/caches/gradle_models.ser" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Events/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/Events/app/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Events/app/src/main/java/com/dti/cornell/events/DetailsActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/Events/app/src/main/java/com/dti/cornell/events/DetailsActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Events/app/src/main/java/com/dti/cornell/events/MainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/Events/app/src/main/java/com/dti/cornell/events/MainActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Events/app/src/main/java/com/dti/cornell/events/MyEventsFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/Events/app/src/main/java/com/dti/cornell/events/MyEventsFragment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Events/app/src/main/java/com/dti/cornell/events/OnboardingActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/Events/app/src/main/java/com/dti/cornell/events/OnboardingActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Events/app/src/main/java/com/dti/cornell/events/OrganizationActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/Events/app/src/main/java/com/dti/cornell/events/OrganizationActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Events/app/src/main/java/com/dti/cornell/events/OrganizationAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/Events/app/src/main/java/com/dti/cornell/events/OrganizationAdapter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Events/app/src/main/java/com/dti/cornell/events/OrganizationViewHolder.java" beforeDir="false" afterPath="$PROJECT_DIR$/Events/app/src/main/java/com/dti/cornell/events/OrganizationViewHolder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Events/app/src/main/java/com/dti/cornell/events/ProfileFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/Events/app/src/main/java/com/dti/cornell/events/ProfileFragment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Events/app/src/main/java/com/dti/cornell/events/TagAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/Events/app/src/main/java/com/dti/cornell/events/TagAdapter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Events/app/src/main/java/com/dti/cornell/events/TagViewHolder.java" beforeDir="false" afterPath="$PROJECT_DIR$/Events/app/src/main/java/com/dti/cornell/events/TagViewHolder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Events/app/src/main/java/com/dti/cornell/events/utils/EventUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/Events/app/src/main/java/com/dti/cornell/events/utils/EventUtil.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Events/app/src/main/java/com/dti/cornell/events/utils/Internet.java" beforeDir="false" afterPath="$PROJECT_DIR$/Events/app/src/main/java/com/dti/cornell/events/utils/Internet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Events/app/src/main/java/com/dti/cornell/events/utils/workers/NotifyWorker.java" beforeDir="false" afterPath="$PROJECT_DIR$/Events/app/src/main/java/com/dti/cornell/events/utils/workers/NotifyWorker.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Events/app/src/main/res/drawable-xxhdpi/splash_page.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Events/app/src/main/res/drawable-xxhdpi/splash_page.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Events/app/src/main/res/layout/activity_details.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Events/app/src/main/res/layout/activity_details.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Events/app/src/main/res/layout/activity_main.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Events/app/src/main/res/layout/activity_main.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Events/app/src/main/res/layout/fragment_profile.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Events/app/src/main/res/layout/fragment_profile.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Events/app/src/main/res/layout/item_organization.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Events/app/src/main/res/layout/item_organization.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Events/app/src/main/res/layout/item_tag.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Events/app/src/main/res/layout/item_tag.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Events/app/src/main/res/layout/onboarding_1.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Events/app/src/main/res/layout/onboarding_1.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Events/app/src/main/res/layout/onboarding_3.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Events/app/src/main/res/layout/onboarding_3.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Events/app/src/main/res/layout/onboarding_4.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Events/app/src/main/res/layout/onboarding_4.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Events/app/src/main/res/values/dimens.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Events/app/src/main/res/values/dimens.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Events/app/src/main/res/values/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Events/app/src/main/res/values/strings.xml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -11,16 +48,11 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="FileEditorManager">
-    <leaf>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Events/app/src/main/java/com/dti/cornell/events/MainApplication.java">
-          <provider selected="true" editor-type-id="text-editor" />
-        </entry>
-      </file>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Events/app/src/main/java/com/dti/cornell/events/MainActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1500">
+            <state relative-caret-position="2216">
               <caret line="195" column="46" selection-start-line="195" selection-start-column="46" selection-end-line="195" selection-end-column="46" />
             </state>
           </provider>
@@ -49,8 +81,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -58,113 +88,16 @@
               <item name="events-manager-android" type="b2602c69:ProjectViewProjectNode" />
               <item name="events-manager-android" type="462c0819:PsiDirectoryNode" />
             </path>
-            <path>
-              <item name="events-manager-android" type="b2602c69:ProjectViewProjectNode" />
-              <item name="events-manager-android" type="462c0819:PsiDirectoryNode" />
-              <item name="Events" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="events-manager-android" type="b2602c69:ProjectViewProjectNode" />
-              <item name="events-manager-android" type="462c0819:PsiDirectoryNode" />
-              <item name="Events" type="462c0819:PsiDirectoryNode" />
-              <item name="app" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="events-manager-android" type="b2602c69:ProjectViewProjectNode" />
-              <item name="events-manager-android" type="462c0819:PsiDirectoryNode" />
-              <item name="Events" type="462c0819:PsiDirectoryNode" />
-              <item name="app" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="events-manager-android" type="b2602c69:ProjectViewProjectNode" />
-              <item name="events-manager-android" type="462c0819:PsiDirectoryNode" />
-              <item name="Events" type="462c0819:PsiDirectoryNode" />
-              <item name="app" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="events-manager-android" type="b2602c69:ProjectViewProjectNode" />
-              <item name="events-manager-android" type="462c0819:PsiDirectoryNode" />
-              <item name="Events" type="462c0819:PsiDirectoryNode" />
-              <item name="app" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="events-manager-android" type="b2602c69:ProjectViewProjectNode" />
-              <item name="events-manager-android" type="462c0819:PsiDirectoryNode" />
-              <item name="Events" type="462c0819:PsiDirectoryNode" />
-              <item name="app" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="com" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="events-manager-android" type="b2602c69:ProjectViewProjectNode" />
-              <item name="events-manager-android" type="462c0819:PsiDirectoryNode" />
-              <item name="Events" type="462c0819:PsiDirectoryNode" />
-              <item name="app" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="com" type="462c0819:PsiDirectoryNode" />
-              <item name="dti" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="events-manager-android" type="b2602c69:ProjectViewProjectNode" />
-              <item name="events-manager-android" type="462c0819:PsiDirectoryNode" />
-              <item name="Events" type="462c0819:PsiDirectoryNode" />
-              <item name="app" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="com" type="462c0819:PsiDirectoryNode" />
-              <item name="dti" type="462c0819:PsiDirectoryNode" />
-              <item name="cornell" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="events-manager-android" type="b2602c69:ProjectViewProjectNode" />
-              <item name="events-manager-android" type="462c0819:PsiDirectoryNode" />
-              <item name="Events" type="462c0819:PsiDirectoryNode" />
-              <item name="app" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="com" type="462c0819:PsiDirectoryNode" />
-              <item name="dti" type="462c0819:PsiDirectoryNode" />
-              <item name="cornell" type="462c0819:PsiDirectoryNode" />
-              <item name="events" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="events-manager-android" type="b2602c69:ProjectViewProjectNode" />
-              <item name="events-manager-android" type="462c0819:PsiDirectoryNode" />
-              <item name="Events" type="462c0819:PsiDirectoryNode" />
-              <item name="app" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="res" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="events-manager-android" type="b2602c69:ProjectViewProjectNode" />
-              <item name="events-manager-android" type="462c0819:PsiDirectoryNode" />
-              <item name="Events" type="462c0819:PsiDirectoryNode" />
-              <item name="app" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="res" type="462c0819:PsiDirectoryNode" />
-              <item name="layout" type="462c0819:PsiDirectoryNode" />
-            </path>
           </expand>
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="android.sdk.path" value="$USER_HOME$/AppData/Local/Android/Sdk" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="settings.editor.selected.configurable" value="AndroidSdkUpdater" />
@@ -243,8 +176,8 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="28" y="23" width="1241" height="979" extended-state="0" />
+    <editor active="true" />
     <layout>
-      <window_info id="Resources Explorer" weight="0.32991013" />
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.3204918" />
       <window_info id="Structure" order="1" weight="0.25" />
       <window_info id="Designer" order="2" />
@@ -252,6 +185,7 @@
       <window_info id="Image Layers" order="4" />
       <window_info id="Capture Tool" order="5" />
       <window_info id="Favorites" order="6" side_tool="true" />
+      <window_info id="Resources Explorer" order="7" weight="0.32991013" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
       <window_info anchor="bottom" id="Run" order="2" />
@@ -276,7 +210,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Events/app/src/main/java/com/dti/cornell/events/MainActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1500">
+        <state relative-caret-position="2216">
           <caret line="195" column="46" selection-start-line="195" selection-start-column="46" selection-end-line="195" selection-end-column="46" />
         </state>
       </provider>

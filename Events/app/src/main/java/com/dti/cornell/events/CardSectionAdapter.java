@@ -25,6 +25,7 @@ class CardSectionAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 		this.hasSeeMore = hasSeeMore;
 	}
 
+
 	@NonNull
 	@Override
 	public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType)
