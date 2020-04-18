@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -107,30 +108,56 @@ public class Internet {
 	public static void incrementEventAttendance(int eventID)
 	{
 
-		StringRequest request = new StringRequest(Request.Method.GET,
-				DATABASE + "api/increment_attendance/"+eventID+"/",
-				new Response.Listener<String>()
+		StringRequest request = new StringRequest(Request.Method.POST,
+				DATABASE + "api/increment_attendance/" + eventID + "/",
+				new Response.Listener<String>() {
+					@Override
+					public void onResponse(String response) {
+						Log.i(TAG, response);
+					}
+				}, ERROR_LISTENER)
 		{
 			@Override
-			public void onResponse(String response)
-			{
+			protected Map<String, String> getParams() throws AuthFailureError {
+				Map<String, String> params = new HashMap<String, String>();
+				return params;
 			}
-		}, ERROR_LISTENER);
+
+			@Override
+			public Map<String, String> getHeaders() throws AuthFailureError {
+				Map<String,String> headers = new HashMap<>();
+				headers.put("Authorization", "Token " + SettingsUtil.SINGLETON.getToken());
+				return headers;
+			}
+		};
 
 		requestQueue.add(request);
 	}
 
 	public static void unincrementEventAttendance(int eventID)
 	{
-		StringRequest request = new StringRequest(Request.Method.GET,
+		StringRequest request = new StringRequest(Request.Method.POST,
 				DATABASE + "api/decrement_attendance/"+eventID+"/",
-				new Response.Listener<String>()
+				new Response.Listener<String>() {
+					@Override
+					public void onResponse(String response) {
+						Log.i(TAG, response);
+					}
+				}, ERROR_LISTENER)
 		{
 			@Override
-			public void onResponse(String response)
-			{
+			protected Map<String, String> getParams() throws AuthFailureError {
+				Map<String, String> params = new HashMap<String, String>();
+				return params;
 			}
-		}, ERROR_LISTENER);
+
+			@Override
+			public Map<String, String> getHeaders() throws AuthFailureError {
+				Map<String,String> headers = new HashMap<>();
+				headers.put("Authorization", "Token " + SettingsUtil.SINGLETON.getToken());
+				return headers;
+			}
+		};
 
 		requestQueue.add(request);
 	}
