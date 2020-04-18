@@ -135,6 +135,25 @@ public class Internet {
 		requestQueue.add(request);
 	}
 
+	public static void getToken()
+	{
+		String url = DATABASE + "api/get_token/" + SettingsUtil.SINGLETON.getSignInToken();
+		JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
+			@Override
+			public void onResponse(JSONObject response) {
+				try {
+					String token = response.getString("token");
+					SettingsUtil.SINGLETON.setToken(token);
+				}
+				catch (JSONException e) {
+					Log.e(TAG, "getToken: " + e);
+				}
+			}
+		}, ERROR_LISTENER);
+
+		requestQueue.add(request);
+	}
+
 	public static void getEventFeed()
 	{
 		DateTime startTime = new DateTime(timeZone);

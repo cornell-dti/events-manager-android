@@ -239,9 +239,9 @@ public class OnboardingActivity extends AppCompatActivity
 			SettingsUtil.SINGLETON.setName(account.getDisplayName());
 			SettingsUtil.SINGLETON.setEmail(account.getEmail());
 			SettingsUtil.SINGLETON.setImageUrl(account.getPhotoUrl().toString());
-			SettingsUtil.SINGLETON.setToken(account.getIdToken());
+			SettingsUtil.SINGLETON.setSignInToken(account.getIdToken());
 			Internet.downloadImage(account.getPhotoUrl().toString(), image);
-			//TODO send server id token, save response
+			Internet.getToken();
 
 			String email = account.getEmail();
 			if (email != null) {
