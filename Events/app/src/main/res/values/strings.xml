@@ -46,4 +46,6 @@
 	<string name="onboarding_done">Done</string>
 	<string name="onboarding_error">Please log in with your NetID</string>
 	<string name="menu_search">Search</string>
+
+	<string name="server_client_id" translatable="false">498336876169-2pochdkjo92jburkno1k3bpkl5o9tptb.apps.googleusercontent.com</string>
 </resources>
