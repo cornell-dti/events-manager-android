@@ -34,7 +34,8 @@ public class Location {
         int id = Integer.valueOf(splits[0]);
         String room = splits[1];
         String building = splits[2];
-        String placeID = splits[3];
+        String placeID = "";
+        if (splits.length > 3) { placeID = splits[3]; }
         return new Location(id, room, building, placeID);
     }
 
