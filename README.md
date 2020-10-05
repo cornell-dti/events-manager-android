@@ -86,6 +86,9 @@ Some things to watch out for when reviewing someone else's code:
 <img src="https://raw.githubusercontent.com/cornell-dti/events-manager-android/master/screenshots/cue_home.JPG" width="250px" style="margin: 10px; border: 1px rgba(0,0,0,0.4) solid;"> <img src="https://raw.githubusercontent.com/cornell-dti/events-manager-android/master/screenshots/cue_suggested.JPG" width="250px" style="margin: 10px; border: 1px rgba(0,0,0,0.4) solid;"> <img src="https://raw.githubusercontent.com/cornell-dti/events-manager-android/master/screenshots/cue_personal.JPG" width="250px" style="margin: 10px; border: 1px rgba(0,0,0,0.4) solid;"><img src="https://raw.githubusercontent.com/cornell-dti/events-manager-android/master/screenshots/cue_event.JPG" width="250px" style="margin: 10px; border: 1px rgba(0,0,0,0.4) solid;">
 ​
 ## Contributors
+2020
+ * **[Sam Liu](https://github.com/samliu10)** - Android Developer
+ 
 2018
  * **[Jagger Brulato](https://github.com/JBoss925)** - Front-end Developer
  * **[David Chu](https://github.com/cornell-dti/events-site/commits?author=davidchuyayah)** - Front-end Developer
