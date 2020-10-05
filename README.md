@@ -88,6 +88,7 @@ Some things to watch out for when reviewing someone else's code:
 ## Contributors
 2020
  * **[Sam Liu](https://github.com/samliu10)** - Android Developer
+ * **[Katrina Wang](https://github.com/katrina433)** - Android Developer
  
 2018
  * **[Jagger Brulato](https://github.com/JBoss925)** - Front-end Developer
