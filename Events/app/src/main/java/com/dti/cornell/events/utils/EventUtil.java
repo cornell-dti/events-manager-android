@@ -202,21 +202,13 @@ public class EventUtil {
             }
             int numAttendees = eventJSON.getInt("num_attendees");
             boolean isPublic = eventJSON.getBoolean("is_public");
-            Object orgIDMaybeNull = eventJSON.getJSONObject("organizer").get("owner");
-            int organizerID;
-            try {
-                organizerID = eventJSON.getJSONObject("organizer").getInt("owner");
-            } catch (JSONException e){
-                organizerID = reverseIndex;
-                reverseIndex--;
-            }
 
             // SET THE ORGANIZER
 
             JSONObject orgJSON = eventJSON.getJSONObject("organizer");
-            int orgID;
+            Integer orgID;
             try {
-                orgID = orgJSON.getInt("owner");
+                orgID = orgJSON.getInt("id");
             } catch (JSONException e) {
                 orgID = orgReverseIndex;
                 orgReverseIndex--;
@@ -304,7 +296,7 @@ public class EventUtil {
             }
 
             Event event = new Event(id, startDateTime, endDateTime, name, description, locID,
-                    googlePlaceID, ImmutableList.copyOf(new ArrayList<String>()), pictureID, organizerID, ImmutableList.copyOf(tagIDs), numAttendees);
+                    googlePlaceID, ImmutableList.copyOf(new ArrayList<String>()), pictureID, orgID, ImmutableList.copyOf(tagIDs), numAttendees);
 
             return event;
 

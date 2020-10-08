@@ -157,6 +157,8 @@ public class Internet {
 					JSONArray events = response.getJSONArray("events");
 					String newTimestamp = DateTime.now().toString();
 
+					Data.organizationForID.clear();
+
 					Map<Integer, Event> allEvents = new HashMap<>();
 
 					if(events.length() > 0){
@@ -178,6 +180,7 @@ public class Internet {
 						Data.eventForID.put(e.id, e);
 					}
 					Data.emitEventUpdate();
+					Data.emitOrgUpdate();
 
 
 					SettingsUtil.SINGLETON.setTimestamp(newTimestamp);

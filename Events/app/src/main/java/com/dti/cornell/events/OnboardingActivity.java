@@ -69,6 +69,7 @@ public class OnboardingActivity extends AppCompatActivity
 
 		firebaseAnalytics = FirebaseAnalytics.getInstance(this);
 
+		TagUtil.resetTags();
 		Data.getData();
 	}
 
