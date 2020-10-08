@@ -36,6 +36,7 @@ public class SettingsUtil
 	private static final String NAME = "name";
 	private static final String EMAIL = "email";
 	private static final String TOKEN = "token";
+	private static final String SIGN_IN_TOKEN = "signInToken";
 	private static final String IMAGE_URL = "imageURL";
 	private static final String NOTIFICATION_TIME_BEFORE_EVENT = "notifTimeBeforeEvent";
 	private static final String SETTINGS = "settingsObject";
@@ -172,10 +173,23 @@ public class SettingsUtil
 	{
 		return settings.getString(TOKEN, null);
 	}
+
 	public void setToken(String token)
 	{
 		settings.edit()
 				.putString(TOKEN, token)
+				.apply();
+	}
+
+	public String getSignInToken()
+	{
+		return settings.getString(SIGN_IN_TOKEN, null);
+	}
+
+	public void setSignInToken(String token)
+	{
+		settings.edit()
+				.putString(SIGN_IN_TOKEN, token)
 				.apply();
 	}
 
